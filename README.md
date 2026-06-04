@@ -215,3 +215,61 @@ guidelines:
   dependencies from breaking.
 
 ---
+
+# VII. Try It Yourself!
+
+> **Note**: Replace [your_name] with your actual name
+
+## A. Initial Sync
+
+```bash
+# Move to the development branch
+git checkout development
+
+# Fetch the latest changes
+git pull origin development
+git lfs pull
+```
+
+## Create Your Workspace
+
+```bash
+# Create and switch to your test branch
+git checkout -b feature/test-run-[your_name]
+
+# Create your personal folder
+mkdir dev_sandbox/[your_name]
+```
+
+## Create A Test File
+
+```bash
+# Create the file and add the confirmation message
+echo "I did it!" > dev_sandbox/[your_name]/test.txt
+```
+
+## Stage, Commit, and Push
+
+```bash
+# Stage the new folder and file
+git add .
+
+# Save the changes locally
+git commit -m "Test: Added verification file for [your_name]"
+
+# Upload your branch to GitHub
+git push origin feature/test-run-[your_name]
+```
+
+## Merge Into Development
+
+```bash
+# Switch back to development
+git checkout development
+
+# Merge your test branch
+git merge feature/test-run-[your_name]
+
+# Push the updated development branch
+git push origin development
+```
