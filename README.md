@@ -220,7 +220,21 @@ guidelines:
 
 > **Note**: Replace [your_name] with your actual name
 
-## A. Initial Sync
+## A. Clone
+
+```bash
+# Clone the repository to your machine
+git clone https://github.com/MoroAJoseph/ComfyJam2026
+
+# Enter the project folder
+cd ComfyJam2026
+
+# Ensure Git LFS is ready
+git lfs install
+git lfs pull
+```
+
+## B. Sync
 
 ```bash
 # Move to the development branch
@@ -231,7 +245,9 @@ git pull origin development
 git lfs pull
 ```
 
-## Create Your Workspace
+## Create
+
+**Feature Branch**
 
 ```bash
 # Create and switch to your test branch
@@ -241,7 +257,7 @@ git checkout -b feature/test-run-[your_name]
 mkdir dev_sandbox/[your_name]
 ```
 
-## Create A Test File
+**Test File**
 
 ```bash
 # Create the file and add the confirmation message
@@ -261,7 +277,7 @@ git commit -m "Test: Added verification file for [your_name]"
 git push origin feature/test-run-[your_name]
 ```
 
-## Merge Into Development
+## Merge
 
 ```bash
 # Switch back to development
