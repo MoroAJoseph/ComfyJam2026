@@ -3,6 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://dtthryg7gxqmb" path="res://assets/boats/glb/Textures/colormap.png" id="1_gx0ts"]
 [ext_resource type="Script" uid="uid://c3wh47jtb6om4" path="res://features/boats/row_boat_small/row_boat_small.gd" id="1_ul0ft"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ul0ft"]
+radius = 0.65
+height = 2.2
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vk6ro"]
 resource_name = "colormap"
 cull_mode = 2
@@ -76,33 +80,46 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_1d6y7")
 
-[node name="RowBoatSmall" type="Node3D" unique_id=689412057]
+[node name="RowBoatSmall" type="RigidBody3D" unique_id=244516170]
+collision_layer = 4
+mass = 5.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.15, 0)
+angular_damp = 1.0
 script = ExtResource("1_ul0ft")
+float_force = 15.0
+angular_damping = 0.5
 
-[node name="Models" type="Node3D" parent="." unique_id=1069359350]
-unique_name_in_owner = true
+[node name="PhysicsCollider" type="CollisionShape3D" parent="." unique_id=1007000297]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.65, 0)
+shape = SubResource("CapsuleShape3D_ul0ft")
 
-[node name="boat" type="MeshInstance3D" parent="Models" unique_id=1197561743]
+[node name="Model" type="Node3D" parent="." unique_id=1069359350]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="boat" type="MeshInstance3D" parent="Model" unique_id=1197561743]
 mesh = SubResource("ArrayMesh_swxsv")
 
-[node name="paddles" type="MeshInstance3D" parent="Models/boat" unique_id=1433664040]
+[node name="paddles" type="MeshInstance3D" parent="Model/boat" unique_id=1433664040]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.042704e-14, 0.05573593, -0.17539145)
 mesh = SubResource("ArrayMesh_kj1o2")
 
-[node name="BuoyProbes" type="Node3D" parent="." unique_id=1851740925]
-unique_name_in_owner = true
+[node name="Probes" type="Node3D" parent="." unique_id=1851740925]
 
-[node name="Marker3D" type="Marker3D" parent="BuoyProbes" unique_id=103358300]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.549761, 0, 0.10655022)
+[node name="Marker3D" type="Marker3D" parent="Probes" unique_id=103358300]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.73100585, 0.20632872, 1.1033974)
 
-[node name="Marker3D3" type="Marker3D" parent="BuoyProbes" unique_id=1844434659]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.549761, 0, -0.88536346)
+[node name="Marker3D3" type="Marker3D" parent="Probes" unique_id=1844434659]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7998788, 0.20632872, -0.2437564)
 
-[node name="Marker3D4" type="Marker3D" parent="BuoyProbes" unique_id=1168717301]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53450316, 0, -0.88536346)
+[node name="Marker3D4" type="Marker3D" parent="Probes" unique_id=1168717301]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8099955, 0.20632872, -0.31262928)
 
-[node name="Marker3D5" type="Marker3D" parent="BuoyProbes" unique_id=179671337]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00092214346, 0, 0.7256409)
+[node name="Marker3D5" type="Marker3D" parent="Probes" unique_id=179671337]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6642788, 0.20632872, 1.1062553)
 
-[node name="Marker3D2" type="Marker3D" parent="BuoyProbes" unique_id=2052033063]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5385085, 0, 0.15443575)
+[node name="Marker3D2" type="Marker3D" parent="Probes" unique_id=2052033063]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.47326034, 0.20632872, -0.9475335)
+
+[node name="Marker3D6" type="Marker3D" parent="Probes" unique_id=167232778]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49458748, 0.20632872, -0.9475335)

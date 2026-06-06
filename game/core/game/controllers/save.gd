@@ -10,14 +10,14 @@ extends Node
 func save_data(data: SaveData) -> void:
 	data.update()
 	
-	var error := ResourceSaver.save(data, Constants.USER_SAVE_PATH)
+	var error := ResourceSaver.save(data, Constants.Paths.USER_SAVE)
 	if error != OK:
-		push_error("MainSaveManager: Failed to save game to ", Constants.USER_SAVE_PATH, ". Error: ", error)
+		push_error("MainSaveManager: Failed to save game to ", Constants.Paths.USER_SAVE, ". Error: ", error)
 	else:
-		print_debug("MainSaveManager: Game successfully saved to ", Constants.USER_SAVE_PATH)
+		print_debug("MainSaveManager: Game successfully saved to ", Constants.Paths.USER_SAVE)
 
 func load_data(is_new_game: bool) -> SaveData:
-	var path = Constants.NEW_GAME_SAVE_DATA_PATH if is_new_game else Constants.USER_SAVE_PATH
+	var path = Constants.Paths.NEW_GAME_SAVE_DATA if is_new_game else Constants.Paths.USER_SAVE
 		
 	# Check if file exists
 	if not FileAccess.file_exists(path):

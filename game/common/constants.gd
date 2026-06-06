@@ -1,9 +1,19 @@
 class_name Constants
 extends RefCounted
 
-const NEW_GAME_SAVE_DATA_PATH := "res://common/data/new_game_save_data.tres"
-const USER_SAVE_PATH := "user://savegame.tres"
-
+class Paths:
+	
+	const NEW_GAME_SAVE_DATA := "res://common/data/new_game_save_data.tres"
+	const USER_SAVE := "user://savegame.tres"
+	const WORLD_SCENE := "res://core/world/world.tscn"
+	const PLAYER_SCENE := "res://core/player/player.tscn"
+	
+	static var BOAT_SCENE: Dictionary[BoatData.Type, String] = {
+		BoatData.Type.ROW_SMALL: "res://features/boats/row_boat_small/row_boat_small.tscn"
+	}
+	
+	static func get_boat_scene(type: BoatData.Type) -> String:
+		return BOAT_SCENE.get(type, null)
 
 class PhysicsLayer:
 	
@@ -27,15 +37,12 @@ class LUT:
 
 	# --- Boats ---
 	static var BOAT_DATA: Dictionary[BoatData.Type, BoatData] = {
-		BoatData.Type.RAFT: BoatData.new(BoatData.Type.RAFT, 20.0, 8.0, 3.0, 0.2, 0.5, 2.0, 100)
+		BoatData.Type.ROW_SMALL: BoatData.new(BoatData.Type.ROW_SMALL, 20.0, 8.0, 3.0, 0.2, 0.5, 2.0, 100)
 	}
 	
 	static func get_boat_data(type: BoatData.Type) -> BoatData:
 		return BOAT_DATA.get(type, null)
-	
-	static var BOAT_SCENE_PATH: Dictionary[BoatData.Type, String] = {
-		BoatData.Type.RAFT: "res://core/base_classes/buoyant/boat/boat.tscn"
-	}
-	
-	static func get_boat_scene_path(type: BoatData.Type) -> String:
-		return BOAT_SCENE_PATH.get(type, null)
+
+	# --- Blocks ---
+
+	# --- Docks ---
