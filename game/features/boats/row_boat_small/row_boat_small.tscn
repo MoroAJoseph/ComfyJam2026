@@ -88,7 +88,12 @@ center_of_mass = Vector3(0, -0.15, 0)
 angular_damp = 1.0
 script = ExtResource("1_ul0ft")
 float_force = 15.0
-angular_damping = 0.5
+water_drag_forward = 0.02
+water_drag_sideways = 0.4
+water_angular_drag = 0.05
+alignment_strength = 15.0
+alignment_damping = 0.5
+front_buoyancy_bias = 0.85
 
 [node name="PhysicsCollider" type="CollisionShape3D" parent="." unique_id=1007000297]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.65, 0)

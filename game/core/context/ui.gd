@@ -5,6 +5,7 @@ enum MenuOption {
 	MAIN,
 	PAUSE,
 	SETTINGS,
+	UPGRADES,
 }
 	
 var is_loading := false

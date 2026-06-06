@@ -1,9 +1,8 @@
 class_name Boat
 extends BuoyantRigidBody
 
-# TODO: Make the front of the boat have more force when floating, so the front tilts down into the wave its riding
-
 @export var data: BoatData
+@export var front_buoyancy_bias := 0.9
 
 @onready var model = $Model
 
@@ -41,8 +40,15 @@ func get_collision_speed_multiplier() -> float:
 # Private
 # ===
 
+func _get_buoyancy_multiplier(probe: Node) -> float:
+	# If the probe is in the front half of the boat (local Z < 0), 
+	# apply the bias to let the nose sit slightly lower/different
+	if probe.position.z < 0:
+		return front_buoyancy_bias
+	return 1.0
+
 func _apply_rotation(delta: float) -> void:
-	# Turn Speed
+	# 1. Yaw (Turning)
 	var target_turn_velocity = -_turn_input * data.turn_speed
 	
 	# Smooth angular velocity to the target
@@ -52,8 +58,9 @@ func _apply_rotation(delta: float) -> void:
 		data.angular_drag * delta * 5.0
 	)
 
-	# Handle banking animation
-	var target_bank := _turn_input * 0.25
+	# 2. Banking Lean (Visual/Physical mix)
+	# We want the boat to lean INTO the turn naturally
+	var target_bank := _turn_input * 0.2
 	model.rotation.z = lerp(
 		model.rotation.z, 
 		-target_bank, 
@@ -61,19 +68,27 @@ func _apply_rotation(delta: float) -> void:
 	)
 
 func _apply_movement(delta: float) -> void:
-	var desired := global_transform.basis.z * _move_input * data.max_speed
-	var current := linear_velocity
-	var horizontal := Vector3(current.x, 0.0, current.z)
-	var steer := (desired - horizontal) * data.acceleration
-	
-	# Apply force at a negative Y offset (below center of mass)
-	# This prevents the nose from dipping when you accelerate
-	var force_offset = Vector3(0, -0.5, 0) 
-	apply_force(Vector3(steer.x, 0.0, steer.z), force_offset)
+	if not submerged: return
 
-	# Visual pitch
-	var target_pitch := _move_input * 0.15
-	model.rotation.x = lerp(model.rotation.x, target_pitch, delta * 3.0)
+	# Direction of thrust (forward is -Z relative to the boat usually)
+	var forward_dir = -global_transform.basis.z
+	
+	# Calculate desired force to reach max speed
+	var target_speed = _move_input * data.max_speed
+	var current_speed = linear_velocity.dot(forward_dir)
+	
+	# Only apply thrust if we aren't at max speed or if we are braking/reversing
+	if (_move_input > 0 and current_speed < target_speed) or (_move_input < 0 and current_speed > target_speed):
+		var force_mag = data.acceleration * mass
+		var force = forward_dir * force_mag * _move_input
+		
+		# Apply force at the rear (+Z) but at the center of mass Y to keep it stable
+		var thrust_offset = Vector3(0, 0, 1.5) 
+		apply_force(force, thrust_offset)
+
+	# Dynamic visual pitch based on acceleration
+	var target_pitch := _move_input * 0.1
+	model.rotation.x = lerp(model.rotation.x, target_pitch, delta * 2.0)
 
 func _clamp_collision_slide(delta: float) -> void:
 	var current_linear_velocity := linear_velocity

@@ -10,6 +10,8 @@ extends Node
 func _ready() -> void:
 	if _timer:
 		_timer.timeout.connect(_on_auto_save_timeout)
+	
+	EventBus.subscribe(DockEvent.Interact, _handle_dock_interact)
 
 # ===
 # Public
@@ -17,6 +19,9 @@ func _ready() -> void:
 # ===
 # Signals
 # ===
+
+func _handle_dock_interact(_event: DockEvent.Interact) -> void:
+	save_data()
 
 func _on_auto_save_timeout() -> void:
 	if Context.session and Context.session.is_in_world: # Assuming this flag exists or we can check state

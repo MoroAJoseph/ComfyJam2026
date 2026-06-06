@@ -9,16 +9,18 @@ height = 6.9412537
 
 [node name="ShipSmall" type="RigidBody3D" unique_id=1371275426]
 collision_layer = 4
-mass = 20.0
+mass = 40.0
 center_of_mass_mode = 1
-center_of_mass = Vector3(0, 1.24, 0.73)
-angular_damp = 1.0
+center_of_mass = Vector3(0, 0.2, 0.5)
+angular_damp = 2.0
 script = ExtResource("1_ckjid")
-float_force = 5.0
-water_drag = 0.5
-water_angular_drag = 1.0
-alignment_strength = 20.0
-angular_damping = 0.1
+float_force = 20.0
+water_drag_forward = 0.005
+water_drag_sideways = 0.8
+water_angular_drag = 0.1
+alignment_strength = 50.0
+alignment_damping = 1.2
+front_buoyancy_bias = 0.98
 
 [node name="CenterOfMassReference" type="Marker3D" parent="." unique_id=479764357]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2376028, 0.7274239)
