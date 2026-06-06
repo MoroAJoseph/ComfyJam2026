@@ -49,9 +49,11 @@ func handle_input(event: InputEvent) -> void:
 
 func _subscribe_events() -> void:
 	EventBus.subscribe(UIEvent.PauseMenu, _handle_ui_pause_menu)
+	EventBus.subscribe(UIEvent.SettingsMenu, _handle_ui_settings_menu)
 
 func _unsubscribe_events() -> void:
 	EventBus.unsubscribe(UIEvent.PauseMenu, _handle_ui_pause_menu)
+	EventBus.unsubscribe(UIEvent.SettingsMenu, _handle_ui_settings_menu)
 
 # ===
 # Private
@@ -95,6 +97,10 @@ func _handle_ui_pause_menu(event: UIEvent.PauseMenu) -> void:
 		UIEvent.PauseMenuAction.RESUME:
 			_handle_resume()
 		
+		UIEvent.PauseMenuAction.SETTINGS:
+			EventBus.emit(UIEvent.ToggleMenu.new(UIContext.MenuOption.PAUSE, false))
+			EventBus.emit(UIEvent.ToggleMenu.new(UIContext.MenuOption.SETTINGS, true))
+		
 		UIEvent.PauseMenuAction.EXIT:
 			_transition_to(
 				StateName.LOAD, 
@@ -106,3 +112,12 @@ func _handle_ui_pause_menu(event: UIEvent.PauseMenu) -> void:
 		UIEvent.PauseMenuAction.QUIT:
 			# CRITICAL: Warn player they are quitting with another menu
 			get_tree().quit()
+
+func _handle_ui_settings_menu(event: UIEvent.SettingsMenu) -> void:
+	match event.action:
+		UIEvent.SettingsMenuAction.BACK:
+			EventBus.emit(UIEvent.ToggleMenu.new(UIContext.MenuOption.SETTINGS, false))
+			if get_tree().paused:
+				EventBus.emit(UIEvent.ToggleMenu.new(UIContext.MenuOption.PAUSE, true))
+			else:
+				EventBus.emit(UIEvent.ToggleMenu.new(UIContext.MenuOption.MAIN, true))
