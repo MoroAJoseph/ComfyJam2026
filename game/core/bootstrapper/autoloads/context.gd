@@ -24,3 +24,6 @@ func _ready() -> void:
 # ===
 # Public
 # ===
+
+func set_from_save(data: SaveData) -> void:
+	pass

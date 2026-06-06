@@ -3,6 +3,7 @@ extends Resource
 
 @export_category("Progression")
 @export var current_equipped_boat: BoatData.Type
+@export var current_gold: int
 
 @export_category("Player")
 @export var player_world_location: Vector3
@@ -13,12 +14,13 @@ extends Resource
 @export var world_time: float
 @export var world_sea_time: float
 
-func collect() -> void:
+func update() -> void:
 	if not Context: return
 	
 	# Progression
 	var progression: = Context.progression
 	current_equipped_boat = progression.equipped_boat_type
+	current_gold = progression.gold
 	
 	# Player
 	var player: = Context.player
@@ -30,4 +32,3 @@ func collect() -> void:
 	var world: = Context.world
 	world_time = world.time
 	world_sea_time = world.sea_time
-

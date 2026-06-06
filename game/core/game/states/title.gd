@@ -7,8 +7,8 @@ extends GameState
 
 func enter(prev_state_path: String, _data: Object) -> void:
 	print_debug("Game: Entered Title")
-
-
+	
+	# Enter loading on first load
 	if prev_state_path == "":
 		print_debug("Game: Title -> Load")
 		_transition_to(
@@ -19,6 +19,7 @@ func enter(prev_state_path: String, _data: Object) -> void:
 		)
 		return
 	
+	# handle normally
 	_subscribe_events()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	EventBus.emit(

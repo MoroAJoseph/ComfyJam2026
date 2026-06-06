@@ -14,17 +14,16 @@ func _ready() -> void:
 # ===
 # Public
 # ===
-...
 # ===
 # Signals
 # ===
 
 func _on_auto_save_timeout() -> void:
 	if Context.session and Context.session.is_in_world: # Assuming this flag exists or we can check state
-		var data = SaveData.new()
-		save_data(data)
+		save_data()
 
-func save_data(data: SaveData) -> void:
+func save_data() -> void:
+	var data := SaveData.new()
 	data.update()
 	
 	var error := ResourceSaver.save(data, Constants.Paths.USER_SAVE)
@@ -33,21 +32,23 @@ func save_data(data: SaveData) -> void:
 	else:
 		print_debug("MainSaveManager: Game successfully saved to ", Constants.Paths.USER_SAVE)
 
-func load_data(is_new_game: bool) -> SaveData:
+func load_data(is_new_game: bool) -> void:
 	var path = Constants.Paths.NEW_GAME_SAVE_DATA if is_new_game else Constants.Paths.USER_SAVE
-		
+	var data: SaveData
+	
 	# Check if file exists
 	if not FileAccess.file_exists(path):
 		push_warning("MainSaveManager: File at ", path, " not found. Falling back to default SaveData.")
-		return SaveData.new()
+		data = SaveData.new()
 	
-	# Load the resource
-	var data = load(path)
+	else:
+		# Load the resource
+		data = load(path)
 	
-	# Validate the loaded resource type
-	if not (data is SaveData):
-		push_error("MainSaveManager: File at ", path, " is not of type SaveData. Check your file path and resource type.")
-		return SaveData.new()
+		# Validate the loaded resource type
+		if not (data is SaveData):
+			push_error("MainSaveManager: File at ", path, " is not of type SaveData. Check your file path and resource type.")
+			data = SaveData.new()
 	
 	print_debug("MainSaveManager: Successfully loaded data from ", path)
-	return data
+	Context.set_from_save(data)

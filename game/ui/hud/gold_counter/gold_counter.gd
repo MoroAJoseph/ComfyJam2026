@@ -2,29 +2,31 @@ extends HBoxContainer
 
 @onready var _label: Label = %Label
 
+var last_gold: int
+var progression_context: ProgressionContext
+
 # ===
 # Built-In
 # ===
 
 func _ready() -> void:
+	progression_context = Context.progression
 	_update_gold_display()
-	# We can use a signal if we add one to PlayerContext later, 
-	# but for now we can update it when the HUD is toggled or via events.
-	EventBus.subscribe(GameEvent.GoldUpdated, _on_gold_updated)
 
-func _exit_tree() -> void:
-	EventBus.unsubscribe(GameEvent.GoldUpdated, _on_gold_updated)
 
+func _process(delta: float) -> void:
+	if not progression_context: return
+	
+	if progression_context.gold != last_gold:
+		_update_gold_display()
 # ===
 # Private
 # ===
 
 func _update_gold_display() -> void:
-	_label.text = str(Context.player.gold)
+	last_gold = progression_context.gold
+	_label.text = str(progression_context.gold)
 
 # ===
 # Event Handlers
 # ===
-
-func _on_gold_updated(_event: GameEvent.GoldUpdated) -> void:
-	_update_gold_display()

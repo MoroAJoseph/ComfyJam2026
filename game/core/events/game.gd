@@ -18,6 +18,3 @@ class PausedUpdated extends GameEvent:
 		p_is_paused: bool
 	):
 		is_paused = p_is_paused
-
-# --- Player ---
-class GoldUpdated extends GameEvent: pass
