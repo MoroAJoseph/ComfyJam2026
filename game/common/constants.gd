@@ -1,6 +1,9 @@
 class_name Constants
 extends RefCounted
 
+## Duration of a full day in seconds (testing: 30 seconds)
+const DAY_DURATION := 30.0
+
 const NEW_GAME_SAVE_DATA_PATH := "res://common/data/new_game_save_data.tres"
 const USER_SAVE_PATH := "user://savegame.tres"
 

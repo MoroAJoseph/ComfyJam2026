@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://core/world/environment/environment_controller.gd" id="1_env"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x86a1"]
+sky_top_color = Color(0.384314, 0.454902, 0.54902, 1)
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_l4j2e"]
+sky_material = SubResource("ProceduralSkyMaterial_x86a1")
+
+[sub_resource type="Environment" id="Environment_q3w6e"]
+background_mode = 2
+sky = SubResource("Sky_l4j2e")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Environment" type="Node3D"]
+script = ExtResource("1_env")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_q3w6e")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+shadow_enabled = true
+shadow_opacity = 0.8
+shadow_blur = 2.0

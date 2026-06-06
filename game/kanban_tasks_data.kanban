@@ -152,7 +152,7 @@
 			"steps": [
 				{
 					"details": "Sky Started",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Sea Started",

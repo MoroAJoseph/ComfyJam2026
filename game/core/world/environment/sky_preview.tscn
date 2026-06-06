@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://core/world/environment/sky_preview.gd" id="1_init"]
+[ext_resource type="Script" path="res://core/world/time_controller.gd" id="2_time"]
+[ext_resource type="PackedScene" path="res://core/world/environment/environment.tscn" id="3_env"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_test"]
+size = Vector2(20, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_test"]
+albedo_color = Color(0.5, 0.5, 0.5, 1)
+
+[node name="SkyPreview" type="Node3D"]
+script = ExtResource("1_init")
+
+[node name="TimeController" type="Node" parent="."]
+script = ExtResource("2_time")
+
+[node name="Environment" parent="." instance=ExtResource("3_env")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 5, 10)
+
+[node name="TestFloor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_test")
+surface_material_override/0 = SubResource("StandardMaterial3D_test")
+
+[node name="DirectionLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+pixel_size = 0.01
+text = "North (-Z)"
