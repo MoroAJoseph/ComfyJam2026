@@ -30,3 +30,4 @@ func collect() -> void:
 	var world: = Context.world
 	world_time = world.time
 	world_sea_time = world.sea_time
+

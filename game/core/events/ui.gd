@@ -57,3 +57,15 @@ class PauseMenu extends UIEvent:
 		p_action: PauseMenuAction
 	) -> void:
 		action = p_action
+
+# --- Settings ---
+enum SettingsMenuAction { BACK }
+
+class SettingsMenu extends UIEvent:
+	
+	var action: SettingsMenuAction
+	
+	func _init(
+		p_action: SettingsMenuAction
+	) -> void:
+		action = p_action

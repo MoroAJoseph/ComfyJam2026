@@ -4,6 +4,7 @@ extends RefCounted
 enum MenuOption {
 	MAIN,
 	PAUSE,
+	SETTINGS,
 }
 	
 var is_loading := false

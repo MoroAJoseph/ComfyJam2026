@@ -56,5 +56,5 @@ func _unsubscribe_events() -> void:
 func _handle_game_scene_loaded(_event: GameEvent) -> void:
 	_transition_to(
 		_enter_data.target_state, 
-		null
+		_enter_data
 	)

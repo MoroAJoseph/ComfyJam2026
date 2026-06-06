@@ -1,0 +1,91 @@
+[gd_scene format=3]
+
+[ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_86e05"]
+[ext_resource type="Script" path="res://ui/menus/settings/settings_menu.gd" id="2_xfwjj"]
+
+[node name="SettingsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_86e05")
+script = ExtResource("2_xfwjj")
+
+[node name="SafeArea" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="SafeContent" type="Control" parent="SafeArea"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="SafeArea/SafeContent"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -236.5
+offset_right = 236.5
+offset_bottom = 83.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.9137255, 0.84313726, 0.6745098, 1)
+theme_override_font_sizes/font_size = 60
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SettingsList" type="VBoxContainer" parent="SafeArea/SafeContent"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="VolumeLabel" type="Label" parent="SafeArea/SafeContent/SettingsList"]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="VolumeSlider" type="HSlider" parent="SafeArea/SafeContent/SettingsList"]
+layout_mode = 2
+value = 75.0
+
+[node name="ResolutionLabel" type="Label" parent="SafeArea/SafeContent/SettingsList"]
+layout_mode = 2
+text = "Resolution"
+
+[node name="OptionButton" type="OptionButton" parent="SafeArea/SafeContent/SettingsList"]
+layout_mode = 2
+item_count = 1
+selected = 0
+popup/item_0/text = "1920x1080"
+popup/item_0/id = 0
+
+[node name="Back" type="Button" parent="SafeArea/SafeContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+offset_right = 128.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Back"

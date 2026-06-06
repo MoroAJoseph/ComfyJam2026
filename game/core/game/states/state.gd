@@ -9,11 +9,14 @@ var _owner: Game
 class GameLoadStateData:
 
 	var target_state: GameState.StateName
+	var is_new_game: bool
 
 	func _init(
 		p_target_state: GameState.StateName, 
+		p_is_new_game: bool = true
 	):
 		target_state = p_target_state
+		is_new_game = p_is_new_game
 
 
 # ===

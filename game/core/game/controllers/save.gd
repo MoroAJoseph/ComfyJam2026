@@ -1,11 +1,28 @@
 class_name GameSaveController
 extends Node
 
-# TODO: Link with time context to auto-save
+@onready var _timer: Timer = $AutoSaveTimer
+
+# ===
+# Built-In
+# ===
+
+func _ready() -> void:
+	if _timer:
+		_timer.timeout.connect(_on_auto_save_timeout)
 
 # ===
 # Public
 # ===
+...
+# ===
+# Signals
+# ===
+
+func _on_auto_save_timeout() -> void:
+	if Context.session and Context.session.is_in_world: # Assuming this flag exists or we can check state
+		var data = SaveData.new()
+		save_data(data)
 
 func save_data(data: SaveData) -> void:
 	data.update()
