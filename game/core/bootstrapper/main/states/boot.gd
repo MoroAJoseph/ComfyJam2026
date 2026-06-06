@@ -8,6 +8,8 @@ extends MainState
 # ===
 
 func enter(_prev_state_path: String, _data: Object) -> void:
+	print_debug("Main: Entered Boot")
+	
 	if enabled:
 		_subscribe_events()
 		EventBus.emit(
@@ -30,4 +32,5 @@ func _unsubscribe_events() -> void:
 # ===
 
 func _handle_main_bootsplash_loaded(_event: MainEvent.BootsplashLoaded) -> void:
+	print_debug("Main: Bootsplash Loaded")
 	_transition_to(StateName.GAME, null)

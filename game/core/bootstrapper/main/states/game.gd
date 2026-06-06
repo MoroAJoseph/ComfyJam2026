@@ -6,6 +6,8 @@ extends MainState
 # ===
 
 func enter(_prev_state_path: String, _data: Object) -> void:
+	print_debug("Main: Entered Game")
+	
 	_subscribe_events()
 	EventBus.emit(
 		MainEvent.LoadGame.new()
@@ -29,4 +31,4 @@ func _unsubscribe_events() -> void:
 # ===
 
 func _handle_main_game_loaded(_event: MainEvent.GameLoaded) -> void:
-	print_debug("game loaded")
+	print_debug("Main: Game Loaded")

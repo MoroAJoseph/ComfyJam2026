@@ -1,11 +1,39 @@
-extends Node
+class_name GameState
+extends State
+
+enum StateName { LOAD, TITLE, WORLD }
+
+var _owner: Game
 
 
-# Called when the node enters the scene tree for the first time.
+class GameLoadStateData:
+
+	var target_state: GameState.StateName
+
+	func _init(
+		p_target_state: GameState.StateName, 
+	):
+		target_state = p_target_state
+
+
+# ===
+# Built-In
+# ===
+
 func _ready() -> void:
-	pass # Replace with function body.
+	await owner.ready
+	_owner = owner as Game
 
+# ===
+# Public
+# ===
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func get_state_name(state: StateName) -> String:
+	return StateName.keys()[state].capitalize()
+
+# ===
+# Private
+# ===
+
+func _transition_to(state: StateName, data: Object) -> void:
+	finished.emit(get_state_name(state), data)

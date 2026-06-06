@@ -1,0 +1,41 @@
+class_name GameSceneController
+extends Node
+
+@export var title_scene: PackedScene
+@export var world_scene: PackedScene
+
+var current_scene: Node
+
+# ===
+# Built-In
+# ===
+
+func _ready() -> void:
+	EventBus.subscribe(GameEvent.LoadTitle, _handle_game_load_title_scene)
+	EventBus.subscribe(GameEvent.LoadWorld, _handle_game_load_world_scene)
+
+func _exit_tree() -> void:
+	EventBus.unsubscribe(GameEvent.LoadTitle, _handle_game_load_title_scene)
+	EventBus.unsubscribe(GameEvent.LoadWorld, _handle_game_load_world_scene)
+
+# ===
+# Event Handlers
+# ===
+
+func _handle_game_load_title_scene(_event: GameEvent.LoadTitle) -> void:
+	var title = title_scene.instantiate()
+	
+	if current_scene:
+		current_scene.queue_free()
+		
+	current_scene = title
+	add_child(current_scene)
+
+func _handle_game_load_world_scene(_event: GameEvent.LoadWorld) -> void:
+	var world = world_scene.instantiate()
+	
+	if current_scene:
+		current_scene.queue_free()
+	
+	current_scene = world
+	add_child(current_scene)

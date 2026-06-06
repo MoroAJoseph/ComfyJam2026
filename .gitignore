@@ -1,6 +1,6 @@
 # Godot 4+ specific
-.godot/
-.import/
+.godot
+.import
 export.cfg
 export_credentials.cfg
 *.tmp
@@ -12,8 +12,8 @@ data_*/
 mono_crash.*.json
 
 # Build & Custom Folders
-/dist/
-/ignore/
+dist
+ignore
 
 # System files
 .DS_Store

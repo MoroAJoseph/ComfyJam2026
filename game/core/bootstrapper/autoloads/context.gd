@@ -1,11 +1,22 @@
 extends Node
 
+'''
+Singleton context for global systems
+'''
 
-# Called when the node enters the scene tree for the first time.
+var ui: UIContext
+var world: WorldContext
+var progression: ProgressionContext
+
+# ===
+# Built-In
+# ===
+
 func _ready() -> void:
-	pass # Replace with function body.
+	ui = UIContext.new()
+	world = WorldContext.new()
+	progression = ProgressionContext.new()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+# ===
+# Public
+# ===
