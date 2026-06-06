@@ -17,6 +17,7 @@ unique_name_in_owner = true
 [node name="Boom" type="SpringArm3D" parent="Yaw/Pitch" unique_id=1040227395]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 0, 0)
+collision_mask = 0
 shape = SubResource("SphereShape3D_bsvnd")
 spring_length = 10.0
 

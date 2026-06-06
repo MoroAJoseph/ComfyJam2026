@@ -3,36 +3,18 @@
 [ext_resource type="Script" uid="uid://dohjgb5cfs7sc" path="res://core/world/world.gd" id="1_wavff"]
 [ext_resource type="Script" uid="uid://dcdy6vacnysjr" path="res://core/world/controllers/time.gd" id="2_8k0jh"]
 [ext_resource type="PackedScene" uid="uid://c5j6bp0rk2jpy" path="res://core/world/sea/sea.tscn" id="2_m07s3"]
+[ext_resource type="PackedScene" uid="uid://c541incn3kcaq" path="res://core/world/sky/sky.tscn" id="3_41qfr"]
 [ext_resource type="PackedScene" uid="uid://cj6mr5liuj6xn" path="res://core/world/camera/camera.tscn" id="3_xq38f"]
 [ext_resource type="Script" uid="uid://b8rh2lplntxx4" path="res://core/world/controllers/instances.gd" id="4_p6pjc"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8k0jh"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_41qfr"]
-sky_material = SubResource("ProceduralSkyMaterial_8k0jh")
-
-[sub_resource type="Environment" id="Environment_1bvj8"]
-background_mode = 2
-sky = SubResource("Sky_41qfr")
-tonemap_mode = 2
-glow_enabled = true
+[ext_resource type="PackedScene" uid="uid://cgywb4adqqwbp" path="res://_dev/dev_cube.tscn" id="7_1bvj8"]
 
 [node name="World" type="Node3D" unique_id=485736105]
 script = ExtResource("1_wavff")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1486828519]
-environment = SubResource("Environment_1bvj8")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=838107718]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
-shadow_enabled = true
-
 [node name="Time" type="Node" parent="." unique_id=99604108]
 script = ExtResource("2_8k0jh")
 
-[node name="Sky" type="Node3D" parent="." unique_id=769597152]
+[node name="Sky" parent="." unique_id=1901335390 instance=ExtResource("3_41qfr")]
 
 [node name="Land" type="Node3D" parent="." unique_id=1639978420]
 
@@ -53,3 +35,23 @@ unique_name_in_owner = true
 
 [node name="Treasure" type="Node3D" parent="Instances" unique_id=906023956]
 unique_name_in_owner = true
+
+[node name="DevCubes" type="Node3D" parent="Instances" unique_id=368413939]
+
+[node name="DevCube" parent="Instances/DevCubes" unique_id=930508928 instance=ExtResource("7_1bvj8")]
+transform = Transform3D(0.9877265, -0.14174625, -0.06560708, 0.15619314, 0.89636827, 0.4148829, 0, -0.42003825, 0.9075065, 0, 35.24388, 95.50631)
+
+[node name="DevCube2" parent="Instances/DevCubes" unique_id=1631777341 instance=ExtResource("7_1bvj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 175.91333, 35.63472, 0)
+
+[node name="DevCube3" parent="Instances/DevCubes" unique_id=271408742 instance=ExtResource("7_1bvj8")]
+transform = Transform3D(0.9702846, -0.2051367, 0.12832296, 0.22510412, 0.9597823, -0.16776775, -0.08874677, 0.19166848, 0.97743905, 0, 20.024723, -62.46729)
+
+[node name="DevCube4" parent="Instances/DevCubes" unique_id=313560188 instance=ExtResource("7_1bvj8")]
+transform = Transform3D(0.9610111, -0.25442842, 0.10827632, 0.27650964, 0.8842676, -0.3763151, 0, 0.39158246, 0.920143, -69.90289, 24.47393, 0)
+
+[node name="DevCube5" parent="Instances/DevCubes" unique_id=501894195 instance=ExtResource("7_1bvj8")]
+transform = Transform3D(0.9327838, -0.34235144, -0.11273822, 0.3604364, 0.88598114, 0.2917585, 0, -0.31278256, 0.94982475, -52.90869, 19.487923, -39.337547)
+
+[node name="DevCube6" parent="Instances/DevCubes" unique_id=278275371 instance=ExtResource("7_1bvj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.18189, 39.297424, 71.53996)

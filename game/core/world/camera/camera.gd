@@ -4,7 +4,7 @@ extends Node3D
 @export_group("Zoom Settings")
 @export var min_zoom: float = 6.0
 @export var max_zoom: float = 12.0
-@export var zoom_speed: float = 2.0
+@export var zoom_step: float = 2.0
 @export var controller_zoom_lerp: float = 10.0
 
 @export_group("Look Settings")
@@ -34,7 +34,15 @@ var move_direction: Vector2
 # ===
 
 func _ready() -> void:
-	boom.spring_length = max_zoom
+	# Update Zoom
+	var boat_type: BoatData.Type = Context.progression.equipped_boat_type
+	if boat_type:
+		_update_zoom_values_from_boat(boat_type)
+	Context.progression.equipped_boat_type_updated.connect(
+		func(value: BoatData.Type):
+			_update_zoom_values_from_boat(value)
+	)
+	
 	_update_mouse_mode()
 	EventBus.subscribe(WorldEvent.PlayerSpawned, _handle_world_player_spawned)
 
@@ -42,9 +50,9 @@ func _input(event: InputEvent) -> void:
 	# Scroll Wheel (Zoom)
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			boom.spring_length = clamp(boom.spring_length - zoom_speed, min_zoom, max_zoom)
+			boom.spring_length = clamp(boom.spring_length - zoom_step, min_zoom, max_zoom)
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			boom.spring_length = clamp(boom.spring_length + zoom_speed, min_zoom, max_zoom)
+			boom.spring_length = clamp(boom.spring_length + zoom_step, min_zoom, max_zoom)
 	
 	# Camera Mode
 	if event.is_action_pressed("camera_mode"):
@@ -93,6 +101,13 @@ func _process(delta: float) -> void:
 # ===
 # Private
 # ===
+
+func _update_zoom_values_from_boat(boat_type: BoatData.Type) -> void:
+	var boat_data: BoatData = Constants.LUT.get_boat_data(boat_type)
+	min_zoom = boat_data.max_zoom
+	min_zoom = boat_data.min_zoom
+	zoom_step = boat_data.zoom_step
+	boom.spring_length = max_zoom
 
 func _update_mouse_mode():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if is_locked else Input.MOUSE_MODE_CAPTURED)

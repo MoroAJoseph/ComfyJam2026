@@ -38,8 +38,12 @@ class LUT:
 
 	# --- Boats ---
 	static var BOAT_DATA: Dictionary[BoatData.Type, BoatData] = {
-		BoatData.Type.ROW_SMALL: BoatData.new(BoatData.Type.ROW_SMALL, 20.0, 8.0, 3.0, 0.2, 0.5, 2.0, 100),
-		BoatData.Type.SHIP_SMALL: BoatData.new(BoatData.Type.SHIP_SMALL, 20.0, 8.0, 3.0, 0.2, 0.5, 2.0, 100)
+		BoatData.Type.ROW_SMALL: BoatData.new(
+			BoatData.Type.ROW_SMALL, 20.0, 8.0, 3.0, 0.2, 0.5, 2.0, 100, 12, 6, 2
+		),
+		BoatData.Type.SHIP_SMALL: BoatData.new(
+			BoatData.Type.SHIP_SMALL, 20.0, 30.0, 3.0, 0.2, 0.5, 2.0, 100, 24, 12, 2
+		)
 	}
 	
 	static func get_boat_data(type: BoatData.Type) -> BoatData:

@@ -4,41 +4,52 @@
 [ext_resource type="PackedScene" uid="uid://c768ablk4vif0" path="res://assets/boats/glb/ship-small.glb" id="2_ul4e3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ljpvt"]
-radius = 1.8505859
-height = 7.031006
+radius = 2.203125
+height = 6.9412537
 
 [node name="ShipSmall" type="RigidBody3D" unique_id=1371275426]
-mass = 10.0
+collision_layer = 4
+mass = 20.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, 1.24, 0.73)
+angular_damp = 1.0
 script = ExtResource("1_ckjid")
-float_force = 15.0
-angular_damping = 0.2
+float_force = 5.0
+water_drag = 0.5
+water_angular_drag = 1.0
+alignment_strength = 20.0
+angular_damping = 0.1
+
+[node name="CenterOfMassReference" type="Marker3D" parent="." unique_id=479764357]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2376028, 0.7274239)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=33040357]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.887702, -0.32002163)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.887702, 0.3717966)
 shape = SubResource("CapsuleShape3D_ljpvt")
 
 [node name="Model" type="Node3D" parent="." unique_id=763547907]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="ship-small2" parent="Model" unique_id=132210864 instance=ExtResource("2_ul4e3")]
 
 [node name="Probes" type="Node3D" parent="." unique_id=1542480112]
 
 [node name="Marker3D" type="Marker3D" parent="Probes" unique_id=1970336666]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3113096, 0.78274393, 0.5981343)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4336598, 0.75, 0.09092176)
 
 [node name="Marker3D2" type="Marker3D" parent="Probes" unique_id=611039616]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3186944, 0.78274393, 0.5981343)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3866673, 0.75, 0.09092176)
 
 [node name="Marker3D3" type="Marker3D" parent="Probes" unique_id=763621622]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3186944, 0.78274393, -3.943257)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.516, 0.75, -2.442538)
 
 [node name="Marker3D4" type="Marker3D" parent="Probes" unique_id=1887168132]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2965405, 0.78274393, -3.943257)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5053718, 0.75, -2.4774175)
 
 [node name="Marker3D5" type="Marker3D" parent="Probes" unique_id=58382566]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1741152, 0.78274393, 2.7248347)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1665134, 0.75, 2.8045301)
 
 [node name="Marker3D6" type="Marker3D" parent="Probes" unique_id=1509272212]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1150413, 0.78274393, 2.7248347)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1346278, 0.75, 2.9812574)
 
 [editable path="Model/ship-small2"]

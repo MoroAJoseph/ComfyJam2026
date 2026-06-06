@@ -15,10 +15,11 @@ enum Type { NONE, ROW_SMALL, SHIP_SMALL }
 @export var hull_drag: float = 0.5
 @export var angular_drag: float = 2.0
 
-
 @export_category("Logistics")
 @export var inventory_capacity: int = 100
-
+@export var max_zoom: int = 12
+@export var min_zoom: int = 6
+@export var zoom_step: int = 2
 
 func _init(
 	p_type: Type,
@@ -28,7 +29,10 @@ func _init(
 	p_collision_damping: float,
 	p_hull_drag: float, 
 	p_angular_drag: float, 
-	p_inventory_capacity: int
+	p_inventory_capacity: int,
+	p_max_zoom: int,
+	p_min_zoom: int,
+	p_zoom_step: int,
 ) -> void:
 	type = p_type
 	display_name = Type.keys()[p_type].capitalize()
@@ -39,3 +43,6 @@ func _init(
 	hull_drag = p_hull_drag
 	angular_drag = p_angular_drag
 	inventory_capacity = p_inventory_capacity
+	max_zoom = p_max_zoom
+	min_zoom = p_min_zoom
+	zoom_step = p_zoom_step

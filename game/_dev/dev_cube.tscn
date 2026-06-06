@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cgywb4adqqwbp"]
+
+[ext_resource type="Script" uid="uid://dk8un4pvya8ww" path="res://core/base_classes/buoyant_rigid_body.gd" id="1_wvpod"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u0yae"]
+albedo_color = Color(0.31061712, 0.31061712, 0.3106171, 1)
+emission_enabled = true
+emission = Color(0.20392157, 0.56078434, 0.45490196, 1)
+emission_energy_multiplier = 0.1
+
+[sub_resource type="BoxMesh" id="BoxMesh_17sds"]
+material = SubResource("StandardMaterial3D_u0yae")
+size = Vector3(3, 3, 3)
+
+[node name="DevCube" type="RigidBody3D" unique_id=930508928]
+script = ExtResource("1_wvpod")
+metadata/_custom_type_script = "uid://dk8un4pvya8ww"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=189647119]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1357195393]
+mesh = SubResource("BoxMesh_17sds")
+
+[node name="Probes" type="Node3D" parent="." unique_id=144239150]
+
+[node name="Marker3D" type="Marker3D" parent="Probes" unique_id=1177631164]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4226289, 0, 1.4314109)
+
+[node name="Marker3D2" type="Marker3D" parent="Probes" unique_id=628159414]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4226294, 0, 1.4226294)
+
+[node name="Marker3D3" type="Marker3D" parent="Probes" unique_id=387858625]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.457756, 0, -1.4401927)
+
+[node name="Marker3D4" type="Marker3D" parent="Probes" unique_id=1031477407]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3962846, 0, -1.4138477)

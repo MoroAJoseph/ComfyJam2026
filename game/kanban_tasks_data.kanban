@@ -113,7 +113,7 @@
 				},
 				{
 					"details": "Save Controller",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Loads Title",
@@ -133,11 +133,11 @@
 			"steps": [
 				{
 					"details": "Loads Main Menu",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Placeholder Done",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Final Done",
@@ -153,7 +153,7 @@
 			"steps": [
 				{
 					"details": "Sky Started",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Sea Started",
