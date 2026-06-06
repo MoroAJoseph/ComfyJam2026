@@ -13,7 +13,8 @@ team.
 3. [III. The Workflow: Branching & Merging](#iii-the-workflow-branching--merging)
 4. [IV. File Management & Rules](#iv-file-management--rules)
 5. [V. Learning Resources](#v-learning-resources)
-6. [VI. Best Practices & Team Etiquette](#vI-best-practices--team-etiquette)
+6. [VI. Best Practices & Team Etiquette](#vi-best-practices--team-etiquette)
+7. [VII. Try It Yourself!](#vii-try-it-yourself!)
 
 ## Repository Structure
 
@@ -222,7 +223,7 @@ guidelines:
 
 > **Note**: Replace [your_name] with your actual name
 
-## A. Clone
+## Clone
 
 ```bash
 # Clone the repository to your machine
@@ -236,7 +237,7 @@ git lfs install
 git lfs pull
 ```
 
-## B. Sync
+## Sync
 
 ```bash
 # Move to the development branch

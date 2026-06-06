@@ -1,0 +1,284 @@
+{
+	"categories": [
+		{
+			"uuid": "1aa84a54-334c-4584-87d9-5a4b08b817c9",
+			"title": "Core",
+			"color": "ff5656"
+		},
+		{
+			"uuid": "3e4b949a-8082-45ad-b3fe-9adf15a4a8f9",
+			"title": "Narrative",
+			"color": "d4cc0b"
+		},
+		{
+			"uuid": "8f8d0445-3312-4b7f-af3f-4f1d9b4955d4",
+			"title": "Data",
+			"color": "9612f1"
+		},
+		{
+			"uuid": "9e8f6cea-7814-47af-83c4-8d4a7c57c518",
+			"title": "UI",
+			"color": "18cdeb"
+		}
+	],
+	"stages": [
+		{
+			"uuid": "e241013f-ced6-49f2-896f-3570af276dc2",
+			"title": "Todo",
+			"tasks": [
+				"f0bf7ef1-32b1-4b60-aa87-6689078f3827",
+				"d018bb34-92c9-4d91-b77b-53244ba6d252",
+				"5ef1769a-1806-4b0b-a8a6-3b57ba233d97",
+				"d9997f9a-7367-4eaf-a498-0670580ad6af",
+				"e8864102-2f4a-4c55-a85a-16dd653360cc",
+				"47a24367-ff50-4c4a-8736-f6fc959cacf2",
+				"811fec7d-8d1c-4b1b-a2ef-81f4f60036ea",
+				"f4c7bb8f-aa4a-4228-9555-02c9a195997a",
+				"846beab7-5acb-4224-9b10-6f8fefaf57ad"
+			]
+		},
+		{
+			"uuid": "b78ec902-6d8e-4d80-aa7a-8155231fe7ff",
+			"title": "Doing",
+			"tasks": [
+				"cb691bcb-9f29-406a-96e0-4e0aaa594c3b",
+				"2b24f466-8534-438e-aa99-a4248286be2f",
+				"1070a9c2-6b89-45ce-8b90-91c77e4797df",
+				"c94a0218-2018-48ef-b1ef-4425a4c6a6c1",
+				"2566e763-2ced-4a22-b1c0-f562bbabbf0c"
+			]
+		},
+		{
+			"uuid": "e21995a1-4d07-4d5d-bee9-2cf857f0c99e",
+			"title": "Done",
+			"tasks": []
+		}
+	],
+	"tasks": [
+		{
+			"uuid": "cb691bcb-9f29-406a-96e0-4e0aaa594c3b",
+			"title": "Main",
+			"description": "",
+			"category": "1aa84a54-334c-4584-87d9-5a4b08b817c9",
+			"steps": [
+				{
+					"details": "Boot State",
+					"done": true
+				},
+				{
+					"details": "Game State",
+					"done": true
+				},
+				{
+					"details": "Scene Controller",
+					"done": true
+				},
+				{
+					"details": "Loads Bootsplash",
+					"done": true
+				},
+				{
+					"details": "Loads Game",
+					"done": true
+				}
+			]
+		},
+		{
+			"uuid": "1070a9c2-6b89-45ce-8b90-91c77e4797df",
+			"title": "Game",
+			"description": "",
+			"category": "1aa84a54-334c-4584-87d9-5a4b08b817c9",
+			"steps": [
+				{
+					"details": "Load State",
+					"done": true
+				},
+				{
+					"details": "World State",
+					"done": true
+				},
+				{
+					"details": "Title State",
+					"done": true
+				},
+				{
+					"details": "UI Controller",
+					"done": true
+				},
+				{
+					"details": "Scene Controller",
+					"done": true
+				},
+				{
+					"details": "Save Controller",
+					"done": false
+				},
+				{
+					"details": "Loads Title",
+					"done": true
+				},
+				{
+					"details": "Loads World",
+					"done": true
+				}
+			]
+		},
+		{
+			"uuid": "c94a0218-2018-48ef-b1ef-4425a4c6a6c1",
+			"title": "Title",
+			"description": "",
+			"category": "1aa84a54-334c-4584-87d9-5a4b08b817c9",
+			"steps": [
+				{
+					"details": "Loads Main Menu",
+					"done": false
+				},
+				{
+					"details": "Placeholder Done",
+					"done": false
+				},
+				{
+					"details": "Final Done",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "d018bb34-92c9-4d91-b77b-53244ba6d252",
+			"title": "World - Environment",
+			"description": "",
+			"category": "1aa84a54-334c-4584-87d9-5a4b08b817c9",
+			"steps": [
+				{
+					"details": "Sky Started",
+					"done": false
+				},
+				{
+					"details": "Sea Started",
+					"done": false
+				},
+				{
+					"details": "Land Started",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "2b24f466-8534-438e-aa99-a4248286be2f",
+			"title": "Bootsplash",
+			"description": "",
+			"category": "1aa84a54-334c-4584-87d9-5a4b08b817c9",
+			"steps": [
+				{
+					"details": "Placeholder Done",
+					"done": true
+				},
+				{
+					"details": "Transitions when done",
+					"done": true
+				},
+				{
+					"details": "Final Done",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "2566e763-2ced-4a22-b1c0-f562bbabbf0c",
+			"title": "Main Menu",
+			"description": "",
+			"category": "9e8f6cea-7814-47af-83c4-8d4a7c57c518",
+			"steps": [
+				{
+					"details": "Wireframe Done",
+					"done": true
+				},
+				{
+					"details": "New Game Works",
+					"done": false
+				},
+				{
+					"details": "Play Works",
+					"done": false
+				},
+				{
+					"details": "Settings Works",
+					"done": false
+				},
+				{
+					"details": "Exit Works",
+					"done": true
+				}
+			]
+		},
+		{
+			"uuid": "d9997f9a-7367-4eaf-a498-0670580ad6af",
+			"title": "Pause Menu",
+			"description": "",
+			"category": "9e8f6cea-7814-47af-83c4-8d4a7c57c518",
+			"steps": []
+		},
+		{
+			"uuid": "e8864102-2f4a-4c55-a85a-16dd653360cc",
+			"title": "HUD",
+			"description": "",
+			"category": "9e8f6cea-7814-47af-83c4-8d4a7c57c518",
+			"steps": []
+		},
+		{
+			"uuid": "47a24367-ff50-4c4a-8736-f6fc959cacf2",
+			"title": "Dock Menu",
+			"description": "",
+			"category": "9e8f6cea-7814-47af-83c4-8d4a7c57c518",
+			"steps": []
+		},
+		{
+			"uuid": "811fec7d-8d1c-4b1b-a2ef-81f4f60036ea",
+			"title": "Dialogue Popups",
+			"description": "",
+			"category": "9e8f6cea-7814-47af-83c4-8d4a7c57c518",
+			"steps": []
+		},
+		{
+			"uuid": "f0bf7ef1-32b1-4b60-aa87-6689078f3827",
+			"title": "Tutorial",
+			"description": "",
+			"category": "1aa84a54-334c-4584-87d9-5a4b08b817c9",
+			"steps": []
+		},
+		{
+			"uuid": "f4c7bb8f-aa4a-4228-9555-02c9a195997a",
+			"title": "Boat NPCs",
+			"description": "",
+			"category": "3e4b949a-8082-45ad-b3fe-9adf15a4a8f9",
+			"steps": []
+		},
+		{
+			"uuid": "846beab7-5acb-4224-9b10-6f8fefaf57ad",
+			"title": "Treasure Maps",
+			"description": "",
+			"category": "3e4b949a-8082-45ad-b3fe-9adf15a4a8f9",
+			"steps": []
+		},
+		{
+			"uuid": "5ef1769a-1806-4b0b-a8a6-3b57ba233d97",
+			"title": "Player",
+			"description": "",
+			"category": "1aa84a54-334c-4584-87d9-5a4b08b817c9",
+			"steps": []
+		}
+	],
+	"layout": {
+		"columns": [
+			[
+				"e241013f-ced6-49f2-896f-3570af276dc2"
+			],
+			[
+				"b78ec902-6d8e-4d80-aa7a-8155231fe7ff"
+			],
+			[
+				"e21995a1-4d07-4d5d-bee9-2cf857f0c99e"
+			]
+		]
+	}
+}
