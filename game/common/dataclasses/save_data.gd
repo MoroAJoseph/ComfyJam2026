@@ -1,6 +1,7 @@
 class_name SaveData
 extends Resource
 
+<<<<<<< HEAD
 @export_category("Progression")
 @export var current_equipped_boat: BoatData.Type
 
@@ -30,3 +31,12 @@ func collect() -> void:
 	var world: = Context.world
 	world_time = world.time
 	world_sea_time = world.sea_time
+=======
+@export var gold: int = 0
+
+func update() -> void:
+	gold = Context.player.gold
+
+func apply() -> void:
+	Context.player.gold = gold
+>>>>>>> origin/development

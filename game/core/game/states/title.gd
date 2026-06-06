@@ -36,19 +36,22 @@ func exit() -> void:
 
 func _subscribe_events() -> void:
 	EventBus.subscribe(UIEvent.MainMenu, _handle_ui_main_menu)
+	EventBus.subscribe(UIEvent.SettingsMenu, _handle_ui_settings_menu)
 	
 func _unsubscribe_events() -> void:
 	EventBus.unsubscribe(UIEvent.MainMenu, _handle_ui_main_menu)
+	EventBus.unsubscribe(UIEvent.SettingsMenu, _handle_ui_settings_menu)
 
 # ===
 # Private
 # ===
 
-func _transition_to_world() -> void:
+func _transition_to_world(is_new_game: bool) -> void:
 	_transition_to(
 		StateName.LOAD, 
 		GameLoadStateData.new(
 			StateName.WORLD, 
+			is_new_game
 		)
 	)
 
@@ -60,10 +63,20 @@ func _transition_to_world() -> void:
 func _handle_ui_main_menu(event: UIEvent.MainMenu) -> void:
 	match event.action:
 		UIEvent.MainMenuAction.NEW:
-			_transition_to_world()
+			_transition_to_world(true)
 		
 		UIEvent.MainMenuAction.PLAY:
-			_transition_to_world()
+			_transition_to_world(false)
+		
+		UIEvent.MainMenuAction.SETTINGS:
+			EventBus.emit(UIEvent.ToggleMenu.new(UIContext.MenuOption.MAIN, false))
+			EventBus.emit(UIEvent.ToggleMenu.new(UIContext.MenuOption.SETTINGS, true))
 		
 		UIEvent.MainMenuAction.EXIT:
 			get_tree().quit()
+
+func _handle_ui_settings_menu(event: UIEvent.SettingsMenu) -> void:
+	match event.action:
+		UIEvent.SettingsMenuAction.BACK:
+			EventBus.emit(UIEvent.ToggleMenu.new(UIContext.MenuOption.SETTINGS, false))
+			EventBus.emit(UIEvent.ToggleMenu.new(UIContext.MenuOption.MAIN, true))
