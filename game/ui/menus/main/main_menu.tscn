@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://cgktoxp5sc2gd"]
+
+[ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_86e05"]
+[ext_resource type="Script" uid="uid://citn8qxjvqslo" path="res://ui/menus/main/main_menu.gd" id="2_xfwjj"]
+
+[node name="MainMenu" type="Control" unique_id=286715484]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_86e05")
+script = ExtResource("2_xfwjj")
+
+[node name="SafeArea" type="MarginContainer" parent="." unique_id=1618002687]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="SafeContent" type="Control" parent="SafeArea" unique_id=623651564]
+layout_mode = 2
+
+[node name="PrimaryCTA" type="HBoxContainer" parent="SafeArea/SafeContent" unique_id=1314483932]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+offset_right = 516.0
+grow_vertical = 0
+theme_override_constants/separation = 24
+
+[node name="Play" type="Button" parent="SafeArea/SafeContent/PrimaryCTA" unique_id=1533646207]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Play"
+
+[node name="NewGame" type="Button" parent="SafeArea/SafeContent/PrimaryCTA" unique_id=210260665]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "New Game"
+
+[node name="Exit" type="Button" parent="SafeArea/SafeContent" unique_id=1231832397]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Exit"
+
+[node name="Settings" type="Button" parent="SafeArea/SafeContent" unique_id=920850566]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 32)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -128.0
+offset_bottom = 32.0
+grow_horizontal = 0
+text = "Setings"
+
+[node name="Title" type="Label" parent="SafeArea/SafeContent" unique_id=337323665]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 116.0
+offset_right = 603.0
+offset_bottom = 199.0
+theme_override_colors/font_color = Color(0.9137255, 0.84313726, 0.6745098, 1)
+theme_override_font_sizes/font_size = 60
+text = "Beached Bounty"
+horizontal_alignment = 1
+vertical_alignment = 1
