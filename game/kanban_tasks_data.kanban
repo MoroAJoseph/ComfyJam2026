@@ -26,6 +26,7 @@
 			"uuid": "e241013f-ced6-49f2-896f-3570af276dc2",
 			"title": "Todo",
 			"tasks": [
+				"16b0618a-b0d3-4a7d-b77d-b76a1f22d7d0",
 				"f0bf7ef1-32b1-4b60-aa87-6689078f3827",
 				"d9997f9a-7367-4eaf-a498-0670580ad6af",
 				"e8864102-2f4a-4c55-a85a-16dd653360cc",
@@ -266,6 +267,13 @@
 			"title": "Player",
 			"description": "",
 			"category": "1aa84a54-334c-4584-87d9-5a4b08b817c9",
+			"steps": []
+		},
+		{
+			"uuid": "16b0618a-b0d3-4a7d-b77d-b76a1f22d7d0",
+			"title": "WRITE IDEAS HERE!!!",
+			"description": "Start of the ideas....\n\n--- Joe ---\n\nMaybe the boat can sink if you hit land too hard. \nMaybe you can run into coral reefs and deal damage to the boat. ",
+			"category": "3e4b949a-8082-45ad-b3fe-9adf15a4a8f9",
 			"steps": []
 		}
 	],
