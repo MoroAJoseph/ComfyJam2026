@@ -5,9 +5,15 @@ extends GameState
 # Built-In
 # ===
 
-func enter(_prev_state_path: String, _data: Object) -> void:
+func enter(_prev_state_path: String, data: Object) -> void:
 	print_debug("Game: Entered World")
 	_subscribe_events()
+	
+	if data is GameLoadStateData:
+		var save_controller: GameSaveController = _owner.find_child("Save")
+		var save_data := save_controller.load_data(data.is_new_game)
+		save_data.apply()
+		print_debug("Game: Loaded Gold: ", Context.player.gold)
 
 func exit() -> void:
 	get_tree().paused = false

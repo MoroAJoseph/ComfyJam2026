@@ -3,6 +3,7 @@ extends CanvasLayer
 
 @onready var main: Control = $MainMenu
 @onready var pause: Control = $PauseMenu
+@onready var settings: Control = $SettingsMenu
 
 var menu_map: Dictionary[UIContext.MenuOption, Control]
 var context: UIContext
@@ -15,7 +16,8 @@ func _ready() -> void:
 	context = Context.ui
 	menu_map = {
 		UIContext.MenuOption.MAIN: main,
-		UIContext.MenuOption.PAUSE: pause
+		UIContext.MenuOption.PAUSE: pause,
+		UIContext.MenuOption.SETTINGS: settings
 	}
 	
 	hide_all()
