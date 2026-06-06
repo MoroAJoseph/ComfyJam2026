@@ -40,6 +40,15 @@ menu_exit={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="Land"
+3d_physics/layer_2="Water"
+3d_physics/layer_3="Player"
+3d_physics/layer_4="Hover"
+3d_physics/layer_5="Item"
+3d_physics/layer_6="Treasure"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

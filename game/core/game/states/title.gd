@@ -23,7 +23,7 @@ func enter(prev_state_path: String, _data: Object) -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	EventBus.emit(
 		UIEvent.ToggleMenu.new(
-			Constants.UI.MenuOption.MAIN, 
+			UIContext.MenuOption.MAIN, 
 			true
 		)
 	)

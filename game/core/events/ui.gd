@@ -7,11 +7,11 @@ class HideAllMenus extends UIEvent: pass
 
 class ToggleMenu extends UIEvent:
 	
-	var option: Constants.UI.MenuOption
+	var option: UIContext.MenuOption
 	var is_visible: bool
 	
 	func _init(
-		p_option: Constants.UI.MenuOption, 
+		p_option: UIContext.MenuOption, 
 		p_is_visible: bool
 	):
 		option = p_option

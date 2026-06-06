@@ -4,7 +4,7 @@ extends CanvasLayer
 @onready var main: Control = $MainMenu
 @onready var pause: Control = $PauseMenu
 
-var menu_map: Dictionary[Constants.UI.MenuOption, Control]
+var menu_map: Dictionary[UIContext.MenuOption, Control]
 var context: UIContext
 
 # ===
@@ -14,8 +14,8 @@ var context: UIContext
 func _ready() -> void:
 	context = Context.ui
 	menu_map = {
-		Constants.UI.MenuOption.MAIN: main,
-		Constants.UI.MenuOption.PAUSE: pause
+		UIContext.MenuOption.MAIN: main,
+		UIContext.MenuOption.PAUSE: pause
 	}
 	
 	hide_all()
@@ -25,7 +25,7 @@ func _ready() -> void:
 # Public
 # ===
 
-func toggle(option: Constants.UI.MenuOption, is_open: bool) -> void:
+func toggle(option: UIContext.MenuOption, is_open: bool) -> void:
 	if menu_map.has(option):
 		var menu: Control = menu_map.get(option, null)
 		if not menu: return
@@ -53,8 +53,8 @@ func hide_all() -> void:
 # Private
 # ===
 
-func _get_open_menus() -> Array[Constants.UI.MenuOption]:
-	var open_options: Array[Constants.UI.MenuOption] = []
+func _get_open_menus() -> Array[UIContext.MenuOption]:
+	var open_options: Array[UIContext.MenuOption] = []
 	for option in menu_map:
 		var menu: Control = menu_map.get(option, null)
 		if not menu: continue

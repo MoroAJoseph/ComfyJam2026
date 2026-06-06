@@ -50,7 +50,7 @@ func _unsubscribe_events() -> void:
 func _emit_toggle_pause_menu(is_paused: bool) -> void:
 	EventBus.emit(
 		UIEvent.ToggleMenu.new(
-			Constants.UI.MenuOption.PAUSE, 
+			UIContext.MenuOption.PAUSE, 
 			is_paused
 		)
 	)
