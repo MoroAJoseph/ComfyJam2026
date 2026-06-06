@@ -21,7 +21,7 @@ extends Node3D
 @onready var boom = %Boom
 @onready var camera = %Camera
 
-var target: Node3D
+var player_context: PlayerContext
 var is_locked: bool = true
 var mouse_delta: Vector2 = Vector2.ZERO
 var mouse_input: Vector2
@@ -34,6 +34,7 @@ var move_direction: Vector2
 # ===
 
 func _ready() -> void:
+	player_context = Context.player
 	boom.spring_length = max_zoom
 	_update_mouse_mode()
 
@@ -58,10 +59,10 @@ func _input(event: InputEvent) -> void:
 		mouse_delta = event.relative
 
 func _process(delta: float) -> void:
-	if not target: return
+	if not player_context.instance: return
 	
 	# Follow target
-	global_position = target.global_position
+	global_position = player_context.instance.global_position
 	
 	# Input values
 	mouse_input = mouse_delta * mouse_sensitivity
@@ -115,7 +116,7 @@ func _process_zoom(delta: float) -> void:
 
 func _process_locked(delta: float) -> void:
 	# Horizontal rotation
-	var target_yaw: float = target.global_transform.basis.get_euler().y
+	var target_yaw: float = player_context.instance.global_transform.basis.get_euler().y
 	yaw_pivot.rotation.y = lerp_angle(
 		yaw_pivot.rotation.y, 
 		target_yaw, 

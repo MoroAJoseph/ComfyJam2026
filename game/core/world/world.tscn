@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dohjgb5cfs7sc" path="res://core/world/world.gd" id="1_wavff"]
 [ext_resource type="PackedScene" uid="uid://c5j6bp0rk2jpy" path="res://core/world/sea/sea.tscn" id="2_m07s3"]
+[ext_resource type="PackedScene" uid="uid://cj6mr5liuj6xn" path="res://core/player/camera/camera.tscn" id="3_xq38f"]
 
 [node name="World" type="Node3D" unique_id=485736105]
 script = ExtResource("1_wavff")
@@ -13,3 +14,16 @@ script = ExtResource("1_wavff")
 [node name="Sea" parent="." unique_id=1073607141 instance=ExtResource("2_m07s3")]
 tile_size = 256.0
 render_radius = 3
+
+[node name="Camera" parent="." unique_id=1706594822 instance=ExtResource("3_xq38f")]
+min_zoom = null
+max_zoom = null
+zoom_speed = null
+controller_zoom_lerp = null
+min_pitch = null
+max_pitch = null
+mouse_sensitivity = null
+invert_horizontal = null
+invert_vertical = null
+yaw_lerp = null
+pitch_lerp = null

@@ -19,6 +19,8 @@
 # 3D Assets
 *.fbx filter=lfs diff=lfs merge=lfs -text
 *.obj filter=lfs diff=lfs merge=lfs -text
+*.mtl filter=lfs diff=lfs merge=lfs -text
+*.glb filter=lfs diff=lfs merge=lfs -text
 
 # Audio
 *.wav filter=lfs diff=lfs merge=lfs -text

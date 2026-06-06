@@ -1,15 +1,9 @@
 class_name Player
-extends Node3D
+extends BuoyantRigidBody
 
-@export var data: PlayerData
 
-@onready var boat_controller: PlayerBoatController = %Boat
-@onready var item_collection_area: Area3D = %ItemCollectionArea
-@onready var camera: PlayerCameraController = %Camera
-
-var current_boat: Boat
-var hovered_block: BlockInstanceData
 var context: PlayerContext
+var progression_context: ProgressionContext
 
 # ===
 # Built-In
@@ -18,6 +12,8 @@ var context: PlayerContext
 func _ready() -> void:
 	context = Context.player
 	context.instance = self
+	progression_context = Context.progression
+	
 	_update_boat()
 
 func _physics_process(_delta: float) -> void:

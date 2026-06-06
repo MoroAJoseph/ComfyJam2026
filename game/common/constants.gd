@@ -24,4 +24,18 @@ class PhysicsLayer:
 	const TREASURE_MASK := 1 << 5
 
 class LUT:
-	pass
+
+	# --- Boats ---
+	static var BOAT_DATA: Dictionary[BoatData.Type, BoatData] = {
+		BoatData.Type.RAFT: BoatData.new(BoatData.Type.RAFT, 20.0, 8.0, 3.0, 0.2, 0.5, 2.0, 100)
+	}
+	
+	static func get_boat_data(type: BoatData.Type) -> BoatData:
+		return BOAT_DATA.get(type, null)
+	
+	static var BOAT_SCENE_PATH: Dictionary[BoatData.Type, String] = {
+		BoatData.Type.RAFT: "res://core/base_classes/buoyant/boat/boat.tscn"
+	}
+	
+	static func get_boat_scene_path(type: BoatData.Type) -> String:
+		return BOAT_SCENE_PATH.get(type, null)

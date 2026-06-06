@@ -1,12 +1,18 @@
 [gd_scene format=3 uid="uid://ehlsd4n8jwi8"]
 
-[ext_resource type="PackedScene" uid="uid://cj6mr5liuj6xn" path="res://core/player/camera/camera.tscn" id="1_bq184"]
 [ext_resource type="Script" uid="uid://row2xa2sa6xd" path="res://core/player/player.gd" id="1_h46vi"]
 
-[node name="Player" type="Node3D" unique_id=926195187]
+[node name="Player" type="RigidBody3D" unique_id=1396887373]
+collision_layer = 4
 script = ExtResource("1_h46vi")
+float_force = null
+water_drag = null
+water_angular_drag = null
+alignment_strength = null
+angular_damping = null
 
-[node name="Boat" type="Node3D" parent="." unique_id=2013864857]
-unique_name_in_owner = true
+[node name="Model" type="Node3D" parent="." unique_id=364676539]
 
-[node name="Camera" parent="." unique_id=1706594822 instance=ExtResource("1_bq184")]
+[node name="PhysicsCollider" type="CollisionShape3D" parent="." unique_id=588664246]
+
+[node name="Probes" type="Node3D" parent="." unique_id=288448195]
