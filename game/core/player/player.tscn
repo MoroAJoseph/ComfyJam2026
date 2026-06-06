@@ -11,8 +11,8 @@ water_angular_drag = null
 alignment_strength = null
 angular_damping = null
 
-[node name="Model" type="Node3D" parent="." unique_id=364676539]
-
 [node name="PhysicsCollider" type="CollisionShape3D" parent="." unique_id=588664246]
 
-[node name="Probes" type="Node3D" parent="." unique_id=288448195]
+[node name="Model" type="Node3D" parent="." unique_id=364676539]
+
+[node name="Probes" type="Node3D" parent="Model" unique_id=288448195]
