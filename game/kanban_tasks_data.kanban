@@ -29,7 +29,6 @@
 				"f0bf7ef1-32b1-4b60-aa87-6689078f3827",
 				"d018bb34-92c9-4d91-b77b-53244ba6d252",
 				"5ef1769a-1806-4b0b-a8a6-3b57ba233d97",
-				"2566e763-2ced-4a22-b1c0-f562bbabbf0c",
 				"d9997f9a-7367-4eaf-a498-0670580ad6af",
 				"e8864102-2f4a-4c55-a85a-16dd653360cc",
 				"47a24367-ff50-4c4a-8736-f6fc959cacf2",
@@ -45,7 +44,8 @@
 				"cb691bcb-9f29-406a-96e0-4e0aaa594c3b",
 				"2b24f466-8534-438e-aa99-a4248286be2f",
 				"1070a9c2-6b89-45ce-8b90-91c77e4797df",
-				"c94a0218-2018-48ef-b1ef-4425a4c6a6c1"
+				"c94a0218-2018-48ef-b1ef-4425a4c6a6c1",
+				"2566e763-2ced-4a22-b1c0-f562bbabbf0c"
 			]
 		},
 		{
@@ -188,7 +188,28 @@
 			"title": "Main Menu",
 			"description": "",
 			"category": "9e8f6cea-7814-47af-83c4-8d4a7c57c518",
-			"steps": []
+			"steps": [
+				{
+					"details": "Wireframe Done",
+					"done": true
+				},
+				{
+					"details": "New Game Works",
+					"done": false
+				},
+				{
+					"details": "Play Works",
+					"done": false
+				},
+				{
+					"details": "Settings Works",
+					"done": false
+				},
+				{
+					"details": "Exit Works",
+					"done": true
+				}
+			]
 		},
 		{
 			"uuid": "d9997f9a-7367-4eaf-a498-0670580ad6af",

@@ -27,9 +27,6 @@ func enter(prev_state_path: String, _data: Object) -> void:
 			true
 		)
 	)
-	
-	print_debug("TEMP: Leaving title in 1 second")
-	get_tree().create_timer(1.0).timeout.connect(func(): _transition_to_world())
 
 func exit() -> void:
 	EventBus.emit(
