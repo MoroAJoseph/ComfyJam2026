@@ -91,7 +91,8 @@ Before you start any work, always update and branch off from `development`:
 git checkout development
 
 # Pull the latest code AND latest LFS assets
-git pull origin development
+git fetch origin
+git merge origin/development
 git lfs pull
 
 # Creates a new branch off of the current (development) branch
@@ -123,7 +124,8 @@ _Once your task is finished and tested:_
 git checkout development
 
 # Pull the latest code AND latest LFS assets
-git pull origin development
+git fetch origin
+git merge origin/development
 git lfs pull
 
 # Merge your work into the current (development) branch
@@ -242,7 +244,8 @@ git lfs pull
 git checkout development
 
 # Fetch the latest changes
-git pull origin development
+git fetch origin
+git merge origin/development
 git lfs pull
 ```
 
