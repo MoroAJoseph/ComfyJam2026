@@ -13,12 +13,12 @@ func _ready() -> void:
 	progression_context = Context.progression
 	_update_gold_display()
 
-
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not progression_context: return
 	
 	if progression_context.gold != last_gold:
 		_update_gold_display()
+
 # ===
 # Private
 # ===

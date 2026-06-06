@@ -5,18 +5,18 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0lwvc"]
 render_priority = 0
 shader = ExtResource("1_bc4oq")
-shader_parameter/cpu_time = 5.385
+shader_parameter/cpu_time = -0.455
 shader_parameter/underwater_fog_color = Color(0, 0.45882353, 0.70980394, 1)
 shader_parameter/fade_start_depth = 0.5
 shader_parameter/max_depth = 10.0
 shader_parameter/water_level = 0.0
-shader_parameter/sea_height = 0.800000038
-shader_parameter/sea_choppy = 8.6450004106375
+shader_parameter/sea_height = 0.9650000458375
+shader_parameter/sea_choppy = 10.0
 shader_parameter/sea_speed = 1.5
 shader_parameter/sea_freq = 0.08
 shader_parameter/ITER_GEOMETRY = 3
 shader_parameter/ITER_FRAGMENT = 5
-shader_parameter/refraction_strength = 1.0
+shader_parameter/refraction_strength = 0.0
 shader_parameter/refraction_distance_fade = 5.0
 shader_parameter/normal_epsilon = 0.01
 shader_parameter/normal_smoothness_dist = 50.0
@@ -28,20 +28,20 @@ shader_parameter/metallic = 0.10000000475
 shader_parameter/specular = 0.5
 shader_parameter/caustics_scale = 2.0
 shader_parameter/caustics_speed = 0.1
-shader_parameter/caustics_intensity = 0.8
+shader_parameter/caustics_intensity = 0.60000000894072
 shader_parameter/caustics_depth_fade = 0.7
 shader_parameter/foam_color = Color(1, 1, 1, 1)
-shader_parameter/foam_depth_start = 0.8
+shader_parameter/foam_depth_start = 0.5499999877064
 shader_parameter/foam_depth_end = 0.0
-shader_parameter/foam_noise_scale = 2.0
+shader_parameter/foam_noise_scale = 0.2999999932944
 shader_parameter/foam_noise_speed = 1.0
 shader_parameter/foam_cutoff = 0.7
-shader_parameter/foam_crest_threshold = 0.7
-shader_parameter/foam_crest_amount = 2.0
+shader_parameter/foam_crest_threshold = 0.9499999787656
+shader_parameter/foam_crest_amount = 1.5000000223518
 shader_parameter/foam_edge_color = Color(0, 0, 0.05, 1)
 shader_parameter/foam_edge_offset = Vector2(0.02, 0.02)
-shader_parameter/voronoi_scale = 9.0
-shader_parameter/voronoi_strength = 0.8
+shader_parameter/voronoi_scale = 4.8790002317525
+shader_parameter/voronoi_strength = 0.75600003591
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_kja62"]
 material = SubResource("ShaderMaterial_0lwvc")
@@ -53,6 +53,7 @@ subdivide_depth = 255
 size = Vector3(500, 1, 500)
 
 [node name="SeaTile" type="MeshInstance3D" unique_id=667551588]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 mesh = SubResource("PlaneMesh_kja62")
 
 [node name="WaterCollider" type="StaticBody3D" parent="." unique_id=614510152]
@@ -62,6 +63,5 @@ transform = Transform3D(1, 0, 0, 0, 0.001, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_bc4oq")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=985477604]
-transform = Transform3D(0.93539464, 0.28316146, 0.2117933, -0.35360545, 0.7490487, 0.5602581, 0, -0.5989537, 0.80078363, 0, -3.1683035, 0)
-visible = false
+transform = Transform3D(0.99090606, -0.13335201, 0.01795952, -0.04933297, -0.23587248, 0.970531, -0.12518597, -0.96259123, -0.24030614, 0, -3.1683037, -5.9604645e-08)
 size = Vector3(10, 10, 10)

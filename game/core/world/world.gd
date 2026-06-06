@@ -15,7 +15,8 @@ func _ready() -> void:
 		GameEvent.WorldLoaded.new()
 	)
 	
-	Context.progression.equipped_boat_type = BoatData.Type.ROW_SMALL
+	# CRITICAL TEMPORARY
+	Context.progression.equipped_boat_type = BoatData.Type.SHIP_SMALL
 	
 	EventBus.emit(
 		WorldEvent.SpawnPlayer.new(

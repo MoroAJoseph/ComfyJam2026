@@ -1,7 +1,7 @@
 class_name BoatData
 extends Resource
 
-enum Type { NONE, ROW_SMALL }
+enum Type { NONE, ROW_SMALL, SHIP_SMALL }
 
 @export_category("Identity")
 @export var type: Type
@@ -14,6 +14,7 @@ enum Type { NONE, ROW_SMALL }
 @export var collision_damping: float = 0.2
 @export var hull_drag: float = 0.5
 @export var angular_drag: float = 2.0
+
 
 @export_category("Logistics")
 @export var inventory_capacity: int = 100

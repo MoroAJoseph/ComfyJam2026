@@ -26,9 +26,10 @@
 			"uuid": "e241013f-ced6-49f2-896f-3570af276dc2",
 			"title": "Todo",
 			"tasks": [
+				"16b0618a-b0d3-4a7d-b77d-b76a1f22d7d0",
 				"f0bf7ef1-32b1-4b60-aa87-6689078f3827",
-				"d018bb34-92c9-4d91-b77b-53244ba6d252",
-				"5ef1769a-1806-4b0b-a8a6-3b57ba233d97",
+				"d9997f9a-7367-4eaf-a498-0670580ad6af",
+				"e8864102-2f4a-4c55-a85a-16dd653360cc",
 				"47a24367-ff50-4c4a-8736-f6fc959cacf2",
 				"811fec7d-8d1c-4b1b-a2ef-81f4f60036ea",
 				"f4c7bb8f-aa4a-4228-9555-02c9a195997a",
@@ -39,7 +40,9 @@
 			"uuid": "b78ec902-6d8e-4d80-aa7a-8155231fe7ff",
 			"title": "Doing",
 			"tasks": [
-				"c94a0218-2018-48ef-b1ef-4425a4c6a6c1"
+				"c94a0218-2018-48ef-b1ef-4425a4c6a6c1",
+				"d018bb34-92c9-4d91-b77b-53244ba6d252",
+				"5ef1769a-1806-4b0b-a8a6-3b57ba233d97"
 			]
 		},
 		{
@@ -49,9 +52,7 @@
 				"cb691bcb-9f29-406a-96e0-4e0aaa594c3b",
 				"2b24f466-8534-438e-aa99-a4248286be2f",
 				"1070a9c2-6b89-45ce-8b90-91c77e4797df",
-				"2566e763-2ced-4a22-b1c0-f562bbabbf0c",
-				"d9997f9a-7367-4eaf-a498-0670580ad6af",
-				"e8864102-2f4a-4c55-a85a-16dd653360cc"
+				"2566e763-2ced-4a22-b1c0-f562bbabbf0c"
 			]
 		}
 	],
@@ -112,7 +113,7 @@
 				},
 				{
 					"details": "Save Controller",
-					"done": true
+					"done": false
 				},
 				{
 					"details": "Loads Title",
@@ -147,7 +148,7 @@
 		{
 			"uuid": "d018bb34-92c9-4d91-b77b-53244ba6d252",
 			"title": "World - Environment",
-			"description": "",
+			"description": "--- Sky ---\n\n- Day/Night cycle visuals\n- Stylized look\n\n--- Sea ---\n\n- Difficulty scale\n- Stylized Look\n\n--- Land ---\n\n- Difficulty scale\n- Low-poly pixel art",
 			"category": "1aa84a54-334c-4584-87d9-5a4b08b817c9",
 			"steps": [
 				{
@@ -156,7 +157,7 @@
 				},
 				{
 					"details": "Sea Started",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Land Started",
@@ -196,15 +197,15 @@
 				},
 				{
 					"details": "New Game Works",
-					"done": true
+					"done": false
 				},
 				{
 					"details": "Play Works",
-					"done": true
+					"done": false
 				},
 				{
 					"details": "Settings Works",
-					"done": true
+					"done": false
 				},
 				{
 					"details": "Exit Works",
@@ -243,7 +244,7 @@
 		{
 			"uuid": "f0bf7ef1-32b1-4b60-aa87-6689078f3827",
 			"title": "Tutorial",
-			"description": "",
+			"description": "Here we would list out what the tutorial needs.\n\n\n--- Minimum Requirements ---\n\n--- Additions (If we have time) ---\n",
 			"category": "1aa84a54-334c-4584-87d9-5a4b08b817c9",
 			"steps": []
 		},
@@ -266,6 +267,13 @@
 			"title": "Player",
 			"description": "",
 			"category": "1aa84a54-334c-4584-87d9-5a4b08b817c9",
+			"steps": []
+		},
+		{
+			"uuid": "16b0618a-b0d3-4a7d-b77d-b76a1f22d7d0",
+			"title": "WRITE IDEAS HERE!!!",
+			"description": "Start of the ideas....\n\n--- Joe ---\n\nMaybe the boat can sink if you hit land too hard. \nMaybe you can run into coral reefs and deal damage to the boat. \n\n",
+			"category": "3e4b949a-8082-45ad-b3fe-9adf15a4a8f9",
 			"steps": []
 		}
 	],

@@ -9,7 +9,8 @@ class Paths:
 	const PLAYER_SCENE := "res://core/player/player.tscn"
 	
 	static var BOAT_SCENE: Dictionary[BoatData.Type, String] = {
-		BoatData.Type.ROW_SMALL: "res://features/boats/row_boat_small/row_boat_small.tscn"
+		BoatData.Type.ROW_SMALL: "res://features/boats/row_boat_small/row_boat_small.tscn",
+		BoatData.Type.SHIP_SMALL: "res://features/boats/ship_small/ship_small.tscn",
 	}
 	
 	static func get_boat_scene(type: BoatData.Type) -> String:
@@ -37,7 +38,8 @@ class LUT:
 
 	# --- Boats ---
 	static var BOAT_DATA: Dictionary[BoatData.Type, BoatData] = {
-		BoatData.Type.ROW_SMALL: BoatData.new(BoatData.Type.ROW_SMALL, 20.0, 8.0, 3.0, 0.2, 0.5, 2.0, 100)
+		BoatData.Type.ROW_SMALL: BoatData.new(BoatData.Type.ROW_SMALL, 20.0, 8.0, 3.0, 0.2, 0.5, 2.0, 100),
+		BoatData.Type.SHIP_SMALL: BoatData.new(BoatData.Type.SHIP_SMALL, 20.0, 8.0, 3.0, 0.2, 0.5, 2.0, 100)
 	}
 	
 	static func get_boat_data(type: BoatData.Type) -> BoatData:

@@ -79,7 +79,7 @@ func _process(delta: float) -> void:
 	)
 	
 	# Zoom
-	_process_zoom(delta)
+	#_process_zoom(delta)
 	
 	# Camera mode
 	if is_locked:
