@@ -14,3 +14,12 @@ func _ready() -> void:
 	EventBus.emit(
 		GameEvent.WorldLoaded.new()
 	)
+	
+	Context.progression.equipped_boat_type = BoatData.Type.ROW_SMALL
+	
+	EventBus.emit(
+		WorldEvent.SpawnPlayer.new(
+			Vector3(0, 5, 0),
+			Vector3(0, 0, 0)
+		)
+	)

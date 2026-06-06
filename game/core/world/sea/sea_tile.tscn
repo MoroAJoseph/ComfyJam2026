@@ -5,7 +5,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0lwvc"]
 render_priority = 0
 shader = ExtResource("1_bc4oq")
-shader_parameter/cpu_time = 2.9
+shader_parameter/cpu_time = 5.385
 shader_parameter/underwater_fog_color = Color(0, 0.45882353, 0.70980394, 1)
 shader_parameter/fade_start_depth = 0.5
 shader_parameter/max_depth = 10.0
@@ -60,3 +60,8 @@ mesh = SubResource("PlaneMesh_kja62")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WaterCollider" unique_id=1207548653]
 transform = Transform3D(1, 0, 0, 0, 0.001, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_bc4oq")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=985477604]
+transform = Transform3D(0.93539464, 0.28316146, 0.2117933, -0.35360545, 0.7490487, 0.5602581, 0, -0.5989537, 0.80078363, 0, -3.1683035, 0)
+visible = false
+size = Vector3(10, 10, 10)

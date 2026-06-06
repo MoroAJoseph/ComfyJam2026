@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://cifeddlvwoc2"]
 
 [ext_resource type="Script" uid="uid://un62ccv385vt" path="res://core/game/game.gd" id="1_23swt"]
-[ext_resource type="Script" uid="uid://cs1ttmr2r1dwk" path="res://common/components/state_machine.gd" id="2_slpoq"]
+[ext_resource type="Script" uid="uid://cs1ttmr2r1dwk" path="res://core/base_classes/state_machine.gd" id="2_slpoq"]
 [ext_resource type="Script" uid="uid://61sbbn0oc7g3" path="res://core/game/states/title.gd" id="3_00x87"]
 [ext_resource type="Script" uid="uid://cx7ngjq338g8p" path="res://core/game/controllers/save.gd" id="4_00x87"]
 [ext_resource type="Script" uid="uid://ckiyfddbpxl77" path="res://core/game/states/load.gd" id="4_xakte"]

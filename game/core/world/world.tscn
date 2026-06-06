@@ -1,11 +1,36 @@
 [gd_scene format=3 uid="uid://c6s7pmkfkaec8"]
 
 [ext_resource type="Script" uid="uid://dohjgb5cfs7sc" path="res://core/world/world.gd" id="1_wavff"]
+[ext_resource type="Script" uid="uid://dcdy6vacnysjr" path="res://core/world/controllers/time.gd" id="2_8k0jh"]
 [ext_resource type="PackedScene" uid="uid://c5j6bp0rk2jpy" path="res://core/world/sea/sea.tscn" id="2_m07s3"]
-[ext_resource type="PackedScene" uid="uid://cj6mr5liuj6xn" path="res://core/player/camera/camera.tscn" id="3_xq38f"]
+[ext_resource type="PackedScene" uid="uid://cj6mr5liuj6xn" path="res://core/world/camera/camera.tscn" id="3_xq38f"]
+[ext_resource type="Script" uid="uid://b8rh2lplntxx4" path="res://core/world/controllers/instances.gd" id="4_p6pjc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8k0jh"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_41qfr"]
+sky_material = SubResource("ProceduralSkyMaterial_8k0jh")
+
+[sub_resource type="Environment" id="Environment_1bvj8"]
+background_mode = 2
+sky = SubResource("Sky_41qfr")
+tonemap_mode = 2
+glow_enabled = true
 
 [node name="World" type="Node3D" unique_id=485736105]
 script = ExtResource("1_wavff")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1486828519]
+environment = SubResource("Environment_1bvj8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=838107718]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Time" type="Node" parent="." unique_id=99604108]
+script = ExtResource("2_8k0jh")
 
 [node name="Sky" type="Node3D" parent="." unique_id=769597152]
 
@@ -16,14 +41,15 @@ tile_size = 256.0
 render_radius = 3
 
 [node name="Camera" parent="." unique_id=1706594822 instance=ExtResource("3_xq38f")]
-min_zoom = null
-max_zoom = null
-zoom_speed = null
-controller_zoom_lerp = null
-min_pitch = null
-max_pitch = null
-mouse_sensitivity = null
-invert_horizontal = null
-invert_vertical = null
-yaw_lerp = null
-pitch_lerp = null
+
+[node name="Instances" type="Node" parent="." unique_id=366742061]
+script = ExtResource("4_p6pjc")
+
+[node name="Sailors" type="Node3D" parent="Instances" unique_id=1543641250]
+unique_name_in_owner = true
+
+[node name="Docks" type="Node3D" parent="Instances" unique_id=1075006442]
+unique_name_in_owner = true
+
+[node name="Treasure" type="Node3D" parent="Instances" unique_id=906023956]
+unique_name_in_owner = true

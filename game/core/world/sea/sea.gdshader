@@ -24,6 +24,7 @@ const mat2 octave_m = mat2(vec2(1.6, 1.2), vec2(-1.2, 1.6));
 // refraction settings
 uniform float refraction_strength : hint_range(0.0, 2.0, 0.01) = 1.0;
 uniform float refraction_distance_fade : hint_range(0.0, 100.0, 1.0) = 5.0;
+
 //for smoothness part
 uniform float normal_epsilon : hint_range(0.001, 1.0) = 0.01;
 uniform float normal_smoothness_dist : hint_range(0.0, 1000.0) = 50.0;

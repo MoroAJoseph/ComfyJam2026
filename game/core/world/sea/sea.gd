@@ -22,11 +22,16 @@ var ITER_GEOMETRY: int
 
 var octave_m = [Vector2(1.6, 1.2), Vector2(-1.2, 1.6)]
 
+var world_context: WorldContext
+
 # ===
 # Built-In
 # ===
 
 func _ready():
+	world_context = Context.world
+	world_context.sea_instance = self
+	
 	var template = tile_scene.instantiate()
 	shared_material = template.get_active_material(0).duplicate()
 	template.queue_free()
@@ -40,19 +45,17 @@ func _ready():
 
 func _process(delta):
 	cpu_time += delta
+	world_context.sea_time = cpu_time
 	shared_material.set_shader_parameter("cpu_time", cpu_time)
 	var player_context: PlayerContext = Context.player
 	
-	var player: Player = Context.player.instance
-	if player:
-		var player_position: Vector3 = player.global_position
-		var current_tile = Vector2i(
-			floor(player_position.x / tile_size), 
-			floor(player_position.z / tile_size)
-		)
-		if current_tile != last_player_tile:
-			last_player_tile = current_tile
-			_update_grid()
+	var current_tile = Vector2i(
+		floor(player_context.world_location.x / tile_size), 
+		floor(player_context.world_location.z / tile_size)
+	)
+	if current_tile != last_player_tile:
+		last_player_tile = current_tile
+		_update_grid()
 
 # ===
 # Public

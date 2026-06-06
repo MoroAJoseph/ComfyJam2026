@@ -21,7 +21,7 @@ extends Node3D
 @onready var boom = %Boom
 @onready var camera = %Camera
 
-var player_context: PlayerContext
+var follow_target: Node3D
 var is_locked: bool = true
 var mouse_delta: Vector2 = Vector2.ZERO
 var mouse_input: Vector2
@@ -34,9 +34,9 @@ var move_direction: Vector2
 # ===
 
 func _ready() -> void:
-	player_context = Context.player
 	boom.spring_length = max_zoom
 	_update_mouse_mode()
+	EventBus.subscribe(WorldEvent.PlayerSpawned, _handle_world_player_spawned)
 
 func _input(event: InputEvent) -> void:
 	# Scroll Wheel (Zoom)
@@ -47,10 +47,9 @@ func _input(event: InputEvent) -> void:
 			boom.spring_length = clamp(boom.spring_length + zoom_speed, min_zoom, max_zoom)
 	
 	# Camera Mode
-	if event.is_action_pressed("camera_mode_toggle"):
+	if event.is_action_pressed("camera_mode"):
 		is_locked = !is_locked
 		_update_mouse_mode()
-	
 	
 	if (
 		not is_locked and 
@@ -59,10 +58,10 @@ func _input(event: InputEvent) -> void:
 		mouse_delta = event.relative
 
 func _process(delta: float) -> void:
-	if not player_context.instance: return
+	if not follow_target: return
 	
 	# Follow target
-	global_position = player_context.instance.global_position
+	global_position = follow_target.global_position
 	
 	# Input values
 	mouse_input = mouse_delta * mouse_sensitivity
@@ -71,7 +70,7 @@ func _process(delta: float) -> void:
 		"camera_up", "camera_down"
 	)
 	mouse_input += controller_input * delta * 2.0 
-	trigger_value = Input.get_action_strength("camera_zoom")
+	#trigger_value = Input.get_action_strength("camera_zoom")
 	
 	# Move direction
 	move_direction = Vector2(
@@ -116,7 +115,7 @@ func _process_zoom(delta: float) -> void:
 
 func _process_locked(delta: float) -> void:
 	# Horizontal rotation
-	var target_yaw: float = player_context.instance.global_transform.basis.get_euler().y
+	var target_yaw: float = follow_target.global_transform.basis.get_euler().y
 	yaw_pivot.rotation.y = lerp_angle(
 		yaw_pivot.rotation.y, 
 		target_yaw, 
@@ -138,3 +137,10 @@ func _process_unlocked(_delta: float) -> void:
 	# Clamp and reset
 	pitch_pivot.rotation.x = clamp(pitch_pivot.rotation.x, deg_to_rad(min_pitch), deg_to_rad(max_pitch))
 	mouse_delta = Vector2.ZERO
+
+# ===
+# Event Handlers
+# ===
+
+func _handle_world_player_spawned(_event: WorldEvent.PlayerSpawned) -> void:
+	follow_target = Context.player.boat_instance
