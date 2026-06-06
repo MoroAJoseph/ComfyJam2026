@@ -42,6 +42,8 @@ menu_exit={
 
 [layer_names]
 
+3d_render/layer_1="Land"
+3d_render/layer_2="Minimap"
 3d_physics/layer_1="Land"
 3d_physics/layer_2="Water"
 3d_physics/layer_3="Player"
