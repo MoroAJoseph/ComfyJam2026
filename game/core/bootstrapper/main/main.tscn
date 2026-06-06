@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://d23ynsioags2n"]
+
+[ext_resource type="Script" uid="uid://cs1ttmr2r1dwk" path="res://common/components/state_machine.gd" id="1_kcv8s"]
+[ext_resource type="Script" uid="uid://wl3mg1lctb0x" path="res://core/bootstrapper/main/states/boot.gd" id="2_x7llf"]
+[ext_resource type="Script" uid="uid://crs676f4sgpub" path="res://core/bootstrapper/main/states/game.gd" id="3_kcv8s"]
+[ext_resource type="Script" uid="uid://s3t27vfih71q" path="res://core/bootstrapper/main/scene_controller.gd" id="4_1p5nj"]
+[ext_resource type="PackedScene" uid="uid://c8dn4b45dmwcv" path="res://core/bootstrapper/bootsplash/bootsplash.tscn" id="5_x7llf"]
+[ext_resource type="PackedScene" uid="uid://cifeddlvwoc2" path="res://core/game/game.tscn" id="6_tmimk"]
+
+[node name="Main" type="Node" unique_id=1389571454]
+
+[node name="StateMachine" type="Node" parent="." unique_id=1167557801 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("1_kcv8s")
+initial_state = NodePath("Boot")
+metadata/_custom_type_script = "uid://cs1ttmr2r1dwk"
+
+[node name="Boot" type="Node" parent="StateMachine" unique_id=384860151]
+script = ExtResource("2_x7llf")
+metadata/_custom_type_script = "uid://cweejierybnvm"
+
+[node name="Game" type="Node" parent="StateMachine" unique_id=38976318]
+script = ExtResource("3_kcv8s")
+metadata/_custom_type_script = "uid://cweejierybnvm"
+
+[node name="Scene" type="Node" parent="." unique_id=1625455196]
+script = ExtResource("4_1p5nj")
+bootsplash_scene = ExtResource("5_x7llf")
+game_scene = ExtResource("6_tmimk")

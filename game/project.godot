@@ -14,6 +14,19 @@ config/name="BeachedBounty"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Context="*uid://bl316tibj2tck"
+EventBus="*uid://dm4eknlbg7dpt"
+
+[file_customization]
+
+folder_colors={
+"res://common/": "green",
+"res://core/": "red",
+"res://ui/": "blue"
+}
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
