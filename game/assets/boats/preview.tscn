@@ -18,32 +18,42 @@ spacing = 10.0
 rotate_selected = true
 rotation_speed = 1.0
 
-[node name="boat-row-large2" parent="." unique_id=1109557412 instance=ExtResource("2_bp3fo")]
-transform = Transform3D(0.99999934, 0, 0, 0, 1, 0, 0, 0, 0.99999934, -10, 0, 0)
+[node name="boat-row-large" parent="." unique_id=1109557412 instance=ExtResource("2_bp3fo")]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, -80, 0, 0)
+metadata/_edit_lock_ = false
 
-[node name="boat-row-small2" parent="." unique_id=1274522937 instance=ExtResource("3_x1dfo")]
-transform = Transform3D(0.99999285, 0, 0, 0, 1, 0, 0, 0, 0.99999285, 0, 0, 0)
+[node name="boat-row-small" parent="." unique_id=1274522937 instance=ExtResource("3_x1dfo")]
+transform = Transform3D(0.9999928, 0, 0, 0, 1, 0, 0, 0, 0.9999928, -70, 0, 0)
+metadata/_edit_lock_ = false
 
-[node name="ship-ghost2" parent="." unique_id=1182012204 instance=ExtResource("4_g30mu")]
-transform = Transform3D(0.9999953, 0, 0, 0, 1, 0, 0, 0, 0.9999953, 10, 0, 0)
+[node name="ship-ghost" parent="." unique_id=1182012204 instance=ExtResource("4_g30mu")]
+transform = Transform3D(0.9999949, 0, 0, 0, 1, 0, 0, 0, 0.9999949, -60, 0, 0)
+metadata/_edit_lock_ = false
 
-[node name="ship-large2" parent="." unique_id=818388829 instance=ExtResource("5_nidjo")]
-transform = Transform3D(0.9999852, 0, 0, 0, 1, 0, 0, 0, 0.9999852, 20, 0, 0)
+[node name="ship-large" parent="." unique_id=818388829 instance=ExtResource("5_nidjo")]
+transform = Transform3D(0.9999849, 0, 0, 0, 1, 0, 0, 0, 0.9999849, -50, 0, 0)
+metadata/_edit_lock_ = false
 
-[node name="ship-medium2" parent="." unique_id=686347729 instance=ExtResource("6_7i07n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 0)
+[node name="ship-medium" parent="." unique_id=686347729 instance=ExtResource("6_7i07n")]
+transform = Transform3D(1.0000006, 0, 0, 0, 1, 0, 0, 0, 1.0000006, -40, 0, 0)
+metadata/_edit_lock_ = false
 
-[node name="ship-pirate-large2" parent="." unique_id=643937065 instance=ExtResource("7_wtm10")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 0)
+[node name="ship-pirate-large" parent="." unique_id=643937065 instance=ExtResource("7_wtm10")]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, -30, 0, 0)
+metadata/_edit_lock_ = false
 
-[node name="ship-pirate-medium2" parent="." unique_id=333138090 instance=ExtResource("8_opsgv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 0)
+[node name="ship-pirate-medium" parent="." unique_id=333138090 instance=ExtResource("8_opsgv")]
+transform = Transform3D(1.0000005, 0, 0, 0, 1, 0, 0, 0, 1.0000005, -20, 0, 0)
+metadata/_edit_lock_ = false
 
-[node name="ship-pirate-small2" parent="." unique_id=684517397 instance=ExtResource("9_rn4j3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, 0)
+[node name="ship-pirate-small" parent="." unique_id=684517397 instance=ExtResource("9_rn4j3")]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, -10, 0, 0)
+metadata/_edit_lock_ = false
 
-[node name="ship-small2" parent="." unique_id=132210864 instance=ExtResource("10_imaa0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 0, 0)
+[node name="ship-small" parent="." unique_id=132210864 instance=ExtResource("10_imaa0")]
+transform = Transform3D(-0.22233915, 0, 0.9749695, 0, 1, 0, -0.9749695, 0, -0.22233915, 0, 0, 0)
+metadata/_edit_lock_ = false
 
-[node name="ship-wreck2" parent="." unique_id=134983244 instance=ExtResource("11_mbxid")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 0, 0)
+[node name="ship-wreck" parent="." unique_id=134983244 instance=ExtResource("11_mbxid")]
+transform = Transform3D(1.0000005, 0, 0, 0, 1, 0, 0, 0, 1.0000005, 10, 0, 0)
+metadata/_edit_lock_ = false

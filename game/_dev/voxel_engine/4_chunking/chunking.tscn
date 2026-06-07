@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://dsdgipjyoma5r"]
+
+[ext_resource type="Script" uid="uid://bsl6mt1q2ybna" path="res://_dev/voxel_engine/4_chunking/chunking.gd" id="1_gwxy2"]
+[ext_resource type="PackedScene" uid="uid://bhf6v6wfa753e" path="res://_dev/voxel_engine/4_chunking/cube_chunk.tscn" id="2_r1n6n"]
+[ext_resource type="PackedScene" uid="uid://bw7sbr68j8mf0" path="res://_dev/voxel_engine/4_chunking/chunk_manager.tscn" id="3_cauul"]
+[ext_resource type="PackedScene" uid="uid://bcb3cxc0cg5ka" path="res://_dev/voxel_engine/4_chunking/hexagon_chunk.tscn" id="4_hc7ex"]
+[ext_resource type="PackedScene" uid="uid://bg7j8yrrswl8i" path="res://_dev/voxel_engine/player/player.tscn" id="5_hq22d"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lmo24"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_smb6e"]
+sky_material = SubResource("ProceduralSkyMaterial_lmo24")
+
+[sub_resource type="Environment" id="Environment_iumgc"]
+background_mode = 2
+sky = SubResource("Sky_smb6e")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Chunking" type="Node3D" unique_id=2142988044]
+script = ExtResource("1_gwxy2")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=787033545]
+environment = SubResource("Environment_iumgc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=696623824]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." unique_id=1091930200 instance=ExtResource("5_hq22d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3198645, 0, 1.1550817)
+
+[node name="ChunkManager" parent="." unique_id=1855755004 instance=ExtResource("3_cauul")]
+dimensions = Vector3(256, 16, 256)
+chunk_size = 32
+cube_chunk_scene = ExtResource("2_r1n6n")
+hexagon_chunk_scene = ExtResource("4_hc7ex")
