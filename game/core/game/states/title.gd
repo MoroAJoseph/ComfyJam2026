@@ -24,7 +24,7 @@ func enter(prev_state_path: String, _data: Object) -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	EventBus.emit(
 		UIEvent.ToggleMenu.new(
-			UIContext.MenuOption.MAIN, 
+			Enums.MenuOption.MAIN, 
 			true
 		)
 	)
@@ -63,21 +63,46 @@ func _transition_to_world(is_new_game: bool) -> void:
 # --- UI ---
 func _handle_ui_main_menu(event: UIEvent.MainMenu) -> void:
 	match event.action:
-		UIEvent.MainMenuAction.NEW:
+		Enums.MainMenuAction.NEW:
 			_transition_to_world(true)
 		
-		UIEvent.MainMenuAction.PLAY:
+		Enums.MainMenuAction.PLAY:
 			_transition_to_world(false)
 		
-		UIEvent.MainMenuAction.SETTINGS:
-			EventBus.emit(UIEvent.ToggleMenu.new(UIContext.MenuOption.MAIN, false))
-			EventBus.emit(UIEvent.ToggleMenu.new(UIContext.MenuOption.SETTINGS, true))
+		Enums.MainMenuAction.SETTINGS:
+			# Close Main
+			EventBus.emit(
+				UIEvent.ToggleMenu.new(
+					Enums.MenuOption.MAIN, 
+					false
+				)
+			)
+			# Open Settings
+			EventBus.emit(
+				UIEvent.ToggleMenu.new(
+					Enums.MenuOption.SETTINGS, 
+					true
+				)
+			)
 		
-		UIEvent.MainMenuAction.EXIT:
+		Enums.MainMenuAction.EXIT:
 			get_tree().quit()
 
 func _handle_ui_settings_menu(event: UIEvent.SettingsMenu) -> void:
 	match event.action:
-		UIEvent.SettingsMenuAction.BACK:
-			EventBus.emit(UIEvent.ToggleMenu.new(UIContext.MenuOption.SETTINGS, false))
-			EventBus.emit(UIEvent.ToggleMenu.new(UIContext.MenuOption.MAIN, true))
+		Enums.SettingsMenuAction.CLOSE:
+			# Close Settings
+			EventBus.emit(
+				UIEvent.ToggleMenu.new(
+					Enums.MenuOption.SETTINGS, 
+					false
+				)
+			)
+			
+			# Open Main
+			EventBus.emit(
+				UIEvent.ToggleMenu.new(
+					Enums.MenuOption.MAIN, 
+					true
+				)
+			)

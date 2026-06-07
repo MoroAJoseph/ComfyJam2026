@@ -18,3 +18,6 @@ class PausedUpdated extends GameEvent:
 		p_is_paused: bool
 	):
 		is_paused = p_is_paused
+
+# --- Save/Load ---
+class SaveDataUpdated extends GameEvent: pass

@@ -90,3 +90,8 @@ theme_override_font_sizes/font_size = 60
 text = "Beached Bounty"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="pressed" from="SafeArea/SafeContent/PrimaryCTA/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="SafeArea/SafeContent/PrimaryCTA/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="SafeArea/SafeContent/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="SafeArea/SafeContent/Settings" to="." method="_on_settings_pressed"]

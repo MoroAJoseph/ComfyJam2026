@@ -1,9 +1,9 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://u8moodad5ife"]
 
 [ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_86e05"]
-[ext_resource type="Script" path="res://ui/menus/settings/settings_menu.gd" id="2_xfwjj"]
+[ext_resource type="Script" uid="uid://bpbb5kjxu0j48" path="res://ui/menus/settings/settings_menu.gd" id="2_xfwjj"]
 
-[node name="SettingsMenu" type="Control"]
+[node name="SettingsMenu" type="Control" unique_id=560841151]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +13,7 @@ grow_vertical = 2
 theme = ExtResource("1_86e05")
 script = ExtResource("2_xfwjj")
 
-[node name="SafeArea" type="MarginContainer" parent="."]
+[node name="SafeArea" type="MarginContainer" parent="." unique_id=872697614]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,10 +25,10 @@ theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 48
 
-[node name="SafeContent" type="Control" parent="SafeArea"]
+[node name="SafeContent" type="Control" parent="SafeArea" unique_id=2085265475]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="SafeArea/SafeContent"]
+[node name="Title" type="Label" parent="SafeArea/SafeContent" unique_id=1353832377]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -43,7 +43,7 @@ text = "Settings"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SettingsList" type="VBoxContainer" parent="SafeArea/SafeContent"]
+[node name="SettingsList" type="VBoxContainer" parent="SafeArea/SafeContent" unique_id=1964261288]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -58,26 +58,26 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 
-[node name="VolumeLabel" type="Label" parent="SafeArea/SafeContent/SettingsList"]
+[node name="VolumeLabel" type="Label" parent="SafeArea/SafeContent/SettingsList" unique_id=1485316047]
 layout_mode = 2
 text = "Master Volume"
 
-[node name="VolumeSlider" type="HSlider" parent="SafeArea/SafeContent/SettingsList"]
+[node name="VolumeSlider" type="HSlider" parent="SafeArea/SafeContent/SettingsList" unique_id=1734581826]
 layout_mode = 2
 value = 75.0
 
-[node name="ResolutionLabel" type="Label" parent="SafeArea/SafeContent/SettingsList"]
+[node name="ResolutionLabel" type="Label" parent="SafeArea/SafeContent/SettingsList" unique_id=819252274]
 layout_mode = 2
 text = "Resolution"
 
-[node name="OptionButton" type="OptionButton" parent="SafeArea/SafeContent/SettingsList"]
+[node name="OptionButton" type="OptionButton" parent="SafeArea/SafeContent/SettingsList" unique_id=313997215]
 layout_mode = 2
-item_count = 1
 selected = 0
+item_count = 1
 popup/item_0/text = "1920x1080"
 popup/item_0/id = 0
 
-[node name="Back" type="Button" parent="SafeArea/SafeContent"]
+[node name="Back" type="Button" parent="SafeArea/SafeContent" unique_id=1931126490]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 64)
 layout_mode = 1
@@ -89,3 +89,5 @@ offset_right = 128.0
 grow_vertical = 0
 theme_override_font_sizes/font_size = 24
 text = "Back"
+
+[connection signal="pressed" from="SafeArea/SafeContent/Back" to="." method="_on_back_pressed"]

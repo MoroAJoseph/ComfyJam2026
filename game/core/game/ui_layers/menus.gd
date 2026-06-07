@@ -4,9 +4,9 @@ extends CanvasLayer
 @onready var main: Control = $MainMenu
 @onready var pause: Control = $PauseMenu
 @onready var settings: Control = $SettingsMenu
-@onready var upgrades: Control = $UpgradeMenu
+@onready var dock: Control = $DockMenu
 
-var menu_map: Dictionary[UIContext.MenuOption, Control]
+var menu_map: Dictionary[Enums.MenuOption, Control]
 var context: UIContext
 
 # ===
@@ -16,10 +16,10 @@ var context: UIContext
 func _ready() -> void:
 	context = Context.ui
 	menu_map = {
-		UIContext.MenuOption.MAIN: main,
-		UIContext.MenuOption.PAUSE: pause,
-		UIContext.MenuOption.SETTINGS: settings,
-		UIContext.MenuOption.UPGRADES: upgrades
+		Enums.MenuOption.MAIN: main,
+		Enums.MenuOption.PAUSE: pause,
+		Enums.MenuOption.SETTINGS: settings,
+		Enums.MenuOption.DOCK: dock
 	}
 	
 	hide_all()
@@ -29,7 +29,7 @@ func _ready() -> void:
 # Public
 # ===
 
-func toggle(option: UIContext.MenuOption, is_open: bool) -> void:
+func toggle(option: Enums.MenuOption, is_open: bool) -> void:
 	if menu_map.has(option):
 		var menu: Control = menu_map.get(option, null)
 		if not menu: return
@@ -57,8 +57,8 @@ func hide_all() -> void:
 # Private
 # ===
 
-func _get_open_menus() -> Array[UIContext.MenuOption]:
-	var open_options: Array[UIContext.MenuOption] = []
+func _get_open_menus() -> Array[Enums.MenuOption]:
+	var open_options: Array[Enums.MenuOption] = []
 	for option in menu_map:
 		var menu: Control = menu_map.get(option, null)
 		if not menu: continue
