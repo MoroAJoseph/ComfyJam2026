@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dc4v322p2sm6f"]
+
+[ext_resource type="Script" uid="uid://bsl6mt1q2ybna" path="res://_dev/voxel_engine/2_surface_culling/surface_culling.gd" id="1_u531q"]
+[ext_resource type="Script" uid="uid://ba3moxyk8cg86" path="res://_dev/voxel_engine/2_surface_culling/cube.gd" id="2_oxk2f"]
+[ext_resource type="Material" uid="uid://bw1wx223he31t" path="res://_dev/voxel_engine/mesh_material.tres" id="3_lmo24"]
+[ext_resource type="Script" uid="uid://ca6tqecvpnsqy" path="res://_dev/voxel_engine/2_surface_culling/hexagon.gd" id="3_u531q"]
+[ext_resource type="PackedScene" uid="uid://bg7j8yrrswl8i" path="res://_dev/voxel_engine/player/player.tscn" id="4_oxk2f"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lmo24"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_smb6e"]
+sky_material = SubResource("ProceduralSkyMaterial_lmo24")
+
+[sub_resource type="Environment" id="Environment_iumgc"]
+background_mode = 2
+sky = SubResource("Sky_smb6e")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="SurfaceCulling" type="Node3D" unique_id=2142988044]
+script = ExtResource("1_u531q")
+dimensions = Vector3(128, 16, 128)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=787033545]
+environment = SubResource("Environment_iumgc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=696623824]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Cube" type="MeshInstance3D" parent="." unique_id=880332008]
+script = ExtResource("2_oxk2f")
+material = ExtResource("3_lmo24")
+metadata/_custom_type_script = "uid://ba3moxyk8cg86"
+
+[node name="Hexagon" type="MeshInstance3D" parent="." unique_id=986986026]
+script = ExtResource("3_u531q")
+material = ExtResource("3_lmo24")
+metadata/_custom_type_script = "uid://ca6tqecvpnsqy"
+
+[node name="Player" parent="." unique_id=1091930200 instance=ExtResource("4_oxk2f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3198645, 0, 1.1550817)
