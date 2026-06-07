@@ -8,11 +8,13 @@ var player_context: PlayerContext
 func _ready() -> void:
 	progression_context = Context.progression
 	player_context = Context.player
+	
+	progression_context.equipped_boat_type_updated.connect(spawn_boat)
 	spawn_boat(progression_context.equipped_boat_type)
 
 func _process(_delta: float) -> void:
 	var turn = Input.get_axis("player_left", "player_right")
-	var move = Input.get_axis("player_forward", "player_backward")
+	var move = Input.get_axis("player_backward", "player_forward")
 	
 	if (
 		player_context and 

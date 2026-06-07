@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c541incn3kcaq" path="res://core/world/sky/sky.tscn" id="3_41qfr"]
 [ext_resource type="PackedScene" uid="uid://cj6mr5liuj6xn" path="res://core/world/camera/camera.tscn" id="3_xq38f"]
 [ext_resource type="Script" uid="uid://b8rh2lplntxx4" path="res://core/world/controllers/instances.gd" id="4_p6pjc"]
+[ext_resource type="PackedScene" uid="uid://df7w8m1n2u8x2" path="res://features/dock/dock.tscn" id="5_dock"]
 [ext_resource type="PackedScene" uid="uid://cgywb4adqqwbp" path="res://_dev/dev_cube.tscn" id="7_1bvj8"]
 
 [node name="World" type="Node3D" unique_id=485736105]
@@ -32,6 +33,9 @@ unique_name_in_owner = true
 
 [node name="Docks" type="Node3D" parent="Instances" unique_id=1075006442]
 unique_name_in_owner = true
+
+[node name="Dock" parent="Instances/Docks" instance=ExtResource("5_dock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0)
 
 [node name="Treasure" type="Node3D" parent="Instances" unique_id=906023956]
 unique_name_in_owner = true

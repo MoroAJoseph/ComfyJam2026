@@ -66,6 +66,10 @@ func _input(event: InputEvent) -> void:
 		mouse_delta = event.relative
 
 func _process(delta: float) -> void:
+	# Ensure follow target is current
+	if Context.player.boat_instance != follow_target:
+		follow_target = Context.player.boat_instance
+
 	if not follow_target: return
 	
 	# Follow target
@@ -104,7 +108,7 @@ func _process(delta: float) -> void:
 
 func _update_zoom_values_from_boat(boat_type: BoatData.Type) -> void:
 	var boat_data: BoatData = Constants.LUT.get_boat_data(boat_type)
-	min_zoom = boat_data.max_zoom
+	max_zoom = boat_data.max_zoom
 	min_zoom = boat_data.min_zoom
 	zoom_step = boat_data.zoom_step
 	boom.spring_length = max_zoom
