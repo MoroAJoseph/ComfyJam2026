@@ -1,4 +1,4 @@
-class_name VoxelEngineChunkingCubeChunk
+class_name VoxelEngineContexualCubeChunk
 extends StaticBody3D
 
 enum Face { FRONT, BACK, LEFT, RIGHT, TOP, BOTTOM }
@@ -16,14 +16,14 @@ var prepared_colors: PackedColorArray
 var body_rid: RID
 var shape_rid: RID
 
-var cube_vertices: Array[Vector3] = [
+static var cube_vertices: Array[Vector3] = [
 	Vector3(-0.5, -0.5, 0.5), Vector3(0.5, -0.5, 0.5),
 	Vector3(0.5, -0.5, -0.5), Vector3(-0.5, -0.5, -0.5),
 	Vector3(-0.5, 0.5, 0.5), Vector3(0.5, 0.5, 0.5),
 	Vector3(0.5, 0.5, -0.5), Vector3(-0.5, 0.5, -0.5)
 ]
 
-var face_indices: Dictionary[Face, Array] = {
+static var face_indices: Dictionary[Face, Array] = {
 	Face.FRONT: [[0, 4, 5], [0, 5, 1]],
 	Face.BACK: [[2, 7, 3], [2, 6, 7]],
 	Face.LEFT: [[3, 7, 4], [3, 4, 0]],
@@ -32,13 +32,13 @@ var face_indices: Dictionary[Face, Array] = {
 	Face.BOTTOM: [[4, 7, 6], [4, 6, 5]]
 }
 
-var face_normals: Dictionary[Face, Vector3] = {
+static var face_normals: Dictionary[Face, Vector3] = {
 	Face.FRONT: Vector3(0, 0, 1), Face.BACK: Vector3(0, 0, -1),
 	Face.LEFT: Vector3(-1, 0, 0), Face.RIGHT: Vector3(1, 0, 0),
 	Face.TOP: Vector3(0, -1, 0), Face.BOTTOM: Vector3(0, 1, 0)
 }
 
-var debug_colors: Dictionary[Face, Color] = {
+static var debug_colors: Dictionary[Face, Color] = {
 	Face.FRONT: Color.ORANGE, Face.BACK: Color.PURPLE,
 	Face.LEFT: Color.BLUE, Face.RIGHT: Color.YELLOW,
 	Face.TOP: Color.GREEN, Face.BOTTOM: Color.RED
@@ -120,17 +120,21 @@ func check_and_add_face(x, y, z, norm, face, coords, registry, size, color):
 	if nx >= 0 and nx < size and ny >= 0 and ny < size and nz >= 0 and nz < size:
 		is_shown = voxels[get_idx(nx, ny, nz, size)] == 0
 	else:
-		# Cross-chunk lookup
 		var n_coords = coords + Vector3i(norm)
 		if registry.has(n_coords):
 			var neighbor_voxels = registry[n_coords]
-			# Safety check: ensure the neighbor data is fully initialized
+			# Safety: Ensure neighbor exists AND is the correct size
 			if neighbor_voxels != null and neighbor_voxels.size() == (size * size * size):
-				is_shown = neighbor_voxels[get_idx(posmod(nx, size), posmod(ny, size), posmod(nz, size), size)] == 0
+				var n_idx = get_idx(posmod(nx, size), posmod(ny, size), posmod(nz, size), size)
+				# CRITICAL: Add explicit bounds check
+				if n_idx >= 0 and n_idx < neighbor_voxels.size():
+					is_shown = neighbor_voxels[n_idx] == 0
+				else:
+					is_shown = true 
 			else:
-				is_shown = true # Assume empty if data is missing/incomplete
+				is_shown = true 
 		else:
-			is_shown = true # Neighbor chunk not loaded, treat as empty
+			is_shown = true 
 			
 	if is_shown: add_face_to_prepared(face, Vector3(x, y, z), color)
 
@@ -166,11 +170,14 @@ func apply_prepared_mesh() -> void:
 		mesh_instance.set_surface_override_material(0, material)
 
 # CRITICAL: MAIN THREAD ONLY
-func apply_collision() -> void:
+func apply_collision(verts: PackedVector3Array) -> void:
+	if body_rid.is_valid(): 
+		PhysicsServer3D.free_rid(body_rid)
+		PhysicsServer3D.free_rid(shape_rid)
+		
 	body_rid = PhysicsServer3D.body_create()
 	shape_rid = PhysicsServer3D.concave_polygon_shape_create()
-	PhysicsServer3D.body_set_mode(body_rid, PhysicsServer3D.BODY_MODE_STATIC)
-	PhysicsServer3D.shape_set_data(shape_rid, {"faces": prepared_vertices, "backface_collision": false})
+	PhysicsServer3D.shape_set_data(shape_rid, {"faces": verts, "backface_collision": false})
 	PhysicsServer3D.body_add_shape(body_rid, shape_rid)
 	PhysicsServer3D.body_set_space(body_rid, get_world_3d().space)
 	PhysicsServer3D.body_set_state(body_rid, PhysicsServer3D.BODY_STATE_TRANSFORM, global_transform)
@@ -181,3 +188,21 @@ func _exit_tree() -> void:
 		PhysicsServer3D.free_rid(body_rid)
 	if shape_rid.is_valid():
 		PhysicsServer3D.free_rid(shape_rid)
+
+func apply_geometry(geo: Dictionary) -> void:
+	if geo.verts.is_empty(): 
+		mesh_instance.mesh.clear_surfaces()
+		return
+
+	var arr = []
+	arr.resize(Mesh.ARRAY_MAX)
+	arr[Mesh.ARRAY_VERTEX] = geo.verts
+	arr[Mesh.ARRAY_NORMAL] = geo.norms
+	arr[Mesh.ARRAY_COLOR] = geo.cols
+	
+	var am = ArrayMesh.new()
+	am.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arr)
+	mesh_instance.mesh = am
+	
+	if material:
+		mesh_instance.set_surface_override_material(0, material)

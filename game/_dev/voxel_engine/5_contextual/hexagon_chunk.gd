@@ -1,4 +1,4 @@
-class_name VoxelEngineChunkingHexagonChunk
+class_name VoxelEngineContexualHexagonChunk
 extends StaticBody3D
 
 @export var use_rendering_server: bool = true

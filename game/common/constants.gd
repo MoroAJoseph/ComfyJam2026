@@ -175,7 +175,7 @@ class LUT:
 		Enums.BarrelType.WOOD: BarrelData.new(
 			Enums.BarrelType.WOOD,
 			Color(0.45, 0.24, 0.1), # Brown
-			500.0,
+			100.0,
 			6.0,
 			0.5,
 			10.0
@@ -184,7 +184,7 @@ class LUT:
 		Enums.BarrelType.IRON: BarrelData.new(
 			Enums.BarrelType.IRON,
 			Color(0.5, 0.5, 0.5), # Silver/Grey
-			2500.0,
+			500.0,
 			12.0,
 			2.0,
 			20.0
@@ -193,7 +193,7 @@ class LUT:
 		Enums.BarrelType.GOLD: BarrelData.new(
 			Enums.BarrelType.GOLD,
 			Color(1.0, 0.8, 0.2), # Gold
-			5500.0,
+			1000.0,
 			18.0,
 			4.0,
 			50.0

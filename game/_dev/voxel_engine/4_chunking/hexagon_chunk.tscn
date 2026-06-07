@@ -6,3 +6,5 @@
 [node name="HexagonChunk" type="StaticBody3D" unique_id=198598933]
 script = ExtResource("1_6goke")
 material = ExtResource("2_3r55c")
+
+[node name="MeshInstance" type="MeshInstance3D" parent="." unique_id=74130212]

@@ -21,7 +21,6 @@ glow_enabled = true
 
 [node name="MultiThreaded" type="Node3D" unique_id=2142988044]
 script = ExtResource("1_v84ys")
-use_hexagons = false
 dimensions = Vector3(512, 16, 512)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=787033545]
@@ -40,8 +39,6 @@ material = ExtResource("3_pr4ro")
 
 [node name="Hexagon" type="MeshInstance3D" parent="." unique_id=1546828514]
 script = ExtResource("4_k2n56")
-use_rendering_server = false
 use_physics_server = true
-generate_collision = true
 use_debug_colors = true
 material = ExtResource("3_pr4ro")

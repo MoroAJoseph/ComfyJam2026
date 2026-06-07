@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://mddmktq8ts8u"]
+
+[ext_resource type="Script" uid="uid://eo31m0vxucrp" path="res://_dev/voxel_engine/4_chunking/chunk_manager.gd" id="1_y4mgv"]
+[ext_resource type="PackedScene" uid="uid://cotic35y4fua3" path="res://_dev/voxel_engine/5_contextual/cube_chunk.tscn" id="2_h7pq5"]
+[ext_resource type="PackedScene" uid="uid://bykjonnowspir" path="res://_dev/voxel_engine/5_contextual/hexagon_chunk.tscn" id="3_g7j7a"]
+
+[node name="ContexualChunkManager" type="Node" unique_id=1855755004]
+script = ExtResource("1_y4mgv")
+cube_chunk_scene = ExtResource("2_h7pq5")
+hexagon_chunk_scene = ExtResource("3_g7j7a")

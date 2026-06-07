@@ -13,12 +13,17 @@ config_version=5
 config/name="BeachedBounty"
 run/main_scene="uid://d23ynsioags2n"
 config/features=PackedStringArray("4.6", "Forward Plus")
+run/max_fps=240
 config/icon="res://icon.svg"
 
 [autoload]
 
 Context="*uid://bl316tibj2tck"
 EventBus="*uid://dm4eknlbg7dpt"
+
+[display]
+
+window/vsync/vsync_mode=0
 
 [editor_plugins]
 
