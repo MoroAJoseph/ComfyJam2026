@@ -87,17 +87,11 @@ class DockExited extends WorldEvent: pass
 class ChestCollected extends WorldEvent:
 	
 	var rarity: Enums.RarityType
-	var rarity_name: String
 	var gold_amount: int
-	var color: Color
 	
 	func _init(
 		p_rarity: Enums.RarityType,
-		p_rarity_name: String,
 		p_gold_amount: int,
-		p_color: Color
 	) -> void:
 		rarity = p_rarity
-		rarity_name = p_rarity_name
 		gold_amount = p_gold_amount
-		color = p_color

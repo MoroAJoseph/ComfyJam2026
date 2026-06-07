@@ -83,55 +83,32 @@ class LUT:
 			}
 		)
 	}
-
-	static func get_random_chest_reward(type: Enums.ChestType) -> Dictionary:
-		var roll = randf()
-		var cumulative_prob = 0.0
-		
-		var data = CHEST_DATA[type]
-		var table = data.rarity_drop_table
-		
-		for rarity in Enums.RarityType.keys():
-			cumulative_prob += table[rarity]
-			if roll <= cumulative_prob:
-				var reward = get_chest_reward_data(rarity)
-				var gold = randi_range(reward.min_gold, reward.max_gold)
-				return {
-					"rarity": rarity,
-					"name": reward.name,
-					"gold": gold,
-					"color": reward.color
-				}
-		
-		# Fallback
-		var fallback = get_chest_reward_data(Enums.RarityType.COMMON)
-		return {
-			"rarity": Enums.RarityType.COMMON,
-			"name": fallback.name,
-			"gold": fallback.min_gold,
-			"color": fallback.color
-		}
+	static func get_chest_data(type: Enums.ChestType) -> ChestData: return CHEST_DATA.get(type, null)
 	
 	# --- Chest Rewards ---
 	static var CHEST_REWARD_DATA: Dictionary[Enums.RarityType, ChestRewardData] = {
+		# Common
 		Enums.RarityType.COMMON: ChestRewardData.new(
 			Enums.RarityType.COMMON, 
 			50, 
 			150, 
 			Color(0.7, 0.7, 0.7)
 		),
+		# Rare
 		Enums.RarityType.RARE: ChestRewardData.new(
 			Enums.RarityType.RARE, 
 			200, 
 			500, 
 			Color(0.2, 0.4, 1.0)
 		),
+		# Epic
 		Enums.RarityType.EPIC: ChestRewardData.new(
 			Enums.RarityType.EPIC, 
 			750, 
 			1500, 
 			Color(0.6, 0.2, 1.0)
 		),
+		# Legendary
 		Enums.RarityType.LEGENDARY: ChestRewardData.new(
 			Enums.RarityType.LEGENDARY, 
 			2500, 
@@ -144,6 +121,7 @@ class LUT:
 	
 	# --- Boats ---
 	static var BOAT_DATA: Dictionary[Enums.BoatType, BoatData] = {
+		# Row Small
 		Enums.BoatType.ROW_SMALL: BoatData.new(
 			Enums.BoatType.ROW_SMALL, 
 			20.0, 
@@ -157,6 +135,7 @@ class LUT:
 			6, 
 			2
 		),
+		# Ship Small
 		Enums.BoatType.SHIP_SMALL: BoatData.new(
 			Enums.BoatType.SHIP_SMALL, 
 			20.0, 
@@ -170,6 +149,7 @@ class LUT:
 			12, 
 			2
 		),
+		# Ship Medium
 		Enums.BoatType.SHIP_MEDIUM_2: BoatData.new(
 			Enums.BoatType.SHIP_MEDIUM_2, 
 			35.0, 

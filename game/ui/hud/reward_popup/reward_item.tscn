@@ -1,18 +1,18 @@
 [gd_scene format=3 uid="uid://cb5k8m1n2u8y6"]
 
-[ext_resource type="Script" path="res://ui/hud/reward_popup/reward_item.gd" id="1_item"]
+[ext_resource type="Script" uid="uid://cjq6nsdtbsvi0" path="res://ui/hud/reward_popup/reward_item.gd" id="1_item"]
 
-[node name="RewardItem" type="PanelContainer"]
+[node name="RewardItem" type="PanelContainer" unique_id=1799909592]
 custom_minimum_size = Vector2(150, 100)
 offset_right = 150.0
 offset_bottom = 100.0
 script = ExtResource("1_item")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=490371985]
 layout_mode = 2
 color = Color(0.1, 0.1, 0.1, 0.8)
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=2001072401]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "RARE"
