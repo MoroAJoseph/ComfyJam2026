@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://b8y4m2n7qaq0r" path="res://ui/menus/upgrade/upgrade_menu.tscn" id="13_upgrades"]
 [ext_resource type="PackedScene" path="res://ui/menus/settings/settings_menu.tscn" id="14_settings"]
 [ext_resource type="PackedScene" path="res://ui/hud/gold_counter/gold_counter.tscn" id="15_gold"]
-[ext_resource type="PackedScene" path="res://ui/menus/pause/pause_menu.tscn" id="16_pause"]
+[ext_resource type="PackedScene" uid="uid://cfg7nn223bbj7" path="res://ui/menus/pause/pause_menu.tscn" id="16_pause"]
 [ext_resource type="PackedScene" uid="uid://cb5k8m1n2u8y4" path="res://ui/hud/reward_popup/reward_popup.tscn" id="17_reward"]
 
 [node name="Game" type="Node" unique_id=1336756076]
