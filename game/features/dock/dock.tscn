@@ -6,8 +6,24 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_static"]
 size = Vector3(4, 2, 4)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_interaction"]
-size = Vector3(8, 4, 8)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_interaction"]
+height = 4.0
+radius = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glow"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0, 0.6, 1, 0.4)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_glow"]
+material = SubResource("StandardMaterial3D_glow")
+top_radius = 5.0
+bottom_radius = 5.0
+height = 1.0
+cap_top = false
+cap_bottom = false
 
 [node name="Dock" type="StaticBody3D" unique_id=1392596294]
 script = ExtResource("1_dock")
@@ -23,5 +39,8 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=969383289]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-shape = SubResource("BoxShape3D_interaction")
+shape = SubResource("CylinderShape3D_interaction")
+
+[node name="GlowRing" type="MeshInstance3D" parent="InteractionArea" unique_id=1967613045]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2051351, 0)
+mesh = SubResource("CylinderMesh_glow")
