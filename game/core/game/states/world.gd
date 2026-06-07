@@ -95,6 +95,7 @@ func _handle_resume() -> void:
 func _handle_ui_pause_menu(event: UIEvent.PauseMenu) -> void:
 	match event.action:
 		UIEvent.PauseMenuAction.RESUME:
+			print_debug("ok handle")
 			_handle_resume()
 		
 		UIEvent.PauseMenuAction.SETTINGS:

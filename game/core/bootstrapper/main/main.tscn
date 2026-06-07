@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cifeddlvwoc2" path="res://core/game/game.tscn" id="6_tmimk"]
 
 [node name="Main" type="Node" unique_id=1389571454]
+process_mode = 3
 script = ExtResource("1_1p5nj")
 
 [node name="StateMachine" type="Node" parent="." unique_id=1167557801 node_paths=PackedStringArray("initial_state")]

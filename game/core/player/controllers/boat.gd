@@ -23,7 +23,6 @@ func _process(_delta: float) -> void:
 		current_boat.set_input(turn, move)
 		player_context.boat_direction = current_boat.get_direction()
 		player_context.world_location = current_boat.global_position
-		print_debug("boat controller: ", player_context.world_location)
 	
 func spawn_boat(boat_type: Enums.BoatType) -> void:
 	# Cleanup

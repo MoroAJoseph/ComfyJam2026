@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://df7w8m1n2u8x2" path="res://features/dock/dock.tscn" id="5_dock"]
 
 [node name="World" type="Node3D" unique_id=485736105]
+process_mode = 1
 script = ExtResource("1_wavff")
 
 [node name="Time" type="Node" parent="." unique_id=99604108]
