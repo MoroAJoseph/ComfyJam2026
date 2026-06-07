@@ -41,8 +41,8 @@ func get_collision_speed_multiplier() -> float:
 # ===
 
 func _apply_rotation(delta: float) -> void:
-	# Turn speed
-	var target_turn_velocity = -_turn_input * data.turn_speed
+	# Turn speed is scaled by how much the boat is in the water
+	var target_turn_velocity = -_turn_input * data.turn_speed * submersion_ratio
 	
 	# Smoothly interpolate angular velocity to the target
 	# This prevents instant "snapping" while providing immediate response
@@ -53,7 +53,7 @@ func _apply_rotation(delta: float) -> void:
 	)
 
 	# Handle banking animation
-	var target_bank := _turn_input * 0.25
+	var target_bank := _turn_input * 0.25 * submersion_ratio
 	model.rotation.z = lerp(
 		model.rotation.z, 
 		-target_bank, 
@@ -73,12 +73,12 @@ func _apply_movement(delta: float) -> void:
 	var current_horizontal := Vector3(linear_velocity.x, 0.0, linear_velocity.z)
 	var steer = (desired - current_horizontal) * data.acceleration
 	
-	# Apply force at center of mass (Vector3.ZERO) to stop unwanted pitching.
-	# If the nose still dips/lifts too much, adjust the Buoyancy bias instead.
-	apply_force(steer, Vector3.ZERO)
+	# Apply force scaled by submersion_ratio. 
+	# If submersion_ratio is 0 (in air), no propulsion is applied.
+	apply_force(steer * submersion_ratio, Vector3.ZERO)
 
 	# Visual pitch
-	var target_pitch := -_move_input * 0.15 
+	var target_pitch := -_move_input * 0.15 * submersion_ratio
 	model.rotation.x = lerp(model.rotation.x, target_pitch, delta * 3.0)
 
 func _clamp_collision_slide(delta: float) -> void:

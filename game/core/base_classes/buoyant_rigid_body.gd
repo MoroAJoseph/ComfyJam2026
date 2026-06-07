@@ -28,6 +28,9 @@ extends RigidBody3D
 ## Gravity multiplier when not in water.
 @export var air_gravity_scale := 3.0
 
+## Resistance to movement in the air. Higher = slows down faster in mid-air.
+@export var air_drag := 0.4
+
 @onready var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var probes: Array[Node] = $Probes.get_children()
 
@@ -47,11 +50,16 @@ func _ready() -> void:
 func _physics_process(_delta):
 	_apply_buoyancy()
 	
-	# Apply more gravity in air
+	# Apply more gravity and drag in air
 	if not submerged:
 		gravity_scale = air_gravity_scale
+		linear_damp = air_drag
+		angular_damp = air_drag
 	else:
 		gravity_scale = 1.0
+		# Reset damping to allow the water logic to handle it via _integrate_forces
+		linear_damp = 0.0
+		angular_damp = 0.0
 
 func _integrate_forces(state: PhysicsDirectBodyState3D):
 	if submerged:
