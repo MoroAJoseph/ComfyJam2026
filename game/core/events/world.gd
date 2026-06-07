@@ -79,3 +79,7 @@ class PlayerSpawned extends WorldEvent:
 	#) -> void:
 		#block_item_data = p_block_item_data
 		#world_location = p_world_location
+
+
+class DockEntered extends WorldEvent: pass
+class DockExited extends WorldEvent: pass

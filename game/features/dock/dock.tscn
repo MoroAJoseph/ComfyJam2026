@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://df7w8m1n2u8x2"]
+[gd_scene format=3 uid="uid://df7w8m1n2u8x2"]
 
-[ext_resource type="Script" uid="uid://c6j2x7n8k9l0m" path="res://features/dock/dock.gd" id="1_dock"]
+[ext_resource type="Script" uid="uid://lr3040s4o3so" path="res://features/dock/dock.gd" id="1_dock"]
 [ext_resource type="PackedScene" uid="uid://dgb5b5x430bii" path="res://assets/environment/glb/structure-platform-dock.glb" id="2_mesh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_static"]
@@ -9,26 +9,19 @@ size = Vector3(4, 2, 4)
 [sub_resource type="BoxShape3D" id="BoxShape3D_interaction"]
 size = Vector3(8, 4, 8)
 
-[node name="Dock" type="StaticBody3D"]
+[node name="Dock" type="StaticBody3D" unique_id=1392596294]
 script = ExtResource("1_dock")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=900395434]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_static")
 
-[node name="MeshInstance3D" parent="." instance=ExtResource("2_mesh")]
+[node name="MeshInstance3D" parent="." unique_id=466868483 instance=ExtResource("2_mesh")]
 
-[node name="InteractionArea" type="Area3D" parent="."]
+[node name="InteractionArea" type="Area3D" parent="." unique_id=1851406784]
 collision_layer = 0
 collision_mask = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=969383289]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 shape = SubResource("BoxShape3D_interaction")
-
-[node name="Prompt" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
-billboard = 1
-text = "Press [E] to Dock & Upgrade"
-font_size = 64
-outline_size = 16

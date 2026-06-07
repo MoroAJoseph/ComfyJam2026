@@ -2,13 +2,25 @@ class_name BuoyantRigidBody
 extends RigidBody3D
 
 @export_category("Buoyancy")
+
+## Magnitude of the upward force. Higher = sits higher; Lower = sits lower (risk of sinking).
 @export var float_force := 1.0
+
+## Resistance to forward movement. Higher = slower top speed; Lower = longer coasting.
 @export var water_drag_forward := 0.05
+
+## Resistance to sliding/drifting. High values prevent sliding during turns.
 @export var water_drag_sideways := 0.5
+
+## Resistance to rotation. Higher values make the boat feel heavy/stable; Lower makes it spin easily.
 @export var water_angular_drag := 0.1
 
 @export_category("Stability")
+
+## The force that pulls the boat back upright. Higher = harder to capsize.
 @export var alignment_strength := 10.0
+
+## Braking force for rotation. Higher = settles quickly; Lower = rocks/oscillates.
 @export var alignment_damping := 0.5
 
 @onready var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")

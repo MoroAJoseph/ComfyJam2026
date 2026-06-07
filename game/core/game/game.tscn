@@ -14,7 +14,7 @@
 [ext_resource type="Script" uid="uid://r8kfjtj7l2ie" path="res://core/game/ui_layers/menus.gd" id="10_o7dow"]
 [ext_resource type="Script" uid="uid://bdsp2c5jdk4w" path="res://core/game/ui_layers/loading.gd" id="11_lnsb0"]
 [ext_resource type="PackedScene" uid="uid://cgktoxp5sc2gd" path="res://ui/menus/main/main_menu.tscn" id="13_gwttv"]
-[ext_resource type="PackedScene" uid="uid://b8y4m2n7p9q0r" path="res://ui/menus/upgrade/upgrade_menu.tscn" id="13_upgrades"]
+[ext_resource type="PackedScene" uid="uid://b8y4m2n7qaq0r" path="res://ui/menus/upgrade/upgrade_menu.tscn" id="13_upgrades"]
 [ext_resource type="PackedScene" path="res://ui/menus/settings/settings_menu.tscn" id="14_settings"]
 [ext_resource type="PackedScene" path="res://ui/hud/gold_counter/gold_counter.tscn" id="15_gold"]
 [ext_resource type="PackedScene" path="res://ui/menus/pause/pause_menu.tscn" id="16_pause"]
