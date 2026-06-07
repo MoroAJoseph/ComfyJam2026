@@ -92,8 +92,19 @@ func commit_mesh() -> void:
 	mesh.surface_set_material(0, material)
 
 func commit_collision() -> void:
-	var static_body := StaticBody3D.new()
-	var collision_shape := CollisionShape3D.new()
-	collision_shape.shape = mesh.create_trimesh_shape()
-	static_body.add_child(collision_shape)
-	add_child(static_body)
+	var body_rid := PhysicsServer3D.body_create()
+	PhysicsServer3D.body_set_mode(body_rid, PhysicsServer3D.BODY_MODE_STATIC)
+	
+	var shape_rid := PhysicsServer3D.concave_polygon_shape_create()
+	
+	# Jolt specifically requires a dictionary for Concave Polygon shapes
+	var shape_data := {
+		"faces": vertices, # Your existing PackedVector3Array of vertices
+		"backface_collision": false
+	}
+	
+	PhysicsServer3D.shape_set_data(shape_rid, shape_data)
+	
+	PhysicsServer3D.body_add_shape(body_rid, shape_rid)
+	PhysicsServer3D.body_set_space(body_rid, get_world_3d().space)
+	PhysicsServer3D.body_set_state(body_rid, PhysicsServer3D.BODY_STATE_TRANSFORM, global_transform)

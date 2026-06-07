@@ -11,7 +11,7 @@ extends Node3D
 
 var total_blocks: int = 0
 var cube_data: Dictionary[Vector3, Color] = {}
-var hexagon_data: Dictionary[Vector3, Color] = {}
+var hexagon_data: Dictionary[Vector3i, Color] = {}
 
 func _ready() -> void:
 	var start_time = Time.get_ticks_usec()
@@ -46,26 +46,12 @@ func _generate_cube_data() -> void:
 func _generate_hexagon_data() -> void:
 	var random = FastNoiseLite.new()
 	random.noise_type = FastNoiseLite.TYPE_SIMPLEX
-	
-	var radius = 1.0
-	var apothem = radius * (sqrt(3.0) / 2.0)
-	
-	# Horizontal spacing is 2 * apothem for flat-topped
-	var x_spacing = apothem * 2.0
-	# Vertical spacing (row-to-row) is 1.5 * radius
-	var z_spacing = radius * 1.5
-	
 	for x in range(dimensions.x):
 		for z in range(dimensions.z):
-			# Calculate base position
-			var world_x = x * x_spacing
-			var world_z = z * z_spacing
-			
-			# Offset every other row (z) by the apothem to interlock
-			if z % 2 != 0:
-				world_x += apothem
-				
 			for y in range(dimensions.y):
 				if random.get_noise_3d(x, y, z) > cutoff:
-					hexagon_data.set(Vector3(world_x, y, world_z), _get_random_color(y))
+					hexagon_data.set(
+						Vector3i(x, y, z), 
+						_get_random_color(y)
+					)
 					total_blocks += 1
