@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://dhqrkninxbfyg"]
+
+[ext_resource type="Script" uid="uid://d4ao4o08hb1xp" path="res://features/boats/ship_medium_2/ship_medium_2.gd" id="1_ckjid"]
+[ext_resource type="Resource" path="res://features/boats/ship_medium_2/ship_medium_2.tres" id="3_data"]
+[ext_resource type="PackedScene" uid="uid://cjsgfmwwy4g6a" path="res://assets/boats/glb/ship-medium.glb" id="3_qqfn4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ljpvt"]
+radius = 2.5
+height = 8.0
+
+[node name="ShipMedium2" type="RigidBody3D" unique_id=-1923691870]
+collision_layer = 4
+mass = 80.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, 0.2, 0.5)
+angular_damp = 2.0
+script = ExtResource("1_ckjid")
+data = ExtResource("3_data")
+float_force = 25.0
+water_drag_forward = 0.005
+water_drag_sideways = 1.0
+water_angular_drag = 0.15
+alignment_strength = 60.0
+alignment_damping = 1.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=33040357]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 2, 0)
+shape = SubResource("CapsuleShape3D_ljpvt")
+
+[node name="Model" type="Node3D" parent="." unique_id=763547907]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ship-medium2" parent="Model" unique_id=1633083808 instance=ExtResource("3_qqfn4")]
+
+[node name="Probes" type="Node3D" parent="." unique_id=1542480112]
+
+[node name="Marker3D" type="Marker3D" parent="Probes" unique_id=1970336666]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.75, 0)
+
+[node name="Marker3D2" type="Marker3D" parent="Probes" unique_id=611039616]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.75, 0)
+
+[node name="Marker3D3" type="Marker3D" parent="Probes" unique_id=763621622]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.75, -3.5)
+
+[node name="Marker3D4" type="Marker3D" parent="Probes" unique_id=1887168132]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.75, -3.5)
+
+[node name="Marker3D5" type="Marker3D" parent="Probes" unique_id=58382566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.75, 3.5)
+
+[node name="Marker3D6" type="Marker3D" parent="Probes" unique_id=1509272212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.75, 3.5)
+
+[node name="Marker3D7" type="Marker3D" parent="Probes" unique_id=1509272213]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 4)
+
+[node name="Marker3D8" type="Marker3D" parent="Probes" unique_id=1509272214]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -4.5)

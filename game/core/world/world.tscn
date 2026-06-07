@@ -7,7 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://cj6mr5liuj6xn" path="res://core/world/camera/camera.tscn" id="3_xq38f"]
 [ext_resource type="Script" uid="uid://b8rh2lplntxx4" path="res://core/world/controllers/instances.gd" id="4_p6pjc"]
 [ext_resource type="PackedScene" uid="uid://df7w8m1n2u8x2" path="res://features/dock/dock.tscn" id="5_dock"]
+[ext_resource type="PackedScene" uid="uid://df7w8m1n2u8y3" path="res://features/treasure/chest.tscn" id="8_chest"]
 [ext_resource type="PackedScene" uid="uid://cgywb4adqqwbp" path="res://_dev/dev_cube.tscn" id="7_1bvj8"]
+
 
 [node name="World" type="Node3D" unique_id=485736105]
 script = ExtResource("1_wavff")
@@ -39,6 +41,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0)
 
 [node name="Treasure" type="Node3D" parent="Instances" unique_id=906023956]
 unique_name_in_owner = true
+
+[node name="TreasureChest_Wood" parent="Instances/Treasure" instance=ExtResource("8_chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 10)
+
+[node name="TreasureChest_Iron" parent="Instances/Treasure" instance=ExtResource("8_chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 10)
+type = 1
+
+[node name="TreasureChest_Gold" parent="Instances/Treasure" instance=ExtResource("8_chest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2, 10)
+type = 2
 
 [node name="DevCubes" type="Node3D" parent="Instances" unique_id=368413939]
 

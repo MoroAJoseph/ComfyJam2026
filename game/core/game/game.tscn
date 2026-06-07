@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" path="res://ui/menus/settings/settings_menu.tscn" id="14_settings"]
 [ext_resource type="PackedScene" path="res://ui/hud/gold_counter/gold_counter.tscn" id="15_gold"]
 [ext_resource type="PackedScene" path="res://ui/menus/pause/pause_menu.tscn" id="16_pause"]
+[ext_resource type="PackedScene" uid="uid://cb5k8m1n2u8y4" path="res://ui/hud/reward_popup/reward_popup.tscn" id="17_reward"]
 
 [node name="Game" type="Node" unique_id=1336756076]
 script = ExtResource("1_23swt")
@@ -81,6 +82,9 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+
+[node name="RewardPopup" parent="UI/HUDLayer/HUD" unique_id=12345679 instance=ExtResource("17_reward")]
+layout_mode = 1
 
 [node name="MenusLayer" type="CanvasLayer" parent="UI" unique_id=1078482336]
 unique_name_in_owner = true

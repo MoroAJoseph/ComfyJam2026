@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BoatData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://common/dataclasses/boat_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+type = 3
+display_name = "Pirate Ship Medium"
+max_speed = 35.0
+acceleration = 35.0
+turn_speed = 2.5
+collision_damping = 0.15
+hull_drag = 0.4
+angular_drag = 1.5
+inventory_capacity = 1000
+max_zoom = 25
+min_zoom = 12
+zoom_step = 4

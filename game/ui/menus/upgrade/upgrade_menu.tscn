@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b8y4m2n7p9q0r"]
 
 [ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_theme"]
-[ext_resource type="Script" uid="uid://d6f7h8j9k0l1m" path="res://ui/menus/upgrade/upgrade_menu.gd" id="2_script"]
+[ext_resource type="Script" uid="uid://byy5l82jovolo" path="res://ui/menus/upgrade/upgrade_menu.gd" id="2_script"]
 
 [node name="UpgradeMenu" type="Control"]
 layout_mode = 3

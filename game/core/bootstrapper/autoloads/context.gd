@@ -17,7 +17,7 @@ var player: PlayerContext
 func _ready() -> void:
 	session = SessionContext.new()
 	progression = ProgressionContext.new()
-	progression.gold = 100
+	progression.gold = 10000
 	ui = UIContext.new()
 	world = WorldContext.new()
 	player = PlayerContext.new()

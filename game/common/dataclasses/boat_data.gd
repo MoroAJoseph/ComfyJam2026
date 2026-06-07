@@ -1,7 +1,7 @@
 class_name BoatData
 extends Resource
 
-enum Type { NONE, ROW_SMALL, SHIP_SMALL }
+enum Type { NONE, ROW_SMALL, SHIP_SMALL, SHIP_MEDIUM_2 }
 
 @export_category("Identity")
 @export var type: Type
