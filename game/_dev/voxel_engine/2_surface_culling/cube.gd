@@ -58,6 +58,7 @@ var debug_colors: Dictionary[Face, Color] = {
 }
 
 func _ready() -> void:
+	mesh = ArrayMesh.new()
 	surface_array.resize(Mesh.ARRAY_MAX)
 
 func generate_mesh(data: Dictionary[Vector3, Color]) -> void:

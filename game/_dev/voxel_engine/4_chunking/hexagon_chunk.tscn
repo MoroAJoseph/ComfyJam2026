@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bcb3cxc0cg5ka"]
+
+[ext_resource type="Script" uid="uid://d1bl00pyvic7u" path="res://_dev/voxel_engine/4_chunking/hexagon_chunk.gd" id="1_6goke"]
+[ext_resource type="Material" uid="uid://bw1wx223he31t" path="res://_dev/voxel_engine/mesh_material.tres" id="2_3r55c"]
+
+[node name="HexagonChunk" type="StaticBody3D" unique_id=198598933]
+script = ExtResource("1_6goke")
+material = ExtResource("2_3r55c")
