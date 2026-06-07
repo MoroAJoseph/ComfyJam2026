@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://cnrw4on3dorqt"]
+
+[ext_resource type="Script" uid="uid://c2tein0n8rk2m" path="res://features/barrel/barrel.gd" id="1_barrel"]
+[ext_resource type="PackedScene" uid="uid://cc04iin6nwjn8" path="res://assets/environment/glb/barrel.glb" id="2_mesh"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_collision"]
+height = 0.8
+radius = 0.35
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_interaction"]
+radius = 1.3962548
+
+[sub_resource type="SphereMesh" id="SphereMesh_indicator"]
+radius = 0.15
+height = 0.3
+
+[node name="ExplodingBarrel" type="RigidBody3D" unique_id=662496353]
+collision_layer = 64
+collision_mask = 7
+mass = 2.0
+script = ExtResource("1_barrel")
+float_force = 1.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1825586610]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("CylinderShape3D_collision")
+
+[node name="MeshInstance3D" parent="." unique_id=1551826774 instance=ExtResource("2_mesh")]
+
+[node name="Indicator" type="MeshInstance3D" parent="." unique_id=2952956386]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+mesh = SubResource("SphereMesh_indicator")
+
+[node name="InteractionArea" type="Area3D" parent="." unique_id=886203516]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=1426786094]
+shape = SubResource("SphereShape3D_interaction")
+
+[node name="Probes" type="Node3D" parent="." unique_id=1595096293]
+
+[node name="Probe1" type="Node3D" parent="Probes" unique_id=563681458]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, -0.25)
+
+[node name="Probe2" type="Node3D" parent="Probes" unique_id=816830134]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, -0.25)
+
+[node name="Probe3" type="Node3D" parent="Probes" unique_id=1427624172]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 0.25)
+
+[node name="Probe4" type="Node3D" parent="Probes" unique_id=2125398502]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0.25)

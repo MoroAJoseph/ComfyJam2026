@@ -25,6 +25,7 @@ class PhysicsLayer:
 	const HOVER_INDEX := 4
 	const ITEM_INDEX := 5
 	const TREASURE_INDEX := 6
+	const BARREL_INDEX := 7
 	
 	# Mask
 	const LAND_MASK := 1 << 0
@@ -33,6 +34,7 @@ class PhysicsLayer:
 	const HOVER_MASK := 1 << 3
 	const ITEM_MASK := 1 << 4
 	const TREASURE_MASK := 1 << 5
+	const BARREL_MASK := 1 << 6
 
 class LUT:
 
@@ -166,6 +168,38 @@ class LUT:
 	}
 	
 	static func get_boat_data(type: Enums.BoatType) -> BoatData: return BOAT_DATA.get(type, null)
+
+	# --- Barrels ---
+	static var BARREL_DATA: Dictionary[Enums.BarrelType, BarrelData] = {
+		# Wood - For Rowboats (Mass 5)
+		Enums.BarrelType.WOOD: BarrelData.new(
+			Enums.BarrelType.WOOD,
+			Color(0.45, 0.24, 0.1), # Brown
+			500.0,
+			6.0,
+			0.5,
+			10.0
+		),
+		# Iron - For Small Ships (Mass 40) - The baseline
+		Enums.BarrelType.IRON: BarrelData.new(
+			Enums.BarrelType.IRON,
+			Color(0.5, 0.5, 0.5), # Silver/Grey
+			2500.0,
+			12.0,
+			2.0,
+			20.0
+		),
+		# Gold - For Medium Ships (Mass 80)
+		Enums.BarrelType.GOLD: BarrelData.new(
+			Enums.BarrelType.GOLD,
+			Color(1.0, 0.8, 0.2), # Gold
+			5500.0,
+			18.0,
+			4.0,
+			50.0
+		)
+	}
+	static func get_barrel_data(type: Enums.BarrelType) -> BarrelData: return BARREL_DATA.get(type, null)
 
 	# --- Blocks ---
 

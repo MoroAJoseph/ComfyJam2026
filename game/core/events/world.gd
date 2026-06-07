@@ -2,6 +2,16 @@ class_name WorldEvent
 extends Event
 
 
+class CameraShake extends WorldEvent:
+	
+	var intensity: float
+	var duration: float
+	
+	func _init(p_intensity: float = 0.5, p_duration: float = 0.3) -> void:
+		intensity = p_intensity
+		duration = p_duration
+
+
 # --- Block ---
 #class BlockDestroyed extends WorldEvent:
 	#
@@ -87,11 +97,17 @@ class DockExited extends WorldEvent: pass
 class ChestCollected extends WorldEvent:
 	
 	var rarity: Enums.RarityType
+	var rarity_name: String
+	var color: Color
 	var gold_amount: int
 	
 	func _init(
 		p_rarity: Enums.RarityType,
+		p_rarity_name: String,
+		p_color: Color,
 		p_gold_amount: int,
 	) -> void:
 		rarity = p_rarity
+		rarity_name = p_rarity_name
+		color = p_color
 		gold_amount = p_gold_amount

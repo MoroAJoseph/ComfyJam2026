@@ -20,7 +20,7 @@ func _ready() -> void:
 	
 	EventBus.emit(
 		WorldEvent.SpawnPlayer.new(
-			Vector3(0, 5, 0),
+			Vector3(40, 5, 0),
 			Vector3(0, 0, 0)
 		)
 	)

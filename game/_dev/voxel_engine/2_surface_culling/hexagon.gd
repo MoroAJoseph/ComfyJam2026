@@ -111,3 +111,6 @@ func commit_collision() -> void:
 	PhysicsServer3D.body_add_shape(body_rid, shape_rid)
 	PhysicsServer3D.body_set_space(body_rid, get_world_3d().space)
 	PhysicsServer3D.body_set_state(body_rid, PhysicsServer3D.BODY_STATE_TRANSFORM, global_transform)
+	
+	# Set to LAND layer (Layer 1)
+	PhysicsServer3D.body_set_collision_layer(body_rid, 1)

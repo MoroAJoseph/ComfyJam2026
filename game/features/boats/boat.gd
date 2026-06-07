@@ -96,8 +96,8 @@ func _clamp_collision_slide(delta: float) -> void:
 		origin,
 		origin + forward * 1.5
 	)
-	
-	query.collision_mask = Constants.PhysicsLayer.LAND_MASK
+
+	query.collision_mask = Constants.PhysicsLayer.LAND_MASK | Constants.PhysicsLayer.BARREL_MASK
 
 	var hit := space_state.intersect_ray(query)
 
@@ -117,8 +117,5 @@ func _clamp_collision_slide(delta: float) -> void:
 
 	# apply smoothing so physics doesn't jitter
 	linear_velocity = Vector3(horizontal.x, y, horizontal.z)
-
-
-# ===
 # Signals
 # ===

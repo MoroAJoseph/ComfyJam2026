@@ -21,6 +21,8 @@ extends Node3D
 @onready var boom = %Boom
 @onready var camera = %Camera
 
+var shake_intensity := 0.0
+var shake_duration := 0.0
 var follow_target: Node3D
 var is_locked: bool = true
 var mouse_delta: Vector2 = Vector2.ZERO
@@ -45,6 +47,7 @@ func _ready() -> void:
 	
 	_update_mouse_mode()
 	EventBus.subscribe(WorldEvent.PlayerSpawned, _handle_world_player_spawned)
+	EventBus.subscribe(WorldEvent.CameraShake, _handle_camera_shake)
 
 func _input(event: InputEvent) -> void:
 	# Scroll Wheel (Zoom)
@@ -74,6 +77,15 @@ func _process(delta: float) -> void:
 	
 	# Follow target
 	global_position = follow_target.global_position
+	
+	# Handle Shake
+	if shake_duration > 0:
+		shake_duration -= delta
+		camera.h_offset = randf_range(-shake_intensity, shake_intensity)
+		camera.v_offset = randf_range(-shake_intensity, shake_intensity)
+	else:
+		camera.h_offset = 0.0
+		camera.v_offset = 0.0
 	
 	# Input values
 	mouse_input = mouse_delta * mouse_sensitivity
@@ -163,3 +175,7 @@ func _process_unlocked(_delta: float) -> void:
 
 func _handle_world_player_spawned(_event: WorldEvent.PlayerSpawned) -> void:
 	follow_target = Context.player.boat_instance
+
+func _handle_camera_shake(event: WorldEvent.CameraShake) -> void:
+	shake_intensity = event.intensity
+	shake_duration = event.duration

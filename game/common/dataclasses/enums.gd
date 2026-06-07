@@ -74,3 +74,9 @@ enum BoatType {
 enum ToolType {
 	
 }
+
+enum BarrelType {
+	WOOD,
+	IRON,
+	GOLD
+}

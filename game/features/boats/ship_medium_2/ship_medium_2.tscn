@@ -10,6 +10,7 @@ height = 8.0
 
 [node name="ShipMedium2" type="RigidBody3D" unique_id=-1923691870]
 collision_layer = 4
+collision_mask = 65
 mass = 80.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, 0.2, 0.5)

@@ -23,12 +23,19 @@ extends RigidBody3D
 ## Braking force for rotation. Higher = settles quickly; Lower = rocks/oscillates.
 @export var alignment_damping := 0.5
 
+@export_category("Air Physics")
+
+## Gravity multiplier when not in water.
+@export var air_gravity_scale := 3.0
+
 @onready var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var probes: Array[Node] = $Probes.get_children()
 
 var world_context: WorldContext
 var submerged := false
 var submersion_ratio := 0.0
+
+var _pending_external_impulse := Vector3.ZERO
 
 # ===
 # Built-In
@@ -39,6 +46,12 @@ func _ready() -> void:
 
 func _physics_process(_delta):
 	_apply_buoyancy()
+	
+	# Apply more gravity in air
+	if not submerged:
+		gravity_scale = air_gravity_scale
+	else:
+		gravity_scale = 1.0
 
 func _integrate_forces(state: PhysicsDirectBodyState3D):
 	if submerged:
@@ -68,6 +81,18 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 		
 		# Add some damping to the alignment so it doesn't oscillate forever
 		state.angular_velocity *= (1.0 - alignment_damping * drag_factor)
+
+	# Apply external impulses that were registered
+	if _pending_external_impulse != Vector3.ZERO:
+		state.apply_central_impulse(_pending_external_impulse)
+		_pending_external_impulse = Vector3.ZERO
+
+# ===
+# Public
+# ===
+
+func apply_external_impulse(impulse: Vector3) -> void:
+	_pending_external_impulse += impulse
 
 # ===
 # Private

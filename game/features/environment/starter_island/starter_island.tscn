@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cb5k8m1n2u803"]
+
+[ext_resource type="Script" uid="uid://qcirwkj4g3u" path="res://features/environment/starter_island/starter_island.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://ca6tqecvpnsqy" path="res://_dev/voxel_engine/2_surface_culling/hexagon.gd" id="2_hex"]
+[ext_resource type="Material" uid="uid://bw1wx223he31t" path="res://_dev/voxel_engine/mesh_material.tres" id="3_mat"]
+[ext_resource type="PackedScene" uid="uid://cut3itirque74" path="res://assets/environment/glb/palm-straight.glb" id="5_palm"]
+[ext_resource type="PackedScene" uid="uid://bhfne705m4ih7" path="res://assets/environment/glb/rocks-a.glb" id="6_rock"]
+
+[node name="StarterIsland" type="Node3D" unique_id=982213290]
+script = ExtResource("1_script")
+
+[node name="Hexagon" type="MeshInstance3D" parent="." unique_id=1109836441]
+script = ExtResource("2_hex")
+material = ExtResource("3_mat")
+
+[node name="GrassMultiMesh" type="MultiMeshInstance3D" parent="."]
+
+[node name="Decorations" type="Node3D" parent="." unique_id=937210753]
+
+[node name="PalmTree" parent="Decorations" unique_id=266836476 instance=ExtResource("5_palm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 2)
+
+[node name="PalmTree2" parent="Decorations" unique_id=1031704068 instance=ExtResource("5_palm")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 3, 1, -3)
+
+[node name="Rocks" parent="Decorations" unique_id=190571606 instance=ExtResource("6_rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -4)

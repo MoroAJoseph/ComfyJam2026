@@ -6,6 +6,8 @@ extends BuoyantRigidBody
 @onready var interaction_area: Area3D = $InteractionArea
 @onready var animation_player: AnimationPlayer = $MeshInstance3D/AnimationPlayer
 
+var _collected: bool = false
+
 # ===
 # Built-In
 # ===
@@ -80,6 +82,8 @@ func _collect() -> void:
 	EventBus.emit(
 		WorldEvent.ChestCollected.new(
 			reward_data.rarity,
+			reward_data.name,
+			reward_data.color,
 			gold_amount
 		)
 	)
@@ -95,11 +99,17 @@ func _collect() -> void:
 # ===
 
 func _on_body_entered(body: Node3D) -> void:
-	if body is Boat:
+	if not _collected and body is Boat:
+		_collected = true
 		# Play animation
 		animation_player.play("open")
 		animation_player.animation_finished.connect(
-			func ():
-				queue_free()
+			func (_anim_name):
+				queue_free(),
+			CONNECT_ONE_SHOT
 		)
+		
+		# Fallback: If animation_finished doesn't fire for some reason
+		get_tree().create_timer(2.0).timeout.connect(queue_free)
+		
 		_collect()
