@@ -50,12 +50,14 @@ func handle_input(event: InputEvent) -> void:
 func _subscribe_events() -> void:
 	EventBus.subscribe(UIEvent.PauseMenu, _handle_ui_pause_menu)
 	EventBus.subscribe(UIEvent.SettingsMenu, _handle_ui_settings_menu)
+	EventBus.subscribe(UIEvent.DockMenu, _handle_ui_dock_menu)
 	EventBus.subscribe(WorldEvent.DockEntered, _handle_dock_entered)
 	EventBus.subscribe(WorldEvent.DockExited, _handle_dock_exited)
 
 func _unsubscribe_events() -> void:
 	EventBus.unsubscribe(UIEvent.PauseMenu, _handle_ui_pause_menu)
 	EventBus.unsubscribe(UIEvent.SettingsMenu, _handle_ui_settings_menu)
+	EventBus.unsubscribe(UIEvent.DockMenu, _handle_ui_dock_menu)
 	EventBus.unsubscribe(WorldEvent.DockEntered, _handle_dock_entered)
 	EventBus.unsubscribe(WorldEvent.DockExited, _handle_dock_exited)
 
