@@ -35,11 +35,11 @@ var move_direction: Vector2
 
 func _ready() -> void:
 	# Update Zoom
-	var boat_type: BoatData.Type = Context.progression.equipped_boat_type
+	var boat_type: Enums.BoatType = Context.progression.equipped_boat_type
 	if boat_type:
 		_update_zoom_values_from_boat(boat_type)
 	Context.progression.equipped_boat_type_updated.connect(
-		func(value: BoatData.Type):
+		func(value: Enums.BoatType):
 			_update_zoom_values_from_boat(value)
 	)
 	
@@ -106,7 +106,7 @@ func _process(delta: float) -> void:
 # Private
 # ===
 
-func _update_zoom_values_from_boat(boat_type: BoatData.Type) -> void:
+func _update_zoom_values_from_boat(boat_type: Enums.BoatType) -> void:
 	var boat_data: BoatData = Constants.LUT.get_boat_data(boat_type)
 	max_zoom = boat_data.max_zoom
 	min_zoom = boat_data.min_zoom

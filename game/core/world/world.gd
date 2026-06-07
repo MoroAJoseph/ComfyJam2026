@@ -16,7 +16,7 @@ func _ready() -> void:
 	)
 	
 	# CRITICAL TEMPORARY
-	Context.progression.equipped_boat_type = BoatData.Type.ROW_SMALL
+	Context.progression.equipped_boat_type = Enums.BoatType.ROW_SMALL
 	
 	EventBus.emit(
 		WorldEvent.SpawnPlayer.new(

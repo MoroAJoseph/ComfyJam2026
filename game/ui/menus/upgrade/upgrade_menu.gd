@@ -23,25 +23,25 @@ func _on_upgrade_boat_pressed() -> void:
 	var progression = Context.progression
 	
 	match progression.equipped_boat_type:
-		BoatData.Type.ROW_SMALL:
+		Enums.BoatType.ROW_SMALL:
 			if progression.gold >= 50:
 				progression.gold -= 50
-				progression.equipped_boat_type = BoatData.Type.SHIP_SMALL
+				progression.equipped_boat_type = Enums.BoatType.SHIP_SMALL
 				print_debug("Upgrade: Boat upgraded to SHIP_SMALL!")
 				_update_upgrade_button_label()
 			else:
 				print_debug("Upgrade: Not enough gold for SHIP_SMALL!")
 		
-		BoatData.Type.SHIP_SMALL:
+		Enums.BoatType.SHIP_SMALL:
 			if progression.gold >= 150:
 				progression.gold -= 150
-				progression.equipped_boat_type = BoatData.Type.SHIP_MEDIUM_2
+				progression.equipped_boat_type = Enums.BoatType.SHIP_MEDIUM_2
 				print_debug("Upgrade: Boat upgraded to SHIP_MEDIUM_2!")
 				_update_upgrade_button_label()
 			else:
 				print_debug("Upgrade: Not enough gold for SHIP_MEDIUM_2!")
 		
-		BoatData.Type.SHIP_MEDIUM_2:
+		Enums.BoatType.SHIP_MEDIUM_2:
 			print_debug("Upgrade: Boat is already at max level!")
 
 func _update_gold_label(value: int) -> void:
@@ -50,12 +50,12 @@ func _update_gold_label(value: int) -> void:
 func _update_upgrade_button_label() -> void:
 	var progression = Context.progression
 	match progression.equipped_boat_type:
-		BoatData.Type.ROW_SMALL:
+		Enums.BoatType.ROW_SMALL:
 			boat_upgrade_button.text = "Upgrade to Small Ship (50 Gold)"
 			boat_upgrade_button.disabled = false
-		BoatData.Type.SHIP_SMALL:
+		Enums.BoatType.SHIP_SMALL:
 			boat_upgrade_button.text = "Upgrade to Medium Pirate Ship (150 Gold)"
 			boat_upgrade_button.disabled = false
-		BoatData.Type.SHIP_MEDIUM_2:
+		Enums.BoatType.SHIP_MEDIUM_2:
 			boat_upgrade_button.text = "Max Level Reached"
 			boat_upgrade_button.disabled = true

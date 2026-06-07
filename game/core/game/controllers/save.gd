@@ -10,7 +10,7 @@ extends Node
 func _ready() -> void:
 	if _timer:
 		_timer.timeout.connect(_on_auto_save_timeout)
-	
+
 # ===
 # Signals
 # ===
@@ -20,8 +20,8 @@ func _on_auto_save_timeout() -> void:
 		save_data()
 
 func save_data() -> void:
-	var data := SaveData.new()
-	data.update()
+	# get save data from context
+	var data := Context.get_save_data()
 	
 	var error := ResourceSaver.save(data, Constants.Paths.USER_SAVE)
 	if error != OK:

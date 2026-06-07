@@ -8,14 +8,13 @@ class Paths:
 	const WORLD_SCENE := "res://core/world/world.tscn"
 	const PLAYER_SCENE := "res://core/player/player.tscn"
 	
-	static var BOAT_SCENE: Dictionary[BoatData.Type, String] = {
-		BoatData.Type.ROW_SMALL: "res://features/boats/row_boat_small/row_boat_small.tscn",
-		BoatData.Type.SHIP_SMALL: "res://features/boats/ship_small/ship_small.tscn",
-		BoatData.Type.SHIP_MEDIUM_2: "res://features/boats/ship_medium_2/ship_medium_2.tscn",
+	static var BOAT_SCENE: Dictionary[Enums.BoatType, String] = {
+		Enums.BoatType.ROW_SMALL: "res://features/boats/row_boat_small/row_boat_small.tscn",
+		Enums.BoatType.SHIP_SMALL: "res://features/boats/ship_small/ship_small.tscn",
+		Enums.BoatType.SHIP_MEDIUM_2: "res://features/boats/ship_medium_2/ship_medium_2.tscn",
 	}
 	
-	static func get_boat_scene(type: BoatData.Type) -> String:
-		return BOAT_SCENE.get(type, "")
+	static func get_boat_scene(type: Enums.BoatType) -> String: return BOAT_SCENE.get(type, "")
 
 class PhysicsLayer:
 	
@@ -37,79 +36,65 @@ class PhysicsLayer:
 
 class LUT:
 
-	enum Rarity {
-		COMMON,
-		RARE,
-		EPIC,
-		LEGENDARY
+	# --- Chests ---
+	static var CHEST_DATA: Dictionary[Enums.ChestType, ChestData] = {
+		# Wood
+		Enums.ChestType.WOOD: ChestData.new(
+			Enums.ChestType.WOOD, 
+			Color(0.45, 0.24, 0.1), 
+			{
+				Enums.RarityType.COMMON: 0.4, 
+				Enums.RarityType.RARE: 0.4, 
+				Enums.RarityType.EPIC: 0.15, 
+				Enums.RarityType.LEGENDARY: 0.05
+			}
+		),
+		# Iron
+		Enums.ChestType.IRON: ChestData.new(
+			Enums.ChestType.IRON, 
+			Color(0.5, 0.5, 0.5), 
+			{
+				Enums.RarityType.COMMON: 0.4, 
+				Enums.RarityType.RARE: 0.4, 
+				Enums.RarityType.EPIC: 0.15, 
+				Enums.RarityType.LEGENDARY: 0.05
+			}
+		),
+		# Gold
+		Enums.ChestType.GOLD: ChestData.new(
+			Enums.ChestType.GOLD, 
+			Color(1.0, 0.8, 0.2), 
+			{
+				Enums.RarityType.COMMON: 0.1, 
+				Enums.RarityType.RARE: 0.3, 
+				Enums.RarityType.EPIC: 0.4, 
+				Enums.RarityType.LEGENDARY: 0.2
+			}
+		),
+		# Chest
+		Enums.ChestType.MYSTIC: ChestData.new(
+			Enums.ChestType.MYSTIC, 
+			Color(0.6, 0.2, 1.0), 
+			{
+				Enums.RarityType.COMMON: 0.0, 
+				Enums.RarityType.RARE: 0.1, 
+				Enums.RarityType.EPIC: 0.4, 
+				Enums.RarityType.LEGENDARY: 0.5
+			}
+		)
 	}
 
-	enum ChestType {
-		WOOD,
-		IRON,
-		GOLD,
-		MYSTIC
-	}
-
-	class RewardData:
-		var rarity: Rarity
-		var min_gold: int
-		var max_gold: int
-		var color: Color
-		var name: String
-
-		func _init(p_rarity: Rarity, p_min: int, p_max: int, p_color: Color, p_name: String):
-			rarity = p_rarity
-			min_gold = p_min
-			max_gold = p_max
-			color = p_color
-			name = p_name
-
-	static var REWARD_DATA: Dictionary[Rarity, RewardData] = {
-		Rarity.COMMON: RewardData.new(Rarity.COMMON, 50, 150, Color(0.7, 0.7, 0.7), "Common"),
-		Rarity.RARE: RewardData.new(Rarity.RARE, 200, 500, Color(0.2, 0.4, 1.0), "Rare"),
-		Rarity.EPIC: RewardData.new(Rarity.EPIC, 750, 1500, Color(0.6, 0.2, 1.0), "Epic"),
-		Rarity.LEGENDARY: RewardData.new(Rarity.LEGENDARY, 2500, 5000, Color(1.0, 0.8, 0.2), "Legendary")
-	}
-
-	class ChestData:
-		var type: ChestType
-		var color: Color
-		var name: String
-		var loot_table: Dictionary # Rarity -> probability
-
-		func _init(p_type: ChestType, p_color: Color, p_name: String, p_loot: Dictionary):
-			type = p_type
-			color = p_color
-			name = p_name
-			loot_table = p_loot
-
-	static var CHEST_DATA: Dictionary[ChestType, ChestData] = {
-		ChestType.WOOD: ChestData.new(ChestType.WOOD, Color(0.45, 0.24, 0.1), "Wood Chest", {
-			Rarity.COMMON: 0.8, Rarity.RARE: 0.15, Rarity.EPIC: 0.04, Rarity.LEGENDARY: 0.01
-		}),
-		ChestType.IRON: ChestData.new(ChestType.IRON, Color(0.5, 0.5, 0.5), "Iron Chest", {
-			Rarity.COMMON: 0.4, Rarity.RARE: 0.4, Rarity.EPIC: 0.15, Rarity.LEGENDARY: 0.05
-		}),
-		ChestType.GOLD: ChestData.new(ChestType.GOLD, Color(1.0, 0.8, 0.2), "Gold Chest", {
-			Rarity.COMMON: 0.1, Rarity.RARE: 0.3, Rarity.EPIC: 0.4, Rarity.LEGENDARY: 0.2
-		}),
-		ChestType.MYSTIC: ChestData.new(ChestType.MYSTIC, Color(0.6, 0.2, 1.0), "Mystic Chest", {
-			Rarity.COMMON: 0.0, Rarity.RARE: 0.1, Rarity.EPIC: 0.4, Rarity.LEGENDARY: 0.5
-		})
-	}
-
-	static func get_random_chest_reward(type: ChestType = ChestType.WOOD) -> Dictionary:
+	static func get_random_chest_reward(type: Enums.ChestType) -> Dictionary:
 		var roll = randf()
 		var cumulative_prob = 0.0
 		
 		var data = CHEST_DATA[type]
-		var table = data.loot_table
+		var table = data.rarity_drop_table
 		
-		for rarity in [Rarity.COMMON, Rarity.RARE, Rarity.EPIC, Rarity.LEGENDARY]:
+		for rarity in Enums.RarityType.keys():
 			cumulative_prob += table[rarity]
 			if roll <= cumulative_prob:
-				var reward = REWARD_DATA[rarity]
+				var reward = get_chest_reward_data(rarity)
 				var gold = randi_range(reward.min_gold, reward.max_gold)
 				return {
 					"rarity": rarity,
@@ -119,29 +104,88 @@ class LUT:
 				}
 		
 		# Fallback
-		var fallback = REWARD_DATA[Rarity.COMMON]
+		var fallback = get_chest_reward_data(Enums.RarityType.COMMON)
 		return {
-			"rarity": Rarity.COMMON,
+			"rarity": Enums.RarityType.COMMON,
 			"name": fallback.name,
 			"gold": fallback.min_gold,
 			"color": fallback.color
 		}
+	
+	# --- Chest Rewards ---
+	static var CHEST_REWARD_DATA: Dictionary[Enums.RarityType, ChestRewardData] = {
+		Enums.RarityType.COMMON: ChestRewardData.new(
+			Enums.RarityType.COMMON, 
+			50, 
+			150, 
+			Color(0.7, 0.7, 0.7)
+		),
+		Enums.RarityType.RARE: ChestRewardData.new(
+			Enums.RarityType.RARE, 
+			200, 
+			500, 
+			Color(0.2, 0.4, 1.0)
+		),
+		Enums.RarityType.EPIC: ChestRewardData.new(
+			Enums.RarityType.EPIC, 
+			750, 
+			1500, 
+			Color(0.6, 0.2, 1.0)
+		),
+		Enums.RarityType.LEGENDARY: ChestRewardData.new(
+			Enums.RarityType.LEGENDARY, 
+			2500, 
+			5000, 
+			Color(1.0, 0.8, 0.2)
+		)
+	}
 
+	static func get_chest_reward_data(rarity: Enums.RarityType) -> ChestRewardData: return CHEST_REWARD_DATA.get(rarity, null)
+	
 	# --- Boats ---
-	static var BOAT_DATA: Dictionary[BoatData.Type, BoatData] = {
-		BoatData.Type.ROW_SMALL: BoatData.new(
-			BoatData.Type.ROW_SMALL, 20.0, 8.0, 3.0, 0.2, 0.5, 2.0, 100, 12, 6, 2
+	static var BOAT_DATA: Dictionary[Enums.BoatType, BoatData] = {
+		Enums.BoatType.ROW_SMALL: BoatData.new(
+			Enums.BoatType.ROW_SMALL, 
+			20.0, 
+			8.0, 
+			3.0, 
+			0.2, 
+			0.5, 
+			2.0, 
+			100, 
+			12, 
+			6, 
+			2
 		),
-		BoatData.Type.SHIP_SMALL: BoatData.new(
-			BoatData.Type.SHIP_SMALL, 20.0, 30.0, 3.0, 0.2, 0.5, 2.0, 100, 24, 12, 2
+		Enums.BoatType.SHIP_SMALL: BoatData.new(
+			Enums.BoatType.SHIP_SMALL, 
+			20.0, 
+			30.0, 
+			3.0, 
+			0.2, 
+			0.5, 
+			2.0, 
+			100, 
+			24, 
+			12, 
+			2
 		),
-		BoatData.Type.SHIP_MEDIUM_2: BoatData.new(
-			BoatData.Type.SHIP_MEDIUM_2, 35.0, 35.0, 2.5, 0.15, 0.4, 1.5, 1000, 25, 12, 4
+		Enums.BoatType.SHIP_MEDIUM_2: BoatData.new(
+			Enums.BoatType.SHIP_MEDIUM_2, 
+			35.0, 
+			35.0, 
+			2.5, 
+			0.15, 
+			0.4, 
+			1.5, 
+			1000, 
+			25, 
+			12, 
+			4
 		)
 	}
 	
-	static func get_boat_data(type: BoatData.Type) -> BoatData:
-		return BOAT_DATA.get(type, null)
+	static func get_boat_data(type: Enums.BoatType) -> BoatData: return BOAT_DATA.get(type, null)
 
 	# --- Blocks ---
 

@@ -1,9 +1,10 @@
 class_name TreasureChest
 extends BuoyantRigidBody
 
-@export var type: Constants.LUT.ChestType = Constants.LUT.ChestType.WOOD
+@export var type: Enums.ChestType = Enums.ChestType.WOOD
 
 @onready var interaction_area: Area3D = $InteractionArea
+@onready var animation_player: AnimationPlayer = $MeshInstance3D/AnimationPlayer
 
 # ===
 # Built-In
@@ -34,7 +35,7 @@ func _setup_visuals() -> void:
 	if mesh_instance:
 		var material = StandardMaterial3D.new()
 		material.albedo_color = data.color
-		if type != Constants.LUT.ChestType.WOOD:
+		if type != Enums.ChestType.WOOD:
 			material.metallic = 0.5
 			material.roughness = 0.2
 		mesh_instance.set_surface_override_material(0, material)
@@ -62,6 +63,12 @@ func _setup_visuals() -> void:
 func _on_body_entered(body: Node3D) -> void:
 	if body is Boat:
 		var reward = Constants.LUT.get_random_chest_reward(type)
+		# Play animatio
+		animation_player.play("open")
+		animation_player.animation_finished.connect(
+			func ():
+				queue_free()
+		)
 		
 		# Update Gold
 		Context.progression.gold += reward.gold
@@ -69,6 +76,7 @@ func _on_body_entered(body: Node3D) -> void:
 		# Emit Event for UI/Sound
 		EventBus.emit(
 			WorldEvent.ChestCollected.new(
+				# pass the chest data
 				reward.rarity,
 				reward.name,
 				reward.gold,
@@ -77,8 +85,7 @@ func _on_body_entered(body: Node3D) -> void:
 		)
 		
 		print_debug("Chest collected! Type: %s, Rarity: %s, Gold: %d" % [
-			Constants.LUT.ChestType.keys()[type], 
+			Enums.ChestType.keys()[type], 
 			reward.name, 
 			reward.gold
 		])
-		queue_free()

@@ -1,10 +1,8 @@
 class_name BoatData
 extends Resource
 
-enum Type { NONE, ROW_SMALL, SHIP_SMALL, SHIP_MEDIUM_2 }
-
 @export_category("Identity")
-@export var type: Type
+@export var type: Enums.BoatType
 @export var display_name: String
 
 @export_category("Physics")
@@ -22,7 +20,7 @@ enum Type { NONE, ROW_SMALL, SHIP_SMALL, SHIP_MEDIUM_2 }
 @export var zoom_step: int = 2
 
 func _init(
-	p_type: Type,
+	p_type: Enums.BoatType,
 	p_max_speed: float, 
 	p_acceleration: float, 
 	p_turn_speed: float, 
@@ -35,7 +33,7 @@ func _init(
 	p_zoom_step: int,
 ) -> void:
 	type = p_type
-	display_name = Type.keys()[p_type].capitalize()
+	display_name = Enums.BoatType.keys()[p_type].capitalize()
 	max_speed = p_max_speed
 	acceleration = p_acceleration
 	turn_speed = p_turn_speed

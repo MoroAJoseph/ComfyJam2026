@@ -25,7 +25,7 @@ func _process(_delta: float) -> void:
 		player_context.world_location = current_boat.global_position
 		print_debug("boat controller: ", player_context.world_location)
 	
-func spawn_boat(boat_type: BoatData.Type) -> void:
+func spawn_boat(boat_type: Enums.BoatType) -> void:
 	# Cleanup
 	for child in get_children():
 		child.queue_free()

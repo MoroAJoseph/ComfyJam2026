@@ -55,12 +55,12 @@ func _handle_chest_collected(event: WorldEvent.ChestCollected) -> void:
 		else:
 			# Random "filler" items based on some logic (mostly common/rare)
 			var roll = randf()
-			var rarity: Constants.LUT.Rarity = Constants.LUT.Rarity.COMMON
-			if roll > 0.98: rarity = Constants.LUT.Rarity.LEGENDARY
-			elif roll > 0.9: rarity = Constants.LUT.Rarity.EPIC
-			elif roll > 0.7: rarity = Constants.LUT.Rarity.RARE
+			var rarity: Enums.RarityType = Enums.RarityType.COMMON
+			if roll > 0.98: rarity = Enums.RarityType.LEGENDARY
+			elif roll > 0.9: rarity = Enums.RarityType.EPIC
+			elif roll > 0.7: rarity =Enums.RarityType.RARE
 			
-			var data = Constants.LUT.REWARD_DATA[rarity]
+			var data = Constants.LUT.get_chest_reward_data(rarity)
 			rarity_data = {
 				"name": data.name,
 				"color": data.color

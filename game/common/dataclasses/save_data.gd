@@ -2,7 +2,8 @@ class_name SaveData
 extends Resource
 
 @export_category("Progression")
-@export var current_equipped_boat: BoatData.Type
+@export var current_equipped_boat: Enums.BoatType
+@export var current_equipped_tool: Enums.ToolType
 @export var current_gold: int
 
 @export_category("Player")
@@ -11,24 +12,11 @@ extends Resource
 @export var player_look_direction: Vector3
 
 @export_category("World")
+@export var world_seed: int
+@export var world_block_diff: Dictionary[Vector3, int] # block data type
 @export var world_time: float
 @export var world_sea_time: float
 
-func update() -> void:
-	if not Context: return
-	
-	# Progression
-	var progression: = Context.progression
-	current_equipped_boat = progression.equipped_boat_type
-	current_gold = progression.gold
-	
-	# Player
-	var player: = Context.player
-	player_world_location = player.world_location
-	player_boat_direction = player.boat_direction
-	player_look_direction = player.look_direction
-	
-	# World
-	var world: = Context.world
-	world_time = world.time
-	world_sea_time = world.sea_time
+# - things to add:
+# player inventory
+# dock inventories

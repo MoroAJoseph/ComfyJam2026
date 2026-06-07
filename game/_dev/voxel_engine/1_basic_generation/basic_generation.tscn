@@ -21,8 +21,8 @@ glow_enabled = true
 
 [node name="BasicGeneration" type="Node3D" unique_id=1402650477]
 script = ExtResource("1_3pxvp")
-use_hexagons = null
-dimensions = Vector3(128, 16, 128)
+use_hexagons = false
+dimensions = Vector3(16, 32, 16)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=346278542]
 environment = SubResource("Environment_8diei")

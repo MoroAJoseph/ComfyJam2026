@@ -1,2 +1,2 @@
 class_name BlockData
-extends Resource
+extends RefCounted

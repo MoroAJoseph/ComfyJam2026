@@ -44,7 +44,7 @@ func _physics_process(delta: float) -> void:
 	var direction := (eye_camera.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		if flying:
-			velocity = direction * SLOW_FLY_SPEED
+			velocity = direction * FLY_SPEED
 		else:
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED

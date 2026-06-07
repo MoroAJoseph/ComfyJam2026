@@ -27,7 +27,7 @@ func _ready() -> void:
 
 func _print_debug(start_time: float) -> void:
 	var end_time = Time.get_ticks_usec()
-	print("Blocks: %d | Time: %f" % [total_blocks, (end_time - start_time) / 1_000_000.0])
+	print("Surface - Blocks: %d | Time: %f" % [total_blocks, (end_time - start_time) / 1_000_000.0])
 
 func _get_random_color(y: int) -> Color:
 	return colors[y % colors.size()]

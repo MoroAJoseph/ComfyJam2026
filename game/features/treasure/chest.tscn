@@ -4,50 +4,52 @@
 [ext_resource type="PackedScene" uid="uid://b7s0tyiqd80no" path="res://assets/environment/glb/chest.glb" id="2_mesh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_collision"]
-size = Vector3(1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_indicator"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_interaction"]
 radius = 2.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_indicator"]
-size = Vector3(1, 1, 1)
-
-[node name="TreasureChest" type="RigidBody3D"]
+[node name="TreasureChest" type="RigidBody3D" unique_id=1445522733]
 collision_layer = 8
 collision_mask = 7
 mass = 5.0
-lock_rotation = false
 script = ExtResource("1_chest")
 float_force = 2.0
 alignment_strength = 15.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=335879518]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_collision")
 
-[node name="MeshInstance3D" parent="." instance=ExtResource("2_mesh")]
+[node name="MeshInstance3D" parent="." unique_id=1843181054 instance=ExtResource("2_mesh")]
 
-[node name="IndicatorCube" type="MeshInstance3D" parent="."]
+[node name="lid" parent="MeshInstance3D/chest" parent_id_path=PackedInt32Array(1843181054, 1222393778) index="0" unique_id=1757561904]
+transform = Transform3D(1, 0, 0, 0, 1, 1.7439346e-16, 0, -1.7439346e-16, 1, -9.498978e-09, 0.51, -0.51)
+
+[node name="IndicatorCube" type="MeshInstance3D" parent="." unique_id=1952956386]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 1.2, 0)
 mesh = SubResource("BoxMesh_indicator")
 
-[node name="InteractionArea" type="Area3D" parent="."]
+[node name="InteractionArea" type="Area3D" parent="." unique_id=1582530805]
 collision_layer = 0
 collision_mask = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=754409223]
 shape = SubResource("SphereShape3D_interaction")
 
-[node name="Probes" type="Node3D" parent="."]
+[node name="Probes" type="Node3D" parent="." unique_id=585213472]
 
-[node name="Probe1" type="Node3D" parent="Probes"]
+[node name="Probe1" type="Node3D" parent="Probes" unique_id=1531038575]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, -0.4)
 
-[node name="Probe2" type="Node3D" parent="Probes"]
+[node name="Probe2" type="Node3D" parent="Probes" unique_id=548325679]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, -0.4)
 
-[node name="Probe3" type="Node3D" parent="Probes"]
+[node name="Probe3" type="Node3D" parent="Probes" unique_id=992299126]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0.4)
 
-[node name="Probe4" type="Node3D" parent="Probes"]
+[node name="Probe4" type="Node3D" parent="Probes" unique_id=1567740738]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0.4)
+
+[editable path="MeshInstance3D"]

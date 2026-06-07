@@ -86,13 +86,13 @@ class DockExited extends WorldEvent: pass
 
 class ChestCollected extends WorldEvent:
 	
-	var rarity: Constants.LUT.Rarity
+	var rarity: Enums.RarityType
 	var rarity_name: String
 	var gold_amount: int
 	var color: Color
 	
 	func _init(
-		p_rarity: Constants.LUT.Rarity,
+		p_rarity: Enums.RarityType,
 		p_rarity_name: String,
 		p_gold_amount: int,
 		p_color: Color

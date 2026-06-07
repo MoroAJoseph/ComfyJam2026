@@ -77,7 +77,7 @@ func generate_mesh(data: Dictionary[Vector3, Color]) -> void:
 			add_face(Face.BOTTOM, pos, color)
 
 	commit_mesh()
-	commit_collision()
+	#commit_collision()
 
 func has_neighbour(data: Dictionary[Vector3, Color], face: Face, pos: Vector3) -> bool:
 	var neighbour_position = pos + face_normals[face]
