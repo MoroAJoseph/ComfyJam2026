@@ -59,40 +59,8 @@ func _setup_visuals() -> void:
 		rot_tween.tween_property(indicator, "rotation:y", PI * 2, 2.0).as_relative()
 
 func _collect() -> void:
-	var roll = randf()
-	var cumulative_prob = 0.0
-	
-	var data: ChestData = Constants.LUT.get_chest_data(type)
-	var table = data.rarity_drop_table
-	var reward_data: ChestRewardData
-	var gold_amount: int = 0
-	
-	for rarity in Enums.RarityType.values():
-		cumulative_prob += table[rarity] 
-		
-		if roll <= cumulative_prob:
-			reward_data = Constants.LUT.get_chest_reward_data(rarity)
-			gold_amount = randi_range(reward_data.min_gold, reward_data.max_gold)
-			break
-
-	# Update Gold
-	Context.progression.gold += gold_amount
-	
-	# Emit Event for UI/Sound
-	EventBus.emit(
-		WorldEvent.ChestCollected.new(
-			reward_data.rarity,
-			reward_data.name,
-			reward_data.color,
-			gold_amount
-		)
-	)
-
-	print_debug("Chest collected! Type: %s, Rarity: %s, Gold: %d" % [
-		Enums.ChestType.keys()[type], 
-		reward_data.name, 
-		gold_amount
-	])
+	Context.progression.add_chest(type)
+	print_debug("Chest added to queue! Type: %s" % Enums.ChestType.keys()[type])
 
 # ===
 # Signals
@@ -101,6 +69,7 @@ func _collect() -> void:
 func _on_body_entered(body: Node3D) -> void:
 	if not _collected and body is Boat:
 		_collected = true
+		
 		# Play animation
 		animation_player.play("open")
 		animation_player.animation_finished.connect(

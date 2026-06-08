@@ -23,6 +23,39 @@ var gold: int:
 		gold = value
 		gold_updated.emit(value)
 
+func add_chest(type: Enums.ChestType) -> void:
+	_reward_chest(type)
+
+func _reward_chest(type: Enums.ChestType) -> void:
+	var roll = randf()
+	var cumulative_prob = 0.0
+	
+	var data: ChestData = Constants.LUT.get_chest_data(type)
+	var table = data.rarity_drop_table
+	var reward_data: ChestRewardData
+	var gold_amount: int = 0
+	
+	for rarity in Enums.RarityType.values():
+		cumulative_prob += table[rarity] 
+		
+		if roll <= cumulative_prob:
+			reward_data = Constants.LUT.get_chest_reward_data(rarity)
+			gold_amount = randi_range(reward_data.min_gold, reward_data.max_gold)
+			break
+
+	# Update Gold
+	gold += gold_amount
+	
+	# Emit Event for UI/Sound
+	EventBus.emit(
+		WorldEvent.ChestCollected.new(
+			reward_data.rarity,
+			reward_data.name,
+			reward_data.color,
+			gold_amount
+		)
+	)
+
 func purchase_boat(type: Enums.BoatType) -> void:
 	var boat_data: BoatData = Constants.LUT.get_boat_data(type)
 	if not boat_data:

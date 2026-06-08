@@ -12,6 +12,9 @@ var _separation: float = 10.0
 var _win_index: int = 35
 var _total_items: int = 45
 
+var _event_queue: Array[WorldEvent.ChestCollected] = []
+var _is_showing: bool = false
+
 # ===
 # Built-In
 # ===
@@ -27,6 +30,18 @@ func _ready() -> void:
 # ===
 
 func _handle_chest_collected(event: WorldEvent.ChestCollected) -> void:
+	_event_queue.append(event)
+	if not _is_showing:
+		_show_next_reward()
+
+func _show_next_reward() -> void:
+	if _event_queue.is_empty():
+		_is_showing = false
+		return
+	
+	_is_showing = true
+	var event = _event_queue.pop_front()
+	
 	if _current_tween:
 		_current_tween.kill()
 	
@@ -104,3 +119,6 @@ func _handle_chest_collected(event: WorldEvent.ChestCollected) -> void:
 	_current_tween.tween_interval(2.5)
 	_current_tween.tween_property(opening_strip, "modulate:a", 0.0, 0.5)
 	_current_tween.parallel().tween_property(opening_strip, "scale", Vector2(0.8, 0.8), 0.5).set_trans(Tween.TRANS_CUBIC)
+	
+	# 5. Process Next
+	_current_tween.tween_callback(_show_next_reward)

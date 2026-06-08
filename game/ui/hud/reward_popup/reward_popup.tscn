@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cb5k8m1n2u8y4"]
+[gd_scene format=3 uid="uid://cb5k8m1n2u8y4"]
 
-[ext_resource type="Script" path="res://ui/hud/reward_popup/reward_popup.gd" id="1_reward"]
+[ext_resource type="Script" uid="uid://byvufvuj8bm0e" path="res://ui/hud/reward_popup/reward_popup.gd" id="1_reward"]
 
-[node name="RewardPopup" type="Control"]
+[node name="RewardPopup" type="Control" unique_id=537706517]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,22 +12,26 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_reward")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1920246593]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 201.0
+offset_right = 6.0
+offset_bottom = 201.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="OpeningStrip" type="Control" parent="CenterContainer"]
+[node name="OpeningStrip" type="Control" parent="CenterContainer" unique_id=795606300]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(600, 150)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="BG" type="ColorRect" parent="CenterContainer/OpeningStrip"]
+[node name="BG" type="ColorRect" parent="CenterContainer/OpeningStrip" unique_id=1088594171]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,17 +40,21 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.5)
 
-[node name="Viewport" type="Control" parent="CenterContainer/OpeningStrip"]
+[node name="Viewport" type="Control" parent="CenterContainer/OpeningStrip" unique_id=359374182]
 clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 160.0
+offset_right = 16.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ScrollContainer" type="HBoxContainer" parent="CenterContainer/OpeningStrip/Viewport"]
+[node name="ScrollContainer" type="HBoxContainer" parent="CenterContainer/OpeningStrip/Viewport" unique_id=1616749442]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 4
@@ -57,7 +65,7 @@ offset_bottom = 50.0
 grow_vertical = 2
 theme_override_constants/separation = 10
 
-[node name="SelectorLine" type="ColorRect" parent="CenterContainer/OpeningStrip"]
+[node name="SelectorLine" type="ColorRect" parent="CenterContainer/OpeningStrip" unique_id=1639779968]
 custom_minimum_size = Vector2(4, 0)
 layout_mode = 1
 anchors_preset = 13
@@ -70,7 +78,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.8)
 
-[node name="ResultLabel" type="Label" parent="CenterContainer/OpeningStrip"]
+[node name="ResultLabel" type="Label" parent="CenterContainer/OpeningStrip" unique_id=1320658064]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7

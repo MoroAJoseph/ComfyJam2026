@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://cgywb4adqqwbp" path="res://_dev/dev_cube.tscn" id="7_1bvj8"]
 [ext_resource type="PackedScene" uid="uid://df7w8m1n2u8y3" path="res://features/treasure/chest.tscn" id="8_chest"]
 [ext_resource type="PackedScene" uid="uid://cnrw4on3dorqt" path="res://features/barrel/barrel.tscn" id="9_barrel"]
-[ext_resource type="PackedScene" uid="uid://cb5k8m1n2u803" path="res://features/environment/starter_island/starter_island.tscn" id="11_island"]
 
 [node name="World" type="Node3D" unique_id=485736105]
 process_mode = 1
@@ -74,8 +73,6 @@ type = 0
 [node name="ExplodingBarrel_Gold" parent="Instances/Barrels" unique_id=-2072745074 instance=ExtResource("9_barrel")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 2, 10)
 type = 2
-
-[node name="StarterIsland" parent="Instances" unique_id=1040077490 instance=ExtResource("11_island")]
 
 [node name="DevCubes" type="Node3D" parent="Instances" unique_id=368413939]
 
