@@ -26,6 +26,7 @@ var hovered_chunk: Vector3i
 var hovered_voxel: Vector3i
 var hovered_normal: Vector3
 var last_hit_rid: RID
+var total_voxels: int
 
 # ===
 # Built-In
@@ -41,7 +42,16 @@ func _ready() -> void:
 		var mat := highlight_shader_material.duplicate()
 		highlight_mesh_instance.material_override = mat
 	
+	var start_time: int = Time.get_ticks_msec()
 	generate_world_data()
+	
+	var end_time: int = Time.get_ticks_msec()
+	var duration_seconds: float = (end_time - start_time) / 1000.0
+	
+	var total_voxels = get_total_voxel_count()
+	print_debug("Generation complete in %.3f seconds." % duration_seconds)
+	print_debug("Total voxels in generated world data: %d" % total_voxels)
+	
 	_update_highlight_mesh_type()
 
 func _process(_delta: float) -> void:
@@ -57,6 +67,14 @@ func _process(_delta: float) -> void:
 # Public
 # ===
 
+func get_total_voxel_count() -> int:
+	var total: int = 0
+	for data: PackedByteArray in chunks_data.values():
+		for b: int in data:
+			if b > 0:
+				total += 1
+	return total
+
 func generate_world_data() -> void:
 	var y_max: int = int(ceil(generation_height / float(chunk_size)))
 	for x: int in range(-generation_radius, generation_radius + 1):
@@ -65,7 +83,6 @@ func generate_world_data() -> void:
 				for y: int in range(0, y_max):
 					var coordinate: Vector3i = Vector3i(x, y, z)
 					chunks_data[coordinate] = generate_raw_voxels(get_chunk_position(coordinate))
-	print_debug(chunks_data.keys())
 	data_initialized = true
 	update_render_distance()
 
@@ -248,7 +265,6 @@ func _apply_result(coordinate: Vector3i, geometry: Dictionary) -> void:
 		var shape := PhysicsServer3D.concave_polygon_shape_create()
 		PhysicsServer3D.shape_set_data(shape, {"faces": geometry.verts, "backface_collision": false})
 		
-		print(get_chunk_position(coordinate))
 		PhysicsServer3D.body_add_shape(chunk.body, shape)
 		PhysicsServer3D.body_set_state(
 			chunk.body,
