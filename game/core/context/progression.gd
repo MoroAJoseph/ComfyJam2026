@@ -23,8 +23,21 @@ var gold: int:
 		gold = value
 		gold_updated.emit(value)
 
+# Chest Queue (Persistent)
+signal chest_queue_updated()
+var chest_queue: Array[Enums.ChestType] = []
+
 func add_chest(type: Enums.ChestType) -> void:
+	chest_queue.append(type)
+	chest_queue_updated.emit()
+
+func claim_next_chest() -> void:
+	if chest_queue.is_empty():
+		return
+	
+	var type = chest_queue.pop_front()
 	_reward_chest(type)
+	chest_queue_updated.emit()
 
 func _reward_chest(type: Enums.ChestType) -> void:
 	var roll = randf()

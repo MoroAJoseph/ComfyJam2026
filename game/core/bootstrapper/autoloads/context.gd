@@ -32,6 +32,7 @@ func get_save_data() -> SaveData:
 	# Progression
 	data.current_equipped_boat = progression.equipped_boat_type
 	data.current_gold = progression.gold
+	data.chest_queue = progression.chest_queue
 	
 	# Player
 	data.player_world_location = player.world_location
@@ -45,6 +46,13 @@ func get_save_data() -> SaveData:
 	return data
 
 func set_from_save(_data: SaveData) -> void:
-	# reverse logic from get save data
-	# setting everything from the data
-	pass
+	progression.equipped_boat_type = _data.current_equipped_boat
+	progression.gold = _data.current_gold
+	progression.chest_queue = _data.chest_queue
+	
+	player.world_location = _data.player_world_location
+	player.boat_direction = _data.player_boat_direction
+	player.look_direction = _data.player_look_direction
+	
+	world.time = _data.world_time
+	world.sea_time = _data.world_sea_time

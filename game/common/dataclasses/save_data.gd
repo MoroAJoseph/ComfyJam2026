@@ -5,6 +5,7 @@ extends Resource
 @export var current_equipped_boat: Enums.BoatType
 @export var current_equipped_tool: Enums.ToolType
 @export var current_gold: int
+@export var chest_queue: Array[Enums.ChestType] = []
 
 @export_category("Player")
 @export var player_world_location: Vector3

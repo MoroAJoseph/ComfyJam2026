@@ -12,7 +12,6 @@ var _separation: float = 10.0
 var _win_index: int = 35
 var _total_items: int = 45
 
-var _event_queue: Array[WorldEvent.ChestCollected] = []
 var _is_showing: bool = false
 
 # ===
@@ -24,23 +23,24 @@ func _ready() -> void:
 	opening_strip.scale = Vector2(0.8, 0.8)
 	result_label.modulate.a = 0.0
 	EventBus.subscribe(WorldEvent.ChestCollected, _handle_chest_collected)
+	Context.progression.chest_queue_updated.connect(_on_chest_queue_updated)
+	
+	# Check if there are chests already in the queue (e.g. from a loaded save)
+	_on_chest_queue_updated()
 
 # ===
 # Event Handlers
 # ===
 
-func _handle_chest_collected(event: WorldEvent.ChestCollected) -> void:
-	_event_queue.append(event)
-	if not _is_showing:
-		_show_next_reward()
+func _on_chest_queue_updated() -> void:
+	if not _is_showing and not Context.progression.chest_queue.is_empty():
+		Context.progression.claim_next_chest()
 
-func _show_next_reward() -> void:
-	if _event_queue.is_empty():
-		_is_showing = false
-		return
-	
+func _handle_chest_collected(event: WorldEvent.ChestCollected) -> void:
+	_show_reward(event)
+
+func _show_reward(event: WorldEvent.ChestCollected) -> void:
 	_is_showing = true
-	var event = _event_queue.pop_front()
 	
 	if _current_tween:
 		_current_tween.kill()
@@ -121,4 +121,7 @@ func _show_next_reward() -> void:
 	_current_tween.parallel().tween_property(opening_strip, "scale", Vector2(0.8, 0.8), 0.5).set_trans(Tween.TRANS_CUBIC)
 	
 	# 5. Process Next
-	_current_tween.tween_callback(_show_next_reward)
+	_current_tween.tween_callback(func():
+		_is_showing = false
+		_on_chest_queue_updated()
+	)
