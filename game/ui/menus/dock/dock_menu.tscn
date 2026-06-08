@@ -49,6 +49,30 @@ theme_override_font_sizes/font_size = 32
 text = "Dock Upgrades"
 horizontal_alignment = 1
 
+[node name="PreviewContainer" type="SubViewportContainer" parent="CenterContainer/Panel/VBoxContainer" unique_id=2000000000]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CenterContainer/Panel/VBoxContainer/PreviewContainer" unique_id=2000000001]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(400, 250)
+render_target_update_mode = 4
+
+[node name="PreviewWorld" type="Node3D" parent="CenterContainer/Panel/VBoxContainer/PreviewContainer/SubViewport" unique_id=2000000002]
+
+[node name="Camera3D" type="Camera3D" parent="CenterContainer/Panel/VBoxContainer/PreviewContainer/SubViewport/PreviewWorld" unique_id=2000000003]
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 6, 8, 10)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CenterContainer/Panel/VBoxContainer/PreviewContainer/SubViewport/PreviewWorld" unique_id=2000000004]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 5, 0)
+
+[node name="BoatPlatform" type="Node3D" parent="CenterContainer/Panel/VBoxContainer/PreviewContainer/SubViewport/PreviewWorld" unique_id=2000000005]
+unique_name_in_owner = true
+
 [node name="GoldLabel" type="Label" parent="CenterContainer/Panel/VBoxContainer" unique_id=604424536]
 unique_name_in_owner = true
 layout_mode = 2

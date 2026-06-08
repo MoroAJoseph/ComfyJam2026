@@ -65,53 +65,55 @@ func _setup_grass_multimesh() -> void:
 func generate_island() -> void:
 	hexagon_data.clear()
 	
-	var noise = FastNoiseLite.new()
-	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
-	noise.frequency = noise_frequency
-	
-	var grass_transforms: Array[Transform3D] = []
-	
-	# Generate grid within a circular range
-	for x in range(-radius_blocks, radius_blocks + 1):
-		for z in range(-radius_blocks, radius_blocks + 1):
-			# Radial falloff
-			var dist = sqrt(x*x + z*z)
-			var falloff = 1.0 - (dist / float(radius_blocks))
-			
-			if falloff <= 0: continue
-			
-			# Calculate base world position
-			var world_x = x * X_SPACING
-			var world_z = z * Z_SPACING
-			if z % 2 != 0:
-				world_x += APOTHEM
-				
-			# Determine height
-			var noise_val = (noise.get_noise_2d(x, z) + 1.0) / 2.0 # 0.0 to 1.0
-			var current_height = int(falloff * height_max * noise_val)
-			
-			if current_height < 0: continue
-			
-			for y in range(current_height + 1):
-				var pos = Vector3(world_x, y, world_z)
-				var color = _get_color_for_height(y, current_height)
-				hexagon_data.set(pos, color)
-				
-				# Add grass on top of grass blocks
-				if y == current_height and color == color_grass:
-					for i in range(8): # High density for a carpet look
-						var offset = Vector3(randf_range(-0.6, 0.6), 0.5, randf_range(-0.6, 0.6))
-						var grass_pos = pos + offset
-						var basis = Basis().rotated(Vector3.UP, randf() * PI * 2.0)
-						# Very low height (0.125) for a "short grass" look
-						basis = basis.scaled(Vector3(randf_range(0.7, 1.3), 0.125, randf_range(0.7, 1.3)))
-						grass_transforms.append(Transform3D(basis, grass_pos))
-				
-			# Spawn assets on the top block
-			if current_height >= 0 and randf() < 0.1:
-				_spawn_asset(Vector3(world_x, current_height + 0.5, world_z))
+	var hexagon_data: Dictionary[Vector3i, Color] = {}
 
-	hexagon_mesh.generate_mesh(hexagon_data)
+	# Hexagon Constants from voxel engine
+	const RADIUS = 1.0
+	...
+
+		# Generate grid within a circular range
+		for x in range(-radius_blocks, radius_blocks + 1):
+			for z in range(-radius_blocks, radius_blocks + 1):
+				# Radial falloff
+				var dist = sqrt(x*x + z*z)
+				var falloff = 1.0 - (dist / float(radius_blocks))
+
+				if falloff <= 0: continue
+
+				# Calculate world position for asset placement using the new grid math
+				var size = 1.0
+				var h_const = 1.0
+				var world_x = size * (3.0 / 2.0 * x)
+				var world_z = size * (sqrt(3.0) / 2.0 * x + sqrt(3.0) * z)
+
+				# Determine height
+				var noise_val = (noise.get_noise_2d(x, z) + 1.0) / 2.0 # 0.0 to 1.0
+				var current_height = int(falloff * height_max * noise_val)
+
+				if current_height < 0: continue
+
+				for y in range(current_height + 1):
+					var grid_pos = Vector3i(x, y, z)
+					var world_pos = Vector3(world_x, y * h_const, world_z)
+					var color = _get_color_for_height(y, current_height)
+					hexagon_data.set(grid_pos, color)
+
+					# Add grass on top of grass blocks
+					if y == current_height and color == color_grass:
+						for i in range(8): # High density for a carpet look
+							var offset = Vector3(randf_range(-0.6, 0.6), 0.5, randf_range(-0.6, 0.6))
+							var grass_pos = world_pos + offset
+							var basis = Basis().rotated(Vector3.UP, randf() * PI * 2.0)
+							# Very low height (0.125) for a "short grass" look
+							basis = basis.scaled(Vector3(randf_range(0.7, 1.3), 0.125, randf_range(0.7, 1.3)))
+							grass_transforms.append(Transform3D(basis, grass_pos))
+
+				# Spawn assets on the top block
+				if current_height >= 0 and randf() < 0.1:
+					_spawn_asset(Vector3(world_x, current_height + 0.5, world_z))
+
+		hexagon_mesh.generate_mesh(hexagon_data)
+
 	_update_grass_multimesh(grass_transforms)
 
 func _update_grass_multimesh(transforms: Array[Transform3D]) -> void:

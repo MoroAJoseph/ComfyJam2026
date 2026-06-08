@@ -22,3 +22,16 @@ var gold: int:
 	set(value):
 		gold = value
 		gold_updated.emit(value)
+
+func purchase_boat(type: Enums.BoatType) -> void:
+	var boat_data: BoatData = Constants.LUT.get_boat_data(type)
+	if not boat_data:
+		print_debug("Purchase: Boat data not found for type %s" % type)
+		return
+	
+	if gold >= boat_data.price:
+		gold -= boat_data.price
+		equipped_boat_type = type
+		print_debug("Purchase: Bought %s for %d gold" % [boat_data.display_name, boat_data.price])
+	else:
+		print_debug("Purchase: Not enough gold for %s" % boat_data.display_name)
