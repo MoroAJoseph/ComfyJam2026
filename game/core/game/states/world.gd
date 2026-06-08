@@ -169,27 +169,20 @@ func _handle_ui_dock_menu(event: UIEvent.DockMenu) -> void:
 			)
 		
 		Enums.DockMenuAction.PURCHASE:
-			# TODO: Move this to the progression context file
 			var progression_context: ProgressionContext = Context.progression
-			match progression_context.equipped_boat_type:
+			var current_type: Enums.BoatType = progression_context.equipped_boat_type
+			var next_type: Enums.BoatType = current_type
+			
+			match current_type:
 				Enums.BoatType.ROW_SMALL:
-					if progression_context.gold >= 50:
-						progression_context.gold -= 50
-						progression_context.equipped_boat_type = Enums.BoatType.SHIP_SMALL
-						print_debug("Upgrade: Boat upgraded to SHIP_SMALL!")
-					else:
-						print_debug("Upgrade: Not enough gold for SHIP_SMALL!")
-				
+					next_type = Enums.BoatType.SHIP_SMALL
 				Enums.BoatType.SHIP_SMALL:
-					if progression_context.gold >= 150:
-						progression_context.gold -= 150
-						progression_context.equipped_boat_type = Enums.BoatType.SHIP_MEDIUM_2
-						print_debug("Upgrade: Boat upgraded to SHIP_MEDIUM_2!")
-					else:
-						print_debug("Upgrade: Not enough gold for SHIP_MEDIUM_2!")
-				
-				Enums.BoatType.SHIP_MEDIUM_2:
-					print_debug("Upgrade: Boat is already at max level!")
+					next_type = Enums.BoatType.SHIP_MEDIUM_2
+			
+			if next_type != current_type:
+				progression_context.purchase_boat(next_type)
+			else:
+				print_debug("Upgrade: Boat is already at max level!")
 	
 
 # --- World ---

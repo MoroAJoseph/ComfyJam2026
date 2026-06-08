@@ -20,7 +20,7 @@ const COLOR_SAND = Color(0.9, 0.8, 0.6)
 const COLOR_GRASS = Color(0.55, 0.85, 0.3)
 const COLOR_STONE = Color(0.5, 0.5, 0.5)
 
-var hexagon_data: Dictionary[Vector3, Color] = {}
+var hexagon_data: Dictionary[Vector3i, Color] = {}
 var grass_transforms: Array[Transform3D] = []
 
 func _ready() -> void:
@@ -52,24 +52,27 @@ func _setup_grass_multimesh() -> void:
 	grass_multimesh.material_override = grass_material
 
 func generate_island_block(x: int, z: int, height: int) -> void:
-	var world_x = x * X_SPACING
-	var world_z = z * Z_SPACING
-	if z % 2 != 0:
-		world_x += APOTHEM
+	# Calculate world position for grass placement using the new grid math
+	var size = 1.0
+	var h_const = 1.0
+	var world_x = size * (3.0 / 2.0 * x)
+	var world_z = size * (sqrt(3.0) / 2.0 * x + sqrt(3.0) * z)
 		
 	for y in range(height):
-		var pos = Vector3(world_x, y, world_z)
+		var grid_pos = Vector3i(x, y, z)
+		var world_pos = Vector3(world_x, y * h_const, world_z)
+		
 		var color = COLOR_SAND # Sand
 		if y > 0: color = COLOR_GRASS # Grass
 		if y > 2: color = COLOR_STONE # Stone
 		
-		hexagon_data.set(pos, color)
+		hexagon_data.set(grid_pos, color)
 		
 		# Add grass on top of grass blocks
 		if y == height - 1 and color == COLOR_GRASS:
 			for i in range(8): # High density for a carpet look
 				var offset = Vector3(randf_range(-0.6, 0.6), 0.5, randf_range(-0.6, 0.6))
-				var grass_pos = pos + offset
+				var grass_pos = world_pos + offset
 				var basis = Basis().rotated(Vector3.UP, randf() * PI * 2.0)
 				# Very low height (0.125) for a "short grass" look
 				basis = basis.scaled(Vector3(randf_range(0.7, 1.3), 0.125, randf_range(0.7, 1.3)))
