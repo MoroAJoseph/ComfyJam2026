@@ -63,12 +63,8 @@ func apply_collision(verts: PackedVector3Array) -> void:
 
 func _create_and_apply_material() -> void:
 	var shader_mat = ShaderMaterial.new()
-	
-	# 2. Load your shader file (create this file in your project)
 	shader_mat.shader = preload("res://core/voxel_engine/hexagon.gdshader")
-	
-	# 3. Assign the texture atlas (Assuming you have one ready)
-	shader_mat.set_shader_parameter("atlas", preload("res://assets/textures/hex_atlas.png"))
+	shader_mat.set_shader_parameter("atlas", preload("res://assets/blocks/hexagon_uv_atlas.png"))
 	
 	material = shader_mat
 	mesh_instance.set_surface_override_material(0, material)
