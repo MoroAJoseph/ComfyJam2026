@@ -11,6 +11,14 @@ export_credentials.cfg
 data_*/
 mono_crash.*.json
 
+# Python/Virtual Environment
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
 # Build & Custom Folders
 dist
 ignore

@@ -13,8 +13,8 @@ static func get_single_voxel_geometry(voxel: Vector3i, data: PackedByteArray, co
 	var base := _get_hex_points(center, s, -h / 2.0)
 	var top := _get_hex_points(center, s, h / 2.0)
 
-	if _is_air(voxel.x, voxel.y + 1, voxel.z, data, coords, registry, size): _add_cap(top, true, color, verts, norms, cols, uvs)
-	if _is_air(voxel.x, voxel.y - 1, voxel.z, data, coords, registry, size): _add_cap(base, false, color, verts, norms, cols, uvs)
+	if _is_air(voxel.x, voxel.y + 1, voxel.z, data, coords, registry, size): _add_cap(top, true, color, verts, norms, cols)
+	if _is_air(voxel.x, voxel.y - 1, voxel.z, data, coords, registry, size): _add_cap(base, false, color, verts, norms, cols)
 
 	for i in range(6):
 		var offset := FACE_TO_NEIGHBOR[i]
@@ -22,7 +22,7 @@ static func get_single_voxel_geometry(voxel: Vector3i, data: PackedByteArray, co
 			var next := (i + 1) % 6
 			var normal := (base[i] + base[next] - (center * 2.0)).normalized()
 			normal.y = 0.0
-			_add_side(base[i], base[next], top[next], top[i], normal, color, verts, norms, cols, uvs)
+			_add_side(base[i], base[next], top[next], top[i], normal, color, verts, norms, cols)
 	return {"verts": verts, "norms": norms, "cols": cols, "uvs": uvs}
 
 static func calculate_geometry(data: PackedByteArray, coords: Vector3i, registry: Dictionary, size: int, colors: Array[Color]) -> Dictionary:
@@ -36,15 +36,15 @@ static func calculate_geometry(data: PackedByteArray, coords: Vector3i, registry
 				var center := _get_hex_world_pos(Vector3i(x, y, z), 1.0, 1.0)
 				var base := _get_hex_points(center, 1.0, -0.5)
 				var top := _get_hex_points(center, 1.0, 0.5)
-				if _is_air(x, y + 1, z, data, coords, registry, size): _add_cap(top, true, col, v, n, c, u)
-				if _is_air(x, y - 1, z, data, coords, registry, size): _add_cap(base, false, col, v, n, c, u)
+				if _is_air(x, y + 1, z, data, coords, registry, size): _add_cap(top, true, col, v, n, c)
+				if _is_air(x, y - 1, z, data, coords, registry, size): _add_cap(base, false, col, v, n, c)
 				for i in range(6):
 					var offset := FACE_TO_NEIGHBOR[i]
 					if _is_air(x + offset.x, y + offset.y, z + offset.z, data, coords, registry, size):
 						var next := (i + 1) % 6
 						var normal := (base[i] + base[next] - (center * 2.0)).normalized()
 						normal.y = 0.0
-						_add_side(base[i], base[next], top[next], top[i], normal, col, v, n, c, u)
+						_add_side(base[i], base[next], top[next], top[i], normal, col, v, n, c)
 	return {"verts": v, "norms": n, "cols": c, "uvs": u}
 
 static func get_noise_coords(x: int, z: int, world_origin: Vector3) -> Vector2:
@@ -129,29 +129,27 @@ static func _get_hex_points(center: Vector3, s: float, y_off: float) -> Array[Ve
 		points.append(center + Vector3(cos(angle) * s, y_off, sin(angle) * s))
 	return points
 
-static func _add_side(p1: Vector3, p2: Vector3, p3: Vector3, p4: Vector3, n: Vector3, c: Color, v: PackedVector3Array, no: PackedVector3Array, co: PackedColorArray, u: PackedVector2Array) -> void:
-	_add_tri(p1, p2, p3, n, c, v, no, co, u)
-	_add_tri(p1, p3, p4, n, c, v, no, co, u)
+static func _add_side(p1, p2, p3, p4, n, _c, v, no, co) -> void:
+	# Flag: BLUE for sides
+	var face_color = Color(0, 0, 1, 1) 
+	_add_tri(p1, p2, p3, n, face_color, v, no, co)
+	_add_tri(p1, p3, p4, n, face_color, v, no, co)
 
-static func _add_cap(points: Array[Vector3], is_top: bool, c: Color, v: PackedVector3Array, no: PackedVector3Array, co: PackedColorArray, u: PackedVector2Array) -> void:
-	var center: Vector3 = Vector3.ZERO
+static func _add_cap(points: Array[Vector3], is_top: bool, _c: Color, v: PackedVector3Array, no: PackedVector3Array, co: PackedColorArray) -> void:
+	var center = Vector3.ZERO
 	for p in points: center += p
 	center /= 6.0
-	var n: Vector3 = Vector3.UP if is_top else Vector3.DOWN
+	# Flag: RED for Top, GREEN for Bottom
+	var face_color = Color(1, 0, 0, 1) if is_top else Color(0, 1, 0, 1)
+	var n = Vector3.UP if is_top else Vector3.DOWN
+	
 	for i in range(6):
-		var next: int = (i + 1) % 6
-		if is_top: _add_tri(center, points[i], points[next], n, c, v, no, co, u)
-		else: _add_tri(center, points[next], points[i], n, c, v, no, co, u)
+		var next = (i + 1) % 6
+		if is_top: _add_tri(center, points[i], points[next], n, face_color, v, no, co)
+		else: _add_tri(center, points[next], points[i], n, face_color, v, no, co)
 
-static func _add_tri(p1: Vector3, p2: Vector3, p3: Vector3, n: Vector3, c: Color, v: PackedVector3Array, no: PackedVector3Array, co: PackedColorArray, uvs: PackedVector2Array = PackedVector2Array()) -> void:
+static func _add_tri(p1: Vector3, p2: Vector3, p3: Vector3, n: Vector3, c: Color, v: PackedVector3Array, no: PackedVector3Array, co: PackedColorArray, _uvs: PackedVector2Array = PackedVector2Array()) -> void:
 	v.append_array([p1, p2, p3])
 	# n is the face normal. Append it 3 times to ensure the shader sees flat faces
 	no.append_array([n, n, n]) 
 	co.append_array([c, c, c])
-	
-	# Placeholder for UVs: 
-	# If uvs is provided, append them. If not, append (0,0)
-	if uvs.size() >= 3:
-		uvs.append_array([uvs[0], uvs[1], uvs[2]])
-	else:
-		uvs.append_array([Vector2.ZERO, Vector2.ZERO, Vector2.ZERO])

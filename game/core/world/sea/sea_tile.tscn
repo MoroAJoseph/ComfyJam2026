@@ -5,13 +5,13 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0lwvc"]
 render_priority = 0
 shader = ExtResource("1_bc4oq")
-shader_parameter/cpu_time = -0.455
+shader_parameter/cpu_time = -12.74
 shader_parameter/underwater_fog_color = Color(0.26135722, 0.5421905, 0.9254397, 1)
 shader_parameter/fade_start_depth = 0.5
 shader_parameter/max_depth = 10.0
 shader_parameter/water_level = 0.0
-shader_parameter/sea_height = 0.9650000458375
-shader_parameter/sea_choppy = 4.00000019
+shader_parameter/sea_height = 1.1090000526775
+shader_parameter/sea_choppy = 4.058000192755
 shader_parameter/sea_speed = 1.5
 shader_parameter/sea_freq = 0.08
 shader_parameter/ITER_GEOMETRY = 3
@@ -53,7 +53,7 @@ subdivide_depth = 255
 size = Vector3(500, 1, 500)
 
 [node name="SeaTile" type="MeshInstance3D" unique_id=667551588]
-transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0.14908981, 0.30487442, -0.023448944)
 mesh = SubResource("PlaneMesh_kja62")
 
 [node name="WaterCollider" type="StaticBody3D" parent="." unique_id=614510152]

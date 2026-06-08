@@ -8,11 +8,13 @@ transparency = 1
 blend_mode = 1
 shading_mode = 0
 albedo_color = Color(1, 1, 0.5, 0.15)
+proximity_fade_enabled = true
+proximity_fade_distance = 3.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_beam"]
 material = SubResource("StandardMaterial3D_beam")
 top_radius = 0.1
-bottom_radius = 8.0
+bottom_radius = 16.0
 height = 60.0
 radial_segments = 16
 rings = 1
@@ -28,26 +30,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.8707943, 0)
 
 [node name="SpotLight_Forward" type="SpotLight3D" parent="LightPivot" unique_id=45177404]
 light_color = Color(1, 1, 0.8, 1)
-light_energy = 16.0
+light_energy = 64.0
+shadow_enabled = true
 spot_range = 60.0
 spot_angle = 15.0
 
 [node name="SpotLight_Backward" type="SpotLight3D" parent="LightPivot" unique_id=1176774674]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 light_color = Color(1, 1, 0.8, 1)
-light_energy = 16.0
+light_energy = 64.0
+shadow_enabled = true
 spot_range = 60.0
 spot_angle = 15.0
-
-[node name="Beam_Forward" type="MeshInstance3D" parent="LightPivot" unique_id=363777334]
-transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, 0.5, 0, -0.5, -2.1855694e-08, 0.33524132, 0, 15.281906)
-mesh = SubResource("CylinderMesh_beam")
-
-[node name="Beam_Backward" type="MeshInstance3D" parent="LightPivot" unique_id=1329911177]
-transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 0.29678726, 0.05004263, -13.954807)
-mesh = SubResource("CylinderMesh_beam")
 
 [node name="LampLight" type="OmniLight3D" parent="." unique_id=1577100029]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.8874655, 0)
 light_color = Color(1, 1, 0.5, 1)
-light_energy = 5.0
+light_energy = 20.0
