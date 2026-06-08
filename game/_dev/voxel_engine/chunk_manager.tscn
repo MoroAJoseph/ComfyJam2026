@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://nxmi0nfg3irw"]
+
+[ext_resource type="Script" uid="uid://cs0malskpmmoe" path="res://_dev/voxel_engine/chunk_manager.gd" id="1_viv4u"]
+[ext_resource type="Material" uid="uid://bcp43iy7eegy6" path="res://_dev/test_voxel_engine/block_highlight.tres" id="2_kchsm"]
+
+[node name="ChunkManager" type="Node3D" unique_id=2040231109]
+script = ExtResource("1_viv4u")
+highlight_shader_material = ExtResource("2_kchsm")
+
+[node name="Highlight" type="MeshInstance3D" parent="." unique_id=1856492736]
