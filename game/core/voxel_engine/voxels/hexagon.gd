@@ -25,8 +25,18 @@ static func get_single_voxel_geometry(voxel: Vector3i, data: PackedByteArray, co
 			_add_side(base[i], base[next], top[next], top[i], normal, color, verts, norms, cols, uvs)
 	return {"verts": verts, "norms": norms, "cols": cols, "uvs": uvs}
 
-static func calculate_geometry(data: PackedByteArray, coords: Vector3i, registry: Dictionary, size: int, colors: Array[Color]) -> Dictionary:
-	var v := PackedVector3Array(); var n := PackedVector3Array(); var c := PackedColorArray(); var u := PackedVector2Array()
+static func calculate_geometry(
+	data: PackedByteArray, 
+	coords: Vector3i, 
+	registry: Dictionary, 
+	size: int, 
+	colors: Array[Color]
+) -> Dictionary:
+	var v := PackedVector3Array()
+	var n := PackedVector3Array()
+	var c := PackedColorArray()
+	var u := PackedVector2Array()
+	
 	for x in range(size):
 		for y in range(size):
 			for z in range(size):
@@ -45,7 +55,12 @@ static func calculate_geometry(data: PackedByteArray, coords: Vector3i, registry
 						var normal := (base[i] + base[next] - (center * 2.0)).normalized()
 						normal.y = 0.0
 						_add_side(base[i], base[next], top[next], top[i], normal, col, v, n, c, u)
-	return {"verts": v, "norms": n, "cols": c, "uvs": u}
+	return {
+		"verts": v, 
+		"norms": n, 
+		"cols": c, 
+		"uvs": u
+	}
 
 static func get_noise_coords(x: int, z: int, world_origin: Vector3) -> Vector2:
 	var offset_x: float = 1.5 * float(x)
@@ -149,9 +164,10 @@ static func _add_tri(p1: Vector3, p2: Vector3, p3: Vector3, n: Vector3, c: Color
 	no.append_array([n, n, n]) 
 	co.append_array([c, c, c])
 	
-	# Placeholder for UVs: 
-	# If uvs is provided, append them. If not, append (0,0)
-	if uvs.size() >= 3:
-		uvs.append_array([uvs[0], uvs[1], uvs[2]])
-	else:
-		uvs.append_array([Vector2.ZERO, Vector2.ZERO, Vector2.ZERO])
+	uvs.append_array([Vector2(0, 0), Vector2(1, 0), Vector2(1, 1)])
+	## Placeholder for UVs: 
+	## If uvs is provided, append them. If not, append (0,0)
+	#if uvs.size() >= 3:
+		#uvs.append_array([uvs[0], uvs[1], uvs[2]])
+	#else:
+		#uvs.append_array([Vector2.ZERO, Vector2.ZERO, Vector2.ZERO])

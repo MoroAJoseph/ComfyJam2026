@@ -7,10 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://cj6mr5liuj6xn" path="res://core/world/camera/camera.tscn" id="3_xq38f"]
 [ext_resource type="Script" uid="uid://b8rh2lplntxx4" path="res://core/world/controllers/instances.gd" id="4_p6pjc"]
 [ext_resource type="PackedScene" uid="uid://df7w8m1n2u8x2" path="res://features/dock/dock.tscn" id="5_dock"]
-[ext_resource type="PackedScene" uid="uid://cgywb4adqqwbp" path="res://_dev/dev_cube.tscn" id="7_1bvj8"]
-[ext_resource type="PackedScene" uid="uid://df7w8m1n2u8y3" path="res://features/treasure/chest.tscn" id="8_chest"]
-[ext_resource type="PackedScene" uid="uid://cnrw4on3dorqt" path="res://features/barrel/barrel.tscn" id="9_barrel"]
-[ext_resource type="PackedScene" uid="uid://cb5k8m1n2u803" path="res://features/environment/starter_island/starter_island.tscn" id="11_island"]
 
 [node name="World" type="Node3D" unique_id=485736105]
 process_mode = 1
@@ -20,8 +16,6 @@ script = ExtResource("1_wavff")
 script = ExtResource("2_8k0jh")
 
 [node name="Sky" parent="." unique_id=1901335390 instance=ExtResource("3_41qfr")]
-
-[node name="Land" type="Node3D" parent="." unique_id=1639978420]
 
 [node name="Sea" parent="." unique_id=1073607141 instance=ExtResource("2_m07s3")]
 tile_size = 256.0
@@ -41,58 +35,4 @@ unique_name_in_owner = true
 [node name="Dock" parent="Instances/Docks" unique_id=1159154888 instance=ExtResource("5_dock")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0)
 
-[node name="Treasure" type="Node3D" parent="Instances" unique_id=906023956]
-unique_name_in_owner = true
-
-[node name="TreasureChest_Wood" parent="Instances/Treasure" unique_id=1954072905 instance=ExtResource("8_chest")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 10)
-
-[node name="TreasureChest_Iron" parent="Instances/Treasure" unique_id=1827530006 instance=ExtResource("8_chest")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 10)
-type = 1
-
-[node name="TreasureChest_Gold" parent="Instances/Treasure" unique_id=1227137272 instance=ExtResource("8_chest")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2, 10)
-type = 2
-
-[node name="Barrels" type="Node3D" parent="Instances" unique_id=1226586877]
-unique_name_in_owner = true
-
-[node name="ExplodingBarrel_Iron" parent="Instances/Barrels" unique_id=1066018509 instance=ExtResource("9_barrel")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, 0)
-
-[node name="ExplodingBarrel_Iron2" parent="Instances/Barrels" unique_id=633343914 instance=ExtResource("9_barrel")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, 5)
-
-[node name="ExplodingBarrel_Iron3" parent="Instances/Barrels" unique_id=557425059 instance=ExtResource("9_barrel")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2, -5)
-
-[node name="ExplodingBarrel_Wood" parent="Instances/Barrels" unique_id=1111111111 instance=ExtResource("9_barrel")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 2, 10)
-type = 0
-
-[node name="ExplodingBarrel_Gold" parent="Instances/Barrels" unique_id=-2072745074 instance=ExtResource("9_barrel")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 2, 10)
-type = 2
-
-[node name="StarterIsland" parent="Instances" unique_id=1040077490 instance=ExtResource("11_island")]
-
-[node name="DevCubes" type="Node3D" parent="Instances" unique_id=368413939]
-
-[node name="DevCube" parent="Instances/DevCubes" unique_id=930508928 instance=ExtResource("7_1bvj8")]
-transform = Transform3D(0.9877265, -0.14174625, -0.06560708, 0.15619314, 0.89636827, 0.4148829, 0, -0.42003825, 0.9075065, 0, 35.24388, 95.50631)
-
-[node name="DevCube2" parent="Instances/DevCubes" unique_id=1631777341 instance=ExtResource("7_1bvj8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 175.91333, 35.63472, 0)
-
-[node name="DevCube3" parent="Instances/DevCubes" unique_id=271408742 instance=ExtResource("7_1bvj8")]
-transform = Transform3D(0.9702846, -0.2051367, 0.12832296, 0.22510412, 0.9597823, -0.16776775, -0.08874677, 0.19166848, 0.97743905, 0, 20.024723, -62.46729)
-
-[node name="DevCube4" parent="Instances/DevCubes" unique_id=313560188 instance=ExtResource("7_1bvj8")]
-transform = Transform3D(0.9610111, -0.25442842, 0.10827632, 0.27650964, 0.8842676, -0.3763151, 0, 0.39158246, 0.920143, -69.90289, 24.47393, 0)
-
-[node name="DevCube5" parent="Instances/DevCubes" unique_id=501894195 instance=ExtResource("7_1bvj8")]
-transform = Transform3D(0.9327838, -0.34235144, -0.11273822, 0.3604364, 0.88598114, 0.2917585, 0, -0.31278256, 0.94982475, -52.90869, 19.487923, -39.337547)
-
-[node name="DevCube6" parent="Instances/DevCubes" unique_id=278275371 instance=ExtResource("7_1bvj8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.18189, 39.297424, 71.53996)
+[node name="Treasure" type="Node3D" parent="Instances" unique_id=917605280]

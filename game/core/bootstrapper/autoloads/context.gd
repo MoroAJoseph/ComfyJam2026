@@ -4,6 +4,8 @@ extends Node
 Singleton context for global systems
 '''
 
+# CRITICAL TODO: Ensure we clear context when leaving the world/game
+
 var session: SessionContext
 var progression: ProgressionContext
 var ui: UIContext

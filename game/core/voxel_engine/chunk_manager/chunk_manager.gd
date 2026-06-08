@@ -1,26 +1,30 @@
 class_name VoxelEngineChunkManager extends Node3D
 
-## Configuration for chunk generation and rendering
+@export_group("Generation Settings")
 @export var use_hexagons: bool = false
 @export var use_collision: bool = false
-@export var context_target: Node3D
 @export var chunk_size: int = 64
-@export var noise_seed: int = 0
 @export var generation_height: int = 16
 @export var generation_radius: int = 5
 @export var render_radius: int = 5
+
+@export_group("Terran Settings")
+@export var noise: FastNoiseLite
+@export var noise_seed: int = 0
 @export var colors: Array[Color] = [Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW]
+
+@export_group("Configs")
 @export var highlight_shader_material: ShaderMaterial
+@export var context_target: Node3D
 
 @onready var highlight_mesh_instance: MeshInstance3D = $Highlight
+@onready var logic_class: Object = VoxelEngineHexagon if use_hexagons else VoxelEngineCube
 
 ## Internal management variables
-var noise: FastNoiseLite = FastNoiseLite.new()
 var chunks_data: Dictionary[Vector3i, PackedByteArray] = {}
 var active_chunks: Dictionary[Vector3i, Dictionary] = {}
 var current_player_chunk: Vector3i = Vector3i.ZERO
 var data_initialized: bool = false
-var logic_class: Object = VoxelEngineVoxel
 var rid_to_coordinate: Dictionary[RID, Vector3i] = {}
 var hovered_chunk: Vector3i
 var hovered_voxel: Vector3i
@@ -33,32 +37,20 @@ var total_voxels: int
 # ===
 
 func _ready() -> void:
-	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
-	noise.seed = noise_seed
-	logic_class = VoxelEngineHexagon if use_hexagons else VoxelEngineCube
-	
 	# Hover
 	if highlight_shader_material:
 		var mat := highlight_shader_material.duplicate()
 		highlight_mesh_instance.material_override = mat
-	
-	var start_time: int = Time.get_ticks_msec()
-	generate_world_data()
-	
-	var end_time: int = Time.get_ticks_msec()
-	var duration_seconds: float = (end_time - start_time) / 1000.0
-	
-	var total_voxels = get_total_voxel_count()
-	print_debug("Generation complete in %.3f seconds." % duration_seconds)
-	print_debug("Total voxels in generated world data: %d" % total_voxels)
-	
-	_update_highlight_mesh_type()
 
 func _process(_delta: float) -> void:
 	if not data_initialized or not context_target:
 		return
 	
-	var new_chunk_coordinate: Vector3i = logic_class.world_to_chunk(context_target.global_position, chunk_size)
+	var new_chunk_coordinate: Vector3i = logic_class.world_to_chunk(
+		context_target.global_position, 
+		chunk_size
+	)
+	
 	if new_chunk_coordinate != current_player_chunk:
 		current_player_chunk = new_chunk_coordinate
 		update_render_distance()
@@ -66,6 +58,23 @@ func _process(_delta: float) -> void:
 # ===
 # Public
 # ===
+
+func generate(seed_number: int) -> void:
+	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
+	noise_seed = seed_number
+	noise.seed = seed_number
+	
+	var start_time: int = Time.get_ticks_msec()
+	generate_world_data()
+	
+	var end_time: int = Time.get_ticks_msec()
+	var duration_seconds: float = (end_time - start_time) / 1000.0
+	
+	var total = get_total_voxel_count()
+	print_debug("Generation complete in %.3f seconds." % duration_seconds)
+	print_debug("Total voxels in generated world data: %d" % total)
+	
+	_update_highlight_mesh_type()
 
 func get_total_voxel_count() -> int:
 	var total: int = 0
@@ -82,7 +91,9 @@ func generate_world_data() -> void:
 			if Vector2(x, z).length() <= generation_radius:
 				for y: int in range(0, y_max):
 					var coordinate: Vector3i = Vector3i(x, y, z)
-					chunks_data[coordinate] = generate_raw_voxels(get_chunk_position(coordinate))
+					chunks_data[coordinate] = generate_raw_voxels(
+						get_chunk_position(coordinate)
+					)
 	data_initialized = true
 	update_render_distance()
 
@@ -235,7 +246,7 @@ func _apply_result(coordinate: Vector3i, geometry: Dictionary) -> void:
 		
 	var chunk: Dictionary = active_chunks[coordinate]
 	
-	# 1. Update Rendering
+	# Update Rendering
 	var surface_array: Array = []
 	surface_array.resize(Mesh.ARRAY_MAX)
 	surface_array[Mesh.ARRAY_VERTEX] = geometry.verts
