@@ -6,7 +6,11 @@ class_name VoxelEngineChunkManager extends Node3D
 @export var context_target: Node3D
 @export var chunk_size: int = 64
 @export var noise_seed: int = 0
-@export var generation_height: int = 16
+@export var noise_frequency: float = 0.01
+@export var noise_octaves: int = 5
+@export var sea_level: float = 0.8
+@export var island_steepness: float = 3.0
+@export var generation_height: int = 64
 @export var generation_radius: int = 5
 @export var render_radius: int = 5
 @export var colors: Array[Color] = [Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW]
@@ -22,6 +26,9 @@ var logic_class: Object = VoxelEngineCube
 func _ready() -> void:
 	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
 	noise.seed = noise_seed
+	noise.frequency = noise_frequency
+	noise.fractal_type = FastNoiseLite.FRACTAL_FBM
+	noise.fractal_octaves = noise_octaves
 	logic_class = VoxelEngineHexagon if use_hexagons else VoxelEngineCube
 	generate_world_data()
 
@@ -57,12 +64,24 @@ func generate_raw_voxels(origin: Vector3) -> PackedByteArray:
 	
 	for x: int in range(chunk_size):
 		for z: int in range(chunk_size):
-			# Pass the actual world origin of the chunk
 			var sample: Vector2 = logic_class.get_noise_coords(x, z, origin)
-			var height: float = (noise.get_noise_2d(sample.x, sample.y) + 1.0) / 2.0 * generation_height
 			
-			for y: int in range(min(int(max(0.0, height - origin.y)), chunk_size)):
-				voxels[x + (y * chunk_size) + (z * chunk_size**2)] = (y % colors.size()) + 1
+			# Range [0, 1]
+			var noise_val: float = (noise.get_noise_2d(sample.x, sample.y) + 1.0) * 0.5
+			
+			# If above sea level, generate land
+			if noise_val > sea_level:
+				# Normalized height above sea level [0, 1]
+				var t: float = (noise_val - sea_level) / (1.0 - sea_level)
+				
+				# Use a steeper curve for isolated islands to ensure they are tall
+				var height_factor: float = pow(t, 1.0 / island_steepness)
+				
+				# Apply a small "buffer" so islands always have a 3-block base
+				var height: float = 3.0 + (height_factor * (generation_height - 3.0))
+				
+				for y: int in range(min(int(max(0.0, height - origin.y)), chunk_size)):
+					voxels[x + (y * chunk_size) + (z * chunk_size**2)] = (y % colors.size()) + 1
 	return voxels
 
 func update_render_distance() -> void:
@@ -110,6 +129,16 @@ func _apply_result(coordinate: Vector3i, geometry: Dictionary) -> void:
 		return
 		
 	var chunk: Dictionary = active_chunks[coordinate]
+	
+	# Skip if no geometry was generated (empty chunk/sea)
+	if geometry.verts.is_empty():
+		RenderingServer.mesh_clear(chunk.mesh)
+		if chunk.body.is_valid():
+			PhysicsServer3D.free_rid(chunk.body)
+		if chunk.shape.is_valid():
+			PhysicsServer3D.free_rid(chunk.shape)
+		return
+		
 	var surface_array: Array = []
 	surface_array.resize(Mesh.ARRAY_MAX)
 	surface_array[Mesh.ARRAY_VERTEX] = geometry.verts

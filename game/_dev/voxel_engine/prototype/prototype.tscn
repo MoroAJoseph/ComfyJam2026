@@ -33,4 +33,6 @@ use_hexagons = true
 use_collision = true
 context_target = NodePath("../Player")
 chunk_size = 32
+noise_frequency = 0.005
+generation_height = 10
 generation_radius = 32
