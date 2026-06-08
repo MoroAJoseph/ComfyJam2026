@@ -39,7 +39,6 @@ metadata/_custom_type_script = "uid://ba3moxyk8cg86"
 script = ExtResource("3_u531q")
 use_rendering_server = false
 use_physics_server = true
-generate_collision = true
 use_debug_colors = true
 material = ExtResource("3_lmo24")
 metadata/_custom_type_script = "uid://ca6tqecvpnsqy"

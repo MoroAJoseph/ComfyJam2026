@@ -1,0 +1,2 @@
+class_name VoxelEngineContextual
+extends Node3D

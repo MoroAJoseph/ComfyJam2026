@@ -72,7 +72,7 @@ enum BoatType {
 }
 
 enum ToolType {
-	
+	NONE
 }
 
 enum BarrelType {

@@ -6,8 +6,8 @@ const SLOW_FLY_SPEED = 8.0
 const FLY_SPEED = 20.0
 const JUMP_VELOCITY = 4.5
 
-signal add_block(pos: Vector3)
-signal remove_block(pos: Vector3)
+#signal add_block(pos: Vector3)
+#signal remove_block(pos: Vector3)
 
 @export var mouse_sens: float = 0.003
 

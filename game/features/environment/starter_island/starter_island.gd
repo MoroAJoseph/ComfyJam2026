@@ -96,7 +96,7 @@ func generate_fixed_island() -> void:
 			
 			generate_island_block(x, z, h)
 			
-	hexagon_mesh.generate_mesh(hexagon_data)
+	#hexagon_mesh.generate_mesh(hexagon_data)
 	_update_grass_multimesh(grass_transforms)
 
 func _update_grass_multimesh(transforms: Array[Transform3D]) -> void:

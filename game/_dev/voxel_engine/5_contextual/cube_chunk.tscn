@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cotic35y4fua3"]
+
+[ext_resource type="Script" uid="uid://b34v4ei3awblm" path="res://_dev/voxel_engine/5_contextual/cube_chunk.gd" id="1_8h40j"]
+[ext_resource type="Material" uid="uid://bw1wx223he31t" path="res://_dev/voxel_engine/mesh_material.tres" id="2_6lcso"]
+
+[node name="CubeChunk" type="StaticBody3D" unique_id=2106573796]
+script = ExtResource("1_8h40j")
+material = ExtResource("2_6lcso")
+
+[node name="MeshInstance" type="MeshInstance3D" parent="." unique_id=1840917560]

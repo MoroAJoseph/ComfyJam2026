@@ -62,6 +62,10 @@ func _apply_rotation(delta: float) -> void:
 
 
 func _apply_movement(delta: float) -> void:
+	# Only allow forward movement when in the water
+	if not submerged:
+		return
+	
 	# Get forward
 	var forward_dir = -global_transform.basis.z
 	var desired = forward_dir * _move_input * data.max_speed

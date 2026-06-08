@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://nxmi0nfg3irw"]
+
+[ext_resource type="Script" uid="uid://cs0malskpmmoe" path="res://_dev/voxel_engine/prototype/chunk_manager.gd" id="1_viv4u"]
+
+[node name="ChunkManager" type="Node3D" unique_id=2040231109]
+script = ExtResource("1_viv4u")

@@ -1,6 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://csoax5ue6xa34"]
 
-[ext_resource type="Shader" path="res://assets/environment/stylized_grass/grass.gdshader" id="1_shader"]
+[ext_resource type="Shader" uid="uid://by4niyoye6vu4" path="res://assets/environment/stylized_grass/grass.gdshader" id="1_shader"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1"]
 frequency = 0.05
@@ -13,5 +13,5 @@ render_priority = 0
 shader = ExtResource("1_shader")
 shader_parameter/color = Color(0.5, 0.8, 0.2, 1)
 shader_parameter/color2 = Color(0.7, 0.95, 0.4, 1)
-shader_parameter/noiseScale = 20.0
 shader_parameter/noise = SubResource("NoiseTexture2D_1")
+shader_parameter/noiseScale = 20.0

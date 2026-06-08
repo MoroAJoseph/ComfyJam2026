@@ -44,7 +44,7 @@ func get_save_data() -> SaveData:
 
 	return data
 
-func set_from_save(data: SaveData) -> void:
+func set_from_save(_data: SaveData) -> void:
 	# reverse logic from get save data
 	# setting everything from the data
 	pass
