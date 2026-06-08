@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cb5k8m1n2u8z2"]
+[gd_scene format=3 uid="uid://cb5k8m1n2u802"]
 
-[ext_resource type="Script" path="res://features/environment/voxel_island/voxel_island.gd" id="1_script"]
-[ext_resource type="Script" uid="uid://ca6tqecvpnsqy" path="res://_dev/voxel_engine/2_surface_culling/hexagon.gd" id="2_hex"]
-[ext_resource type="Material" uid="uid://bw1wx223he31t" path="res://_dev/voxel_engine/mesh_material.tres" id="3_mat"]
+[ext_resource type="Script" uid="uid://dvk36s1tc7xt1" path="res://features/environment/voxel_island/voxel_island.gd" id="1_script"]
+[ext_resource type="Script" path="res://_dev/voxel_engine/2_surface_culling/hexagon.gd" id="2_hex"]
+[ext_resource type="Material" uid="uid://bw1wx223he31t" path="res://core/voxel_engine/mesh_material.tres" id="3_mat"]
 
 [node name="VoxelIsland" type="Node3D"]
 script = ExtResource("1_script")

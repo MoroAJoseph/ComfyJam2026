@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cb5k8m1n2u803"]
 
 [ext_resource type="Script" uid="uid://qcirwkj4g3u" path="res://features/environment/starter_island/starter_island.gd" id="1_script"]
-[ext_resource type="Script" uid="uid://ca6tqecvpnsqy" path="res://_dev/voxel_engine/2_surface_culling/hexagon.gd" id="2_hex"]
-[ext_resource type="Material" uid="uid://bw1wx223he31t" path="res://_dev/voxel_engine/mesh_material.tres" id="3_mat"]
+[ext_resource type="Script" path="res://_dev/voxel_engine/2_surface_culling/hexagon.gd" id="2_hex"]
+[ext_resource type="Material" uid="uid://bw1wx223he31t" path="res://core/voxel_engine/mesh_material.tres" id="3_mat"]
 [ext_resource type="PackedScene" uid="uid://cut3itirque74" path="res://assets/environment/glb/palm-straight.glb" id="5_palm"]
 [ext_resource type="PackedScene" uid="uid://bhfne705m4ih7" path="res://assets/environment/glb/rocks-a.glb" id="6_rock"]
 

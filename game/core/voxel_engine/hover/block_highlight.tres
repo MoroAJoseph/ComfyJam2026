@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://bcp43iy7eegy6"]
 
-[ext_resource type="Shader" uid="uid://cpptmjqa47w8f" path="res://_dev/test_voxel_engine/block_highlight.gdshader" id="1_ckxqr"]
+[ext_resource type="Shader" uid="uid://cpptmjqa47w8f" path="res://core/voxel_engine/hover/block_highlight.gdshader" id="1_ckxqr"]
 
 [resource]
 render_priority = 0
