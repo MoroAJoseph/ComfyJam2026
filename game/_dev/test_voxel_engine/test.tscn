@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://bm84s7ngcfwg2"]
+
+[ext_resource type="PackedScene" uid="uid://bg7j8yrrswl8i" path="res://_dev/test_voxel_engine/player/player.tscn" id="1_t4si3"]
+[ext_resource type="PackedScene" uid="uid://nxmi0nfg3irw" path="res://_dev/voxel_engine/chunk_manager.tscn" id="2_ervou"]
+[ext_resource type="Script" uid="uid://b83pagxjdpo4d" path="res://_dev/test_voxel_engine/hover_handler.gd" id="3_ed27r"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ervou"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_nq28x"]
+sky_material = SubResource("ProceduralSkyMaterial_ervou")
+
+[sub_resource type="Environment" id="Environment_2em8j"]
+background_mode = 2
+sky = SubResource("Sky_nq28x")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Test" type="Node3D" unique_id=613457967]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1188637199]
+environment = SubResource("Environment_2em8j")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1701206111]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." unique_id=1091930200 node_paths=PackedStringArray("chunk_manager") instance=ExtResource("1_t4si3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0)
+chunk_manager = NodePath("../ChunkManager")
+
+[node name="ChunkManager" parent="." unique_id=318689483 node_paths=PackedStringArray("context_target") instance=ExtResource("2_ervou")]
+use_hexagons = null
+use_collision = true
+context_target = NodePath("../Player")
+chunk_size = 16
+noise_seed = null
+generation_height = 10
+generation_radius = 64
+render_radius = 6
+colors = null
+
+[node name="HighlightHandler" type="Node" parent="." unique_id=2074338354 node_paths=PackedStringArray("chunk_manager")]
+script = ExtResource("3_ed27r")
+chunk_manager = NodePath("../ChunkManager")
