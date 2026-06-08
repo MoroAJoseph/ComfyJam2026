@@ -3,7 +3,6 @@ from PIL import Image, ImageDraw
 
 PATH_TO_SCRIPT: str = "dev_sandbox/just_auto_attack"
 
-
 def create_blank_atlas() -> Image.Image:
     return Image.new("RGBA", (256, 256), (0))
 
@@ -41,7 +40,7 @@ def create_hexagon_atlas() -> None:
     apo = R * math.sqrt(3) / 2
     cx, cy = 256, 256
 
-    # 1. Top Hex (Centered above the square)
+    # Top Hex (Centered above the square)
     # Relative center: (256, 256 - 64 - apo)
     t_cy = 256 - 32 - apo
     top_hex = [
@@ -54,7 +53,7 @@ def create_hexagon_atlas() -> None:
     ]
     draw.polygon(top_hex, fill=(255, 0, 0, 255))
 
-    # 2. Bottom Hex (Centered below the square)
+    # Bottom Hex (Centered below the square)
     # Relative center: (256, 256 + 64 + apo)
     b_cy = 256 + 32 + apo
     bottom_hex = [
