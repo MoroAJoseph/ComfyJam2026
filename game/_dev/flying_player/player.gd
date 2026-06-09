@@ -16,7 +16,8 @@ var flying: bool = true
 func _ready() -> void:
 	_update_mouse_mode()
 	await get_tree().process_frame
-	chunk_manager.generate(0)
+	if chunk_manager:
+		chunk_manager.generate(0)
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("dev_fly"):

@@ -1,0 +1,56 @@
+[gd_resource type="Sky" format=3 uid="uid://cwjuq6h0gue3j"]
+
+[ext_resource type="Shader" uid="uid://t0ucuv753nb7" path="res://core/scenes/world/sky/sky.gdshader" id="1_3nwxl"]
+[ext_resource type="Texture2D" uid="uid://snqern1gtpd5" path="res://core/scenes/world/sky/textures/moon_full.tres" id="2_7pf7l"]
+[ext_resource type="Texture2D" uid="uid://8bvhknfisibo" path="res://core/scenes/world/sky/textures/sun_texture.tres" id="3_dopiv"]
+[ext_resource type="Texture2D" uid="uid://nbgpa1fetg7a" path="res://core/scenes/world/sky/textures/shooting_star.png" id="14_np0t5"]
+
+[sub_resource type="Curve" id="Curve_nu4ho"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.11568628, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.7388605), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_t631l"]
+curve = SubResource("Curve_nu4ho")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ocb32"]
+noise_type = 4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mkxpj"]
+width = 1024
+height = 1024
+noise = SubResource("FastNoiseLite_ocb32")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mkxpj"]
+shader = ExtResource("1_3nwxl")
+shader_parameter/cloud_shape_sampler = SubResource("NoiseTexture2D_mkxpj")
+shader_parameter/cloud_noise_sampler = SubResource("NoiseTexture2D_mkxpj")
+shader_parameter/cloud_curves = SubResource("CurveTexture_t631l")
+shader_parameter/clouds_samples = 32
+shader_parameter/shadow_sample = 4
+shader_parameter/clouds_density = 0.5
+shader_parameter/clouds_scale = 0.8900384
+shader_parameter/clouds_smoothness = 0.050000004
+shader_parameter/clouds_light_color = Color(0.22186297, 0.17137784, 0.23718794, 1)
+shader_parameter/clouds_shadow_intensity = 8.0
+shader_parameter/high_clouds_sampler = SubResource("NoiseTexture2D_mkxpj")
+shader_parameter/high_clouds_density = 0.20000002
+shader_parameter/top_color = Color(0.15911786, 0.10863274, 0.21726549, 1)
+shader_parameter/bottom_color = Color(0.05431637, 0.05431637, 0.10863274, 1)
+shader_parameter/sun_scatter = Color(0.3228332, 0.17137784, 0.13621768, 1)
+shader_parameter/sun_tint = Color(0.80460674, 0.40388104, 0.20194052, 1)
+shader_parameter/sun_sampler = ExtResource("3_dopiv")
+shader_parameter/sun_scale = 8.199232
+shader_parameter/sun_intensity = 3.0
+shader_parameter/moon_tint = Color(0.6029311, 0.6029311, 1, 1)
+shader_parameter/moon_sampler = ExtResource("2_7pf7l")
+shader_parameter/moon_scale = 5.0000005
+shader_parameter/moon_intensity = 0.54980797
+shader_parameter/moon_direction = Vector3(0, 0.3, -0.6)
+shader_parameter/stars_intensity = 5.0000005
+shader_parameter/shooting_stars_intensity = 0.5
+shader_parameter/shooting_star_sampler = ExtResource("14_np0t5")
+shader_parameter/shooting_star_tint = Color(0, 0, 0, 1)
+
+[resource]
+sky_material = SubResource("ShaderMaterial_mkxpj")

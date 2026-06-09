@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BoatData" format=3 uid="uid://bgkn830jaf6qt"]
+
+[ext_resource type="Script" uid="uid://bk3kawapediok" path="res://common/dataclasses/boat_data.gd" id="1_p11mv"]
+
+[resource]
+script = ExtResource("1_p11mv")
+type = 2
+display_name = "Little Rower"
+buy_price = 25
+sell_price = 15
+inventory_capacity = 20
+metadata/_custom_type_script = "uid://bk3kawapediok"

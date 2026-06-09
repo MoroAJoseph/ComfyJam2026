@@ -1,0 +1,6 @@
+sand_witch: "Ah, traveler... Look at your boat. So practical. So... hideously gray. You need style. You need my Golden Hull upgrade. Only 100 gold pieces!"
+- Buy the Golden Hull (-100 Gold)
+	set {gold} -= 100.0
+	sand_witch: "A splendid choice! It shines so brightly... active your inner glory, tiny captain!"
+- Leave her cave
+	sand_witch: "Suit yourself, dull traveler. Stay gray. Stay forgotten."

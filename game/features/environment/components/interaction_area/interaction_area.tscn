@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://b2qbsdltclvrn"]
+
+[ext_resource type="Script" uid="uid://crsv2rgt32syp" path="res://features/environment/components/interaction_area/interaction_area.gd" id="1_1ycw0"]
+[ext_resource type="Shader" uid="uid://bihf1fjgoxiyc" path="res://features/environment/components/interaction_area/glow_ring.gdshader" id="2_trde0"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_interaction"]
+height = 1.0
+radius = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rtlmr"]
+render_priority = 1
+shader = ExtResource("2_trde0")
+shader_parameter/glow_color = Color(0.8634428, 0.41551143, 0.46963003, 1)
+shader_parameter/emission_strength = 2.510000119225
+shader_parameter/gradient_bottom = -1.0
+shader_parameter/gradient_top = 1.0
+shader_parameter/ring_bottom = -0.49999997625000003
+shader_parameter/ring_top = -0.3999999715
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trde0"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_trde0"]
+material = SubResource("StandardMaterial3D_trde0")
+top_radius = 1.0
+bottom_radius = 1.0
+height = 1.0
+radial_segments = 128
+rings = 1
+cap_top = false
+cap_bottom = false
+
+[node name="InteractionArea" type="Area3D" unique_id=836147140]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_1ycw0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1234452698]
+shape = SubResource("CylinderShape3D_interaction")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1180284795]
+material_override = SubResource("ShaderMaterial_rtlmr")
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_trde0")

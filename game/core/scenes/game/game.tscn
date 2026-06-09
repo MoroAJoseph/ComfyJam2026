@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://cifeddlvwoc2"]
+
+[ext_resource type="Script" uid="uid://un62ccv385vt" path="res://core/scenes/game/game.gd" id="1_23swt"]
+[ext_resource type="Script" uid="uid://cs1ttmr2r1dwk" path="res://core/base_classes/state_machine.gd" id="2_slpoq"]
+[ext_resource type="Script" uid="uid://61sbbn0oc7g3" path="res://core/scenes/game/states/title.gd" id="3_00x87"]
+[ext_resource type="Script" uid="uid://cx7ngjq338g8p" path="res://core/scenes/game/controllers/save.gd" id="4_00x87"]
+[ext_resource type="Script" uid="uid://ckiyfddbpxl77" path="res://core/scenes/game/states/load.gd" id="4_xakte"]
+[ext_resource type="Script" uid="uid://rtwufc2yxxp5" path="res://core/scenes/game/states/world.gd" id="5_xmhhf"]
+[ext_resource type="Script" uid="uid://c4isvt8p4rhgd" path="res://core/scenes/game/controllers/scene.gd" id="6_xakte"]
+[ext_resource type="PackedScene" uid="uid://c8rw6djdxn47s" path="res://core/scenes/ui/ui.tscn" id="8_jhhwt"]
+
+[node name="Game" type="Node" unique_id=1336756076]
+script = ExtResource("1_23swt")
+
+[node name="StateMachine" type="Node" parent="." unique_id=1386506641 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_slpoq")
+initial_state = NodePath("Title")
+metadata/_custom_type_script = "uid://cs1ttmr2r1dwk"
+
+[node name="Title" type="Node" parent="StateMachine" unique_id=734126538]
+script = ExtResource("3_00x87")
+
+[node name="Load" type="Node" parent="StateMachine" unique_id=1998729773]
+script = ExtResource("4_xakte")
+
+[node name="World" type="Node" parent="StateMachine" unique_id=1951026850]
+script = ExtResource("5_xmhhf")
+
+[node name="Scene" type="Node" parent="." unique_id=67213437]
+script = ExtResource("6_xakte")
+
+[node name="Save" type="Node" parent="." unique_id=1331608844]
+script = ExtResource("4_00x87")
+
+[node name="AutoSaveTimer" type="Timer" parent="Save" unique_id=883230307]
+wait_time = 300.0
+autostart = true
+
+[node name="UI" parent="." unique_id=1098436106 instance=ExtResource("8_jhhwt")]

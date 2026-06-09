@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://ehlsd4n8jwi8"]
+
+[ext_resource type="Script" uid="uid://row2xa2sa6xd" path="res://core/scenes/player/player.gd" id="1_h46vi"]
+[ext_resource type="Script" uid="uid://bh0tj4y5r3h4k" path="res://core/scenes/player/controllers/boat.gd" id="2_ll17t"]
+
+[node name="Player" type="Node3D" unique_id=857072645]
+script = ExtResource("1_h46vi")
+
+[node name="Boat" type="Node3D" parent="." unique_id=364676539]
+script = ExtResource("2_ll17t")

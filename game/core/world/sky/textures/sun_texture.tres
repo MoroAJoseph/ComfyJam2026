@@ -1,8 +1,0 @@
-[gd_resource type="GradientTexture2D" format=3 uid="uid://8bvhknfisibo"]
-
-[ext_resource type="Gradient" uid="uid://yg46ysy7rno0" path="res://core/world/sky/gradients/sun.tres" id="1_pbqmi"]
-
-[resource]
-gradient = ExtResource("1_pbqmi")
-fill = 1
-fill_from = Vector2(0.5, 0.5)

@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://c8dn4b45dmwcv"]
+
+[ext_resource type="Script" uid="uid://bnebfdpogmuxy" path="res://core/scenes/bootsplash/bootsplash.gd" id="1_si7kq"]
+
+[node name="Bootsplash" type="Node" unique_id=555701755]
+script = ExtResource("1_si7kq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1659334338]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=619532988]
+
+[node name="Content" type="Control" parent="CanvasLayer" unique_id=816182894]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SafeArea" type="MarginContainer" parent="CanvasLayer/Content" unique_id=471125762]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SafeContent" type="Control" parent="CanvasLayer/Content/SafeArea" unique_id=1341478166]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Content/SafeArea/SafeContent" unique_id=1103778692]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15487596, 0.154876, 0.15487596, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Content/SafeArea/SafeContent" unique_id=955526883]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 24
+text = "Bootsplash"
+horizontal_alignment = 1
+vertical_alignment = 1

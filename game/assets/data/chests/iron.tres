@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ChestData" format=3 uid="uid://gwxyu1diwj45"]
+
+[ext_resource type="Script" uid="uid://dt5il2n6wjgml" path="res://common/dataclasses/chest_data.gd" id="1_v4gdt"]
+
+[resource]
+script = ExtResource("1_v4gdt")
+type = 1
+color = Color(0.735357, 0.735357, 0.735357, 1)
+rarity_drop_table = Dictionary[int, float]({
+0: 0.4,
+1: 0.15,
+2: 0.4,
+3: 0.05
+})
+metadata/_custom_type_script = "uid://dt5il2n6wjgml"

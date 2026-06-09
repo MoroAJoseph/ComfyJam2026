@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BoatData" format=3 uid="uid://b82y7rnioboo6"]
+
+[ext_resource type="Script" uid="uid://bk3kawapediok" path="res://common/dataclasses/boat_data.gd" id="1_whbyk"]
+
+[resource]
+script = ExtResource("1_whbyk")
+type = 3
+display_name = "Small Ship"
+acceleration = 30.0
+buy_price = 200
+sell_price = 175
+inventory_capacity = 35
+max_zoom = 24
+min_zoom = 12
+metadata/_custom_type_script = "uid://bk3kawapediok"

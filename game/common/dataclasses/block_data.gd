@@ -1,2 +1,4 @@
 class_name BlockData
-extends RefCounted
+extends Resource
+
+@export var type: Enums.BlockType

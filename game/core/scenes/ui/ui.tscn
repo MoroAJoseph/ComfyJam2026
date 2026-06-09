@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://c8rw6djdxn47s"]
+
+[ext_resource type="Script" uid="uid://b5rgff6418rnb" path="res://core/scenes/ui/ui.gd" id="1_7asqd"]
+[ext_resource type="Script" uid="uid://cft0i211xkqop" path="res://core/scenes/ui/layers/hud.gd" id="2_yk6hv"]
+[ext_resource type="PackedScene" uid="uid://6l68j3odtf1a" path="res://ui/hud/hud.tscn" id="3_0taue"]
+[ext_resource type="Script" uid="uid://r8kfjtj7l2ie" path="res://core/scenes/ui/layers/menus.gd" id="5_fayci"]
+[ext_resource type="PackedScene" uid="uid://cgktoxp5sc2gd" path="res://ui/menus/main/main_menu.tscn" id="6_ie4ih"]
+[ext_resource type="PackedScene" uid="uid://u8moodad5ife" path="res://ui/menus/settings/settings_menu.tscn" id="7_n5qs3"]
+[ext_resource type="PackedScene" uid="uid://cfg7nn223bbj7" path="res://ui/menus/pause/pause_menu.tscn" id="8_l08dl"]
+[ext_resource type="PackedScene" uid="uid://b8y4m2n7qaq0r" path="res://ui/menus/dock/dock_menu.tscn" id="9_7hlwi"]
+[ext_resource type="Script" uid="uid://bdsp2c5jdk4w" path="res://core/scenes/ui/layers/loading.gd" id="10_7kog4"]
+
+[node name="UI" type="Node" unique_id=1098436106]
+script = ExtResource("1_7asqd")
+
+[node name="PausedBackdrop" type="ColorRect" parent="." unique_id=1811725353]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 0.490196)
+
+[node name="HUDLayer" type="CanvasLayer" parent="." unique_id=143015630]
+unique_name_in_owner = true
+script = ExtResource("2_yk6hv")
+
+[node name="HUD" parent="HUDLayer" unique_id=1634400941 instance=ExtResource("3_0taue")]
+
+[node name="MenusLayer" type="CanvasLayer" parent="." unique_id=565089196]
+unique_name_in_owner = true
+layer = 2
+script = ExtResource("5_fayci")
+
+[node name="MainMenu" parent="MenusLayer" unique_id=286715484 instance=ExtResource("6_ie4ih")]
+
+[node name="SettingsMenu" parent="MenusLayer" unique_id=560841151 instance=ExtResource("7_n5qs3")]
+
+[node name="PauseMenu" parent="MenusLayer" unique_id=1043491160 instance=ExtResource("8_l08dl")]
+
+[node name="DockMenu" parent="MenusLayer" unique_id=1410093816 instance=ExtResource("9_7hlwi")]
+
+[node name="LoadingLayer" type="CanvasLayer" parent="." unique_id=1833216574]
+unique_name_in_owner = true
+layer = 3
+script = ExtResource("10_7kog4")
+
+[node name="LoadingIcon" type="Control" parent="LoadingLayer" unique_id=673583744]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LoadingScreen" type="Control" parent="LoadingLayer" unique_id=1469147911]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

@@ -34,7 +34,6 @@ extends RigidBody3D
 @onready var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var probes: Array[Node] = $Probes.get_children()
 
-var world_context: WorldContext
 var submerged := false
 var submersion_ratio := 0.0
 
@@ -43,9 +42,6 @@ var _pending_external_impulse := Vector3.ZERO
 # ===
 # Built-In
 # ===
-
-func _ready() -> void:
-	world_context = Context.world
 
 func _physics_process(_delta):
 	_apply_buoyancy()
@@ -63,7 +59,7 @@ func _physics_process(_delta):
 
 func _integrate_forces(state: PhysicsDirectBodyState3D):
 	if submerged:
-		# 1. Directional Drag (Keel Effect)
+		# Directional Drag (Keel Effect)
 		# We resist sideways movement much more than forward movement
 		var local_vel = global_transform.basis.inverse() * state.linear_velocity
 		
@@ -76,10 +72,10 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 		
 		state.linear_velocity = global_transform.basis * local_vel
 		
-		# 2. Angular Damping
+		# Angular Damping
 		state.angular_velocity *= (1.0 - water_angular_drag * drag_factor)
 		
-		# 3. Alignment Torque (Stability)
+		# Alignment Torque (Stability)
 		# This pushes the boat to stay upright
 		var current_up = global_transform.basis.y
 		var target_up = Vector3.UP
@@ -111,7 +107,7 @@ func _apply_buoyancy() -> void:
 	var submerged_count = 0
 	
 	for p in probes:
-		var depth = world_context.get_sea_height(p.global_position) - p.global_position.y 
+		var depth = Session.world_provider.get_sea_height(p.global_position) - p.global_position.y 
 		if depth > 0:
 			submerged = true
 			submerged_count += 1
