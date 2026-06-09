@@ -16,7 +16,7 @@ script = ExtResource("1_wavff")
 script = ExtResource("2_8k0jh")
 
 [node name="Sky" parent="." unique_id=1901335390 instance=ExtResource("3_41qfr")]
-day_progress = 0.5681153238333393
+day_progress = 0.6520660828281762
 
 [node name="Sea" parent="." unique_id=1073607141 instance=ExtResource("2_m07s3")]
 tile_size = 256.0
@@ -33,5 +33,5 @@ unique_name_in_owner = true
 [node name="Docks" type="Node3D" parent="Instances" unique_id=1075006442]
 unique_name_in_owner = true
 
-[node name="Dock" parent="Instances/Docks" unique_id=1159154888 instance=ExtResource("5_dock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0)
+[node name="Dock" parent="Instances/Docks" unique_id=1392596294 instance=ExtResource("5_dock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8993468, 3.2772903, -3.4633856)

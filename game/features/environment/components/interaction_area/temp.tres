@@ -1,0 +1,16 @@
+[gd_resource type="CylinderMesh" format=3 uid="uid://24mhx72fb5o1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glow"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0, 0.8, 1, 0.7)
+
+[resource]
+material = SubResource("StandardMaterial3D_glow")
+top_radius = 5.0
+bottom_radius = 5.0
+height = 1.0
+cap_top = false
+cap_bottom = false

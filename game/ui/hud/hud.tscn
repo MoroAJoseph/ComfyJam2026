@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://6l68j3odtf1a"]
+
+[ext_resource type="PackedScene" path="res://ui/hud/gold_counter/gold_counter.tscn" id="1_4d6w6"]
+[ext_resource type="Script" uid="uid://d0e084smvtiiv" path="res://ui/hud/hud.gd" id="1_e0nub"]
+[ext_resource type="PackedScene" uid="uid://cb5k8m1n2u8y4" path="res://ui/hud/reward_popup/reward_popup.tscn" id="2_e0nub"]
+
+[node name="HUD" type="Control" unique_id=1634400941]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_e0nub")
+
+[node name="SafeArea" type="MarginContainer" parent="." unique_id=712505608]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Content" type="Control" parent="SafeArea" unique_id=1689499245]
+layout_mode = 2
+
+[node name="GoldCounter" parent="SafeArea/Content" unique_id=729044393 instance=ExtResource("1_4d6w6")]
+layout_mode = 0
+offset_right = 56.0
+offset_bottom = 34.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="RewardPopup" parent="SafeArea/Content" unique_id=537706517 instance=ExtResource("2_e0nub")]
+layout_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SafeArea/Content" unique_id=2031621511]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

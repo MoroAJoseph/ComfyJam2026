@@ -25,6 +25,7 @@ mesh = SubResource("CapsuleMesh_ffrih")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="EyeCamera" type="Camera3D" parent="Head" unique_id=1571640985]
+near = 0.01
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Head/EyeCamera" unique_id=523683417]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7)
