@@ -25,14 +25,27 @@ buses/default_bus_layout="res://core/services/audio/default_bus_layout.tres"
 
 Session="*uid://bl316tibj2tck"
 EventBus="*uid://dm4eknlbg7dpt"
-DialogueManager="*uid://c3rodes2l3gxb"
+DialogueManager="*uid://ba4exd0o5s3pu"
 Dialogic="*uid://ds2q0uclmolvu"
 
 [dialogic]
 
-directories/dch_directory={}
-directories/dtl_directory={}
-layout/style_directory={}
+directories/dch_directory={
+"player": "res://features/narrative/characters/player.dch",
+"sand_witch": "res://features/narrative/characters/sand_witch.dch"
+}
+directories/dtl_directory={
+"main_timeline": "res://features/narrative/timelines/main_timeline.dtl"
+}
+layout/style_directory={
+"": "res://features/narrative/styles/main_style.tres",
+"main_style": "res://features/narrative/styles/main_style.tres"
+}
+layout/style_list=["res://features/narrative/styles/main_style.tres"]
+layout/default_style="res://features/narrative/styles/main_style.tres"
+variables={
+"user_response": ""
+}
 
 [display]
 
