@@ -58,7 +58,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 
-[node name="VolumeHeader" type="HBoxContainer" parent="SafeArea/SafeContent/SettingsList"]
+[node name="VolumeHeader" type="HBoxContainer" parent="SafeArea/SafeContent/SettingsList" unique_id=102938475]
 layout_mode = 2
 
 [node name="VolumeLabel" type="Label" parent="VolumeHeader" unique_id=1485316047]
@@ -66,7 +66,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Master Volume"
 
-[node name="VolumeValue" type="Label" parent="VolumeHeader"]
+[node name="VolumeValue" type="Label" parent="VolumeHeader" unique_id=293847561]
 unique_name_in_owner = true
 layout_mode = 2
 text = "100%"
@@ -78,15 +78,15 @@ max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="SensitivityHeader" type="HBoxContainer" parent="SafeArea/SafeContent/SettingsList"]
+[node name="SensitivityHeader" type="HBoxContainer" parent="SafeArea/SafeContent/SettingsList" unique_id=384756102]
 layout_mode = 2
 
-[node name="SensitivityLabel" type="Label" parent="SensitivityHeader"]
+[node name="SensitivityLabel" type="Label" parent="SensitivityHeader" unique_id=475610293]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Mouse Sensitivity"
 
-[node name="SensitivityValue" type="Label" parent="SensitivityHeader"]
+[node name="SensitivityValue" type="Label" parent="SensitivityHeader" unique_id=222222222]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0.005"
