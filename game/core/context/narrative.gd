@@ -9,6 +9,7 @@ Used by the dialogue system to handle branching logic.
 enum Var {
 	
 }
+
 const DEFAULT: Dictionary[Var, Variant] = {
 	
 }
@@ -29,14 +30,6 @@ func _init() -> void:
 	reset()
 
 func reset() -> void:
-	return
-
-func to_dict() -> Dictionary[int, Variant]:
-	return {
-		
-	}
-
-func from_dict(_data: Dictionary[int, Variant]) -> void:
 	return
 
 # ===

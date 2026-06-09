@@ -1,9 +1,13 @@
 class_name SaveProvider
-extends RefCounted
+extends ContextProvider
 
 var progression_context: ProgressionContext
 var player_context: PlayerContext
 var world_context: WorldContext
+
+# ===
+# Private
+# ===
 
 func _init(
 	p_progression: ProgressionContext, 
@@ -13,6 +17,10 @@ func _init(
 	progression_context = p_progression
 	player_context = p_player
 	world_context = p_world
+
+# ===
+# Public
+# ===
 
 func save_game() -> void:
 	var save_resource := SaveData.new()
@@ -31,7 +39,6 @@ func save_game() -> void:
 	# World
 	save_resource.world_seed = world_context.noise_seed
 	save_resource.world_time = world_context.time
-	save_resource.world_sea_time = world_context.sea_time
 	
 	var error := ResourceSaver.save(save_resource, Constants.Paths.Data.USER_SAVE)
 	if error != OK:
@@ -58,6 +65,5 @@ func load_game(is_new_game: bool) -> bool:
 	# World
 	world_context.noise_seed = save_resource.world_seed
 	world_context.time = save_resource.world_time
-	world_context.sea_time = save_resource.world_sea_time
 	
 	return true

@@ -7,14 +7,12 @@ extends CanvasLayer
 @onready var dock: Control = $DockMenu
 
 var menu_map: Dictionary[Enums.MenuOption, Control]
-var context: UIContext
 
 # ===
 # Built-In
 # ===
 
 func _ready() -> void:
-	context = Session.ui_context
 	menu_map = {
 		Enums.MenuOption.MAIN: main,
 		Enums.MenuOption.PAUSE: pause,
@@ -35,7 +33,8 @@ func toggle(option: Enums.MenuOption, is_open: bool) -> void:
 		if not menu: return
 		
 		menu.visible = is_open
-		context.open_menus = _get_open_menus()
+		
+		Session.ui_provider.set_open_menus(_get_open_menus())
 
 func has_any_open() -> bool:
 	for option in menu_map:
@@ -51,7 +50,7 @@ func hide_all() -> void:
 		if menu:
 			menu.hide()
 	
-	context.open_menus = _get_open_menus()
+	Session.ui_provider.set_open_menus(_get_open_menus())
 
 # ===
 # Private

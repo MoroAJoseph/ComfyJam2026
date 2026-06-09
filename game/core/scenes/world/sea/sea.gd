@@ -21,15 +21,12 @@ var ITER_GEOMETRY: int
 
 var octave_m = [Vector2(1.6, 1.2), Vector2(-1.2, 1.6)]
 
-var world_context: WorldContext
-
 # ===
 # Built-In
 # ===
 
 func _ready():
-	world_context = Session.world_context
-	world_context.sea_instance = self
+	Session.world_provider.set_sea(self)
 	
 	var template = tile_scene.instantiate()
 	shared_material = template.get_active_material(0).duplicate()
@@ -42,9 +39,8 @@ func _ready():
 	water_level = shared_material.get_shader_parameter("water_level")
 	ITER_GEOMETRY = shared_material.get_shader_parameter("ITER_GEOMETRY")
 
-func _process(_delta):
-	#cpu_time += delta
-	shared_material.set_shader_parameter("cpu_time", world_context.sea_time)
+func _process(_delta: float):
+	shared_material.set_shader_parameter("cpu_time", Session.world_context.cpu_time)
 	var player_context: PlayerContext = Session.player_context
 	
 	var current_tile = Vector2i(
@@ -61,7 +57,7 @@ func _process(_delta):
 
 func get_height(world_pos: Vector3, time: float = -1.0) -> float:
 	if time == -1.0: 
-		time = world_context.sea_time
+		time = Session.world_context.cpu_time
 	
 	var freq = shared_material.get_shader_parameter("sea_freq")
 	var amp = shared_material.get_shader_parameter("sea_height")

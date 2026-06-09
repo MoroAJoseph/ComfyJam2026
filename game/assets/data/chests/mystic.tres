@@ -5,7 +5,6 @@
 [resource]
 script = ExtResource("1_fxdxl")
 type = 3
-name = "Mystic Chest"
 color = Color(0.7977378, 0.48452926, 1, 1)
 rarity_drop_table = Dictionary[int, float]({
 0: 0.0,

@@ -1,8 +1,12 @@
 class_name ProgressionProvider
-extends RefCounted
+extends ContextProvider
 
 var context: ProgressionContext
 var player_context: PlayerContext
+
+# ===
+# Built-In
+# ===
 
 func _init(
 	p_context: ProgressionContext, 
@@ -10,6 +14,10 @@ func _init(
 ) -> void:
 	context = p_context
 	player_context = p_player
+
+# ===
+# Public
+# ===
 
 func add_chest(type: Enums.ChestType) -> void:
 	context.chest_queue.append(type)
@@ -20,6 +28,10 @@ func claim_next_chest() -> void:
 	var type: Enums.ChestType = context.chest_queue.pop_front()
 	_reward_chest(type)
 	context.chest_queue_updated.emit(context.chest_queue)
+
+# ===
+# Private
+# ===
 
 func _reward_chest(type: Enums.ChestType) -> void:
 	var roll := randf()

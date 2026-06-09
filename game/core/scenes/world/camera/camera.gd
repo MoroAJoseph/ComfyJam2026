@@ -112,7 +112,8 @@ func _process(delta: float) -> void:
 		_process_unlocked(delta)
 	
 	# Update context
-	Session.player_context.look_direction = -camera.global_transform.basis.z.normalized()
+	
+	Session.player_provider.update_look_direction(-camera.global_transform.basis.z.normalized())
 
 # ===
 # Private

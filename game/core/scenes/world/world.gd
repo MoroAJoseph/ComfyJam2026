@@ -16,9 +16,6 @@ func _ready() -> void:
 		GameEvent.WorldLoaded.new()
 	)
 	
-	# CRITICAL TEMPORARY
-	Session.player_context.equipped_boat = Enums.BoatType.ROW_SMALL
-	
 	EventBus.emit(
 		WorldEvent.SpawnPlayer.new(
 			Vector3(0, 30, 0),

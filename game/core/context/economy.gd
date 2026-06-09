@@ -10,7 +10,11 @@ Exampled include the inventories
 # TODO price differences for items in shops
 # TODO shop refresh tracker
 
-const DEFAULT: Dictionary[String, Variant] = {}
+enum Var {
+	
+}
+
+const DEFAULT: Dictionary[Var, Variant] = {}
 
 # ===
 # Runtime
@@ -24,15 +28,10 @@ const DEFAULT: Dictionary[String, Variant] = {}
 # Built-In
 # ===
 
+func _init() -> void:
+	reset()
+
 func reset() -> void:
-	return
-
-func to_dict() -> Dictionary[String, Variant]:
-	return {
-		
-	}
-
-func from_dict(_data: Dictionary[String, Variant]) -> void:
 	return
 
 # ===
