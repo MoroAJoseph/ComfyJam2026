@@ -1,20 +1,8 @@
 class_name ToolData
-extends  RefCounted
+extends  Resource
 
-var type: Enums.ToolType
-var name: String
-var strength: int
-var speed: float
-var range: float
-
-func _init(
-	p_type: Enums.ToolType, 
-	p_strength: int, 
-	p_speed: float, 
-	p_range: float
-) -> void:
-	type = p_type
-	name = Enums.ToolType.keys()[p_type].capitalize()
-	strength = p_strength
-	speed = p_speed
-	range = p_range
+@export var type: Enums.ToolType
+@export var display_name: String
+@export var collection_strength: int
+@export var collection_speed: float
+@export var collection_range: float

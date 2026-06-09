@@ -34,7 +34,6 @@ extends RigidBody3D
 @onready var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var probes: Array[Node] = $Probes.get_children()
 
-var world_context: WorldContext
 var submerged := false
 var submersion_ratio := 0.0
 
@@ -43,9 +42,6 @@ var _pending_external_impulse := Vector3.ZERO
 # ===
 # Built-In
 # ===
-
-func _ready() -> void:
-	world_context = Context.world
 
 func _physics_process(_delta):
 	_apply_buoyancy()
@@ -111,7 +107,7 @@ func _apply_buoyancy() -> void:
 	var submerged_count = 0
 	
 	for p in probes:
-		var depth = world_context.get_sea_height(p.global_position) - p.global_position.y 
+		var depth = Session.world_context.get_sea_height(p.global_position) - p.global_position.y 
 		if depth > 0:
 			submerged = true
 			submerged_count += 1

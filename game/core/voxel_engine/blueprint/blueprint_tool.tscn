@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://0lo1l8u28t77"]
 
 [ext_resource type="Script" uid="uid://bqt3qnjto6k5q" path="res://core/voxel_engine/blueprint/blueprint_tool.gd" id="1_uyr5k"]
-[ext_resource type="Resource" uid="uid://bhyashmbtqlgv" path="res://common/data/voxel_blueprints/test_bp.tres" id="2_s3jwh"]
+[ext_resource type="Resource" uid="uid://bhyashmbtqlgv" path="res://assets/data/voxel_blueprints/test_bp.tres" id="2_s3jwh"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_s3jwh"]
 top_radius = 1.0

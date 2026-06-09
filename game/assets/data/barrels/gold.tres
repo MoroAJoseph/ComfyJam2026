@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BarrelData" format=3 uid="uid://cn4n0xb15dk4d"]
+
+[ext_resource type="Script" uid="uid://dkumvj5ufhj3d" path="res://common/dataclasses/barrel_data.gd" id="1_hv071"]
+
+[resource]
+script = ExtResource("1_hv071")
+type = 2
+color = Color(1, 0.9063318, 0.48452926, 1)
+explosion_force = 1000.0
+explosion_radius = 18.0
+vertical_boost = 4.0
+torque_force = 50.0
+metadata/_custom_type_script = "uid://dkumvj5ufhj3d"

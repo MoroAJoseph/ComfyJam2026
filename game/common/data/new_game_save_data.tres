@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="SaveData" format=3 uid="uid://v2gt7sgnvxkt"]
-
-[ext_resource type="Script" uid="uid://bqmkxxelodtk2" path="res://common/dataclasses/save_data.gd" id="1_widbr"]
-
-[resource]
-script = ExtResource("1_widbr")
-current_equipped_boat = 1
-metadata/_custom_type_script = "uid://bqmkxxelodtk2"

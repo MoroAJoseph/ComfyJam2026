@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cj6mr5liuj6xn"]
+
+[ext_resource type="Script" uid="uid://cxd66drltglgj" path="res://core/scenes/world/camera/camera.gd" id="1_0f1xx"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bsvnd"]
+radius = 0.01
+
+[node name="Camera" type="Node3D" unique_id=1706594822]
+script = ExtResource("1_0f1xx")
+
+[node name="Yaw" type="Node3D" parent="." unique_id=2007714358]
+unique_name_in_owner = true
+
+[node name="Pitch" type="Node3D" parent="Yaw" unique_id=1442957373]
+unique_name_in_owner = true
+
+[node name="Boom" type="SpringArm3D" parent="Yaw/Pitch" unique_id=1040227395]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 0, 0)
+collision_mask = 0
+shape = SubResource("SphereShape3D_bsvnd")
+spring_length = 10.0
+
+[node name="Camera" type="Camera3D" parent="Yaw/Pitch/Boom" unique_id=361213834]
+unique_name_in_owner = true
+cull_mask = 1048573
+current = true
+far = 1000.0

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="BoatData" format=3 uid="uid://bxkplr3dxoe1o"]
+
+[ext_resource type="Script" uid="uid://bk3kawapediok" path="res://common/dataclasses/boat_data.gd" id="1_p4hvj"]
+
+[resource]
+script = ExtResource("1_p4hvj")
+type = 4
+display_name = "Medium Ship"
+max_speed = 35.0
+acceleration = 35.0
+turn_speed = 2.5
+collision_damping = 0.15
+hull_drag = 0.4
+angular_drag = 1.5
+buy_price = 500
+sell_price = 400
+inventory_capacity = 60
+max_zoom = 28
+min_zoom = 14
+metadata/_custom_type_script = "uid://bk3kawapediok"

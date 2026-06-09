@@ -23,21 +23,27 @@ func _ready() -> void:
 	opening_strip.scale = Vector2(0.8, 0.8)
 	result_label.modulate.a = 0.0
 	EventBus.subscribe(WorldEvent.ChestCollected, _handle_chest_collected)
-	Context.progression.chest_queue_updated.connect(_on_chest_queue_updated)
-	
-	# Check if there are chests already in the queue (e.g. from a loaded save)
-	_on_chest_queue_updated()
+	Session.progression_context.chest_queue_updated.connect(_on_chest_queue_updated)
+	_try_claim_next_chest()
+
+# ===
+# Private
+# ===
+
+func _try_claim_next_chest() -> void:
+	if not _is_showing and not Session.progression_context.chest_queue.is_empty():
+		Session.progression_provider.claim_next_chest()
 
 # ===
 # Event Handlers
 # ===
 
-func _on_chest_queue_updated() -> void:
-	if not _is_showing and not Context.progression.chest_queue.is_empty():
-		Context.progression.claim_next_chest()
+func _on_chest_queue_updated(_value: Array) -> void:
+	_try_claim_next_chest()
 
 func _handle_chest_collected(event: WorldEvent.ChestCollected) -> void:
-	_show_reward(event)
+	pass
+	#_show_reward(event)
 
 func _show_reward(event: WorldEvent.ChestCollected) -> void:
 	_is_showing = true
@@ -75,13 +81,13 @@ func _show_reward(event: WorldEvent.ChestCollected) -> void:
 			elif roll > 0.9: rarity = Enums.RarityType.EPIC
 			elif roll > 0.7: rarity =Enums.RarityType.RARE
 			
-			var data = Constants.LUT.get_chest_reward_data(rarity)
-			rarity_data = {
-				"name": data.name,
-				"color": data.color
-			}
-		
-		item.setup(rarity_data.name, rarity_data.color)
+			#var data = Constants.LUT.get_chest_reward_data(rarity)
+			#rarity_data = {
+				#"name": data.name,
+				#"color": data.color
+			#}
+		#
+		#item.setup(rarity_data.name, rarity_data.color)
 
 	# Calculate target X
 	# Center of viewport - (index * step) - (half item width)
@@ -123,5 +129,5 @@ func _show_reward(event: WorldEvent.ChestCollected) -> void:
 	# 5. Process Next
 	_current_tween.tween_callback(func():
 		_is_showing = false
-		_on_chest_queue_updated()
+		_try_claim_next_chest()
 	)

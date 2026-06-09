@@ -1,17 +1,12 @@
 class_name ChestData
-extends RefCounted
+extends Resource
 
-var type: Enums.ChestType
-var name: String
-var color: Color
-var rarity_drop_table: Dictionary[Enums.RarityType, float] = {}
-
-func _init(
-	p_type: Enums.ChestType, 
-	p_color: Color, 
-	p_rarity_drop_table: Dictionary[Enums.RarityType, float]
-):
-	type = p_type
-	name = Enums.ChestType.keys()[p_type].capitalize()
-	color = p_color
-	rarity_drop_table = p_rarity_drop_table
+@export var type: Enums.ChestType
+@export var display_name: String
+@export var color: Color
+@export var rarity_drop_table: Dictionary[Enums.RarityType, float] = {
+	Enums.RarityType.COMMON: 0.0,
+	Enums.RarityType.EPIC: 0.0,
+	Enums.RarityType.RARE: 0.0,
+	Enums.RarityType.LEGENDARY: 0.0,
+}

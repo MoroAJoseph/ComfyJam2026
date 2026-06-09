@@ -3,18 +3,104 @@ extends RefCounted
 
 class Paths:
 	
-	const NEW_GAME_SAVE_DATA := "res://common/data/new_game_save_data.tres"
-	const USER_SAVE := "user://savegame.tres"
-	const WORLD_SCENE := "res://core/world/world.tscn"
-	const PLAYER_SCENE := "res://core/player/player.tscn"
+	class Scenes:
+		
+		const CORE_DIR := "res://core/scenes/"
+		const FEATURES_DIR := "res://features/"
+		
+		# --- Core ---
+		const BOOTSPLASH := Paths.Scenes.CORE_DIR + "bootsplash/bootsplash.tscn"
+		const GAME := Paths.Scenes.CORE_DIR + "game/game.tscn"
+		const TITLE := Paths.Scenes.CORE_DIR + "title/title.tscn"
+		const WORLD := Paths.Scenes.CORE_DIR + "world/world.tscn"
+		const PLAYER := Paths.Scenes.CORE_DIR + "player/player.tscn"
+		
+		# --- Boats ---
+		const BOATS_DIR := FEATURES_DIR + "equipment/boats/"
+		const BOATS_TABLE: Dictionary[Enums.BoatType, String] = {
+			Enums.BoatType.RAFT: BOATS_DIR + "raft/raft.tscn",
+			Enums.BoatType.ROW_SMALL: BOATS_DIR + "row_boat_small/row_boat_small.tscn",
+			Enums.BoatType.SHIP_SMALL: BOATS_DIR + "ship_small/ship_small.tscn",
+			Enums.BoatType.SHIP_MEDIUM_2: BOATS_DIR + "ship_medium_2/ship_medium_2.tscn",
+		}
 	
-	static var BOAT_SCENE: Dictionary[Enums.BoatType, String] = {
-		Enums.BoatType.ROW_SMALL: "res://features/boats/row_boat_small/row_boat_small.tscn",
-		Enums.BoatType.SHIP_SMALL: "res://features/boats/ship_small/ship_small.tscn",
-		Enums.BoatType.SHIP_MEDIUM_2: "res://features/boats/ship_medium_2/ship_medium_2.tscn",
-	}
+	class Data:
+		
+		const BASE_DIR := "res://assets/data/"
+		
+		# --- Saves ---
+		const USER_SAVE := "user://savegame.tres"
+		const NEW_GAME_SAVE := BASE_DIR + "new_game_save_data.tres"
+		
+		# --- Boats ---
+		const BOATS_DIR := BASE_DIR + "boats/"
+		const BOATS_TABLE: Dictionary[Enums.BoatType, String] = {
+			Enums.BoatType.RAFT: BOATS_DIR + "raft.tres",
+			Enums.BoatType.ROW_SMALL: BOATS_DIR + "row_small.tres",
+			Enums.BoatType.SHIP_SMALL: BOATS_DIR + "ship_small.tres",
+			Enums.BoatType.SHIP_MEDIUM_2: BOATS_DIR + "ship_medium.tres",
+		}
+
+		# --- Tools ---
+		const TOOLS_DIR := BASE_DIR + "tools/"
+		const TOOLS_TABLE: Dictionary[Enums.ToolType, String] = {}
+
+		# --- Blocks ---
+		const BLOCKS_DIR := BASE_DIR + "blocks/"
+		const BLOCKS_TABLE: Dictionary[Enums.BlockType, String] = {}
+		
+		# --- Barrels ---
+		const BARRELS_DIR := BASE_DIR + "barrels/"
+		const BARRELS_TABLE: Dictionary[Enums.BarrelType, String] = {}
+		
+		# --- Chests ---
+		const CHESTS_DIR := BASE_DIR + "chests/"
+		const CHESTS_TABLE: Dictionary[Enums.ChestType, String] = {}
+		
+		# --- Crates ---
+		const CRATES_DIR := BASE_DIR + "crates/"
+		const CRATES_TABLE: Dictionary[Enums.ChestType, String] = {}
+		
+		# --- Bottle Messages ---
+		const BOTTLES := BASE_DIR + "bottles/"
+		const BOTTLE_DIR: Dictionary[Enums.ChestType, String] = {}
+		
+	class Textures:
+		
+		const BASE_DIR := "res://assets/textures/"
+		
+		# --- Blocks ---
+		const BLOCKS_DIR := BASE_DIR + "blocks/"
+		const BLOCKS_TABLE: Dictionary[Enums.BlockType, String] = {
+			
+		}
+
+# [ChestType, RarityType] : [MinGold, MaxGold]
+const CHEST_REWARD_MATRIX: Dictionary[Vector2i, Vector2i] = {
+	# Wood
+	Vector2i(Enums.ChestType.WOOD, Enums.RarityType.COMMON):    Vector2i(10, 20),
+	Vector2i(Enums.ChestType.WOOD, Enums.RarityType.RARE):      Vector2i(25, 40),
+	Vector2i(Enums.ChestType.WOOD, Enums.RarityType.EPIC):      Vector2i(60, 100),
+	Vector2i(Enums.ChestType.WOOD, Enums.RarityType.LEGENDARY): Vector2i(200, 300),
 	
-	static func get_boat_scene(type: Enums.BoatType) -> String: return BOAT_SCENE.get(type, "")
+	# Iron
+	Vector2i(Enums.ChestType.IRON, Enums.RarityType.COMMON):    Vector2i(20, 35),
+	Vector2i(Enums.ChestType.IRON, Enums.RarityType.RARE):      Vector2i(50, 70),
+	Vector2i(Enums.ChestType.IRON, Enums.RarityType.EPIC):      Vector2i(120, 180),
+	Vector2i(Enums.ChestType.IRON, Enums.RarityType.LEGENDARY): Vector2i(400, 600),
+	
+	# Gold
+	Vector2i(Enums.ChestType.GOLD, Enums.RarityType.COMMON):    Vector2i(40, 60),
+	Vector2i(Enums.ChestType.GOLD, Enums.RarityType.RARE):      Vector2i(100, 140),
+	Vector2i(Enums.ChestType.GOLD, Enums.RarityType.EPIC):      Vector2i(250, 350),
+	Vector2i(Enums.ChestType.GOLD, Enums.RarityType.LEGENDARY): Vector2i(800, 1200),
+	
+	# Mystic
+	Vector2i(Enums.ChestType.MYSTIC, Enums.RarityType.COMMON):    Vector2i(80, 120),
+	Vector2i(Enums.ChestType.MYSTIC, Enums.RarityType.RARE):      Vector2i(200, 280),
+	Vector2i(Enums.ChestType.MYSTIC, Enums.RarityType.EPIC):      Vector2i(500, 700),
+	Vector2i(Enums.ChestType.MYSTIC, Enums.RarityType.LEGENDARY): Vector2i(2000, 3000)
+}
 
 class PhysicsLayer:
 	
@@ -35,175 +121,3 @@ class PhysicsLayer:
 	const ITEM_MASK := 1 << 4
 	const TREASURE_MASK := 1 << 5
 	const BARREL_MASK := 1 << 6
-
-class LUT:
-
-	# --- Chests ---
-	static var CHEST_DATA: Dictionary[Enums.ChestType, ChestData] = {
-		# Wood
-		Enums.ChestType.WOOD: ChestData.new(
-			Enums.ChestType.WOOD, 
-			Color(0.45, 0.24, 0.1), 
-			{
-				Enums.RarityType.COMMON: 0.4, 
-				Enums.RarityType.RARE: 0.4, 
-				Enums.RarityType.EPIC: 0.15, 
-				Enums.RarityType.LEGENDARY: 0.05
-			}
-		),
-		# Iron
-		Enums.ChestType.IRON: ChestData.new(
-			Enums.ChestType.IRON, 
-			Color(0.5, 0.5, 0.5), 
-			{
-				Enums.RarityType.COMMON: 0.4, 
-				Enums.RarityType.RARE: 0.4, 
-				Enums.RarityType.EPIC: 0.15, 
-				Enums.RarityType.LEGENDARY: 0.05
-			}
-		),
-		# Gold
-		Enums.ChestType.GOLD: ChestData.new(
-			Enums.ChestType.GOLD, 
-			Color(1.0, 0.8, 0.2), 
-			{
-				Enums.RarityType.COMMON: 0.1, 
-				Enums.RarityType.RARE: 0.3, 
-				Enums.RarityType.EPIC: 0.4, 
-				Enums.RarityType.LEGENDARY: 0.2
-			}
-		),
-		# Chest
-		Enums.ChestType.MYSTIC: ChestData.new(
-			Enums.ChestType.MYSTIC, 
-			Color(0.6, 0.2, 1.0), 
-			{
-				Enums.RarityType.COMMON: 0.0, 
-				Enums.RarityType.RARE: 0.1, 
-				Enums.RarityType.EPIC: 0.4, 
-				Enums.RarityType.LEGENDARY: 0.5
-			}
-		)
-	}
-	static func get_chest_data(type: Enums.ChestType) -> ChestData: return CHEST_DATA.get(type, null)
-	
-	# --- Chest Rewards ---
-	static var CHEST_REWARD_DATA: Dictionary[Enums.RarityType, ChestRewardData] = {
-		# Common
-		Enums.RarityType.COMMON: ChestRewardData.new(
-			Enums.RarityType.COMMON, 
-			50, 
-			150, 
-			Color(0.7, 0.7, 0.7)
-		),
-		# Rare
-		Enums.RarityType.RARE: ChestRewardData.new(
-			Enums.RarityType.RARE, 
-			200, 
-			500, 
-			Color(0.2, 0.4, 1.0)
-		),
-		# Epic
-		Enums.RarityType.EPIC: ChestRewardData.new(
-			Enums.RarityType.EPIC, 
-			750, 
-			1500, 
-			Color(0.6, 0.2, 1.0)
-		),
-		# Legendary
-		Enums.RarityType.LEGENDARY: ChestRewardData.new(
-			Enums.RarityType.LEGENDARY, 
-			2500, 
-			5000, 
-			Color(1.0, 0.8, 0.2)
-		)
-	}
-
-	static func get_chest_reward_data(rarity: Enums.RarityType) -> ChestRewardData: return CHEST_REWARD_DATA.get(rarity, null)
-	
-	# --- Boats ---
-	static var BOAT_DATA: Dictionary[Enums.BoatType, BoatData] = {
-		# Row Small
-		Enums.BoatType.ROW_SMALL: BoatData.new(
-			Enums.BoatType.ROW_SMALL, 
-			20.0, 
-			8.0, 
-			3.0, 
-			0.2, 
-			0.5, 
-			2.0, 
-			0,
-			100, 
-			12, 
-			6, 
-			2
-		),
-		# Ship Small
-		Enums.BoatType.SHIP_SMALL: BoatData.new(
-			Enums.BoatType.SHIP_SMALL, 
-			20.0, 
-			30.0, 
-			3.0, 
-			0.2, 
-			0.5, 
-			2.0, 
-			50,
-			100, 
-			24, 
-			12, 
-			2
-		),
-		# Ship Medium
-		Enums.BoatType.SHIP_MEDIUM_2: BoatData.new(
-			Enums.BoatType.SHIP_MEDIUM_2, 
-			35.0, 
-			35.0, 
-			2.5, 
-			0.15, 
-			0.4, 
-			1.5, 
-			150,
-			1000, 
-			25, 
-			12, 
-			4
-		)
-	}
-	
-	static func get_boat_data(type: Enums.BoatType) -> BoatData: return BOAT_DATA.get(type, null)
-
-	# --- Barrels ---
-	static var BARREL_DATA: Dictionary[Enums.BarrelType, BarrelData] = {
-		# Wood - For Rowboats (Mass 5)
-		Enums.BarrelType.WOOD: BarrelData.new(
-			Enums.BarrelType.WOOD,
-			Color(0.45, 0.24, 0.1), # Brown
-			100.0,
-			6.0,
-			0.5,
-			10.0
-		),
-		# Iron - For Small Ships (Mass 40) - The baseline
-		Enums.BarrelType.IRON: BarrelData.new(
-			Enums.BarrelType.IRON,
-			Color(0.5, 0.5, 0.5), # Silver/Grey
-			500.0,
-			12.0,
-			2.0,
-			20.0
-		),
-		# Gold - For Medium Ships (Mass 80)
-		Enums.BarrelType.GOLD: BarrelData.new(
-			Enums.BarrelType.GOLD,
-			Color(1.0, 0.8, 0.2), # Gold
-			1000.0,
-			18.0,
-			4.0,
-			50.0
-		)
-	}
-	static func get_barrel_data(type: Enums.BarrelType) -> BarrelData: return BARREL_DATA.get(type, null)
-
-	# --- Blocks ---
-
-	# --- Docks ---

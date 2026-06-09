@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c5j6bp0rk2jpy"]
+
+[ext_resource type="Script" uid="uid://ceg342nsjh2wr" path="res://core/scenes/world/sea/sea.gd" id="1_0ukmh"]
+[ext_resource type="PackedScene" uid="uid://86el0txv6nk8" path="res://core/scenes/world/sea/sea_tile.tscn" id="2_d8jpp"]
+
+[node name="Sea" type="Node3D" unique_id=1073607141]
+script = ExtResource("1_0ukmh")
+tile_scene = ExtResource("2_d8jpp")
