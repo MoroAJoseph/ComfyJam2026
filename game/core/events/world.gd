@@ -1,7 +1,6 @@
 class_name WorldEvent
 extends Event
 
-
 class CameraShake extends WorldEvent:
 	
 	var intensity: float
@@ -11,6 +10,8 @@ class CameraShake extends WorldEvent:
 		intensity = p_intensity
 		duration = p_duration
 
+class GenerateLand extends WorldEvent: pass
+class LandGenerated extends WorldEvent: pass
 
 # --- Block ---
 #class BlockDestroyed extends WorldEvent:
@@ -90,7 +91,7 @@ class PlayerSpawned extends WorldEvent:
 		#block_item_data = p_block_item_data
 		#world_location = p_world_location
 
-
+# --- Interaction ---
 class DockEntered extends WorldEvent: pass
 class DockExited extends WorldEvent: pass
 

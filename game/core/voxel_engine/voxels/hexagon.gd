@@ -25,8 +25,18 @@ static func get_single_voxel_geometry(voxel: Vector3i, data: PackedByteArray, co
 			_add_side(base[i], base[next], top[next], top[i], normal, color, verts, norms, cols)
 	return {"verts": verts, "norms": norms, "cols": cols, "uvs": uvs}
 
-static func calculate_geometry(data: PackedByteArray, coords: Vector3i, registry: Dictionary, size: int, colors: Array[Color]) -> Dictionary:
-	var v := PackedVector3Array(); var n := PackedVector3Array(); var c := PackedColorArray(); var u := PackedVector2Array()
+static func calculate_geometry(
+	data: PackedByteArray, 
+	coords: Vector3i, 
+	registry: Dictionary, 
+	size: int, 
+	colors: Array[Color]
+) -> Dictionary:
+	var v := PackedVector3Array()
+	var n := PackedVector3Array()
+	var c := PackedColorArray()
+	var u := PackedVector2Array()
+	
 	for x in range(size):
 		for y in range(size):
 			for z in range(size):
@@ -46,6 +56,7 @@ static func calculate_geometry(data: PackedByteArray, coords: Vector3i, registry
 						normal.y = 0.0
 						_add_side(base[i], base[next], top[next], top[i], normal, col, v, n, c)
 	return {"verts": v, "norms": n, "cols": c, "uvs": u}
+
 
 static func get_noise_coords(x: int, z: int, world_origin: Vector3) -> Vector2:
 	var offset_x: float = 1.5 * float(x)
