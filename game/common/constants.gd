@@ -30,6 +30,7 @@ class Paths:
 		
 		# --- Saves ---
 		const USER_SAVE := "user://savegame.tres"
+		const USER_SETTINGS := "user://settings.tres"
 		const NEW_GAME_SAVE := BASE_DIR + "new_game_save_data.tres"
 		
 		# --- Boats ---
