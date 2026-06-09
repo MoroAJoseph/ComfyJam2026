@@ -51,6 +51,15 @@ enum SandWitchAction {
 # Gameplay
 # ===
 
+enum DayPhase {
+	MIDNIGHT,
+	DAWN,
+	DAY,
+	MIDDAY,
+	DUSK,
+	NIGHT
+}
+
 enum RarityType {
 	COMMON,
 	RARE,
