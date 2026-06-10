@@ -5,13 +5,13 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0lwvc"]
 render_priority = 0
 shader = ExtResource("1_bc4oq")
-shader_parameter/cpu_time = -12.74
+shader_parameter/cpu_time = 161.1206655555718
 shader_parameter/underwater_fog_color = Color(0.26135722, 0.5421905, 0.9254397, 1)
 shader_parameter/fade_start_depth = 0.5
 shader_parameter/max_depth = 10.0
-shader_parameter/water_level = 0.0
+shader_parameter/water_level = 8.000000268221601
 shader_parameter/sea_height = 1.1090000526775
-shader_parameter/sea_choppy = 4.058000192755
+shader_parameter/sea_choppy = 2.586000122835
 shader_parameter/sea_speed = 1.5
 shader_parameter/sea_freq = 0.08
 shader_parameter/ITER_GEOMETRY = 3
@@ -30,18 +30,18 @@ shader_parameter/caustics_scale = 2.0
 shader_parameter/caustics_speed = 0.1
 shader_parameter/caustics_intensity = 0.60000000894072
 shader_parameter/caustics_depth_fade = 0.7
-shader_parameter/foam_color = Color(1, 1, 1, 1)
-shader_parameter/foam_depth_start = 0.5499999877064
+shader_parameter/foam_color = Color(0.9157799, 1, 1, 1)
+shader_parameter/foam_depth_start = 0.56999998725936
 shader_parameter/foam_depth_end = 0.0
-shader_parameter/foam_noise_scale = 0.2999999932944
-shader_parameter/foam_noise_speed = 1.0
+shader_parameter/foam_noise_scale = 0.0
+shader_parameter/foam_noise_speed = 0.499999988824
 shader_parameter/foam_cutoff = 0.7
-shader_parameter/foam_crest_threshold = 0.9499999787656
-shader_parameter/foam_crest_amount = 1.5000000223518
+shader_parameter/foam_crest_threshold = 0.999999977648
+shader_parameter/foam_crest_amount = 0.70000001043084
 shader_parameter/foam_edge_color = Color(0, 0, 0.05, 1)
 shader_parameter/foam_edge_offset = Vector2(0.02, 0.02)
-shader_parameter/voronoi_scale = 4.8790002317525
-shader_parameter/voronoi_strength = 0.75600003591
+shader_parameter/voronoi_scale = 9.0
+shader_parameter/voronoi_strength = 0.8
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_kja62"]
 material = SubResource("ShaderMaterial_0lwvc")
@@ -49,12 +49,31 @@ size = Vector2(500, 500)
 subdivide_width = 255
 subdivide_depth = 255
 
+[sub_resource type="GDScript" id="GDScript_yo5n6"]
+script/source = "@tool
+extends MeshInstance3D
+
+var material: ShaderMaterial
+var cpu_time: float = 0
+
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		material = get_active_material(0)
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		cpu_time += delta
+		material.set_shader_parameter(\"cpu_time\", cpu_time)
+"
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_bc4oq"]
 size = Vector3(500, 1, 500)
 
 [node name="SeaTile" type="MeshInstance3D" unique_id=667551588]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0.14908981, 0.30487442, -0.023448944)
 mesh = SubResource("PlaneMesh_kja62")
+script = SubResource("GDScript_yo5n6")
 
 [node name="WaterCollider" type="StaticBody3D" parent="." unique_id=614510152]
 

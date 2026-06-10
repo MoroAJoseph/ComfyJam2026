@@ -1,2 +1,0 @@
-class_name VoxelEngineHexagonChunk 
-extends StaticBody3D

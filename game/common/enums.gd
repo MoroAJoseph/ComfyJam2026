@@ -137,6 +137,8 @@ enum BlockType {
 	SAND, 
 	DIRT, 
 	STONE, 
+	COBBLESTONE,
+	MOSSY_COBBLESTONE,
 	GRASS, 
 	COAL_ORE, 
 	COAL 

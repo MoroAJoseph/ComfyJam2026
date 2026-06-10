@@ -114,6 +114,8 @@ const CHEST_REWARD_MATRIX: Dictionary[Vector2i, Vector2i] = {
 	Vector2i(Enums.ChestType.MYSTIC, Enums.RarityType.LEGENDARY): Vector2i(2000, 3000)
 }
 
+
+
 class PhysicsLayer:
 	
 	# Index

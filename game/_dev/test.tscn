@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bsvhh7ryw11di"]
 
 [ext_resource type="PackedScene" uid="uid://bg7j8yrrswl8i" path="res://_dev/flying_player/player.tscn" id="1_p3htu"]
-[ext_resource type="PackedScene" uid="uid://nxmi0nfg3irw" path="res://core/voxel_engine/chunk_manager/chunk_manager.tscn" id="2_6dmo0"]
-[ext_resource type="Script" uid="uid://b83pagxjdpo4d" path="res://core/voxel_engine/hover/hover_handler.gd" id="3_7gwwe"]
+[ext_resource type="PackedScene" uid="uid://nxmi0nfg3irw" path="res://core/voxel_engine/current/chunk_manager.tscn" id="2_6dmo0"]
+[ext_resource type="Script" uid="uid://b83pagxjdpo4d" path="res://core/voxel_engine/current/hover_handler.gd" id="3_7gwwe"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ervou"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)

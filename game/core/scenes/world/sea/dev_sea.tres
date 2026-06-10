@@ -220,14 +220,27 @@ float get_linear_depth(sampler2D d_tex, vec2 uv, mat4 inv_proj) {
 }
 
 void vertex() {
+    // 1. Get the current vertex position in world space
     vec3 world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-    wave_height = -map(world_pos, cpu_time);
-    VERTEX.y = wave_height;
+    
+    // 2. Calculate the wave height relative to 0
+    // We add water_level here to respect your uniform
+    float target_y = -map(world_pos, cpu_time) + water_level;
+    
+    // 3. Transform the target world Y into local space
+    // We subtract the node's world Y position (MODEL_MATRIX[3].y)
+    VERTEX.y = target_y - MODEL_MATRIX[3].y;
+    
+    // 4. Update world_vert to reflect the new position
     world_vert = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+    
+    // 5. Calculate normals using the same world-space logic
+    // We use the 'target_y' logic to keep normals consistent with the mesh displacement
     float vertex_eps = 0.1;
-    float h_center = wave_height;
-    float h_x = -map(world_pos + vec3(vertex_eps, 0.0, 0.0), cpu_time);
-    float h_z = -map(world_pos + vec3(0.0, 0.0, vertex_eps), cpu_time);
+    float h_center = -map(world_pos, cpu_time) + water_level;
+    float h_x = -map(world_pos + vec3(vertex_eps, 0.0, 0.0), cpu_time) + water_level;
+    float h_z = -map(world_pos + vec3(0.0, 0.0, vertex_eps), cpu_time) + water_level;
+    
     vec3 n_geom = normalize(vec3(h_center - h_x, vertex_eps, h_center - h_z));
     vertex_normal_world = n_geom;
 }

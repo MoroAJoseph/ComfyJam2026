@@ -34,6 +34,7 @@ enum Algorithm { ISLAND, DOCK_ISLAND }
 @export var boat_height: int = 3
 @export var cave_tunnel_radius: float = 2.5
 @export var sea_height: float = 1.0
+@export var spawn_rules: Array[VoxelEngineBlueprintSpawnRule] = []
 
 @onready var logic_class: Object = VoxelEngineHexagon if use_hexagons else VoxelEngineCube
 
@@ -69,6 +70,8 @@ func generate_blueprint() -> void:
 	update_preview()
 	print("Generated blueprint with %d voxels" % voxel_data.size())
 
+
+
 func _heightmap_to_voxels(
 	heightmap: Array[float], 
 	dims: Vector3i, 
@@ -85,31 +88,16 @@ func _heightmap_to_voxels(
 	
 	return data
 
-func _heightmap_to_voxels_with_caves(
-	heightmap: Array[float], 
-	dims: Vector3i, 
-	sea_h: float, 
-	cave_weights: Array[float], 
-	radius: float
-) -> Dictionary[Vector3i, int]:
-	var data: Dictionary[Vector3i, int] = {}
-	
-	for x in dims.x:
-		for z in dims.z:
-			var h = int(clampf(heightmap[x + z * dims.x], 0.0, float(dims.y)))
-			for y in range(h):
-				if float(y) >= sea_h:
-					# UPDATED: Check for multi-cave intersection
-					if not VoxelEngineBlueprintGenerator.is_inside_multi_cave(
-						Vector3i(x, y, z), 
-						dims, 
-						cave_weights, 
-						radius, 
-						noise_seed
-					):
-						data[Vector3i(x, y, z)] = 1
-	
-	return data
+func _heightmap_to_voxels_with_caves(heightmap, dims, sea_h, cave_weights, radius) -> Dictionary[Vector3i, int]:
+	return VoxelEngineBlueprintGenerator.generate_dock_voxels(
+		heightmap, 
+		dims, 
+		sea_h, 
+		noise_seed, 
+		radius, 
+		cave_weights, 
+		spawn_rules
+	)
 
 func save_to_resource() -> void:
 	if not blueprint_data:
@@ -123,6 +111,8 @@ func bake_to_blueprint_data() -> void:
 	var geometry := _generate_culled_mesh()
 	blueprint_data.mesh_arrays = geometry
 	blueprint_data.collision_verts = geometry.verts
+	blueprint_data.block_map = voxel_data.duplicate() # Save the map
+	blueprint_data.emit_changed() # Ensure Inspector saves the resource
 
 func _generate_culled_mesh() -> Dictionary:
 	if voxel_data.is_empty(): return {"verts": PackedVector3Array(), "norms": PackedVector3Array(), "cols": PackedColorArray(), "uvs": PackedVector2Array()}
@@ -155,7 +145,7 @@ func update_preview() -> void:
 	# Calculate Center of Mass using Hex Math
 	var center := Vector3.ZERO
 	for pos in voxel_data.keys():
-		center += VoxelEngineHexagon._get_hex_world_pos(pos, 1.0, 1.0) if use_hexagons else Vector3(pos)
+		center += VoxelEngineHexagon.get_hex_world_position(pos, 1.0, 1.0) if use_hexagons else Vector3(pos)
 	center /= float(voxel_data.size())
 
 	# Setup Node
@@ -191,7 +181,7 @@ func update_preview() -> void:
 	var edge_alignment_basis := Basis.from_euler(Vector3(0, deg_to_rad(30), 0))
 	
 	for pos in voxel_data.keys():
-		var world_pos = VoxelEngineHexagon._get_hex_world_pos(pos, 1.0, 1.0) if use_hexagons else Vector3(pos)
+		var world_pos = VoxelEngineHexagon.get_hex_world_position(pos, 1.0, 1.0) if use_hexagons else Vector3(pos)
 		
 		var new_transform := Transform3D(Basis(), world_pos - center)
 		if use_hexagons:

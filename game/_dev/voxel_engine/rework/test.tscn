@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dr2uu7d3357d7"]
+
+[ext_resource type="PackedScene" uid="uid://bg7j8yrrswl8i" path="res://_dev/flying_player/player.tscn" id="2_q48kp"]
+[ext_resource type="Script" uid="uid://dp5lqkhx28qww" path="res://_dev/voxel_engine/rework/root.gd" id="2_utrjd"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vwmdy"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_whlff"]
+sky_material = SubResource("ProceduralSkyMaterial_vwmdy")
+
+[sub_resource type="Environment" id="Environment_lerw4"]
+background_mode = 2
+sky = SubResource("Sky_whlff")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_q48kp"]
+
+[node name="Test" type="Node3D" unique_id=1841795109]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=559367964]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=970440989]
+environment = SubResource("Environment_lerw4")
+
+[node name="Player" parent="." unique_id=1091930200 instance=ExtResource("2_q48kp")]
+
+[node name="EngineRoot" type="Node" parent="." unique_id=759160871 node_paths=PackedStringArray("player")]
+script = ExtResource("2_utrjd")
+noise = SubResource("FastNoiseLite_q48kp")
+player = NodePath("../Player")
