@@ -42,22 +42,52 @@ static func generate_dock_island(dims: Vector2i, seed: int, dock_weights: Array[
 	
 	return map
 
-static func generate_dock_voxels(heightmap: Array[float], dims: Vector3i, sea_h: float, seed: int, cave_radius: float, cave_weights: Array[float]) -> Dictionary[Vector3i, int]:
+static func _get_block_type_from_rules(pos: Vector3i, rules: Array) -> int:
+	var valid_rules = []
+	for rule in rules:
+		if pos.y >= rule.min_height and pos.y <= rule.max_height:
+			valid_rules.append(rule)
+			
+	if valid_rules.is_empty():
+		return 1
+
+	var total_weight = 0.0
+	for rule in valid_rules: total_weight += rule.density
+	
+	var threshold = randf() * total_weight
+	var cumulative = 0.0
+	for rule in valid_rules:
+		cumulative += rule.density
+		if threshold <= cumulative:
+			return int(rule.block_type)
+			
+	return int(valid_rules[0].block_type)
+
+static func generate_dock_voxels(heightmap: Array[float], dims: Vector3i, sea_h: float, seed: int, cave_radius: float, cave_weights: Array[float], spawn_rules: Array) -> Dictionary[Vector3i, int]:
 	var data: Dictionary[Vector3i, int] = {}
 	for x in dims.x:
 		for z in dims.z:
 			var h = int(clampf(heightmap[x + z * dims.x], 0.0, float(dims.y)))
 			for y in range(h):
 				if float(y) >= sea_h:
-					# UPDATED: Now uses the multi-cave logic
-					if not is_inside_multi_cave(Vector3i(x, y, z), dims, cave_weights, cave_radius, seed):
-						data[Vector3i(x, y, z)] = 1
+					var pos = Vector3i(x, y, z)
+					# Check if this position is inside a cave volume
+					var is_cave = is_inside_multi_cave(pos, dims, cave_weights, cave_radius, seed)
+					
+					# Logic: If it's a cave, we do NOT add it to 'data' (we carve it)
+					# We removed 'is_near_edge' to allow caves to break through to the outside
+					if is_cave:
+						continue 
+					else:
+						data[pos] = _get_block_type_from_rules(pos, spawn_rules)
 	return data
 
 static func generate_terrain(dims: Vector3i, seed: int, max_h: int, sea_h: float) -> Dictionary[Vector3i, int]:
 	var heightmap = generate_island_heightmap(Vector2i(dims.x, dims.z), seed, max_h)
-	var data: Dictionary[Vector3i, int] = {}
 	
+	_apply_edge_mask(heightmap, Vector2i(dims.x, dims.z))
+	
+	var data: Dictionary[Vector3i, int] = {}
 	for x in dims.x:
 		for z in dims.z:
 			var h = int(clampf(heightmap[x + z * dims.x], 0.0, float(max_h)))
@@ -149,23 +179,16 @@ static func _apply_noise_warp(map: Array[float], dims: Vector2i, seed: int, freq
 			map[x + y * dims.x] += noise.get_noise_2d(x * 10.0, y * 10.0) * 1.5
 
 static func is_inside_multi_cave(pos: Vector3i, dims: Vector3i, cave_weights: Array[float], base_radius: float, seed: int) -> bool:
-	# 1. Edge Buffer: Absolutely protect the outer perimeter
-	var buffer = 2
-	if pos.x < buffer or pos.x >= dims.x - buffer or pos.z < buffer or pos.z >= dims.z - buffer:
-		return false
-		
 	for i in range(cave_weights.size()):
-		# 2. Angle calculation
 		var angle = (float(i) / max(1, cave_weights.size())) * PI * 2.0
-		
-		# 3. Dynamic Center: Keep centers within the island radius
 		var radius_offset = min(dims.x, dims.y) * 0.25 
 		var center = Vector3(dims.x * 0.5, 2.0, dims.z * 0.5) + Vector3(cos(angle), 0, sin(angle)) * radius_offset
 		
 		var d = Vector3(pos).distance_to(center)
 		var radius = base_radius * clampf(cave_weights[i], 0.5, 1.5)
 		
-		# 4. Vertical and Radial check
+		# Check if inside cave volume AND ensure we aren't at the very edge 
+		# (prevents floating caves, requires entrance)
 		if d < radius and pos.y > 1 and pos.y < (dims.y * 0.7):
 			return true
 			

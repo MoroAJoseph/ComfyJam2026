@@ -3,10 +3,10 @@ extends RefCounted
 
 ## Base class for Voxel geometry generation strategies.
 static func calculate_geometry(
-	data: PackedByteArray,
-	coordinates: Vector3i,
-	registry: Dictionary,
-	size: int,
+	_data: PackedByteArray,
+	_coordinates: Vector3i,
+	_registry: Dictionary,
+	_size: int,
 	colors: PackedColorArray
 ) -> Dictionary:
 	return {
@@ -17,11 +17,11 @@ static func calculate_geometry(
 
 ## Generates geometry for exactly one voxel, useful for hover/highlighting.
 static func get_single_voxel_geometry(
-	voxel_position: Vector3i,
-	data: PackedByteArray,
-	coordinates: Vector3i,
-	registry: Dictionary,
-	size: int,
+	_voxel_position: Vector3i,
+	_data: PackedByteArray,
+	_coordinates: Vector3i,
+	_registry: Dictionary,
+	_size: int,
 	colors: PackedColorArray
 ) -> Dictionary:
 	return {
@@ -48,6 +48,29 @@ static func add_triangle(
 	vertices.append_array([point1, point2, point3])
 	normals.append_array([normal, normal, normal])
 	colors.append_array([color, color, color])
+
+static func add_textured_triangle(
+	p1: Vector3, 
+	p2: Vector3, 
+	p3: Vector3,
+	uv1: Vector2, 
+	uv2: Vector2, 
+	uv3: Vector2,
+	normal: Vector3, 
+	texture_index: int,
+	vertices: PackedVector3Array, 
+	normals: PackedVector3Array, 
+	tangents: PackedFloat32Array, 
+	uvs: PackedVector2Array
+) -> void:
+	vertices.append_array([p1, p2, p3])
+	normals.append_array([normal, normal, normal])
+	
+	var t: float = float(texture_index)
+	for i in range(3):
+		tangents.append_array([t, 0.0, 0.0, 1.0])
+	
+	uvs.append_array([uv1, uv2, uv3])
 
 ## Returns the sampling coordinate for the noise generator.
 static func get_noise_coordinates(x: int, z: int, world_origin: Vector3) -> Vector2:

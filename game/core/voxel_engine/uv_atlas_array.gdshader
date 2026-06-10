@@ -1,6 +1,6 @@
 shader_type spatial;
 
-uniform sampler2DArray atlas_array;
+uniform sampler2DArray atlas_array : filter_nearest;
 
 varying flat int texture_index;
 
@@ -11,7 +11,6 @@ void vertex() {
 }
 
 void fragment() {
-    // Use the index passed from the vertex shader to sample the array
     vec4 tex = texture(atlas_array, vec3(UV.xy, float(texture_index)));
     if (tex.a < 0.5) discard;
     ALBEDO = tex.rgb;

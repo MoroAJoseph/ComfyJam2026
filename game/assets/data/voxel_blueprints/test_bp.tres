@@ -1,13 +1,7 @@
-[gd_resource type="Resource" script_class="VoxelEngineBlueprintData" format=3 uid="uid://bhyashmbtqlgv"]
+[gd_resource type="Resource" script_class="VoxelEngineBlueprintData" format=3 uid="uid://dfp3l6myb676m"]
 
 [ext_resource type="Script" uid="uid://cedpd0bkds2ho" path="res://core/voxel_engine/blueprint/blueprint_data.gd" id="1_v5072"]
 
 [resource]
 script = ExtResource("1_v5072")
-mesh_arrays = {
-"cols": PackedColorArray(),
-"norms": PackedVector3Array(),
-"uvs": PackedVector2Array(),
-"verts": PackedVector3Array()
-}
 metadata/_custom_type_script = "uid://cedpd0bkds2ho"

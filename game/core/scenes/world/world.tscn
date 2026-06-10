@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cj6mr5liuj6xn" path="res://core/scenes/world/camera/camera.tscn" id="3_xq38f"]
 [ext_resource type="Script" uid="uid://b8rh2lplntxx4" path="res://core/scenes/world/controllers/instances.gd" id="4_p6pjc"]
 [ext_resource type="PackedScene" uid="uid://df7w8m1n2u8x2" path="res://features/environment/docks/placeholder/dock.tscn" id="5_dock"]
+[ext_resource type="PackedScene" uid="uid://co00ewjccbqxh" path="res://core/scenes/world/land/land.tscn" id="5_wrngl"]
 
 [node name="World" type="Node3D" unique_id=485736105]
 process_mode = 1
@@ -16,11 +17,15 @@ script = ExtResource("1_wavff")
 script = ExtResource("2_8k0jh")
 
 [node name="Sky" parent="." unique_id=1901335390 instance=ExtResource("3_41qfr")]
-day_progress = 0.7031724664713989
+simulate = true
+day_progress = 0.6144813207041947
 
 [node name="Sea" parent="." unique_id=1073607141 instance=ExtResource("2_m07s3")]
+water_level = 8.0
 tile_size = 256.0
 render_radius = 3
+
+[node name="Land" parent="." unique_id=259526549 instance=ExtResource("5_wrngl")]
 
 [node name="Camera" parent="." unique_id=1706594822 instance=ExtResource("3_xq38f")]
 
@@ -34,6 +39,6 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="Dock" parent="Instances/Docks" unique_id=1392596294 instance=ExtResource("5_dock")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.569755, 1, -1.4353352)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.57, 8, -1.435)
 
 [node name="BlockItems" type="Node3D" parent="Instances" unique_id=2002988269]

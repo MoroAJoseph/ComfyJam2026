@@ -1,6 +1,11 @@
 class_name WorldSea
 extends Node3D
 
+@export var height: float = 8.0
+@export var choppy: float
+@export var speed: float
+@export var frequency: float 
+@export var water_level: float
 @export var tile_size: float = 500.0
 @export var tile_scene: PackedScene
 @export var render_radius: int = 2
@@ -12,11 +17,6 @@ var last_player_tile: Vector2i = Vector2i(999999, 999999)
 var active_tiles: Dictionary[Vector2i, MeshInstance3D] = {}
 var shared_material: ShaderMaterial
 
-var sea_height: float
-var sea_choppy: float
-var sea_speed: float
-var sea_freq: float
-var water_level: float
 var ITER_GEOMETRY: int
 
 var octave_m = [Vector2(1.6, 1.2), Vector2(-1.2, 1.6)]
@@ -32,11 +32,12 @@ func _ready():
 	shared_material = template.get_active_material(0).duplicate()
 	template.queue_free()
 	
-	sea_height = shared_material.get_shader_parameter("sea_height")
-	sea_choppy = shared_material.get_shader_parameter("sea_choppy")
-	sea_speed = shared_material.get_shader_parameter("sea_speed")
-	sea_freq = shared_material.get_shader_parameter("sea_freq")
-	water_level = shared_material.get_shader_parameter("water_level")
+	shared_material.set_shader_parameter("sea_height", height)
+	shared_material.set_shader_parameter("sea_chopy", choppy)
+	shared_material.set_shader_parameter("sea_speed", speed)
+	shared_material.set_shader_parameter("sea_freq", frequency)
+	shared_material.set_shader_parameter("water_level", water_level)
+
 	ITER_GEOMETRY = shared_material.get_shader_parameter("ITER_GEOMETRY")
 
 func _process(_delta: float):
@@ -59,39 +60,39 @@ func get_height(world_pos: Vector3, time: float = -1.0) -> float:
 	if time == -1.0: 
 		time = Session.world_context.cpu_time
 	
-	var freq = shared_material.get_shader_parameter("sea_freq")
-	var amp = shared_material.get_shader_parameter("sea_height")
-	var choppy = shared_material.get_shader_parameter("sea_choppy")
-	var speed = shared_material.get_shader_parameter("sea_speed")
-	var level = shared_material.get_shader_parameter("water_level")
-	var iterations = int(shared_material.get_shader_parameter("ITER_GEOMETRY"))
+	var curent_frequency = shared_material.get_shader_parameter("sea_freq")
+	var current_height = shared_material.get_shader_parameter("sea_height")
+	var current_choppy = shared_material.get_shader_parameter("sea_choppy")
+	var current_speed = shared_material.get_shader_parameter("sea_speed")
+	var curent_water_level = shared_material.get_shader_parameter("water_level")
+	var current_iteratons = int(shared_material.get_shader_parameter("ITER_GEOMETRY"))
 	
 	var uv = Vector2(world_pos.x * 0.75, world_pos.z)
-	var height = 0.0
-	var time_value = time * speed
+	var base_height = 0.0
+	var time_value = time * current_speed
 	var time_vec2 = Vector2(time_value, time_value)
 	
-	for i in range(iterations):
-		var depth = _sea_octave((uv + time_vec2) * freq, choppy)
-		depth += _sea_octave((uv - time_vec2) * freq, choppy)
-		height += depth * amp
+	for i in range(current_iteratons):
+		var depth = _sea_octave((uv + time_vec2) * curent_frequency, current_choppy)
+		depth += _sea_octave((uv - time_vec2) * curent_frequency, current_choppy)
+		base_height += depth * current_height
 		uv = Vector2(uv.dot(octave_m[0]), uv.dot(octave_m[1]))
-		freq *= 1.9
-		amp *= 0.22
-		choppy = lerp(choppy, 1.0, 0.2)
+		curent_frequency *= 1.9
+		current_height *= 0.22
+		current_choppy = lerp(current_choppy, 1.0, 0.2)
 	
-	return level + height
+	return curent_water_level + base_height
 
 # ===
 # Private
 # ===
 
-func _sea_octave(uv: Vector2, choppy: float) -> float:
+func _sea_octave(uv: Vector2, current_choppy: float) -> float:
 	uv += Vector2(_noise(uv), _noise(uv))
 	var wv = Vector2(1.0, 1.0) - Vector2(abs(sin(uv.x)), abs(sin(uv.y)))
 	var swv = Vector2(abs(cos(uv.x)), abs(cos(uv.y)))
 	wv = lerp(wv, swv, wv)
-	return pow(1.0 - pow(wv.x * wv.y, 0.65), choppy)
+	return pow(1.0 - pow(wv.x * wv.y, 0.65), current_choppy)
 
 func _noise(pos: Vector2) -> float:
 	var i = floor(pos)
@@ -166,7 +167,11 @@ func _spawn_tile(coord: Vector2i):
 		tile_instance.mesh.subdivide_depth = subs - 1
 		tile_instance.mesh.subdivide_width = subs - 1
 	
-	tile_instance.global_position = Vector3(coord.x * tile_size, 0, coord.y * tile_size)
+	tile_instance.global_position = Vector3(
+		coord.x * tile_size, 
+		0, 
+		coord.y * tile_size
+	)
 	tile_instance.set_surface_override_material(0, shared_material)
 	
 	active_tiles[coord] = tile_instance

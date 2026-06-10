@@ -3,15 +3,11 @@ extends Node3D
 
 @onready var chunk_manager: VoxelEngineChunkManager = $ChunkManager
 
-
 # ===
 # Built-In
 # ===
 
 func _ready() -> void:
-	Session.world_context.noise_seed = chunk_manager.noise_seed
-	Session.world_context.chunk_size = chunk_manager.chunk_size
-	Session.world_context.generation_height = chunk_manager.generation_height
 	EventBus.subscribe(WorldEvent.GenerateLand, _handle_world_generate_land)
 	EventBus.subscribe(WorldEvent.PlayerSpawned, _handle_player_spawned)
 
@@ -24,10 +20,7 @@ func _exit_tree() -> void:
 # ===
 
 func generate() -> void:
-	chunk_manager.generate(Session.world_context.noise_seed)
-	Session.world_context.chunks_data = chunk_manager.chunks_data
-	Session.world_context.land_generated = true
-	
+	chunk_manager.generate_data()
 	EventBus.emit(
 		WorldEvent.LandGenerated.new()
 	)
@@ -40,4 +33,4 @@ func _handle_world_generate_land(_event: WorldEvent.GenerateLand) -> void:
 	generate()
 
 func _handle_player_spawned(_event: WorldEvent.PlayerSpawned) -> void:
-	chunk_manager.context_target = Session.player_context.boat_instance
+	chunk_manager.start_tracking(Session.player_context.boat_instance)

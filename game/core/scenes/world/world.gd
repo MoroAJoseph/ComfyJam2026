@@ -16,16 +16,16 @@ func _ready() -> void:
 		GameEvent.WorldLoaded.new()
 	)
 	
-	EventBus.emit(
-		WorldEvent.SpawnPlayer.new(
-			Vector3(0, 30, 0),
-			Vector3(0, 0, 0)
-		)
-	)
-	
 	#EventBus.emit(
-		#WorldEvent.GenerateLand.new()
+		#WorldEvent.SpawnPlayer.new(
+			#Vector3(0, 30, 0),
+			#Vector3(0, 0, 0)
+		#)
 	#)
+	await get_tree().process_frame
+	EventBus.emit(
+		WorldEvent.GenerateLand.new()
+	)
 
 func _exit_tree() -> void:
 	_unsubscribe()

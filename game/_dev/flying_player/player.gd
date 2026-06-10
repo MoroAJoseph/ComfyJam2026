@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 @export var mouse_sens: float = 0.003
-@export var chunk_manager: Node3D
+@export var chunk_manager: VoxelEngineChunkManager
 @export var ground_speed: float = 5.0
 @export var fly_speed: float = 20.0
 @export var jump_velocity: float = 4.5
@@ -16,7 +16,8 @@ func _ready() -> void:
 	_update_mouse_mode()
 	await get_tree().process_frame
 	if chunk_manager:
-		chunk_manager.start_engine()
+		chunk_manager.generate_data()
+		chunk_manager.start_tracking(self)
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("dev_fly"):
