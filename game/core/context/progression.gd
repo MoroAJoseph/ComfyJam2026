@@ -35,14 +35,4 @@ func _init() -> void:
 	reset()
 
 func reset() -> void:
-	_chest_queue.clear()
-
-# ===
-# Public API
-# ===
-
-
-
-# ===
-# Private
-# ===
+	_chest_queue = DEFAULT[Var.CHEST_QUEUE]

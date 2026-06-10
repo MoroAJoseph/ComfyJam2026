@@ -1,16 +1,19 @@
 class_name UIContext
 extends ContextData
 
-enum Var { GUI_SCALE }
+enum Var { 
+	
+}
 
 const DEFAULT: Dictionary[Var, Variant] = {
-	Var.GUI_SCALE: Enums.GUIScale.FULL
+
 }
 
 # ===
 # Runtime
 # ===
 
+# --- Screen Resolution ---
 signal screen_resolution_updated(value: Vector2)
 var _screen_resolution: Vector2
 var screen_resolution: Vector2:
@@ -20,6 +23,7 @@ var screen_resolution: Vector2:
 			_screen_resolution = value
 			screen_resolution_updated.emit(value)
 
+# --- Open Menus ---
 signal open_menus_updated(value: Enums.MenuOption)
 var _open_menus: Array[Enums.MenuOption] = []
 var open_menus: Array[Enums.MenuOption]:
@@ -47,18 +51,11 @@ var is_hud_visible: bool:
 		_is_hud_visible = value
 		hud_visibility_updated.emit(value)
 
+# TODO: Loading screen
+
 # ===
 # Persistent
 # ===
-
-signal gui_scale_updated(value: Enums.GUIScale)
-var _gui_scale: Enums.GUIScale
-var gui_scale: Enums.GUIScale:
-	get: return _gui_scale
-	set(value):
-		if _authorize_write():
-			_gui_scale = value
-			gui_scale_updated.emit(value)
 
 # ===
 # Built-In
@@ -73,4 +70,3 @@ func reset() -> void:
 	open_menus_updated.emit(open_menus)
 	_is_loading = false
 	_is_hud_visible = false
-	_gui_scale = DEFAULT[Var.GUI_SCALE] as Enums.GUIScale

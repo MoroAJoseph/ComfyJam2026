@@ -12,7 +12,9 @@ enum VoxelType { CUBE, HEXAGON }
 @export var sea_level: int = 8
 
 var logic_class: Object
-var chunks_data: Dictionary[Vector3i, PackedByteArray] = {}
+var chunks_data: Dictionary[Vector3i, PackedByteArray] = {} # Generated Blocks
+var negative_chunk_data: Dictionary[Vector3i, PackedByteArray] = {} # Removed Blocks
+var positive_chunk_data: Dictionary[Vector3i, PackedByteArray] = {} # Added blocks
 var active_chunk_nodes: Dictionary[Vector3i, NewVoxelEngineChunk] = {}
 var rid_to_coordinate: Dictionary[RID, Vector3i] = {} # For Interactor lookup
 var pooled_chunks: Array[NewVoxelEngineChunk] = []

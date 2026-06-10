@@ -6,15 +6,16 @@ var did_bootsplash: bool = false
 var is_in_world: bool = false
 
 # Context
+var settings_context: SettingsContext
 var narrative_context: NarrativeContext
 var progression_context: ProgressionContext
-var settings_context: SettingsContext
 var ui_context: UIContext
 var world_context: WorldContext
 var player_context: PlayerContext
 
 # Providers
 var save_provider: SaveProvider
+var settings_provider: SettingsProvider
 var narrative_provider: NarrativeProvider
 var progression_provider: ProgressionProvider
 var ui_provider: UIProvider
@@ -23,6 +24,7 @@ var player_provider: PlayerProvider
 
 func _init() -> void:
 	# Context
+	settings_context = SettingsContext.new()
 	narrative_context = NarrativeContext.new()
 	progression_context = ProgressionContext.new()
 	settings_context = SettingsContext.new()
@@ -32,6 +34,7 @@ func _init() -> void:
 	
 	# Providers
 	save_provider = SaveProvider.new(
+		settings_context,
 		progression_context, 
 		player_context, 
 		world_context

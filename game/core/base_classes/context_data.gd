@@ -1,6 +1,9 @@
 class_name ContextData
 extends RefCounted
 
+## True when persistent data isnt in sync with save file
+var dirty: bool = false
+
 # ===
 # Abstract
 # ===

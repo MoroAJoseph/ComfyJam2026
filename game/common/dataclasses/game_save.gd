@@ -1,4 +1,4 @@
-class_name SaveData
+class_name GameSaveData
 extends Resource
 
 @export_category("Progression")

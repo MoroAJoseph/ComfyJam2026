@@ -46,12 +46,20 @@ static func get_block_item_scene() -> BlockItem:
 # ===
 
 # --- Save ---
-static func get_save_data(is_new_game: bool) -> SaveData:
+static func get_settings_save_data() -> UserS
+static func get_new_game_save_data() -> GameSaveData:
+	return AssetLoader.load_resource(
+		Constants.Paths.Data.NEW_GAME_SAVE, 
+		GameSaveData
+	) as GameSaveData
+
+static func get_game_save_data(is_new_game: bool) -> GameSaveData:
 	var path := Constants.Paths.Data.NEW_GAME_SAVE if is_new_game else Constants.Paths.Data.USER_SAVE
 	return AssetLoader.load_resource(
 		path, 
-		SaveData
-	) as SaveData
+		GameSaveData
+	) as GameSaveData
+
 
 # --- Boats ---
 static func get_boat_scene(type: Enums.BoatType) -> Boat:

@@ -2,22 +2,28 @@ class_name PlayerContext
 extends ContextData
 
 enum Var { 
+	# Inventory
 	BLOCK_ITEMS,
 	BLOCK_CAP,
 	GOLD, 
 	EQUIPPED_BOAT, 
 	EQUIPPED_TOOL, 
+	
+	# Transform
 	LOOK_DIR, 
 	BOAT_DIR, 
 	WORLD_LOC 
 }
 
 const DEFAULT: Dictionary[Var, Variant] = {
+	# Inventory
 	Var.BLOCK_ITEMS: [],
 	Var.BLOCK_CAP: 0,
 	Var.GOLD: 0,
 	Var.EQUIPPED_BOAT: Enums.BoatType.NONE,
 	Var.EQUIPPED_TOOL: Enums.ToolType.NONE,
+	
+	# Transform
 	Var.LOOK_DIR: Vector3.ZERO,
 	Var.BOAT_DIR: Vector3.ZERO,
 	Var.WORLD_LOC: Vector3(0, 10, 0)
@@ -27,7 +33,7 @@ const DEFAULT: Dictionary[Var, Variant] = {
 # Runtime
 # ===
 
-# --- Player ---
+# --- Player Instance ---
 signal player_insance_updated(value: Player)
 var _player_instance: Player
 var player_instance: Player:
@@ -37,7 +43,7 @@ var player_instance: Player:
 			_player_instance = value
 			player_insance_updated.emit(value)
 
-# --- Boat ---
+# --- Boat Instance ---
 signal boat_insance_updated(value: Boat)
 var _boat_instance: Boat
 var boat_instance: Boat:
@@ -53,19 +59,19 @@ var boat_instance: Boat:
 
 # --- Block Items ---
 signal block_items_updated(value)
-var _block_items: Array[BlockItemData] = []
-var block_items: Array[BlockItemData] = []:
+var _block_items: Array[BlockItemData]
+var block_items: Array[BlockItemData]:
 	get: return _block_items
 	set(value): 
 		if _authorize_write():
-			block_items = value
+			_block_items = value
 			block_items_updated.emit(value)
 
 # --- Block Capacity ---
 signal block_capacity_updated(value)
 var _block_capacity: int
 var block_capacity: int: 
-	get: return _gold
+	get: return _block_capacity
 	set(value): 
 		if _authorize_write():
 			_block_capacity = value
@@ -139,11 +145,18 @@ func _init() -> void:
 	reset()
 
 func reset() -> void:
+	# Instances
 	_player_instance = null
 	_boat_instance = null
+	
+	# Inventory
 	_gold = DEFAULT[Var.GOLD]
+	_block_items = DEFAULT[Var.BLOCK_ITEMS]
+	_block_capacity = DEFAULT[Var.BLOCK_CAP]
 	_equipped_boat = DEFAULT[Var.EQUIPPED_BOAT] as Enums.BoatType
 	_equipped_tool = DEFAULT[Var.EQUIPPED_TOOL] as Enums.ToolType
+	
+	# Transform
 	_look_direction = DEFAULT[Var.LOOK_DIR]
 	_boat_direction = DEFAULT[Var.BOAT_DIR]
 	_world_location = DEFAULT[Var.WORLD_LOC]

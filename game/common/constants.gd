@@ -31,9 +31,13 @@ class Paths:
 		const BASE_DIR := "res://assets/data/"
 		
 		# --- Saves ---
-		const USER_SAVE := "user://savegame.tres"
-		const USER_SETTINGS := "user://settings.tres"
-		const NEW_GAME_SAVE := BASE_DIR + "new_game_save_data.tres"
+		const SAVES_DIR := BASE_DIR + "saves/"
+		const NEW_GAME_SAVE := SAVES_DIR + "new_game.tres"
+		const NEW_SETTINGS_SAVE := SAVES_DIR + "new_settings.tres"
+		const USER_SAVES_DIR := "user://saves/"
+		const USER_GAME_SAVES_DIR := USER_SAVES_DIR + "games/"
+		const USER_GAME_AUTOSAVES_DIR := USER_SAVES_DIR + "games/autosave/"
+		const USER_SETTINGS_SAVE := USER_SAVES_DIR + "settings.tres"
 		
 		# --- Boats ---
 		const BOATS_DIR := BASE_DIR + "boats/"
@@ -77,6 +81,11 @@ class Paths:
 		const BLOCKS_TABLE: Dictionary[Enums.BlockType, String] = {
 			
 		}
+
+const MOUSE_INPUT_COEFFICIENT := 0.005
+const AUDIO_VOLUME_COEFFICIENT := 1.0
+const MIN_RENDER_DISTANCE := 8
+const MAX_RENDER_DISTANCE := 32
 
 # [ChestType, RarityType] : [MinGold, MaxGold]
 const CHEST_REWARD_MATRIX: Dictionary[Vector2i, Vector2i] = {

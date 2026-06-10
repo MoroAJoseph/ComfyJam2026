@@ -28,6 +28,12 @@ enum GUIScale {
 	QUADRUPLE	# 4
 }
 
+enum RenderQuality { 
+	LOW, 
+	MEDIUM, 
+	HIGH 
+}
+
 enum MenuOption {
 	MAIN,
 	PAUSE,
