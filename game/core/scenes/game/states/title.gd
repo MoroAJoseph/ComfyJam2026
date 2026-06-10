@@ -14,7 +14,9 @@ func enter(prev_state_path: String, _data: Object) -> void:
 		_transition_to(
 			StateName.LOAD,
 			GameLoadStateData.new(
-				StateName.TITLE
+				StateName.TITLE,
+				false,
+				""
 			)
 		)
 		return
@@ -46,14 +48,6 @@ func _unsubscribe_events() -> void:
 # Private
 # ===
 
-func _transition_to_world(is_new_game: bool) -> void:
-	_transition_to(
-		StateName.LOAD, 
-		GameLoadStateData.new(
-			StateName.WORLD, 
-			is_new_game
-		)
-	)
 
 # ===
 # Signals
@@ -62,11 +56,28 @@ func _transition_to_world(is_new_game: bool) -> void:
 # --- UI ---
 func _handle_ui_main_menu(event: UIEvent.MainMenu) -> void:
 	match event.action:
+		# New
 		Enums.MainMenuAction.NEW:
-			_transition_to_world(true)
+			_transition_to(
+				StateName.LOAD, 
+				GameLoadStateData.new(
+					StateName.WORLD, 
+					true,
+					""
+				)
+			)
 		
+		# Play
 		Enums.MainMenuAction.PLAY:
-			_transition_to_world(false)
+			# CRITICAL TODO: We are just going to create a new game every time for now
+			_transition_to(
+				StateName.LOAD, 
+				GameLoadStateData.new(
+					StateName.WORLD, 
+					true,
+					""
+				)
+			)
 		
 		Enums.MainMenuAction.SETTINGS:
 			# Close Main

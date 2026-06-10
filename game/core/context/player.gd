@@ -3,7 +3,6 @@ extends ContextData
 
 enum Var { 
 	# Inventory
-	BLOCK_ITEMS,
 	BLOCK_CAP,
 	GOLD, 
 	EQUIPPED_BOAT, 
@@ -17,7 +16,6 @@ enum Var {
 
 const DEFAULT: Dictionary[Var, Variant] = {
 	# Inventory
-	Var.BLOCK_ITEMS: [],
 	Var.BLOCK_CAP: 0,
 	Var.GOLD: 0,
 	Var.EQUIPPED_BOAT: Enums.BoatType.NONE,
@@ -58,7 +56,7 @@ var boat_instance: Boat:
 # ===
 
 # --- Block Items ---
-signal block_items_updated(value)
+signal block_items_updated(value: Array[BlockItemData])
 var _block_items: Array[BlockItemData]
 var block_items: Array[BlockItemData]:
 	get: return _block_items
@@ -68,7 +66,7 @@ var block_items: Array[BlockItemData]:
 			block_items_updated.emit(value)
 
 # --- Block Capacity ---
-signal block_capacity_updated(value)
+signal block_capacity_updated(value: int)
 var _block_capacity: int
 var block_capacity: int: 
 	get: return _block_capacity
@@ -78,7 +76,7 @@ var block_capacity: int:
 			block_capacity_updated.emit(value)
 
 # --- Gold ---
-signal gold_updated(value)
+signal gold_updated(value: int)
 var _gold: int
 var gold: int: 
 	get: return _gold
@@ -88,7 +86,7 @@ var gold: int:
 			gold_updated.emit(value)
 
 # --- Boat ---
-signal equipped_boat_updated(value)
+signal equipped_boat_updated(value: Enums.BoatType)
 var _equipped_boat: Enums.BoatType
 var equipped_boat: Enums.BoatType: 
 	get: return _equipped_boat
@@ -98,7 +96,7 @@ var equipped_boat: Enums.BoatType:
 			equipped_boat_updated.emit(value)
 
 # --- Tool ---
-signal equipped_tool_updated(value)
+signal equipped_tool_updated(value: Enums.ToolType)
 var _equipped_tool: Enums.ToolType
 var equipped_tool: Enums.ToolType: 
 	get: return _equipped_tool
@@ -151,7 +149,7 @@ func reset() -> void:
 	
 	# Inventory
 	_gold = DEFAULT[Var.GOLD]
-	_block_items = DEFAULT[Var.BLOCK_ITEMS]
+	_block_items = []
 	_block_capacity = DEFAULT[Var.BLOCK_CAP]
 	_equipped_boat = DEFAULT[Var.EQUIPPED_BOAT] as Enums.BoatType
 	_equipped_tool = DEFAULT[Var.EQUIPPED_TOOL] as Enums.ToolType

@@ -3,28 +3,31 @@ extends Node
 
 @onready var _timer: Timer = $AutoSaveTimer
 
+var settings_data: SettingsSaveData
+var game_data: GameSaveData
+
 # ===
 # Built-In
 # ===
 
 func _ready() -> void:
+	settings_data = Session.save_provider.load_settings(Constants.Paths.Data.USER_SETTINGS_SAVE)
+	
 	if _timer:
 		_timer.timeout.connect(_on_auto_save_timeout)
 
 # ===
-# Public API
+# Public
 # ===
 
-func save_game() -> void:
-	Session.save_provider.save_game()
-
-func load_game(is_new_game: bool) -> void:
-	Session.save_provider.load_game(is_new_game)
+# ===
+# Private
+# ===
 
 # ===
 # Signals
 # ===
 
 func _on_auto_save_timeout() -> void:
-	if Session.is_in_world:
-		save_game()
+	if game_data and Session.is_in_world:
+		Session.save_provider.save_game(game_data, true)

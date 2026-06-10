@@ -125,6 +125,8 @@ func _handle_ui_pause_menu(event: UIEvent.PauseMenu) -> void:
 				StateName.LOAD, 
 				GameLoadStateData.new(
 					StateName.TITLE, 
+					false,
+					""
 				)
 			)
 		

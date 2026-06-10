@@ -9,7 +9,7 @@ static func load_resource(path: String, expected_type: Object) -> Resource:
 		return null
 
 	# Attempt load
-	var data = ResourceLoader.load(path, "", ResourceLoader.CACHE_MODE_REPLACE)
+	var data: Variant = ResourceLoader.load(path, "", ResourceLoader.CACHE_MODE_REPLACE)
 	
 	# Type validation
 	if not is_instance_of(data, expected_type):
@@ -28,17 +28,17 @@ static func get_path_from_table(type: int, table: Dictionary, enum_keys: Array) 
 
 ## Loads a resource based on a type index from a dictionary.
 static func load_resource_from_table(type: int, table: Dictionary, enum_keys: Array, expected_type: Object) -> Resource:
-	var path := get_path_from_table(type, table, enum_keys)
+	var path: String = get_path_from_table(type, table, enum_keys)
 	if path.is_empty(): return null
 	
 	return load_resource(path, expected_type)
 
 ## Instantiates a scene directly from a file path.
 static func load_scene(path: String, expected_base_class: Script) -> Node:
-	var packed_scene = load_resource(path, PackedScene) as PackedScene
+	var packed_scene: PackedScene = load_resource(path, PackedScene) as PackedScene
 	if not packed_scene: return null
 	
-	var instance = packed_scene.instantiate()
+	var instance: Node = packed_scene.instantiate()
 	
 	if not is_instance_of(instance, expected_base_class):
 		push_error("AssetLoader: Scene at '%s' does not inherit from expected class." % path)
@@ -49,7 +49,7 @@ static func load_scene(path: String, expected_base_class: Script) -> Node:
 
 ## Instantiates a scene from a dictionary, ensuring it inherits from the expected class.
 static func load_scene_from_table(type: int, table: Dictionary, enum_keys: Array, expected_base_class: Script) -> Node:
-	var path := get_path_from_table(type, table, enum_keys)
+	var path: String = get_path_from_table(type, table, enum_keys)
 	if path.is_empty(): return null
 	
 	return load_scene(path, expected_base_class)

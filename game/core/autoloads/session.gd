@@ -40,6 +40,10 @@ func _init() -> void:
 		world_context
 	)
 	
+	settings_provider = SettingsProvider.new(
+		settings_context
+	)
+
 	progression_provider = ProgressionProvider.new(
 		progression_context, 
 		player_context
@@ -53,7 +57,6 @@ func _init() -> void:
 		world_context
 	)
 	
-	settings_provider = SettingsProvider.new(settings_context)
 	player_provider = PlayerProvider.new(
 		player_context
 	)
@@ -72,6 +75,3 @@ func reset() -> void:
 	ui_context.reset()
 	world_context.reset()
 	player_context.reset()
-	
-	# Load Settings
-	settings_provider.load_settings()

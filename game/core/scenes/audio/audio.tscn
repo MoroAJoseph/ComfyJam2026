@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bfrqc66wy47m5"]
+
+[ext_resource type="Script" uid="uid://87pgu6y5r3oh" path="res://core/scenes/audio/audio.gd" id="1_s2yst"]
+
+[node name="Audio" type="Node" unique_id=615037873]
+script = ExtResource("1_s2yst")
+
+[node name="Music" type="Node" parent="." unique_id=823788815]
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="Music" unique_id=1719383497]
+unique_name_in_owner = true
+autoplay = true
+bus = &"Music"
+
+[node name="SFX" type="Node3D" parent="." unique_id=292849601]
+unique_name_in_owner = true

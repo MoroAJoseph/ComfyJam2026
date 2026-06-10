@@ -28,6 +28,11 @@ EventBus="*uid://dm4eknlbg7dpt"
 DialogueManager="*uid://ba4exd0o5s3pu"
 Dialogic="*uid://ds2q0uclmolvu"
 
+[debug]
+
+gdscript/warnings/untyped_declaration=1
+gdscript/warnings/inferred_declaration=1
+
 [dialogic]
 
 directories/dch_directory={

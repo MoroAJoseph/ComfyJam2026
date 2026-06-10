@@ -20,22 +20,33 @@ func enter(_prev_state_path: String, data: Object) -> void:
 		UIEvent.StartLoading.new()
 	)
 		
-	# Load Save
-	var did_load_save: bool = Session.save_provider.load_game(_enter_data.is_new_game)
-	if not did_load_save: 
-		push_error("Game: Unable to load save. Returning to Title")
-		EventBus.emit(
-			GameEvent.LoadTitle.new()
-		)
-		return
-	
-	# Load World
 	match _enter_data.target_state:
+		# Title
 		GameState.StateName.TITLE:
+			# Load Settings Save
+			
+			# Load Title
 			EventBus.emit(
 				GameEvent.LoadTitle.new()
 			)
+		
+		# World
 		GameState.StateName.WORLD:
+			# Load Game Save
+			var game_save_data: GameSaveData
+			if _enter_data.is_new_game:
+				game_save_data = Session.save_provider.load_new_game()
+			else:
+				game_save_data = Session.save_provider.load_game(_enter_data.save_game_file_path)
+			
+			if not game_save_data: 
+				push_error("Game: Unable to load save. Returning to Title")
+				EventBus.emit(
+					GameEvent.LoadTitle.new()
+				)
+				return
+			
+			# Load World
 			EventBus.emit(
 				GameEvent.LoadWorld.new()
 			)

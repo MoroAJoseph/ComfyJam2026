@@ -5,20 +5,20 @@ class Paths:
 	
 	class Scenes:
 		
-		const CORE_DIR := "res://core/scenes/"
-		const FEATURES_DIR := "res://features/"
+		const CORE_DIR: String = "res://core/scenes/"
+		const FEATURES_DIR: String = "res://features/"
 		
 		# --- Core ---
-		const BOOTSPLASH := CORE_DIR + "bootsplash/bootsplash.tscn"
-		const GAME := CORE_DIR + "game/game.tscn"
-		const TITLE := CORE_DIR + "title/title.tscn"
-		const WORLD := CORE_DIR + "world/world.tscn"
-		const PLAYER := CORE_DIR + "player/player.tscn"
+		const BOOTSPLASH: String = CORE_DIR + "bootsplash/bootsplash.tscn"
+		const GAME: String = CORE_DIR + "game/game.tscn"
+		const TITLE: String = CORE_DIR + "title/title.tscn"
+		const WORLD: String = CORE_DIR + "world/world.tscn"
+		const PLAYER: String = CORE_DIR + "player/player.tscn"
 		
-		const BLOCK_ITEM := FEATURES_DIR + "blocks/item/block_item.tscn"
+		const BLOCK_ITEM: String = FEATURES_DIR + "blocks/item/block_item.tscn"
 		
 		# --- Boats ---
-		const BOATS_DIR := FEATURES_DIR + "equipment/boats/"
+		const BOATS_DIR: String = FEATURES_DIR + "equipment/boats/"
 		const BOATS_TABLE: Dictionary[Enums.BoatType, String] = {
 			Enums.BoatType.RAFT: BOATS_DIR + "raft/raft.tscn",
 			Enums.BoatType.ROW_SMALL: BOATS_DIR + "row_boat_small/row_boat_small.tscn",
@@ -28,19 +28,19 @@ class Paths:
 	
 	class Data:
 		
-		const BASE_DIR := "res://assets/data/"
+		const BASE_DIR: String = "res://assets/data/"
 		
 		# --- Saves ---
-		const SAVES_DIR := BASE_DIR + "saves/"
-		const NEW_GAME_SAVE := SAVES_DIR + "new_game.tres"
-		const NEW_SETTINGS_SAVE := SAVES_DIR + "new_settings.tres"
-		const USER_SAVES_DIR := "user://saves/"
-		const USER_GAME_SAVES_DIR := USER_SAVES_DIR + "games/"
-		const USER_GAME_AUTOSAVES_DIR := USER_SAVES_DIR + "games/autosave/"
-		const USER_SETTINGS_SAVE := USER_SAVES_DIR + "settings.tres"
+		const SAVES_DIR: String = BASE_DIR + "saves/"
+		const NEW_GAME_SAVE: String = SAVES_DIR + "new_game.tres"
+		const NEW_SETTINGS_SAVE: String = SAVES_DIR + "new_settings.tres"
+		const USER_SAVES_DIR: String = "user://saves/"
+		const USER_GAME_SAVES_DIR: String = USER_SAVES_DIR + "games/"
+		const USER_GAME_AUTOSAVES_DIR: String = USER_SAVES_DIR + "games/autosave/"
+		const USER_SETTINGS_SAVE: String = USER_SAVES_DIR + "settings.tres"
 		
 		# --- Boats ---
-		const BOATS_DIR := BASE_DIR + "boats/"
+		const BOATS_DIR: String = BASE_DIR + "boats/"
 		const BOATS_TABLE: Dictionary[Enums.BoatType, String] = {
 			Enums.BoatType.RAFT: BOATS_DIR + "raft.tres",
 			Enums.BoatType.ROW_SMALL: BOATS_DIR + "row_small.tres",
@@ -49,43 +49,43 @@ class Paths:
 		}
 
 		# --- Tools ---
-		const TOOLS_DIR := BASE_DIR + "tools/"
+		const TOOLS_DIR: String = BASE_DIR + "tools/"
 		const TOOLS_TABLE: Dictionary[Enums.ToolType, String] = {}
 
 		# --- Blocks ---
-		const BLOCKS_DIR := BASE_DIR + "blocks/"
+		const BLOCKS_DIR: String = BASE_DIR + "blocks/"
 		const BLOCKS_TABLE: Dictionary[Enums.BlockType, String] = {}
 		
 		# --- Barrels ---
-		const BARRELS_DIR := BASE_DIR + "barrels/"
+		const BARRELS_DIR: String = BASE_DIR + "barrels/"
 		const BARRELS_TABLE: Dictionary[Enums.BarrelType, String] = {}
 		
 		# --- Chests ---
-		const CHESTS_DIR := BASE_DIR + "chests/"
+		const CHESTS_DIR: String = BASE_DIR + "chests/"
 		const CHESTS_TABLE: Dictionary[Enums.ChestType, String] = {}
 		
 		# --- Crates ---
-		const CRATES_DIR := BASE_DIR + "crates/"
+		const CRATES_DIR: String = BASE_DIR + "crates/"
 		const CRATES_TABLE: Dictionary[Enums.ChestType, String] = {}
 		
 		# --- Bottle Messages ---
-		const BOTTLES := BASE_DIR + "bottles/"
+		const BOTTLES: String = BASE_DIR + "bottles/"
 		const BOTTLE_DIR: Dictionary[Enums.ChestType, String] = {}
 		
 	class Textures:
 		
-		const BASE_DIR := "res://assets/textures/"
+		const BASE_DIR: String = "res://assets/textures/"
 		
 		# --- Blocks ---
-		const BLOCKS_DIR := BASE_DIR + "blocks/"
+		const BLOCKS_DIR: String = BASE_DIR + "blocks/"
 		const BLOCKS_TABLE: Dictionary[Enums.BlockType, String] = {
 			
 		}
 
-const MOUSE_INPUT_COEFFICIENT := 0.005
-const AUDIO_VOLUME_COEFFICIENT := 1.0
-const MIN_RENDER_DISTANCE := 8
-const MAX_RENDER_DISTANCE := 32
+const MOUSE_INPUT_COEFFICIENT: float = 0.005
+const AUDIO_VOLUME_COEFFICIENT: float= 1.0
+const MIN_RENDER_DISTANCE: int = 8
+const MAX_RENDER_DISTANCE: int = 32
 
 # [ChestType, RarityType] : [MinGold, MaxGold]
 const CHEST_REWARD_MATRIX: Dictionary[Vector2i, Vector2i] = {
@@ -117,19 +117,19 @@ const CHEST_REWARD_MATRIX: Dictionary[Vector2i, Vector2i] = {
 class PhysicsLayer:
 	
 	# Index
-	const LAND_INDEX := 1
-	const WATER_INDEX := 2
-	const PLAYER_INDEX := 3
-	const HOVER_INDEX := 4
-	const ITEM_INDEX := 5
-	const TREASURE_INDEX := 6
-	const BARREL_INDEX := 7
+	const LAND_INDEX: int = 1
+	const WATER_INDEX: int = 2
+	const PLAYER_INDEX: int = 3
+	const HOVER_INDEX: int = 4
+	const ITEM_INDEX: int = 5
+	const TREASURE_INDEX: int = 6
+	const BARREL_INDEX: int = 7
 	
 	# Mask
-	const LAND_MASK := 1 << 0
-	const WATER_MASK := 1 << 1
-	const PLAYER_MASK := 1 << 2
-	const HOVER_MASK := 1 << 3
-	const ITEM_MASK := 1 << 4
-	const TREASURE_MASK := 1 << 5
-	const BARREL_MASK := 1 << 6
+	const LAND_MASK: int = 1 << 0
+	const WATER_MASK: int = 1 << 1
+	const PLAYER_MASK: int = 1 << 2
+	const HOVER_MASK: int = 1 << 3
+	const ITEM_MASK: int = 1 << 4
+	const TREASURE_MASK: int = 1 << 5
+	const BARREL_MASK: int = 1 << 6
