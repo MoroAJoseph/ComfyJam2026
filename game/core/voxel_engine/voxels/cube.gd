@@ -35,12 +35,15 @@ static func get_single_voxel_geometry(
 	coordinates: Vector3i,
 	registry: Dictionary,
 	size: int,
-	color: Color
+	colors: PackedColorArray
 ) -> Dictionary:
 	var vertices_array := PackedVector3Array()
 	var normals_array := PackedVector3Array()
 	var colors_array := PackedColorArray()
 	var uvs_array := PackedVector2Array()
+
+	# Use the first color in the array for single voxel highlighting
+	var voxel_color = colors[0] if not colors.is_empty() else Color.WHITE
 
 	for face_index in range(6):
 		var face_key: Face = Face.values()[face_index]
@@ -52,9 +55,14 @@ static func get_single_voxel_geometry(
 				var point1: Vector3 = vertices[triangle[0]]
 				var point2: Vector3 = vertices[triangle[1]]
 				var point3: Vector3 = vertices[triangle[2]]
-				add_triangle(point1, point2, point3, normal, color, vertices_array, normals_array, colors_array)
+				add_triangle(point1, point2, point3, normal, voxel_color, vertices_array, normals_array, colors_array)
 	
-	return {"vertices": vertices_array, "normals": normals_array, "colors": colors_array, "uvs": uvs_array}
+	return {
+		"vertices": vertices_array, 
+		"normals": normals_array, 
+		"colors": colors_array, 
+		"uvs": uvs_array
+	}
 
 ## Checks if a coordinate in 3D space represents an air (empty) voxel.
 static func _is_air_cube(
@@ -114,11 +122,10 @@ static func calculate_geometry(
 	coordinates: Vector3i,
 	registry: Dictionary,
 	size: int,
-	colors: Array[Color]
+	colors: PackedColorArray
 ) -> Dictionary:
 	var vertices_array := PackedVector3Array()
 	var normals_array := PackedVector3Array()
-	var colors_array := PackedColorArray()
 	var uvs_array := PackedVector2Array()
 
 	for x in range(size):
@@ -144,6 +151,11 @@ static func calculate_geometry(
 							var point1: Vector3 = vertices[triangle[0]] + offset
 							var point2: Vector3 = vertices[triangle[1]] + offset
 							var point3: Vector3 = vertices[triangle[2]] + offset
-							add_triangle(point1, point2, point3, normal, colors[data[get_index(x, y, z, size)] - 1], vertices_array, normals_array, colors_array)
+							add_triangle(point1, point2, point3, normal, colors[data[get_index(x, y, z, size)] - 1], vertices_array, normals_array, colors)
 	
-	return {"vertices": vertices_array, "normals": normals_array, "colors": colors_array, "uvs": uvs_array}
+	return {
+		"vertices": vertices_array, 
+		"normals": normals_array, 
+		"colors": colors, 
+		"uvs": uvs_array
+	}

@@ -91,6 +91,16 @@ func get_total_voxel_count() -> int:
 				total += 1
 	return total
 
+func get_generation_settings(world_pos: Vector3) -> Dictionary:
+	var dist = Vector2(world_pos.x, world_pos.z).length()
+	var zone = int(dist / 500.0)
+	
+	# Example: Increase height and noise influence as zone increases
+	var max_height = 10 + (zone * 5)
+	var density_threshold = 0.5 - (zone * 0.05) # Gets denser/easier to find land
+	
+	return {"max_height": max_height, "threshold": max(0.1, density_threshold)}
+
 func generate_world_data() -> void:
 	var y_max: int = int(ceil(generation_height / float(chunk_size)))
 	for x: int in range(-generation_radius, generation_radius + 1):

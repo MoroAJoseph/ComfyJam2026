@@ -7,12 +7,12 @@ static func calculate_geometry(
 	coordinates: Vector3i,
 	registry: Dictionary,
 	size: int,
-	colors: Array[Color]
+	colors: PackedColorArray
 ) -> Dictionary:
 	return {
 		"vertices": PackedVector3Array(),
 		"normals": PackedVector3Array(),
-		"colors": PackedColorArray()
+		"colors": colors
 	}
 
 ## Generates geometry for exactly one voxel, useful for hover/highlighting.
@@ -22,12 +22,12 @@ static func get_single_voxel_geometry(
 	coordinates: Vector3i,
 	registry: Dictionary,
 	size: int,
-	color: Color
+	colors: PackedColorArray
 ) -> Dictionary:
 	return {
 		"vertices": PackedVector3Array(),
 		"normals": PackedVector3Array(),
-		"colors": PackedColorArray()
+		"colors": colors
 	}
 
 ## Calculates a 1D index from 3D coordinates for a flattened array.
