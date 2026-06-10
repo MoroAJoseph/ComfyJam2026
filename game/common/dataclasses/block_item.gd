@@ -1,5 +1,5 @@
 class_name BlockItemData
-extends RefCounted
+extends Resource
 
 var type: Enums.BlockType
 var stack_count: int = 1

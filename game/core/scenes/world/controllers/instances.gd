@@ -2,7 +2,7 @@ class_name WorldInstancesController
 extends Node
 
 @onready var sailors: Node3D = %Sailors
-@onready var blocks: Node3D = %Blocks
+@onready var block_items: Node3D = $BlockItems
 
 # ===
 # Built-In
@@ -48,7 +48,7 @@ func _spawn_block_item(item_data: BlockItemData, world_location: Vector3) -> voi
 	var block_item: BlockItem = AssetService.get_block_item_scene()
 	
 	block_item.data = item_data
-	blocks.add_child(block_item)
+	block_items.add_child(block_item)
 	
 	block_item.global_position = world_location
 

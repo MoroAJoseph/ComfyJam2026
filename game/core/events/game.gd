@@ -21,3 +21,4 @@ class PausedUpdated extends GameEvent:
 
 # --- Save/Load ---
 class SaveDataUpdated extends GameEvent: pass
+class SaveSettings extends GameEvent: pass

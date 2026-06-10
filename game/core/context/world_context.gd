@@ -49,6 +49,7 @@ var sea_instance: WorldSea:
 			_sea_instance = value
 			sea_instance_updated.emit(value)
 
+# --- Land Generated ---
 signal land_generated_udpated(value: bool)
 var _land_generated: bool
 var land_generated: bool:
@@ -56,6 +57,16 @@ var land_generated: bool:
 	set(value):
 		_land_generated = value
 		land_generated_udpated.emit(value)
+
+# --- Day Phase ---
+signal day_phase_updated(value: Enums.DayPhase)
+var _day_phase: Enums.DayPhase
+var day_phase: Enums.DayPhase:
+	get: return _day_phase
+	set(value):
+		if _authorize_write():
+			_day_phase = value
+			day_phase_updated.emit(_day_phase)
 
 # ===
 # Persistent
@@ -80,16 +91,6 @@ var cpu_time: float:
 		if _authorize_write():
 			_cpu_time = value
 			cpu_time_updated.emit(value)
-
-# --- Day Phase ---
-signal day_phase_updated(value: Enums.DayPhase)
-var _day_phase: Enums.DayPhase
-var day_phase: Enums.DayPhase:
-	get: return _day_phase
-	set(value):
-		if _authorize_write():
-			_day_phase = value
-			day_phase_updated.emit(_day_phase)
 
 # --- Noise Seed ---
 signal noise_seed_updated(value: int)
@@ -121,11 +122,11 @@ func _init() -> void:
 func reset() -> void:
 	_chunks_data.clear()
 	chunks_data_updated.emit(chunks_data)
-	_land_generated = false
 	_sea_instance = null
+	_land_generated = false
+	_day_phase = DEFAULT[Var.DAY_PHASE] as Enums.DayPhase
 	
 	_chunk_size = DEFAULT[Var.CHUNK_SIZE]
 	_time = DEFAULT[Var.TIME]
-	_day_phase = DEFAULT[Var.DAY_PHASE] as Enums.DayPhase
 	_noise_seed = DEFAULT[Var.NOISE_SEED]
 	_generation_height = DEFAULT[Var.GENERATION_HEIGHT]

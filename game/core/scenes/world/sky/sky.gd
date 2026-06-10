@@ -42,8 +42,8 @@ var shader: ShaderMaterial
 
 func _ready() -> void:
 	if world_environment and world_environment.environment and world_environment.environment.sky:
-		var mat = world_environment.environment.sky.sky_material
-		if mat is ShaderMaterial: shader = mat
+		var matterial: Material = world_environment.environment.sky.sky_material
+		if matterial is ShaderMaterial: shader = matterial
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint() and not simulate: return

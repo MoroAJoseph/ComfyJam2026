@@ -10,19 +10,20 @@ extends Control
 # ===
 
 func _ready() -> void:
-	# Initialize sliders
-	volume_slider.value = Session.settings_context.master_volume
-	sensitivity_slider.value = Session.settings_context.mouse_sensitivity
-	
-	# Update labels
-	_update_volume_label(volume_slider.value)
-	_update_sensitivity_display(sensitivity_slider.value)
-	
-	# Connect signals
-	volume_slider.value_changed.connect(_on_volume_changed)
-	sensitivity_slider.value_changed.connect(_on_sensitivity_slider_changed)
-	sensitivity_input.text_submitted.connect(_on_sensitivity_text_submitted)
-	sensitivity_input.focus_exited.connect(_on_sensitivity_focus_exited)
+	pass
+	## Initialize sliders
+	#volume_slider.value = Session.settings_context.master_volume
+	#sensitivity_slider.value = Session.settings_context.mouse_sensitivity
+	#
+	## Update labels
+	#_update_volume_label(volume_slider.value)
+	#_update_sensitivity_display(sensitivity_slider.value)
+	#
+	## Connect signals
+	#volume_slider.value_changed.connect(_on_volume_changed)
+	#sensitivity_slider.value_changed.connect(_on_sensitivity_slider_changed)
+	#sensitivity_input.text_submitted.connect(_on_sensitivity_text_submitted)
+	#sensitivity_input.focus_exited.connect(_on_sensitivity_focus_exited)
 
 # ===
 # Signals
@@ -44,8 +45,15 @@ func _on_sensitivity_focus_exited() -> void:
 	_apply_text_sensitivity(sensitivity_input.text)
 
 func _on_back_pressed() -> void:
-	Session.settings_provider.save_settings()
-	EventBus.emit(UIEvent.SettingsMenu.new(Enums.SettingsMenuAction.CLOSE))
+	EventBus.emit(
+		GameEvent.SaveSettings.new()
+	)
+	
+	EventBus.emit(
+		UIEvent.SettingsMenu.new(
+			Enums.SettingsMenuAction.CLOSE
+		)
+	)
 
 # ===
 # Private

@@ -88,7 +88,7 @@ func _process(delta: float) -> void:
 		camera.v_offset = 0.0
 	
 	# Input values
-	mouse_input = mouse_delta * Session.settings_context.mouse_sensitivity
+	mouse_input = mouse_delta * Session.settings_provider.get_mouse_sensitivity()
 	controller_input = Input.get_vector(
 		"camera_left", "camera_right", 
 		"camera_up", "camera_down"

@@ -20,6 +20,7 @@ func _init(
 	progression_context = p_progression
 	player_context = p_player
 	world_context = p_world
+	ensure_settings_file_exists()
 
 # ===
 # Public
@@ -51,22 +52,31 @@ func load_game(path: String) -> GameSaveData:
 	) as GameSaveData
 	
 	# Contingency
-	var resave: bool = false
 	if not data:
 		_warn_no_save_at_path(path)
-		resave = true
 		data = AssetService.get_new_game_save_data()
+		_game_to_data(data)
+		save_game(data, false)
 	
 	# Update
 	_data_to_game(data)
-	
-	# Resave
-	if resave:
-		save_game(data, false)
-	
 	return data
 	
 # --- Settings ---
+func ensure_settings_file_exists() -> void:
+	if FileAccess.file_exists(Constants.Paths.Data.USER_SETTINGS_SAVE):
+		return
+
+	var data: SettingsSaveData = AssetService.get_new_settings_save_data()
+	_settings_to_data(data)
+
+	var dir: String = Constants.Paths.Data.USER_SETTINGS_SAVE.get_base_dir()
+	DirAccess.make_dir_recursive_absolute(dir)
+
+	var error: int = ResourceSaver.save(data, Constants.Paths.Data.USER_SETTINGS_SAVE)
+	if error != OK:
+		push_error("SaveProvider: Failed to create default settings file.")
+
 func save_settings(data: SettingsSaveData) -> void:
 	# Update
 	_settings_to_data(data)
@@ -82,23 +92,18 @@ func save_settings(data: SettingsSaveData) -> void:
 		_error_failed_to_save(error)
 
 func load_settings(path: String) -> SettingsSaveData:
-	# Read
-	var data: SettingsSaveData = AssetService.get_settings_save_data()
+	var data: SettingsSaveData = AssetLoader.load_resource(
+		path,
+		SettingsSaveData
+	) as SettingsSaveData
 
-	# Contingency
-	var resave: bool = false
 	if not data:
 		_warn_no_save_at_path(path)
-		resave = true
 		data = AssetService.get_new_settings_save_data()
-	
-	# Update
-	_data_to_settings(data)
-	
-	# Resave
-	if resave:
+		_settings_to_data(data)
 		save_settings(data)
-	
+
+	_data_to_settings(data)
 	return data
 
 # ===
@@ -126,7 +131,6 @@ func _game_to_data(data: GameSaveData) -> void:
 	data.world_seed = world_context.noise_seed
 	data.world_time = world_context.time
 	data.world_cpu_time = world_context.cpu_time
-	data.world_day_phase = world_context.day_phase
 	data.world_generation_height = world_context.generation_height
 
 func _data_to_game(data: GameSaveData) -> void:
@@ -150,7 +154,6 @@ func _data_to_game(data: GameSaveData) -> void:
 	world_context.noise_seed = data.world_seed
 	world_context.time = data.world_time
 	world_context.cpu_time = data.world_cpu_time
-	world_context.day_phase = data.world_day_phase
 	world_context.generation_height = data.world_generation_height
 
 func _settings_to_data(data: SettingsSaveData) -> void:

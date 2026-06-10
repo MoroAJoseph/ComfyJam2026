@@ -15,6 +15,11 @@ func _ready() -> void:
 	
 	if _timer:
 		_timer.timeout.connect(_on_auto_save_timeout)
+	
+	_subscribe()
+
+func _exit_tree() -> void:
+	_unsubscribe()
 
 # ===
 # Public
@@ -23,6 +28,20 @@ func _ready() -> void:
 # ===
 # Private
 # ===
+
+func _subscribe() -> void:
+	EventBus.subscribe(GameEvent.SaveSettings, _handle_game_save_settings)
+
+func _unsubscribe() -> void:
+	EventBus.unsubscribe(GameEvent.SaveSettings, _handle_game_save_settings)
+
+# ===
+# Event Handlers 
+# ===
+
+func _handle_game_save_settings(_event: GameEvent.SaveSettings) -> void:
+	print_debug("Saving Settings Data")
+	Session.save_provider.save_settings(settings_data)
 
 # ===
 # Signals
