@@ -37,7 +37,7 @@ func _reward_chest(type: Enums.ChestType) -> void:
 	var roll := randf()
 	var cumulative_prob := 0.0
 	
-	var data: ChestData = AssetProvider.get_chest_data(type)
+	var data: ChestData = AssetService.get_chest_data(type)
 	var table := data.rarity_drop_table
 	
 	var selected_rarity: Enums.RarityType

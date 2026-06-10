@@ -69,7 +69,6 @@ func generate_island() -> void:
 
 	# Hexagon Constants from voxel engine
 	const RADIUS = 1.0
-	...
 
 		# Generate grid within a circular range
 		for x in range(-radius_blocks, radius_blocks + 1):

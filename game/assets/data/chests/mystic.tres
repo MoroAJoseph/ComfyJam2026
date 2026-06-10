@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ChestData" format=3 uid="uid://cgtilms46026k"]
 
-[ext_resource type="Script" uid="uid://dt5il2n6wjgml" path="res://common/dataclasses/chest_data.gd" id="1_fxdxl"]
+[ext_resource type="Script" uid="uid://dt5il2n6wjgml" path="res://common/dataclasses/chest.gd" id="1_fxdxl"]
 
 [resource]
 script = ExtResource("1_fxdxl")

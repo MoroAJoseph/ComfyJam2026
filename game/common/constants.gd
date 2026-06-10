@@ -9,11 +9,13 @@ class Paths:
 		const FEATURES_DIR := "res://features/"
 		
 		# --- Core ---
-		const BOOTSPLASH := Paths.Scenes.CORE_DIR + "bootsplash/bootsplash.tscn"
-		const GAME := Paths.Scenes.CORE_DIR + "game/game.tscn"
-		const TITLE := Paths.Scenes.CORE_DIR + "title/title.tscn"
-		const WORLD := Paths.Scenes.CORE_DIR + "world/world.tscn"
-		const PLAYER := Paths.Scenes.CORE_DIR + "player/player.tscn"
+		const BOOTSPLASH := CORE_DIR + "bootsplash/bootsplash.tscn"
+		const GAME := CORE_DIR + "game/game.tscn"
+		const TITLE := CORE_DIR + "title/title.tscn"
+		const WORLD := CORE_DIR + "world/world.tscn"
+		const PLAYER := CORE_DIR + "player/player.tscn"
+		
+		const BLOCK_ITEM := FEATURES_DIR + "blocks/item/block_item.tscn"
 		
 		# --- Boats ---
 		const BOATS_DIR := FEATURES_DIR + "equipment/boats/"

@@ -23,7 +23,7 @@ func set_boat_instance(value: Boat) -> void:
 	context.boat_instance = value
 
 func purchase_boat(type: Enums.BoatType) -> void:
-	var boat_data: BoatData = AssetProvider.get_boat_data(type)
+	var boat_data: BoatData = AssetService.get_boat_data(type)
 	if not boat_data: 
 		push_error("Purchase: Boat data not found for type %s" % type)
 		return

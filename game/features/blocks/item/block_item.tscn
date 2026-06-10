@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://brrroul32sxn1"]
+
+[ext_resource type="Script" uid="uid://y4l6nl3hi6k0" path="res://features/blocks/item/block_item.gd" id="1_5wl2q"]
+[ext_resource type="Script" uid="uid://btf0l4uillt1g" path="res://features/blocks/item/block_body.gd" id="2_p4nn7"]
+[ext_resource type="Material" uid="uid://bw1wx223he31t" path="res://core/voxel_engine/mesh_material.tres" id="3_8f40u"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_p4nn7"]
+radius = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5wl2q"]
+material = ExtResource("3_8f40u")
+top_radius = 1.0
+bottom_radius = 1.0
+height = 1.0
+radial_segments = 6
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5wl2q"]
+radius = 0.3
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5wl2q"]
+height = 1.0
+radius = 2.0
+
+[node name="BlockItem" type="Node3D" unique_id=1822015362]
+script = ExtResource("1_5wl2q")
+
+[node name="Body" type="RigidBody3D" parent="." unique_id=1959046115]
+collision_layer = 16
+script = ExtResource("2_p4nn7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body" unique_id=225419080]
+shape = SubResource("SphereShape3D_p4nn7")
+
+[node name="Model" type="Node3D" parent="Body" unique_id=1137512743]
+
+[node name="Mesh" type="MeshInstance3D" parent="Body/Model" unique_id=2057935810]
+unique_name_in_owner = true
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+mesh = SubResource("CylinderMesh_5wl2q")
+
+[node name="Probes" type="Node3D" parent="Body" unique_id=1389804232]
+
+[node name="Marker3D" type="Marker3D" parent="Body/Probes" unique_id=245283903]
+
+[node name="CollectableRemote" type="RemoteTransform3D" parent="Body" unique_id=2030551872]
+remote_path = NodePath("../../CollectableArea")
+
+[node name="MergeRemote" type="RemoteTransform3D" parent="Body" unique_id=1735183729]
+remote_path = NodePath("../../MergeArea")
+
+[node name="CollectableArea" type="Area3D" parent="." unique_id=466288330]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollectableArea" unique_id=1196822634]
+shape = SubResource("SphereShape3D_5wl2q")
+
+[node name="MergeArea" type="Area3D" parent="." unique_id=1965732214]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MergeArea" unique_id=293946467]
+shape = SubResource("CylinderShape3D_5wl2q")
+
+[connection signal="area_entered" from="MergeArea" to="." method="_on_merge_area_entered"]

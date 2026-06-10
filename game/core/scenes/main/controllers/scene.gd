@@ -25,7 +25,7 @@ func _exit_tree() -> void:
 # ===
 
 func _handle_main_load_bootsplash(_event: MainEvent.LoadBootsplash) -> void:
-	var bootsplash = AssetProvider.get_bootsplash_scene()
+	var bootsplash = AssetService.get_bootsplash_scene()
 	
 	if current_scene:
 		current_scene.queue_free()
@@ -35,7 +35,7 @@ func _handle_main_load_bootsplash(_event: MainEvent.LoadBootsplash) -> void:
 	add_child(current_scene)
 
 func _handle_main_load_game(_event: MainEvent.LoadGame) -> void:
-	var game = AssetProvider.get_game_scene()
+	var game = AssetService.get_game_scene()
 	
 	if current_scene:
 		current_scene.queue_free()

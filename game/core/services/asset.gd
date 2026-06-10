@@ -1,4 +1,4 @@
-class_name AssetProvider
+class_name AssetService
 extends RefCounted
 
 # ===
@@ -34,6 +34,12 @@ static func get_player_scene() -> Player:
 		Constants.Paths.Scenes.PLAYER, 
 		Player
 	) as Player
+
+static func get_block_item_scene() -> BlockItem:
+	return AssetLoader.load_scene(
+		Constants.Paths.Scenes.BLOCK_ITEM,
+		BlockItem
+	) as BlockItem
 
 # ===
 # Data 

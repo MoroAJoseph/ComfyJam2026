@@ -1,7 +1,9 @@
-class_name VoxelEngineCube extends VoxelEngineVoxel
+class_name VoxelEngineCube
+extends VoxelEngineVoxel
 
 enum Face { FRONT, BACK, LEFT, RIGHT, TOP, BOTTOM }
 
+## Defines the 8 corner vertices of a unit cube centered at the origin.
 static var vertices: Array[Vector3] = [
 	Vector3(-0.5, -0.5, 0.5), Vector3(0.5, -0.5, 0.5),
 	Vector3(0.5, -0.5, -0.5), Vector3(-0.5, -0.5, -0.5),
@@ -9,6 +11,7 @@ static var vertices: Array[Vector3] = [
 	Vector3(0.5, 0.5, -0.5), Vector3(-0.5, 0.5, -0.5)
 ]
 
+## Mapping of cube faces to the triangle indices that form them.
 static var face_indices: Dictionary = {
 	Face.FRONT: [[0, 4, 5], [0, 5, 1]],
 	Face.BACK: [[2, 7, 3], [2, 6, 7]],
@@ -18,82 +21,129 @@ static var face_indices: Dictionary = {
 	Face.BOTTOM: [[4, 7, 6], [4, 6, 5]]
 }
 
+## Normal vectors associated with each face of the cube.
 static var face_normals: Dictionary = {
 	Face.FRONT: Vector3(0, 0, 1), Face.BACK: Vector3(0, 0, -1),
 	Face.LEFT: Vector3(-1, 0, 0), Face.RIGHT: Vector3(1, 0, 0),
 	Face.TOP: Vector3(0, -1, 0), Face.BOTTOM: Vector3(0, 1, 0)
 }
 
-static func get_single_voxel_geometry(voxel: Vector3i, data: PackedByteArray, coords: Vector3i, registry: Dictionary, size: int, color: Color) -> Dictionary:
-	var v := PackedVector3Array(); var n := PackedVector3Array(); var c := PackedColorArray(); var u := PackedVector2Array()
-	
-	for f in range(6):
-		var face_key: Face = Face.values()[f]
-		var normal = face_normals[face_key]
-		var neighbor := voxel + Vector3i(normal)
-		
-		if _is_air_cube(neighbor.x, neighbor.y, neighbor.z, data, coords, registry, size):
-			for tri in face_indices[face_key]:
-				var p1 = vertices[tri[0]] + Vector3(voxel)
-				var p2 = vertices[tri[1]] + Vector3(voxel)
-				var p3 = vertices[tri[2]] + Vector3(voxel)
-				_add_tri(p1, p2, p3, normal, color, v, n, c, u)
-	return {"verts": v, "norms": n, "cols": c, "uvs": u}
+## Generates geometry for a single voxel, checking neighbors to skip internal faces.
+static func get_single_voxel_geometry(
+	voxel: Vector3i,
+	data: PackedByteArray,
+	coordinates: Vector3i,
+	registry: Dictionary,
+	size: int,
+	color: Color
+) -> Dictionary:
+	var vertices_array := PackedVector3Array()
+	var normals_array := PackedVector3Array()
+	var colors_array := PackedColorArray()
+	var uvs_array := PackedVector2Array()
 
-# Helper to keep the single-voxel logic clean
-static func _is_air_cube(x: int, y: int, z: int, data: PackedByteArray, coords: Vector3i, registry: Dictionary, size: int) -> bool:
+	for face_index in range(6):
+		var face_key: Face = Face.values()[face_index]
+		var normal: Vector3 = face_normals[face_key]
+		var neighbor: Vector3i = voxel + Vector3i(normal)
+
+		if _is_air_cube(neighbor.x, neighbor.y, neighbor.z, data, coordinates, registry, size):
+			for triangle in face_indices[face_key]:
+				var point1: Vector3 = vertices[triangle[0]]
+				var point2: Vector3 = vertices[triangle[1]]
+				var point3: Vector3 = vertices[triangle[2]]
+				add_triangle(point1, point2, point3, normal, color, vertices_array, normals_array, colors_array)
+	
+	return {"vertices": vertices_array, "normals": normals_array, "colors": colors_array, "uvs": uvs_array}
+
+## Checks if a coordinate in 3D space represents an air (empty) voxel.
+static func _is_air_cube(
+	x: int, y: int, z: int,
+	data: PackedByteArray,
+	coordinates: Vector3i,
+	registry: Dictionary,
+	size: int
+) -> bool:
 	if x >= 0 and x < size and y >= 0 and y < size and z >= 0 and z < size:
 		return data[get_index(x, y, z, size)] == 0
-	var n_coords := coords + Vector3i(1 if x>=size else (-1 if x<0 else 0), 1 if y>=size else (-1 if y<0 else 0), 1 if z>=size else (-1 if z<0 else 0))
-	var n_data = registry.get(n_coords)
-	if n_data is PackedByteArray:
-		return n_data[get_index((x%size+size)%size, (y%size+size)%size, (z%size+size)%size, size)] == 0
+	
+	var neighbor_coordinates := coordinates + Vector3i(
+		1 if x >= size else (-1 if x < 0 else 0),
+		1 if y >= size else (-1 if y < 0 else 0),
+		1 if z >= size else (-1 if z < 0 else 0)
+	)
+	
+	var neighbor_data = registry.get(neighbor_coordinates)
+	if neighbor_data is PackedByteArray:
+		return neighbor_data[get_index((x % size + size) % size, (y % size + size) % size, (z % size + size) % size, size)] == 0
+	
 	return true
 
-static func get_noise_coords(_x: int, _z: int, world_origin: Vector3) -> Vector2:
-	return Vector2(world_origin.x + float(_x), world_origin.z + float(_z))
+## Calculates noise sampling coordinates based on world origin.
+static func get_noise_coordinates(x: int, z: int, world_origin: Vector3) -> Vector2:
+	return Vector2(world_origin.x + float(x), world_origin.z + float(z))
 
-static func world_to_local(world_pos: Vector3, chunk_origin: Vector3) -> Vector3i:
-	# Adding 0.5 shifts the snapping range to center on the integer
-	var rel := (world_pos - chunk_origin) + Vector3(0.5, 0.5, 0.5)
-	return Vector3i(floor(rel.x), floor(rel.y), floor(rel.z))
+## Converts a world-space position into a local Vector3i voxel index.
+static func world_to_local(world_position: Vector3, chunk_origin: Vector3) -> Vector3i:
+	var relative_position := (world_position - chunk_origin) + Vector3(0.5, 0.5, 0.5)
+	return Vector3i(floor(relative_position.x), floor(relative_position.y), floor(relative_position.z))
 
-static func world_to_chunk(world_pos: Vector3, chunk_size: int) -> Vector3i:
+## Maps a world-space position to its corresponding chunk coordinate.
+static func world_to_chunk(world_position: Vector3, chunk_size: int) -> Vector3i:
 	return Vector3i(
-		floori(world_pos.x / float(chunk_size)),
-		floori(world_pos.y / float(chunk_size)),
-		floori(world_pos.z / float(chunk_size))
+		floori(world_position.x / float(chunk_size)),
+		floori(world_position.y / float(chunk_size)),
+		floori(world_position.z / float(chunk_size))
 	)
 
-static func chunk_to_world(coord: Vector3i, size: int) -> Vector3:
-	return Vector3(coord) * float(size)
+## Converts chunk coordinates to world-space position.
+static func chunk_to_world(coordinate: Vector3i, size: int) -> Vector3:
+	return Vector3(coordinate) * float(size)
 
-static func voxel_to_world(voxel: Vector3i) -> Vector3:
-	return Vector3(voxel)
+## Converts a specific voxel coordinate to world-space position.
+static func voxel_to_world(voxel: Vector3i, chunk_origin: Vector3) -> Vector3:
+	return Vector3(voxel) + chunk_origin
 
+## Maps a specific voxel coordinate to its parent chunk coordinate.
 static func voxel_to_chunk(voxel: Vector3i, chunk_size: int) -> Vector3i:
 	return voxel / chunk_size * chunk_size
 
-static func calculate_geometry(data: PackedByteArray, coords: Vector3i, registry: Dictionary, size: int, colors: Array[Color]) -> Dictionary:
-	var v := PackedVector3Array(); var n := PackedVector3Array(); var c := PackedColorArray(); var u := PackedVector2Array()
-	
+## Builds the mesh geometry for an entire chunk of voxels.
+static func calculate_geometry(
+	data: PackedByteArray,
+	coordinates: Vector3i,
+	registry: Dictionary,
+	size: int,
+	colors: Array[Color]
+) -> Dictionary:
+	var vertices_array := PackedVector3Array()
+	var normals_array := PackedVector3Array()
+	var colors_array := PackedColorArray()
+	var uvs_array := PackedVector2Array()
+
 	for x in range(size):
 		for y in range(size):
 			for z in range(size):
-				if data[get_index(x, y, z, size)] == 0: continue
+				if data[get_index(x, y, z, size)] == 0:
+					continue
 				
-				for f in range(6):
-					var face_key: Face = Face.values()[f]
-					var normal = face_normals[face_key]
-					var nx := x + int(normal.x); var ny := y + int(normal.y); var nz := z + int(normal.z)
+				for face_index in range(6):
+					var face_key: Face = Face.values()[face_index]
+					var normal: Vector3 = face_normals[face_key]
+					var neighbor_x: int = x + int(normal.x)
+					var neighbor_y: int = y + int(normal.y)
+					var neighbor_z: int = z + int(normal.z)
 					
-					var show := (nx < 0 or nx >= size or ny < 0 or ny >= size or nz < 0 or nz >= size)
-					if not show: show = (data[get_index(nx, ny, nz, size)] == 0)
+					var show_face := (neighbor_x < 0 or neighbor_x >= size or neighbor_y < 0 or neighbor_y >= size or neighbor_z < 0 or neighbor_z >= size)
+					if not show_face:
+						show_face = (data[get_index(neighbor_x, neighbor_y, neighbor_z, size)] == 0)
 					
-					if show:
-						for tri in face_indices[face_key]:
-							var p1 = vertices[tri[0]] + Vector3(float(x), float(y), float(z))
-							var p2 = vertices[tri[1]] + Vector3(float(x), float(y), float(z))
-							var p3 = vertices[tri[2]] + Vector3(float(x), float(y), float(z))
-							_add_tri(p1, p2, p3, normal, colors[data[get_index(x,y,z,size)]-1], v, n, c, u)
-	return {"verts": v, "norms": n, "cols": c, "uvs": u}
+					if show_face:
+						for triangle in face_indices[face_key]:
+							var offset := Vector3(float(x), float(y), float(z))
+							var point1: Vector3 = vertices[triangle[0]] + offset
+							var point2: Vector3 = vertices[triangle[1]] + offset
+							var point3: Vector3 = vertices[triangle[2]] + offset
+							add_triangle(point1, point2, point3, normal, colors[data[get_index(x, y, z, size)] - 1], vertices_array, normals_array, colors_array)
+	
+	return {"vertices": vertices_array, "normals": normals_array, "colors": colors_array, "uvs": uvs_array}

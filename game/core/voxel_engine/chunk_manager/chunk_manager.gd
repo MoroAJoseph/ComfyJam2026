@@ -12,6 +12,7 @@ class_name VoxelEngineChunkManager extends Node3D
 @export var noise: FastNoiseLite
 @export var noise_seed: int = 0
 @export var colors: Array[Color] = [Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW]
+@export var sea_level: int = 8
 
 @export_group("Configs")
 @export var highlight_shader_material: ShaderMaterial
@@ -23,6 +24,8 @@ class_name VoxelEngineChunkManager extends Node3D
 ## Internal management variables
 var chunks_data: Dictionary[Vector3i, PackedByteArray] = {}
 var active_chunks: Dictionary[Vector3i, Dictionary] = {}
+var dirty_chunks: Dictionary[Vector3i, bool] = {}
+var loading_chunks: Array[Vector3i] = []
 var current_player_chunk: Vector3i = Vector3i.ZERO
 var data_initialized: bool = false
 var rid_to_coordinate: Dictionary[RID, Vector3i] = {}
@@ -41,7 +44,7 @@ func _ready() -> void:
 	if highlight_shader_material:
 		var mat := highlight_shader_material.duplicate()
 		highlight_mesh_instance.material_override = mat
-
+	
 func _process(_delta: float) -> void:
 	if not data_initialized or not context_target:
 		return
@@ -54,6 +57,10 @@ func _process(_delta: float) -> void:
 	if new_chunk_coordinate != current_player_chunk:
 		current_player_chunk = new_chunk_coordinate
 		update_render_distance()
+	
+	if not dirty_chunks.is_empty():
+		var coord = dirty_chunks.keys()[0]
+		_process_mesh(coord, chunks_data[coord])
 
 # ===
 # Public
@@ -92,25 +99,56 @@ func generate_world_data() -> void:
 				for y: int in range(0, y_max):
 					var coordinate: Vector3i = Vector3i(x, y, z)
 					chunks_data[coordinate] = generate_raw_voxels(
-						get_chunk_position(coordinate)
+						logic_class.chunk_to_world(coordinate, chunk_size)
 					)
 	data_initialized = true
 	update_render_distance()
 
 func generate_raw_voxels(origin: Vector3) -> PackedByteArray:
-	var voxels: PackedByteArray = PackedByteArray()
-	voxels.resize(chunk_size**3)
+	var voxels := PackedByteArray()
+
+	voxels.resize(chunk_size * chunk_size * chunk_size)
 	voxels.fill(0)
-	
-	for x: int in range(chunk_size):
-		for z: int in range(chunk_size):
-			# Pass the actual world origin of the chunk
-			var sample: Vector2 = logic_class.get_noise_coords(x, z, origin)
-			var height: float = (noise.get_noise_2d(sample.x, sample.y) + 1.0) / 2.0 * generation_height
-			
-			for y: int in range(min(int(max(0.0, height - origin.y)), chunk_size)):
-				voxels[x + (y * chunk_size) + (z * chunk_size**2)] = (y % colors.size()) + 1
+
+	for x in range(chunk_size):
+		for z in range(chunk_size):
+			for y in range(chunk_size):
+
+				var world_pos = origin + logic_class.voxel_to_world(
+					Vector3i(x,y,z),
+					Vector3.ZERO
+				)
+
+				var density := noise.get_noise_3d(
+					world_pos.x,
+					world_pos.y,
+					world_pos.z
+				)
+
+				var height_gradient = (
+					world_pos.y /
+					float(generation_height)
+				)
+
+				var final_density = density - height_gradient
+
+				if final_density > 0.0 and world_pos.y >= sea_level:
+
+					var voxel_type := 1
+
+					if world_pos.y < sea_level + 2:
+						voxel_type = 3
+					elif world_pos.y < sea_level + 5:
+						voxel_type = 2
+
+					voxels[
+						x +
+						(y * chunk_size) +
+						(z * chunk_size * chunk_size)
+					] = voxel_type
+
 	return voxels
+
 
 func update_render_distance() -> void:
 	var needed_coordinates: Array[Vector3i] = []
@@ -127,18 +165,15 @@ func update_render_distance() -> void:
 		if not coordinate in needed_coordinates:
 			_remove_chunk(coordinate)
 
-func get_chunk_position(coordinate: Vector3i) -> Vector3:
-	if not use_hexagons:
-		return Vector3(coordinate * chunk_size)
-		
-	var s := float(chunk_size)
-	# The chunk offset must be an integer multiple of the voxel spacing
-	# Use the same logic as _get_hex_world_pos but for the chunk root
-	return Vector3(
-		s * 1.5 * coordinate.x,
-		0,
-		s * sqrt(3.0) * (coordinate.z + 0.5 * coordinate.x)
-	)
+func get_voxel_global_position(chunk_coord: Vector3i, local_voxel: Vector3i) -> Vector3:
+	# 1. Get the authoritative chunk origin based on logic_class
+	var chunk_origin = logic_class.chunk_to_world(chunk_coord, chunk_size)
+	
+	# 2. Get the voxel position relative to that origin
+	var local_pos = logic_class.voxel_to_world(local_voxel, Vector3.ZERO)
+	
+	# 3. The absolute world position is the sum
+	return chunk_origin + local_pos
 
 func get_voxel_data(coord: Vector3i, local_voxel: Vector3i) -> int:
 	var data = chunks_data.get(coord)
@@ -162,6 +197,18 @@ func remove_voxel(chunk_coord: Vector3i, local_voxel: Vector3i) -> void:
 	
 	_process_mesh(chunk_coord, data)
 
+## Updates the highlight mesh visual state
+func update_hover_visuals(chunk_coord: Vector3i, local_voxel: Vector3i) -> void:
+	# Position
+	var chunk_origin = logic_class.chunk_to_world(chunk_coord, chunk_size)
+	var voxel_world_pos = logic_class.voxel_to_world(local_voxel, chunk_origin)
+	highlight_mesh_instance.global_position = voxel_world_pos
+	highlight_mesh_instance.visible = true
+
+## Hides the visual highlight
+func hide_hover_visuals() -> void:
+	highlight_mesh_instance.visible = false
+
 # ===
 # Private
 # ===
@@ -180,8 +227,6 @@ func _update_highlight_mesh_type() -> void:
 		hex_mesh.height = 1.0
 		
 		highlight_mesh_instance.mesh = hex_mesh
-		# Rotate 30 degrees (PI/6 radians) on the Y axis to align the flat sides
-		highlight_mesh_instance.rotation_degrees = Vector3(0, 30, 0)
 	else:
 		highlight_mesh_instance.mesh = BoxMesh.new()
 		highlight_mesh_instance.mesh.size = Vector3.ONE
@@ -192,6 +237,10 @@ func _update_highlight_material() -> void:
 		highlight_mesh_instance.material_override = highlight_shader_material
 
 func _spawn_chunk(coordinate: Vector3i) -> void:
+	if loading_chunks.has(coordinate): return
+		
+	loading_chunks.append(coordinate)
+	
 	var mesh_rid: RID = RenderingServer.mesh_create()
 	var instance_rid: RID = RenderingServer.instance_create()
 	var material: StandardMaterial3D = StandardMaterial3D.new()
@@ -241,30 +290,33 @@ func _process_mesh(coord: Vector3i, data: PackedByteArray) -> void:
 	call_deferred("_apply_result", coord, geometry)
 
 func _apply_result(coordinate: Vector3i, geometry: Dictionary) -> void:
-	if not active_chunks.has(coordinate):
-		return
-		
+	loading_chunks.erase(coordinate)
+	if not active_chunks.has(coordinate): return
+	
 	var chunk: Dictionary = active_chunks[coordinate]
-	
-	# Update Rendering
-	var surface_array: Array = []
-	surface_array.resize(Mesh.ARRAY_MAX)
-	surface_array[Mesh.ARRAY_VERTEX] = geometry.verts
-	surface_array[Mesh.ARRAY_NORMAL] = geometry.norms
-	surface_array[Mesh.ARRAY_COLOR] = geometry.cols
-	surface_array[Mesh.ARRAY_TEX_UV] = geometry.uvs
-	
 	RenderingServer.mesh_clear(chunk.mesh)
-	if not geometry.verts.is_empty():
-		RenderingServer.mesh_add_surface_from_arrays(chunk.mesh, RenderingServer.PRIMITIVE_TRIANGLES, surface_array)
+	
+	# Only create a surface if we actually have vertices
+	if not geometry.vertices.is_empty():
+		var surface_array := []
+		surface_array.resize(Mesh.ARRAY_MAX)
+		surface_array[Mesh.ARRAY_VERTEX] = geometry.vertices
+		surface_array[Mesh.ARRAY_NORMAL] = geometry.normals
+		surface_array[Mesh.ARRAY_COLOR] = geometry.colors
+		
+		RenderingServer.mesh_add_surface_from_arrays(
+			chunk.mesh, RenderingServer.PRIMITIVE_TRIANGLES, surface_array
+		)
 	
 	# Update Physics
+	if not use_collision: return
+	
 	if chunk.body.is_valid():
 		rid_to_coordinate.erase(chunk.body)
 		PhysicsServer3D.free_rid(chunk.body)
 		chunk.body = RID()
-
-	if not geometry.verts.is_empty():
+	
+	if not geometry.vertices.is_empty():
 		chunk.body = PhysicsServer3D.body_create()
 		PhysicsServer3D.body_set_mode(chunk.body, PhysicsServer3D.BODY_MODE_STATIC)
 		PhysicsServer3D.body_set_space(chunk.body, get_world_3d().space)
@@ -274,13 +326,13 @@ func _apply_result(coordinate: Vector3i, geometry: Dictionary) -> void:
 		PhysicsServer3D.body_set_collision_mask(chunk.body, 1)
 
 		var shape := PhysicsServer3D.concave_polygon_shape_create()
-		PhysicsServer3D.shape_set_data(shape, {"faces": geometry.verts, "backface_collision": false})
+		PhysicsServer3D.shape_set_data(shape, {"faces": geometry.vertices, "backface_collision": false})
 		
 		PhysicsServer3D.body_add_shape(chunk.body, shape)
 		PhysicsServer3D.body_set_state(
 			chunk.body,
 			PhysicsServer3D.BODY_STATE_TRANSFORM,
-			Transform3D(Basis(), get_chunk_position(coordinate))
+			Transform3D(Basis(), logic_class.chunk_to_world(coordinate, chunk_size))
 		)
 		
 		rid_to_coordinate[chunk.body] = coordinate
@@ -300,3 +352,4 @@ func _remove_chunk(coord: Vector3i) -> void:
 
 	rid_to_coordinate.erase(chunk.body)
 	active_chunks.erase(coord)
+	

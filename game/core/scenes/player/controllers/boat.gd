@@ -16,14 +16,13 @@ func _process(_delta: float) -> void:
 	):
 		current_boat.set_input(turn, move)
 
-	
 func spawn_boat(boat_type: Enums.BoatType) -> void:
 	# Cleanup
 	for child in get_children():
 		child.queue_free()
 	
-	var boat_data: BoatData = AssetProvider.get_boat_data(boat_type)
-	var boat: Boat = AssetProvider.get_boat_scene(boat_type)
+	var boat_data: BoatData = AssetService.get_boat_data(boat_type)
+	var boat: Boat = AssetService.get_boat_scene(boat_type)
 	boat.data = boat_data
 	add_child(boat)
 	current_boat = boat

@@ -6,7 +6,10 @@ class CameraShake extends WorldEvent:
 	var intensity: float
 	var duration: float
 	
-	func _init(p_intensity: float = 0.5, p_duration: float = 0.3) -> void:
+	func _init(
+		p_intensity: float = 0.5, 
+		p_duration: float = 0.3
+	) -> void:
 		intensity = p_intensity
 		duration = p_duration
 
@@ -14,48 +17,50 @@ class GenerateLand extends WorldEvent: pass
 class LandGenerated extends WorldEvent: pass
 
 # --- Block ---
-#class BlockDestroyed extends WorldEvent:
-	#
-	#var block_instance_data: BlockInstanceData
-	#
-	#func _init(
-		#p_block_instance_data: BlockInstanceData, 
-	#) -> void:
-		#block_instance_data = p_block_instance_data
+class BlockDestroyed extends WorldEvent:
+	
+	var type: Enums.BlockType
+	var world_location: Vector3i
+	
+	func _init(
+		p_type: Enums.BlockType, 
+		p_world_location: Vector3i
+	) -> void:
+		type = p_type
+		world_location = p_world_location
 
-#class BlockHoverUpdated extends WorldEvent:
-	#
-	#var is_hovered: bool
-	#var block_instance_data: BlockInstanceData
-	#
-	#func _init(
-		#p_is_hovered: bool, 
-		#p_block_instance_data: BlockInstanceData,
-	#) -> void:
-		#is_hovered = p_is_hovered
-		#block_instance_data = p_block_instance_data
+class BlockCollected extends WorldEvent:
+	
+	var item_data: BlockItemData
+	
+	func _init(
+		p_item_data: BlockItemData
+	) -> void:
+		item_data = p_item_data
 
-# --- Block Item ---
-#class BlockItemCollected extends WorldEvent:
-	#
-	#var item_data: BlockItemData
-	#
-	#func _init(
-		#p_item_data: BlockItemData
-	#) -> void:
-		#item_data = p_item_data
+class SpawnBlockItem extends WorldEvent:
+	
+	var item_data: BlockItemData
+	var world_location: Vector3
+	
+	func _init(
+		p_item_data: BlockItemData, 
+		p_world_location: Vector3
+	) -> void:
+		item_data = p_item_data
+		world_location = p_world_location
 
 # --- Player ---
 class SpawnPlayer extends WorldEvent:
 	
-	var position: Vector3
+	var world_location: Vector3
 	var rotation: Vector3
 	
 	func _init(
-		p_position: Vector3, 
+		p_world_location: Vector3, 
 		p_rotation: Vector3
 	) -> void:
-		position = p_position
+		world_location = p_world_location
 		rotation = p_rotation
 
 class PlayerSpawned extends WorldEvent: 

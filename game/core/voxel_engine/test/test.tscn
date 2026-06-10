@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://8kfpvxj3xmb1"]
+
+[ext_resource type="Script" uid="uid://cv3j4pm4gd00d" path="res://core/voxel_engine/test/chunk_manager.gd" id="1_o6puk"]
+[ext_resource type="Script" uid="uid://caphvwuyayogc" path="res://core/voxel_engine/test/test.gd" id="1_oyvpj"]
+[ext_resource type="PackedScene" uid="uid://bg7j8yrrswl8i" path="res://_dev/flying_player/player.tscn" id="2_5vclq"]
+[ext_resource type="Material" uid="uid://bw1wx223he31t" path="res://core/voxel_engine/mesh_material.tres" id="2_oyvpj"]
+[ext_resource type="Script" uid="uid://dil7c0i6whrfg" path="res://core/voxel_engine/voxels/hexagon.gd" id="4_p6sg1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oyvpj"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_p6sg1"]
+sky_material = SubResource("ProceduralSkyMaterial_oyvpj")
+
+[sub_resource type="Environment" id="Environment_0gffd"]
+background_mode = 2
+sky = SubResource("Sky_p6sg1")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p6sg1"]
+noise_type = 3
+frequency = 0.002
+
+[node name="Test" type="Node3D" unique_id=1879601723]
+script = ExtResource("1_oyvpj")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=169906161]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1368036678]
+environment = SubResource("Environment_0gffd")
+
+[node name="ChunkManager" type="Node3D" parent="." unique_id=2140207483 node_paths=PackedStringArray("context_target")]
+script = ExtResource("1_o6puk")
+chunk_size = 16
+render_radius = 16
+context_target = NodePath("../Player")
+material = ExtResource("2_oyvpj")
+noise = SubResource("FastNoiseLite_p6sg1")
+colors = Array[Color]([Color(0.7397895, 1.9372628e-06, 9.62615e-07, 1), Color(6.473586e-06, 0.6674987, 1.92523e-07, 1), Color(2.9841065e-06, 0, 0.72456545, 1), Color(0.87612945, 0.5516501, 0, 1), Color(0.7881711, 0.5459798, 0.71547556, 1)])
+logic_class = ExtResource("4_p6sg1")
+
+[node name="Player" parent="." unique_id=1091930200 instance=ExtResource("2_5vclq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.319419, 0)

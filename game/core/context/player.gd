@@ -2,6 +2,8 @@ class_name PlayerContext
 extends ContextData
 
 enum Var { 
+	BLOCK_ITEMS,
+	BLOCK_CAP,
 	GOLD, 
 	EQUIPPED_BOAT, 
 	EQUIPPED_TOOL, 
@@ -11,6 +13,8 @@ enum Var {
 }
 
 const DEFAULT: Dictionary[Var, Variant] = {
+	Var.BLOCK_ITEMS: [],
+	Var.BLOCK_CAP: 0,
 	Var.GOLD: 0,
 	Var.EQUIPPED_BOAT: Enums.BoatType.NONE,
 	Var.EQUIPPED_TOOL: Enums.ToolType.NONE,
@@ -46,6 +50,26 @@ var boat_instance: Boat:
 # ===
 # Persistent
 # ===
+
+# --- Block Items ---
+signal block_items_updated(value)
+var _block_items: Array[BlockItemData] = []
+var block_items: Array[BlockItemData] = []:
+	get: return _block_items
+	set(value): 
+		if _authorize_write():
+			block_items = value
+			block_items_updated.emit(value)
+
+# --- Block Capacity ---
+signal block_capacity_updated(value)
+var _block_capacity: int
+var block_capacity: int: 
+	get: return _gold
+	set(value): 
+		if _authorize_write():
+			_block_capacity = value
+			block_capacity_updated.emit(value)
 
 # --- Gold ---
 signal gold_updated(value)
