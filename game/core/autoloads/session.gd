@@ -8,6 +8,7 @@ var is_in_world: bool = false
 # Context
 var narrative_context: NarrativeContext
 var progression_context: ProgressionContext
+var settings_context: SettingsContext
 var ui_context: UIContext
 var world_context: WorldContext
 var player_context: PlayerContext
@@ -24,6 +25,7 @@ func _init() -> void:
 	# Context
 	narrative_context = NarrativeContext.new()
 	progression_context = ProgressionContext.new()
+	settings_context = SettingsContext.new()
 	ui_context = UIContext.new()
 	world_context = WorldContext.new()
 	player_context = PlayerContext.new()
@@ -48,6 +50,7 @@ func _init() -> void:
 		world_context
 	)
 	
+	settings_provider = SettingsProvider.new(settings_context)
 	player_provider = PlayerProvider.new(
 		player_context
 	)
@@ -62,6 +65,10 @@ func reset() -> void:
 	# Context
 	narrative_context.reset()
 	progression_context.reset()
+	settings_context.reset()
 	ui_context.reset()
 	world_context.reset()
 	player_context.reset()
+	
+	# Load Settings
+	settings_provider.load_settings()
