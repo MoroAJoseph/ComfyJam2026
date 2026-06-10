@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://d35s7ejiuie1v"]
+[gd_scene format=3 uid="uid://bsvhh7ryw11di"]
 
 [ext_resource type="PackedScene" uid="uid://bg7j8yrrswl8i" path="res://_dev/flying_player/player.tscn" id="1_p3htu"]
 [ext_resource type="PackedScene" uid="uid://nxmi0nfg3irw" path="res://core/voxel_engine/chunk_manager/chunk_manager.tscn" id="2_6dmo0"]
@@ -17,6 +17,10 @@ sky = SubResource("Sky_nq28x")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p3htu"]
+noise_type = 3
+frequency = 0.041
+
 [node name="Test" type="Node3D" unique_id=613457967]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1188637199]
@@ -31,15 +35,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0)
 chunk_manager = NodePath("../ChunkManager")
 
 [node name="ChunkManager" parent="." unique_id=318689483 node_paths=PackedStringArray("context_target") instance=ExtResource("2_6dmo0")]
-use_hexagons = null
-use_collision = true
-context_target = NodePath("../Player")
 chunk_size = 16
-noise_seed = null
 generation_height = 10
 generation_radius = 64
-render_radius = 6
-colors = null
+render_radius = 16
+noise = SubResource("FastNoiseLite_p3htu")
+context_target = NodePath("../Player")
 
 [node name="HighlightHandler" type="Node" parent="." unique_id=2074338354 node_paths=PackedStringArray("chunk_manager")]
 script = ExtResource("3_7gwwe")

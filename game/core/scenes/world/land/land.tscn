@@ -1,14 +1,18 @@
 [gd_scene format=3 uid="uid://co00ewjccbqxh"]
 
-[ext_resource type="Script" uid="uid://dhdguyjpayre1" path="res://core/scenes/world/land/land.gd" id="1_giwcq"]
 [ext_resource type="PackedScene" uid="uid://nxmi0nfg3irw" path="res://core/voxel_engine/chunk_manager/chunk_manager.tscn" id="2_cjmvk"]
+[ext_resource type="PackedScene" uid="uid://bg7j8yrrswl8i" path="res://_dev/flying_player/player.tscn" id="3_fl4nc"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vcei7"]
 
 [node name="Land" type="Node3D" unique_id=259526549]
-script = ExtResource("1_giwcq")
 
-[node name="ChunkManager" parent="." unique_id=2040231109 instance=ExtResource("2_cjmvk")]
-use_hexagons = true
-use_collision = true
+[node name="ChunkManager" parent="." unique_id=2040231109 node_paths=PackedStringArray("context_target") instance=ExtResource("2_cjmvk")]
 chunk_size = 16
 generation_radius = 16
 render_radius = 8
+noise = SubResource("FastNoiseLite_vcei7")
+context_target = NodePath("../Player")
+
+[node name="Player" parent="." unique_id=1091930200 node_paths=PackedStringArray("chunk_manager") instance=ExtResource("3_fl4nc")]
+chunk_manager = NodePath("../ChunkManager")

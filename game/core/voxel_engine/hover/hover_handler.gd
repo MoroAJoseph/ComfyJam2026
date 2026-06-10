@@ -42,25 +42,35 @@ func _process(_delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("remove_block"):
+		# Check if the highlight is visible (implies we are hovering a valid block)
 		if chunk_manager.highlight_mesh_instance.visible:
-			var coord = chunk_manager.rid_to_coordinate[chunk_manager.last_hit_rid]
-			play_block_destruction_animation(coord, chunk_manager.hovered_voxel)
-
+			# Use the saved state from _handle_voxel_hover
+			var coord = chunk_manager.hovered_chunk
+			var voxel = chunk_manager.hovered_voxel
+			
+			# Trigger destruction
+			play_block_destruction_animation(coord, voxel)
+			
+			# Hide highlight until we hover over the next block
+			chunk_manager.highlight_mesh_instance.visible = false
 func _handle_voxel_hover(world_pos: Vector3, hit_normal: Vector3) -> void:
 	var coord = chunk_manager.rid_to_coordinate[chunk_manager.last_hit_rid]
 	var data = chunk_manager.chunks_data[coord]
-	var chunk_origin = chunk_manager.get_chunk_position(coord)
+	var chunk_origin = chunk_manager.logic_class.chunk_to_world(coord, chunk_manager.chunk_size)
 	
 	var sample_pos = world_pos - (hit_normal * 0.1)
 	var local_voxel = chunk_manager.logic_class.world_to_local(sample_pos, chunk_origin)
 	
-	# Generate the mesh specifically for this single voxel
+	# Save these to the manager for _input to use
+	chunk_manager.hovered_chunk = coord
+	chunk_manager.hovered_voxel = local_voxel
+	
 	_update_highlight_geometry(local_voxel, data, coord)
 	
-	chunk_manager.highlight_mesh_instance.global_position = chunk_origin 
+	var voxel_world_pos = chunk_manager.logic_class.voxel_to_world(local_voxel, chunk_origin)
+	chunk_manager.highlight_mesh_instance.global_position = voxel_world_pos
 	chunk_manager.highlight_mesh_instance.visible = true
 
-# Inside your Hover Handler script
 func _update_highlight_geometry(voxel: Vector3i, data: PackedByteArray, coord: Vector3i) -> void:
 	# Use pure white so the shader controls the colors
 	var color = Color.WHITE 
@@ -69,13 +79,12 @@ func _update_highlight_geometry(voxel: Vector3i, data: PackedByteArray, coord: V
 	)
 	
 	var mesh = ArrayMesh.new()
-	if not geometry.verts.is_empty():
+	if not geometry.vertices.is_empty():
 		var surface_array = []
 		surface_array.resize(Mesh.ARRAY_MAX)
-		surface_array[Mesh.ARRAY_VERTEX] = geometry.verts
-		surface_array[Mesh.ARRAY_NORMAL] = geometry.norms
-		surface_array[Mesh.ARRAY_COLOR] = geometry.cols
-		surface_array[Mesh.ARRAY_TEX_UV] = geometry.uvs
+		surface_array[Mesh.ARRAY_VERTEX] = geometry.vertices
+		surface_array[Mesh.ARRAY_NORMAL] = geometry.normals
+		surface_array[Mesh.ARRAY_COLOR] = geometry.colors
 		
 		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, surface_array)
 	
@@ -86,41 +95,35 @@ func _update_highlight_geometry(voxel: Vector3i, data: PackedByteArray, coord: V
 		chunk_manager.highlight_mesh_instance.material_override = chunk_manager.highlight_shader_material
 
 func play_block_destruction_animation(chunk_coord: Vector3i, local_voxel: Vector3i) -> void:
-	var chunk_pos = chunk_manager.get_chunk_position(chunk_coord)
-	var target_pos = chunk_pos + Vector3(local_voxel)
-	
-	# Generate mock mesh
 	var data = chunk_manager.chunks_data[chunk_coord]
 	var geom = chunk_manager.logic_class.get_single_voxel_geometry(
 		local_voxel, data, chunk_coord, chunk_manager.chunks_data, chunk_manager.chunk_size, Color.WHITE
 	)
-	if geom.is_empty(): return
+	if geom.vertices.is_empty(): return
 	
 	var temp_mesh = MeshInstance3D.new()
-	chunk_manager.add_child(temp_mesh)
-	
-	var surface_array = []
-	surface_array.resize(Mesh.ARRAY_MAX)
-	surface_array[Mesh.ARRAY_VERTEX] = geom.verts
-	surface_array[Mesh.ARRAY_NORMAL] = geom.norms
-	surface_array[Mesh.ARRAY_COLOR] = geom.cols
-	surface_array[Mesh.ARRAY_TEX_UV] = geom.uvs
+	# Important: Add to current scene so it renders
+	get_tree().current_scene.add_child(temp_mesh)
 	
 	var array_mesh = ArrayMesh.new()
+	var surface_array = []
+	surface_array.resize(Mesh.ARRAY_MAX)
+	surface_array[Mesh.ARRAY_VERTEX] = geom.vertices
+	surface_array[Mesh.ARRAY_NORMAL] = geom.normals
+	surface_array[Mesh.ARRAY_COLOR] = geom.colors
 	array_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, surface_array)
 	
 	temp_mesh.mesh = array_mesh
 	temp_mesh.material_override = chunk_manager.highlight_shader_material
-	temp_mesh.global_position = target_pos + (Vector3.UP * 0.05)
+	temp_mesh.global_position = chunk_manager.logic_class.chunk_to_world(chunk_coord, chunk_manager.chunk_size)
 	
-	# Trigger the logic change immediately
 	chunk_manager.remove_voxel(chunk_coord, local_voxel)
 	
-	# Tween
+	# Animation: Add squash/stretch by tweening scale
 	var tween = create_tween()
 	tween.set_parallel(true)
-	tween.tween_property(temp_mesh, "scale", Vector3.ZERO, 0.3).set_trans(Tween.TRANS_BACK)
-	tween.tween_property(temp_mesh, "rotation_degrees", Vector3(0, 180, 0), 0.3)
-	
-	# Cleanup after animation
+	# Squash (scale X and Z up, Y down)
+	tween.tween_property(temp_mesh, "scale", Vector3(1.5, 0.2, 1.5), 0.1)
+	# Then shrink to zero
+	tween.tween_property(temp_mesh, "scale", Vector3.ZERO, 0.2).set_delay(0.1)
 	tween.tween_callback(temp_mesh.queue_free)

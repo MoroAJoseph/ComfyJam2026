@@ -15,8 +15,11 @@ var player_context: PlayerContext
 
 # Providers
 var save_provider: SaveProvider
+var narrative_provider: NarrativeProvider
 var progression_provider: ProgressionProvider
-var settings_provider: SettingsProvider
+var ui_provider: UIProvider
+var world_provider: WorldProvider
+var player_provider: PlayerProvider
 
 func _init() -> void:
 	# Context
@@ -28,18 +31,29 @@ func _init() -> void:
 	player_context = PlayerContext.new()
 	
 	# Providers
-	progression_provider = ProgressionProvider.new(
-		progression_context, 
-		player_context
-	)
-	
 	save_provider = SaveProvider.new(
 		progression_context, 
 		player_context, 
 		world_context
 	)
 	
+	progression_provider = ProgressionProvider.new(
+		progression_context, 
+		player_context
+	)
+	
+	ui_provider = UIProvider.new(
+		ui_context
+	)
+	
+	world_provider = WorldProvider.new(
+		world_context
+	)
+	
 	settings_provider = SettingsProvider.new(settings_context)
+	player_provider = PlayerProvider.new(
+		player_context
+	)
 	
 	# Reset
 	reset()

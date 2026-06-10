@@ -52,7 +52,7 @@ func _update_boat_preview(type: Enums.BoatType) -> void:
 	if Session.player_context.equipped_boat == Enums.BoatType.SHIP_MEDIUM_2:
 		return
 
-	var boat_instance: Boat = AssetProvider.get_boat_scene(type)
+	var boat_instance: Boat = AssetService.get_boat_scene(type)
 		
 	if boat_instance:
 		# Disable physics and scripts for the preview
@@ -71,7 +71,7 @@ func _update_upgrade_button_label(current_type: Enums.BoatType) -> void:
 		upgrade_boat_button.disabled = true
 		return
 
-	var boat_data: BoatData = AssetProvider.get_boat_data(current_type)
+	var boat_data: BoatData = AssetService.get_boat_data(current_type)
 	if boat_data:
 		upgrade_boat_button.text = "Upgrade to %s (%d Gold)" % [boat_data.display_name, boat_data.buy_price]
 		upgrade_boat_button.disabled = Session.player_context.gold < boat_data.buy_price

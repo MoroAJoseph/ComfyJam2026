@@ -126,6 +126,26 @@ enum BarrelType {
 	GOLD
 }
 
-enum BlockType {
-	NONE, # Air
+enum BlockType { 
+	NONE, 
+	SAND, 
+	DIRT, 
+	STONE, 
+	GRASS, 
+	COAL_ORE, 
+	COAL 
+}
+
+enum BlockCategory { 
+	NONE, 
+	TERRAIN, 	# ex. Dirt
+	RESOURCE, 	# ex. Ore
+	CONSTRUCTED # ex. Structural
+}
+
+enum BlockCapability {
+	GENERATE, 	# Generates in the world
+	CRAFT, 		# Created from crafting
+	PLACE, 		# Places the block in the world
+	COLLECT 	# Creates a BlockItem to collect
 }

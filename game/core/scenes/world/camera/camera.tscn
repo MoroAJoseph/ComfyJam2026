@@ -25,4 +25,3 @@ spring_length = 10.0
 unique_name_in_owner = true
 cull_mask = 1048573
 current = true
-far = 1000.0

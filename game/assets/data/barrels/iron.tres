@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BarrelData" format=3 uid="uid://bsc2w3hw1qghg"]
 
-[ext_resource type="Script" uid="uid://dkumvj5ufhj3d" path="res://common/dataclasses/barrel_data.gd" id="1_iui3s"]
+[ext_resource type="Script" uid="uid://dkumvj5ufhj3d" path="res://common/dataclasses/barrel.gd" id="1_iui3s"]
 
 [resource]
 script = ExtResource("1_iui3s")

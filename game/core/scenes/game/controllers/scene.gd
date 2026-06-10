@@ -20,7 +20,7 @@ func _exit_tree() -> void:
 # ===
 
 func _handle_game_load_title_scene(_event: GameEvent.LoadTitle) -> void:
-	var title = AssetProvider.get_title_scene()
+	var title = AssetService.get_title_scene()
 	
 	if current_scene:
 		current_scene.queue_free()
@@ -30,7 +30,7 @@ func _handle_game_load_title_scene(_event: GameEvent.LoadTitle) -> void:
 	add_child(current_scene)
 
 func _handle_game_load_world_scene(_event: GameEvent.LoadWorld) -> void:
-	var world = AssetProvider.get_world_scene()
+	var world = AssetService.get_world_scene()
 	
 	if current_scene:
 		current_scene.queue_free()

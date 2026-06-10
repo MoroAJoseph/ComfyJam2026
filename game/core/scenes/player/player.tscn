@@ -3,8 +3,20 @@
 [ext_resource type="Script" uid="uid://row2xa2sa6xd" path="res://core/scenes/player/player.gd" id="1_h46vi"]
 [ext_resource type="Script" uid="uid://bh0tj4y5r3h4k" path="res://core/scenes/player/controllers/boat.gd" id="2_ll17t"]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ebstt"]
+radius = 5.0
+
 [node name="Player" type="Node3D" unique_id=857072645]
 script = ExtResource("1_h46vi")
 
 [node name="Boat" type="Node3D" parent="." unique_id=364676539]
 script = ExtResource("2_ll17t")
+
+[node name="ItemCollectionArea" type="Area3D" parent="." unique_id=494983194]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ItemCollectionArea" unique_id=2086383895]
+shape = SubResource("CylinderShape3D_ebstt")
+
+[connection signal="area_entered" from="ItemCollectionArea" to="." method="_on_item_collection_area_entered"]

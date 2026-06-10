@@ -2,30 +2,13 @@
 
 [ext_resource type="Script" uid="uid://lr3040s4o3so" path="res://features/environment/docks/placeholder/dock.gd" id="1_dock"]
 [ext_resource type="PackedScene" uid="uid://dgb5b5x430bii" path="res://assets/prefabs/environment/glb/structure-platform-dock.glb" id="2_mesh"]
+[ext_resource type="PackedScene" uid="uid://b2qbsdltclvrn" path="res://features/environment/components/interaction_area/interaction_area.tscn" id="3_48lgu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_static"]
 size = Vector3(4, 2, 4)
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_interaction"]
-height = 4.0
-radius = 5.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glow"]
-transparency = 1
-blend_mode = 1
-cull_mode = 2
-shading_mode = 0
-albedo_color = Color(0, 0.8, 1, 0.7)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_glow"]
-material = SubResource("StandardMaterial3D_glow")
-top_radius = 5.0
-bottom_radius = 5.0
-height = 1.0
-cap_top = false
-cap_bottom = false
-
 [node name="Dock" type="StaticBody3D" unique_id=1392596294]
+collision_mask = 0
 script = ExtResource("1_dock")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=900395434]
@@ -34,13 +17,12 @@ shape = SubResource("BoxShape3D_static")
 
 [node name="MeshInstance3D" parent="." unique_id=466868483 instance=ExtResource("2_mesh")]
 
-[node name="InteractionArea" type="Area3D" parent="." unique_id=1851406784]
-collision_layer = 0
-collision_mask = 4
+[node name="InteractionArea" parent="." unique_id=836147140 instance=ExtResource("3_48lgu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+height = 1.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=969383289]
-shape = SubResource("CylinderShape3D_interaction")
+[node name="MeshInstance3D" parent="InteractionArea" index="1" unique_id=1180284795]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0)
 
-[node name="GlowRing" type="MeshInstance3D" parent="InteractionArea" unique_id=1967613045]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2051351, 0)
-mesh = SubResource("CylinderMesh_glow")
+[editable path="MeshInstance3D"]
+[editable path="InteractionArea"]

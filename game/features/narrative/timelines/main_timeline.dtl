@@ -1,0 +1,9 @@
+# This will repeat until you say something
+join sand_witch center
+[text_input text="Let's hear you say something" var="user_response" placeholder="something" allow_empty="true"]
+if {user_response} != "something":
+	sand_witch: You have to say something!
+	[wait time="1.0"]
+	jump 
+else:
+	sand_witch: You said something!

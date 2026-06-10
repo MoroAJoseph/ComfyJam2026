@@ -112,14 +112,15 @@ func _process(delta: float) -> void:
 		_process_unlocked(delta)
 	
 	# Update context
-	Session.player_context.look_direction = -camera.global_transform.basis.z.normalized()
+	
+	Session.player_provider.update_look_direction(-camera.global_transform.basis.z.normalized())
 
 # ===
 # Private
 # ===
 
 func _update_zoom_values_from_boat(boat_type: Enums.BoatType) -> void:
-	var boat_data: BoatData = AssetProvider.get_boat_data(boat_type)
+	var boat_data: BoatData = AssetService.get_boat_data(boat_type)
 	if boat_data:
 		max_zoom = boat_data.max_zoom
 		min_zoom = boat_data.min_zoom

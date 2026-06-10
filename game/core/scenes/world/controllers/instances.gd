@@ -2,7 +2,7 @@ class_name WorldInstancesController
 extends Node
 
 @onready var sailors: Node3D = %Sailors
-@onready var docks: Node3D = %Docks
+@onready var blocks: Node3D = %Blocks
 
 # ===
 # Built-In
@@ -20,20 +20,22 @@ func _exit_tree() -> void:
 
 func _subscribe() -> void:
 	EventBus.subscribe(WorldEvent.SpawnPlayer, _handle_world_spawn_player)
+	EventBus.subscribe(WorldEvent.SpawnBlockItem, _handle_world_spawn_block_item)
 
 func _unsubscribe() -> void:
 	EventBus.unsubscribe(WorldEvent.SpawnPlayer, _handle_world_spawn_player)
+	EventBus.unsubscribe(WorldEvent.SpawnBlockItem, _handle_world_spawn_block_item)
 
 # ===
 # Public
 # ===
 
-func spawn_player(position: Vector3, rotation: Vector3) -> void:
-	var player: Player = AssetProvider.get_player_scene()
+func _spawn_player(world_location: Vector3, rotation: Vector3) -> void:
+	var player: Player = AssetService.get_player_scene()
 	
 	sailors.add_child(player)
 	
-	player.global_position = position
+	player.global_position = world_location
 	player.global_rotation = rotation
 	
 	EventBus.emit(
@@ -42,12 +44,26 @@ func spawn_player(position: Vector3, rotation: Vector3) -> void:
 		)
 	)
 
+func _spawn_block_item(item_data: BlockItemData, world_location: Vector3) -> void:
+	var block_item: BlockItem = AssetService.get_block_item_scene()
+	
+	block_item.data = item_data
+	blocks.add_child(block_item)
+	
+	block_item.global_position = world_location
+
 # ===
 # Event Handlers
 # ===
 
 func _handle_world_spawn_player(event: WorldEvent.SpawnPlayer) -> void:
-	spawn_player(
-		event.position, 
+	_spawn_player(
+		event.world_location, 
 		event.rotation
+	)
+
+func _handle_world_spawn_block_item(event: WorldEvent.SpawnBlockItem) -> void:
+	_spawn_block_item(
+		event.item_data,
+		event.world_location
 	)

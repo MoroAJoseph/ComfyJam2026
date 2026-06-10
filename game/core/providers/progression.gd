@@ -1,8 +1,12 @@
 class_name ProgressionProvider
-extends RefCounted
+extends ContextProvider
 
 var context: ProgressionContext
 var player_context: PlayerContext
+
+# ===
+# Built-In
+# ===
 
 func _init(
 	p_context: ProgressionContext, 
@@ -10,6 +14,10 @@ func _init(
 ) -> void:
 	context = p_context
 	player_context = p_player
+
+# ===
+# Public
+# ===
 
 func add_chest(type: Enums.ChestType) -> void:
 	context.chest_queue.append(type)
@@ -21,11 +29,15 @@ func claim_next_chest() -> void:
 	_reward_chest(type)
 	context.chest_queue_updated.emit(context.chest_queue)
 
+# ===
+# Private
+# ===
+
 func _reward_chest(type: Enums.ChestType) -> void:
 	var roll := randf()
 	var cumulative_prob := 0.0
 	
-	var data: ChestData = AssetProvider.get_chest_data(type)
+	var data: ChestData = AssetService.get_chest_data(type)
 	var table := data.rarity_drop_table
 	
 	var selected_rarity: Enums.RarityType
