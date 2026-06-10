@@ -35,7 +35,10 @@ directories/dch_directory={
 "sand_witch": "res://features/narrative/characters/sand_witch.dch"
 }
 directories/dtl_directory={
-"main_timeline": "res://features/narrative/timelines/main_timeline.dtl"
+"log_page_1_1": "res://features/narrative/timelines/navigator_logs/log_page_1_1.dtl",
+"log_page_2_3": "res://features/narrative/timelines/navigator_logs/log_page_2_3.dtl",
+"main_timeline": "res://features/narrative/timelines/main_timeline.dtl",
+"sand_witch_first_meet": "res://features/narrative/timelines/sand_witch_first_meet.dtl"
 }
 layout/style_directory={
 "": "res://features/narrative/styles/main_style.tres",
@@ -169,3 +172,5 @@ locale/translations_pot_files=PackedStringArray("res://features/narrative/dialog
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

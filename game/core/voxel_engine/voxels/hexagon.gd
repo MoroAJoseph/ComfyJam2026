@@ -28,13 +28,14 @@ static func get_single_voxel_geometry(
 	coordinates: Vector3i,
 	registry: Dictionary,
 	size: int,
-	color: Color
+	colors: PackedColorArray
 ) -> Dictionary:
 	var vertices := PackedVector3Array()
 	var normals := PackedVector3Array()
-	var colors := PackedColorArray()
+	var result_colors := PackedColorArray()
 	var uvs := PackedVector2Array()
 	
+	var voxel_color = colors[0] if not colors.is_empty() else Color.WHITE
 	var scale := 1.0
 	var height := 1.0
 	var center := Vector3.ZERO
@@ -43,9 +44,9 @@ static func get_single_voxel_geometry(
 	var top_points := _get_hex_points(center, scale, height / 2.0)
 
 	if _is_air(voxel.x, voxel.y + 1, voxel.z, data, coordinates, registry, size):
-		_add_cap(top_points, true, color, vertices, normals, colors)
+		_add_cap(top_points, true, voxel_color, vertices, normals, result_colors)
 	if _is_air(voxel.x, voxel.y - 1, voxel.z, data, coordinates, registry, size):
-		_add_cap(base_points, false, color, vertices, normals, colors)
+		_add_cap(base_points, false, voxel_color, vertices, normals, result_colors)
 
 	for index in range(6):
 		var offset: Vector3i = FACE_TO_NEIGHBOR[index]
@@ -53,9 +54,14 @@ static func get_single_voxel_geometry(
 			var next_index := (index + 1) % 6
 			var normal := (base_points[index] + base_points[next_index] - (center * 2.0)).normalized()
 			normal.y = 0.0
-			_add_side(base_points[index], base_points[next_index], top_points[next_index], top_points[index], normal, color, vertices, normals, colors)
+			_add_side(base_points[index], base_points[next_index], top_points[next_index], top_points[index], normal, voxel_color, vertices, normals, result_colors)
 	
-	return {"vertices": vertices, "normals": normals, "colors": colors, "uvs": uvs}
+	return {
+		"vertices": vertices, 
+		"normals": normals, 
+		"colors": result_colors, 
+		"uvs": uvs
+	}
 
 ## Builds the mesh geometry for an entire chunk of hexagonal voxels.
 static func calculate_geometry(
@@ -63,11 +69,10 @@ static func calculate_geometry(
 	coordinates: Vector3i,
 	registry: Dictionary,
 	size: int,
-	colors: Array[Color]
+	colors: PackedColorArray
 ) -> Dictionary:
 	var vertices := PackedVector3Array()
 	var normals := PackedVector3Array()
-	var color_array := PackedColorArray()
 	var uvs := PackedVector2Array()
 	
 	for x in range(size):
@@ -87,9 +92,9 @@ static func calculate_geometry(
 				var top_points := _get_hex_points(center, 1.0, 0.5)
 				
 				if _is_air(x, y + 1, z, data, coordinates, registry, size):
-					_add_cap(top_points, true, voxel_color, vertices, normals, color_array)
+					_add_cap(top_points, true, voxel_color, vertices, normals, colors)
 				if _is_air(x, y - 1, z, data, coordinates, registry, size):
-					_add_cap(base_points, false, voxel_color, vertices, normals, color_array)
+					_add_cap(base_points, false, voxel_color, vertices, normals, colors)
 					
 				for i in range(6):
 					var offset: Vector3i = FACE_TO_NEIGHBOR[i]
@@ -97,12 +102,12 @@ static func calculate_geometry(
 						var next_index := (i + 1) % 6
 						var normal := (base_points[i] + base_points[next_index] - (center * 2.0)).normalized()
 						normal.y = 0.0
-						_add_side(base_points[i], base_points[next_index], top_points[next_index], top_points[i], normal, voxel_color, vertices, normals, color_array)
+						_add_side(base_points[i], base_points[next_index], top_points[next_index], top_points[i], normal, voxel_color, vertices, normals, colors)
 	
 	return {
 		"vertices": vertices, 
 		"normals": normals, 
-		"colors": color_array, 
+		"colors": colors, 
 		"uvs": uvs
 	}
 
