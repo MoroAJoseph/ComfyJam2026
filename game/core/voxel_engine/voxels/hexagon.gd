@@ -45,6 +45,34 @@ static func get_single_voxel_geometry(
 		"uvs": uvs
 	}
 
+static func get_single_textured_voxel_geometry(block_type: int) -> Dictionary:
+	var vertices := PackedVector3Array()
+	var normals := PackedVector3Array()
+	var tangents := PackedFloat32Array()
+	var uvs := PackedVector2Array()
+	
+	var tex_id: int = VoxelEngineConstants.BLOCK_TO_TEXTURE_INDEX.get(block_type, 0)
+	var center := Vector3.ZERO
+	var base_points := _get_hex_points(center, 1.0, -0.5)
+	var top_points := _get_hex_points(center, 1.0, 0.5)
+
+	# For a dropped item, we render all faces
+	_add_textured_cap(top_points, true, tex_id, vertices, normals, tangents, uvs)
+	_add_textured_cap(base_points, false, tex_id, vertices, normals, tangents, uvs)
+	
+	for i in range(6):
+		var next_idx := (i + 1) % 6
+		var normal := (base_points[i] + base_points[next_idx] - (center * 2.0)).normalized()
+		normal.y = 0.0
+		_add_textured_side(base_points[i], base_points[next_idx], top_points[next_idx], top_points[i], normal, tex_id, vertices, normals, tangents, uvs)
+	
+	return {
+		"vertices": vertices, 
+		"normals": normals, 
+		"tangents": tangents,
+		"uvs": uvs
+	}
+
 ## Builds the mesh geometry for an entire chunk of hexagonal voxels.
 static func calculate_geometry(
 	data: PackedByteArray,

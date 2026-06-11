@@ -43,3 +43,8 @@ layout_mode = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Minimap" type="Control" parent="SafeArea/Content" unique_id=500192140]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

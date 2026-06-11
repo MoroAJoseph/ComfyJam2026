@@ -36,10 +36,12 @@ func _exit_tree() -> void:
 
 func _subscribe() -> void:
 	EventBus.subscribe(WorldEvent.LandGenerated, _handle_world_land_generated)
+	EventBus.subscribe(WorldEvent.BlockDestroyed, _handle_world_block_destroyed)
 
 func _unsubscribe() -> void:
 	EventBus.unsubscribe(WorldEvent.LandGenerated, _handle_world_land_generated)
-	
+	EventBus.unsubscribe(WorldEvent.BlockDestroyed, _handle_world_block_destroyed)
+
 # ===
 # Event Handlers
 # ===
@@ -53,6 +55,15 @@ func _handle_world_land_generated(_event: WorldEvent.LandGenerated) -> void:
 		)
 	)
 
-func _handle_player_spawned() -> void:
-	# world ready, hide loading screen
-	pass
+func _handle_world_block_destroyed(event: WorldEvent.BlockDestroyed) -> void:
+	var block_item_data: BlockItemData = BlockItemData.new(
+		event.type,
+		1 # TODO: Some tools may increase this quantity
+	)
+	
+	EventBus.emit(
+		WorldEvent.SpawnBlockItem.new(
+			block_item_data,
+			event.world_location
+		)
+	)

@@ -20,7 +20,7 @@ static func get_single_voxel_geometry(
 	var voxel_color = colors[0] if not colors.is_empty() else Color.WHITE
 
 	for face_index in range(6):
-		var face_key: VoxelEngineEnums.CubeFace = VoxelEngineEnums.CubeFace.values()[face_index]
+		var face_key: VoxelEnums.CubeFace = VoxelEnums.CubeFace.values()[face_index]
 		var normal: Vector3 = VoxelEngineConstants.Cube.FACE_NORMALS[face_key]
 		var neighbor: Vector3i = voxel + Vector3i(normal)
 
@@ -143,7 +143,7 @@ static func calculate_geometry(
 					continue
 				
 				for face_index in range(6):
-					var face_key: VoxelEngineEnums.CubeFace = VoxelEngineEnums.CubeFace.values()[face_index]
+					var face_key: VoxelEnums.CubeFace = VoxelEnums.CubeFace.values()[face_index]
 					var normal: Vector3 = VoxelEngineConstants.Cube.FACE_NORMALS[face_key]
 					var neighbor_x: int = x + int(normal.x)
 					var neighbor_y: int = y + int(normal.y)

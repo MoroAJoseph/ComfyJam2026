@@ -1,5 +1,7 @@
 class_name VoxelEngineChunkManager extends Node3D
 
+signal block_removed(block_type: Enums.BlockType,global_pos: Vector3i)
+
 @export_group("Generation Settings")
 @export var use_hexagons: bool = false
 @export var use_collision: bool = false
@@ -175,9 +177,16 @@ func remove_voxel(chunk_coord: Vector3i, local_voxel: Vector3i) -> void:
 	var data = chunks_data.get(chunk_coord)
 	if not data: return
 	
-	# Update Logical Data
 	var idx = logic_class.get_index(local_voxel.x, local_voxel.y, local_voxel.z, chunk_size)
+	
+	var block_type: Enums.BlockType = data[idx] as Enums.BlockType
+	
+	var chunk_origin = logic_class.chunk_to_world(chunk_coord, chunk_size)
+	var global_pos = logic_class.voxel_to_world(local_voxel, chunk_origin)
+	
 	data[idx] = 0
+	
+	block_removed.emit(block_type, global_pos)
 	
 	_process_mesh(chunk_coord, data)
 
