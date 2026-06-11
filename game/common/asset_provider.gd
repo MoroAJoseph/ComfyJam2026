@@ -64,6 +64,15 @@ static func get_settings_save_data() -> SettingsSaveData:
 		SettingsSaveData
 	) as SettingsSaveData
 
+# --- Special Items ---
+static func get_special_item_data(type: Enums.SpecialItemType) -> SpecialItemData:
+	return AssetLoader.load_resource_from_table(
+		type,
+		Constants.Paths.Data.SPECIAL_ITEMS_TABLE,
+		Enums.SpecialItemType.keys(),
+		SpecialItemData
+	) as SpecialItemData
+
 # --- Boats ---
 static func get_boat_scene(type: Enums.BoatType) -> Boat:
 	return AssetLoader.load_scene_from_table(

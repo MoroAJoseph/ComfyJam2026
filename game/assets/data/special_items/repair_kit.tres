@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SpecialItem" format=3 uid="uid://f0c2l22k0o5s"]
+
+[ext_resource type="Script" uid="uid://bdn4jwbdr5cpa" path="res://common/dataclasses/special_item.gd" id="1_1lcu5"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1lcu5"]
+size = Vector2(48, 48)
+
+[resource]
+script = ExtResource("1_1lcu5")
+display_name = "Repair Kit"
+icon = SubResource("PlaceholderTexture2D_1lcu5")
+description = "Restores 50% of your boat's durability"
+buy_price = 2500
+sell_price = 1800
+metadata/_custom_type_script = "uid://bdn4jwbdr5cpa"

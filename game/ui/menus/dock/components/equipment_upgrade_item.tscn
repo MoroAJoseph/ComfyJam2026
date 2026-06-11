@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cr7kys22l017q"]
 
-[ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_w3nlo"]
-[ext_resource type="Script" uid="uid://b3om0b1rtvcuf" path="res://ui/menus/dock/components/boat_upgrade_item.gd" id="1_x71f5"]
-[ext_resource type="PackedScene" uid="uid://dsdnvdetcykwa" path="res://ui/menus/dock/components/equipment_stat_item.tscn" id="2_5xp6b"]
+[ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_v4cen"]
+[ext_resource type="Script" uid="uid://buy1j0tsgnrrr" path="res://ui/menus/dock/components/equipment_upgrade_item.gd" id="2_v4cen"]
+[ext_resource type="PackedScene" uid="uid://dsdnvdetcykwa" path="res://ui/menus/dock/components/equipment_stat_item.tscn" id="3_6qomo"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5xp6b"]
 
@@ -56,11 +56,10 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="BoatUpgradeItem" type="MarginContainer" unique_id=383072146]
-theme = ExtResource("1_w3nlo")
-script = ExtResource("1_x71f5")
-equipment_stat_item_scene = ExtResource("2_5xp6b")
-boat_icon = SubResource("PlaceholderTexture2D_5xp6b")
+[node name="EquipmentUpgradeItem" type="MarginContainer" unique_id=383072146]
+theme = ExtResource("1_v4cen")
+script = ExtResource("2_v4cen")
+equipment_stat_item_scene = ExtResource("3_6qomo")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1368152563]
 layout_mode = 2

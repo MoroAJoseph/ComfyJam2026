@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://b5211ggyo10dl"]
+
+[ext_resource type="Script" uid="uid://ddv56ncsidrbs" path="res://ui/menus/dock/components/selected_equipment_stat_item.gd" id="1_4hbpn"]
+[ext_resource type="PackedScene" uid="uid://c6us3mpc7yeng" path="res://ui/menus/dock/components/equipment_stat_level_item.tscn" id="1_dshsh"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rslbr"]
+size = Vector2(16, 16)
+
+[node name="SelectedEquipmentStatItem" type="MarginContainer" unique_id=1767392474]
+script = ExtResource("1_4hbpn")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=720115499]
+layout_mode = 2
+alignment = 1
+
+[node name="IconAndName" type="HBoxContainer" parent="HBoxContainer" unique_id=890726561]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="IconMargin" type="MarginContainer" parent="HBoxContainer/IconAndName" unique_id=373918567]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Icon" type="TextureRect" parent="HBoxContainer/IconAndName/IconMargin" unique_id=956619354]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_rslbr")
+
+[node name="Name" type="Label" parent="HBoxContainer/IconAndName" unique_id=722400908]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Speed"
+
+[node name="Levels" type="HBoxContainer" parent="HBoxContainer" unique_id=256910325]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+alignment = 1
+
+[node name="EquipmentStatLevelItem" parent="HBoxContainer/Levels" unique_id=1297265026 instance=ExtResource("1_dshsh")]
+layout_mode = 2
+
+[node name="EquipmentStatLevelItem2" parent="HBoxContainer/Levels" unique_id=227888371 instance=ExtResource("1_dshsh")]
+layout_mode = 2
+
+[node name="EquipmentStatLevelItem3" parent="HBoxContainer/Levels" unique_id=592439382 instance=ExtResource("1_dshsh")]
+layout_mode = 2
+
+[node name="EquipmentStatLevelItem4" parent="HBoxContainer/Levels" unique_id=1467355360 instance=ExtResource("1_dshsh")]
+layout_mode = 2
+
+[node name="EquipmentStatLevelItem5" parent="HBoxContainer/Levels" unique_id=1057389760 instance=ExtResource("1_dshsh")]
+layout_mode = 2
+
+[node name="Difference" type="Label" parent="HBoxContainer" unique_id=1261908371]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "+2"
+horizontal_alignment = 2
+vertical_alignment = 1

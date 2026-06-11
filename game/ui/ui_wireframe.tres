@@ -1,7 +1,16 @@
 [gd_resource type="Theme" format=3 uid="uid://bhfpo06nr1oxg"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghehd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcjh1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mtoyd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpqo7"]
+bg_color = Color(0.3137255, 0.3764706, 0.38039216, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e71xt"]
-bg_color = Color(0.23753911, 0.23753914, 0.23753911, 1)
+bg_color = Color(0.9019608, 0.8156863, 0.6666667, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -12,6 +21,37 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6fe18"]
+bg_color = Color(0.8352941, 0.73333335, 0.5686275, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5176471, 0.47058824, 0.39607844, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7pim6"]
+bg_color = Color(0.77254903, 0.6666667, 0.5137255, 1)
+border_color = Color(0.22586796, 0.20248514, 0.158005, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [resource]
-MainPanelContainer/base_type = &"PanelContainer"
-MainPanelContainer/styles/panel = SubResource("StyleBoxFlat_e71xt")
+BuyButton/base_type = &"Button"
+BuyButton/styles/disabled = SubResource("StyleBoxFlat_ghehd")
+BuyButton/styles/focus = SubResource("StyleBoxFlat_tcjh1")
+BuyButton/styles/hover = SubResource("StyleBoxFlat_mtoyd")
+BuyButton/styles/normal = SubResource("StyleBoxFlat_hpqo7")
+FirstPanelContainer/base_type = &"PanelContainer"
+FirstPanelContainer/styles/panel = SubResource("StyleBoxFlat_e71xt")
+SecondPanelContainer/base_type = &"PanelContainer"
+SecondPanelContainer/styles/panel = SubResource("StyleBoxFlat_6fe18")
+ThirdPanelContainer/base_type = &"PanelContainer"
+ThirdPanelContainer/styles/panel = SubResource("StyleBoxFlat_7pim6")

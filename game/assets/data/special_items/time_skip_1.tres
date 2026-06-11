@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SpecialItemData" format=3 uid="uid://ca2oo6h6h4dqr"]
+
+[ext_resource type="Script" uid="uid://bdn4jwbdr5cpa" path="res://common/dataclasses/special_item.gd" id="1_cufkp"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cufkp"]
+size = Vector2(48, 48)
+
+[resource]
+script = ExtResource("1_cufkp")
+type = 1
+display_name = "Time Skip (1Day)"
+icon = SubResource("PlaceholderTexture2D_cufkp")
+description = "Skip to the next day. Market will change."
+buy_price = 3000
+can_sell = null
+metadata/_custom_type_script = "uid://bdn4jwbdr5cpa"

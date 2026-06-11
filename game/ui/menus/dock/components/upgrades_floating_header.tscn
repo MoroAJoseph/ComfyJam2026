@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://b3tvmwv4vvg5x"]
+
+[ext_resource type="Script" uid="uid://bi7s47xo7k0in" path="res://ui/menus/dock/components/upgrades_floating_header.gd" id="1_kxf5o"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kefrg"]
+size = Vector2(48, 48)
+
+[node name="FloatingHeader" type="MarginContainer" unique_id=1843669118]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -62.0
+offset_right = 62.0
+offset_bottom = 40.0
+grow_horizontal = 2
+script = ExtResource("1_kxf5o")
+title = "Upgrades"
+icon = SubResource("PlaceholderTexture2D_kefrg")
+
+[node name="Control" type="Control" parent="." unique_id=505089053]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=66874050]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -62.0
+offset_top = -10.0
+offset_right = 62.0
+offset_bottom = 30.0
+grow_horizontal = 2
+theme_type_variation = &"MainPanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer" unique_id=1501233035]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer/MarginContainer" unique_id=197654848]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="IconMargin" type="MarginContainer" parent="Control/PanelContainer/MarginContainer/HBoxContainer" unique_id=789570790]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="UpgradeIcon" type="TextureRect" parent="Control/PanelContainer/MarginContainer/HBoxContainer/IconMargin" unique_id=170979449]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_kefrg")
+
+[node name="Title" type="Label" parent="Control/PanelContainer/MarginContainer/HBoxContainer" unique_id=1788589537]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Upgrades"

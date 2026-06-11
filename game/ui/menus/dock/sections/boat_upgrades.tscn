@@ -2,7 +2,12 @@
 
 [ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_8q2jq"]
 [ext_resource type="Script" uid="uid://c22gp3j55sewo" path="res://ui/menus/dock/sections/boat_upgrades.gd" id="2_jledn"]
-[ext_resource type="PackedScene" uid="uid://cr7kys22l017q" path="res://ui/menus/dock/components/boat_upgrade_item.tscn" id="3_6qd7q"]
+[ext_resource type="PackedScene" uid="uid://cr7kys22l017q" path="res://ui/menus/dock/components/equipment_upgrade_item.tscn" id="3_6qd7q"]
+[ext_resource type="PackedScene" uid="uid://vce760osmsds" path="res://ui/menus/dock/components/upgrades_owned_header.tscn" id="4_328v4"]
+[ext_resource type="PackedScene" uid="uid://b3tvmwv4vvg5x" path="res://ui/menus/dock/components/upgrades_floating_header.tscn" id="4_ts5ae"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ts5ae"]
+size = Vector2(24, 24)
 
 [node name="BoatUpgrades" type="PanelContainer" unique_id=164348298]
 anchors_preset = 15
@@ -16,7 +21,6 @@ size_flags_vertical = 3
 theme = ExtResource("1_8q2jq")
 theme_type_variation = &"MainPanelContainer"
 script = ExtResource("2_jledn")
-boat_upgrade_item_scene = ExtResource("3_6qd7q")
 boat_ownership_status = Dictionary[int, bool]({
 0: false,
 1: false,
@@ -24,11 +28,14 @@ boat_ownership_status = Dictionary[int, bool]({
 3: true,
 4: true
 })
+equipment_upgrade_item_scene = ExtResource("3_6qd7q")
+icon = SubResource("PlaceholderTexture2D_ts5ae")
+header_title = "BoatUpgrades"
 
 [node name="Control" type="Control" parent="." unique_id=186406261]
 layout_mode = 2
 
-[node name="Content" type="MarginContainer" parent="Control" unique_id=675562625]
+[node name="Content" type="MarginContainer" parent="Control" unique_id=233130337]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,100 +47,29 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/Content" unique_id=1934991466]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Content" unique_id=1072391976]
 layout_mode = 2
 
-[node name="Header" type="MarginContainer" parent="Control/Content/VBoxContainer" unique_id=124804502]
-layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
-
-[node name="OwnedCount" type="HBoxContainer" parent="Control/Content/VBoxContainer/Header" unique_id=70969935]
-layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 2
-
-[node name="Title" type="Label" parent="Control/Content/VBoxContainer/Header/OwnedCount" unique_id=319831782]
-layout_mode = 2
-text = "Owned"
-
-[node name="PanelContainer" type="PanelContainer" parent="Control/Content/VBoxContainer/Header/OwnedCount" unique_id=1474707118]
-layout_mode = 2
-theme_type_variation = &"MainPanelContainer"
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/Content/VBoxContainer/Header/OwnedCount/PanelContainer" unique_id=1456699803]
-layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 8
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/Content/VBoxContainer/Header/OwnedCount/PanelContainer/MarginContainer" unique_id=1906305317]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="CurrentOwnedCount" type="Label" parent="Control/Content/VBoxContainer/Header/OwnedCount/PanelContainer/MarginContainer/HBoxContainer" unique_id=1011867871]
+[node name="Header" parent="Control/Content/VBoxContainer" unique_id=310316349 instance=ExtResource("4_328v4")]
 unique_name_in_owner = true
 layout_mode = 2
-text = "2"
 
-[node name="_" type="Label" parent="Control/Content/VBoxContainer/Header/OwnedCount/PanelContainer/MarginContainer/HBoxContainer" unique_id=298970886]
-layout_mode = 2
-text = "/"
-
-[node name="TotalOwnableCount" type="Label" parent="Control/Content/VBoxContainer/Header/OwnedCount/PanelContainer/MarginContainer/HBoxContainer" unique_id=206722566]
-unique_name_in_owner = true
-layout_mode = 2
-text = "5"
-
-[node name="Body" type="MarginContainer" parent="Control/Content/VBoxContainer" unique_id=449415972]
+[node name="Body" type="MarginContainer" parent="Control/Content/VBoxContainer" unique_id=808090965]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Control/Content/VBoxContainer/Body" unique_id=1771123702]
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/Content/VBoxContainer/Body" unique_id=679136743]
 layout_mode = 2
 
-[node name="ItemsContainer" type="VBoxContainer" parent="Control/Content/VBoxContainer/Body/ScrollContainer" unique_id=894308949]
+[node name="ItemsContainer" type="VBoxContainer" parent="Control/Content/VBoxContainer/Body/ScrollContainer" unique_id=602511112]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="FloatingHeader" type="MarginContainer" parent="Control" unique_id=1678157250]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -62.0
-offset_right = 62.0
-offset_bottom = 40.0
-grow_horizontal = 2
-
-[node name="Control" type="Control" parent="Control/FloatingHeader" unique_id=1160075834]
-layout_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="Control/FloatingHeader/Control" unique_id=1274816558]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -62.0
-offset_top = -10.0
-offset_right = 62.0
-offset_bottom = 30.0
-grow_horizontal = 2
-theme_type_variation = &"MainPanelContainer"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/FloatingHeader/Control/PanelContainer" unique_id=2110716463]
-layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="BoatUpgradesIcon" type="TextureRect" parent="Control/FloatingHeader/Control/PanelContainer/HBoxContainer" unique_id=598868655]
+[node name="FloatingHeader" parent="Control" unique_id=1843669118 instance=ExtResource("4_ts5ae")]
 unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Title" type="Label" parent="Control/FloatingHeader/Control/PanelContainer/HBoxContainer" unique_id=1877006603]
-layout_mode = 2
-text = "Boat Upgrades"
+layout_mode = 1
+title = "BoatUpgrades"
+icon = SubResource("PlaceholderTexture2D_ts5ae")

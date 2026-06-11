@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://bftyw6t85ndqu"]
+
+[ext_resource type="Script" uid="uid://8fhmkf0wlo3g" path="res://ui/menus/dock/components/special_item.gd" id="1_lcpb0"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4y8xm"]
+size = Vector2(64, 64)
+
+[node name="SpecialItem" type="PanelContainer" unique_id=1239730259]
+size_flags_horizontal = 3
+theme_type_variation = &"ThirdPanelContainer"
+script = ExtResource("1_lcpb0")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1424244090]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1270977655]
+layout_mode = 2
+
+[node name="Identity" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1451632309]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="IconMargin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Identity" unique_id=424939666]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/VBoxContainer/Identity/IconMargin" unique_id=1246574179]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4y8xm")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Identity" unique_id=1075047701]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="Name" type="Label" parent="MarginContainer/VBoxContainer/Identity/VBoxContainer" unique_id=450285641]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Repair Kit"
+
+[node name="Description" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Identity/VBoxContainer" unique_id=822453051]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Restores 50% of your boat's durability."
+fit_content = true
+
+[node name="Purchase" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=678359769]
+layout_mode = 2
+alignment = 1
+
+[node name="Price" type="MarginContainer" parent="MarginContainer/VBoxContainer/Purchase" unique_id=430521856]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Purchase/Price" unique_id=224793566]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Purchase/Price/HBoxContainer" unique_id=3620185]
+layout_mode = 2
+
+[node name="CoinIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/Purchase/Price/HBoxContainer/MarginContainer" unique_id=540591550]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BuyPrice" type="Label" parent="MarginContainer/VBoxContainer/Purchase/Price/HBoxContainer" unique_id=345450888]
+unique_name_in_owner = true
+layout_mode = 2
+text = "2,500"
+
+[node name="BuyMargin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Purchase" unique_id=1147913967]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="BuyButton" type="Button" parent="MarginContainer/VBoxContainer/Purchase/BuyMargin" unique_id=1301377886]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+theme_type_variation = &"BuyButton"
+text = "Buy"

@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://vce760osmsds"]
+
+[ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_d02s7"]
+[ext_resource type="Script" uid="uid://7scidyv4f1nw" path="res://ui/menus/dock/components/upgrades_owned_header.gd" id="2_fh3i3"]
+
+[node name="Header" type="MarginContainer" unique_id=310316349]
+offset_right = 172.0
+offset_bottom = 57.0
+size_flags_horizontal = 3
+theme = ExtResource("1_d02s7")
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+script = ExtResource("2_fh3i3")
+
+[node name="OwnedCount" type="HBoxContainer" parent="." unique_id=1685522032]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 2
+
+[node name="Title" type="Label" parent="OwnedCount" unique_id=1303550966]
+layout_mode = 2
+text = "Owned"
+
+[node name="PanelContainer" type="PanelContainer" parent="OwnedCount" unique_id=1298476200]
+layout_mode = 2
+theme_type_variation = &"MainPanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="OwnedCount/PanelContainer" unique_id=1949180562]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OwnedCount/PanelContainer/MarginContainer" unique_id=2019307184]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CurrentOwnedCount" type="Label" parent="OwnedCount/PanelContainer/MarginContainer/HBoxContainer" unique_id=1160511665]
+unique_name_in_owner = true
+layout_mode = 2
+text = "2"
+
+[node name="_" type="Label" parent="OwnedCount/PanelContainer/MarginContainer/HBoxContainer" unique_id=587881819]
+layout_mode = 2
+text = "/"
+
+[node name="TotalOwnableCount" type="Label" parent="OwnedCount/PanelContainer/MarginContainer/HBoxContainer" unique_id=1691474457]
+unique_name_in_owner = true
+layout_mode = 2
+text = "5"

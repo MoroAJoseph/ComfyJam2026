@@ -39,6 +39,15 @@ class Paths:
 		const USER_GAME_AUTOSAVES_DIR: String = USER_SAVES_DIR + "games/autosave/"
 		const USER_SETTINGS_SAVE: String = USER_SAVES_DIR + "settings.tres"
 		
+		# --- Special Items ---
+		const SPECIAL_ITEMS_DIR: String = BASE_DIR + "special_items/"
+		const SPECIAL_ITEMS_TABLE: Dictionary[Enums.SpecialItemType, String] = {
+			Enums.SpecialItemType.REPAIR_KIT: SPECIAL_ITEMS_DIR + "repair_kit.tres",
+			Enums.SpecialItemType.TIME_SKIP_1: SPECIAL_ITEMS_DIR + "time_skip_1.tres",
+			Enums.SpecialItemType.TIME_SKIP_2: SPECIAL_ITEMS_DIR + "time_skip_2.tres",
+			Enums.SpecialItemType.TIME_SKIP_3: SPECIAL_ITEMS_DIR + "time_skip_3.tres",
+		}
+		
 		# --- Boats ---
 		const BOATS_DIR: String = BASE_DIR + "boats/"
 		const BOATS_TABLE: Dictionary[Enums.BoatType, String] = {
@@ -113,8 +122,6 @@ const CHEST_REWARD_MATRIX: Dictionary[Vector2i, Vector2i] = {
 	Vector2i(Enums.ChestType.MYSTIC, Enums.RarityType.EPIC):      Vector2i(500, 700),
 	Vector2i(Enums.ChestType.MYSTIC, Enums.RarityType.LEGENDARY): Vector2i(2000, 3000)
 }
-
-
 
 class PhysicsLayer:
 	

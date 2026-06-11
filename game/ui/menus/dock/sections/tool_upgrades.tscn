@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://clmv4kvsduedx"]
+
+[ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_0v3uw"]
+[ext_resource type="Script" uid="uid://nmy7ul1535rb" path="res://ui/menus/dock/sections/tool_upgrades.gd" id="1_gr6r6"]
+[ext_resource type="PackedScene" uid="uid://vce760osmsds" path="res://ui/menus/dock/components/upgrades_owned_header.tscn" id="2_0v3uw"]
+[ext_resource type="PackedScene" uid="uid://cr7kys22l017q" path="res://ui/menus/dock/components/equipment_upgrade_item.tscn" id="3_7oav6"]
+[ext_resource type="PackedScene" uid="uid://b3tvmwv4vvg5x" path="res://ui/menus/dock/components/upgrades_floating_header.tscn" id="3_uvrbr"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rt5qi"]
+size = Vector2(16, 16)
+
+[node name="ToolUpgrades" type="PanelContainer" unique_id=1976781886]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1280.0
+offset_bottom = -540.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme = ExtResource("1_0v3uw")
+theme_type_variation = &"MainPanelContainer"
+script = ExtResource("1_gr6r6")
+equipment_upgrade_item_scene = ExtResource("3_7oav6")
+icon = SubResource("PlaceholderTexture2D_rt5qi")
+header_title = "Tool Upgrades"
+
+[node name="Control" type="Control" parent="." unique_id=596557687]
+layout_mode = 2
+
+[node name="Content" type="MarginContainer" parent="Control" unique_id=749762187]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Content" unique_id=2039841856]
+layout_mode = 2
+
+[node name="Header" parent="Control/Content/VBoxContainer" unique_id=310316349 instance=ExtResource("2_0v3uw")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Body" type="MarginContainer" parent="Control/Content/VBoxContainer" unique_id=699174138]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/Content/VBoxContainer/Body" unique_id=1839295278]
+layout_mode = 2
+
+[node name="ItemsContainer" type="VBoxContainer" parent="Control/Content/VBoxContainer/Body/ScrollContainer" unique_id=1904128711]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="FloatingHeader" parent="Control" unique_id=1843669118 instance=ExtResource("3_uvrbr")]
+unique_name_in_owner = true
+layout_mode = 1
+title = "Tool Upgrades"
+icon = SubResource("PlaceholderTexture2D_rt5qi")

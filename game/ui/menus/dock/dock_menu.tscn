@@ -3,8 +3,23 @@
 [ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_theme"]
 [ext_resource type="Script" uid="uid://byy5l82jovolo" path="res://ui/menus/dock/dock_menu.gd" id="2_script"]
 [ext_resource type="PackedScene" uid="uid://bui5j3ivt5ky1" path="res://ui/menus/dock/sections/boat_upgrades.tscn" id="3_jy8he"]
+[ext_resource type="PackedScene" uid="uid://clmv4kvsduedx" path="res://ui/menus/dock/sections/tool_upgrades.tscn" id="4_6hqma"]
+[ext_resource type="PackedScene" uid="uid://5xnbjp7rrmyn" path="res://ui/menus/dock/sections/selected_equipment.tscn" id="5_d47h5"]
+[ext_resource type="PackedScene" uid="uid://b5j0erft5b2wm" path="res://ui/menus/dock/sections/special_items.tscn" id="6_6qwtg"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_6hqma"]
+size = Vector2(48, 48)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ux7cr"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_d47h5"]
+size = Vector2(48, 48)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_6qwtg"]
+size = Vector2(16, 16)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rslbr"]
+size = Vector2(128, 128)
 
 [node name="DockMenu" type="Control" unique_id=1410093816]
 layout_mode = 3
@@ -15,6 +30,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_theme")
 script = ExtResource("2_script")
+icon = SubResource("PlaceholderTexture2D_6hqma")
+dock_name = "Ocean's Envy"
+dock_slogan = "Where sailors come to die"
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=932193273]
 layout_mode = 1
@@ -47,6 +65,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 16
 
 [node name="Header" type="MarginContainer" parent="SafeArea/Control/VBoxContainer" unique_id=1701916997]
 layout_mode = 2
@@ -68,18 +87,66 @@ texture = SubResource("PlaceholderTexture2D_ux7cr")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer/DockIdentity" unique_id=1710993898]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="DockName" type="Label" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer/DockIdentity/VBoxContainer" unique_id=2051645649]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Dock Name"
+vertical_alignment = 1
 
 [node name="DockSlogan" type="Label" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer/DockIdentity/VBoxContainer" unique_id=585260682]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Dock Slogan"
+vertical_alignment = 1
 
 [node name="PlayerControl" type="HBoxContainer" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer" unique_id=650526942]
 layout_mode = 2
 size_flags_horizontal = 3
+alignment = 2
+
+[node name="PlayerGoldMargin" type="MarginContainer" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer/PlayerControl" unique_id=177615060]
+layout_mode = 2
+
+[node name="PlayerGold" type="PanelContainer" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer/PlayerControl/PlayerGoldMargin" unique_id=1590128877]
+layout_mode = 2
+theme_type_variation = &"MainPanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer/PlayerControl/PlayerGoldMargin/PlayerGold" unique_id=905167921]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer/PlayerControl/PlayerGoldMargin/PlayerGold/MarginContainer" unique_id=189962701]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="GoldIconMargin" type="MarginContainer" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer/PlayerControl/PlayerGoldMargin/PlayerGold/MarginContainer/HBoxContainer" unique_id=1969676751]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="GoldIcon" type="TextureRect" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer/PlayerControl/PlayerGoldMargin/PlayerGold/MarginContainer/HBoxContainer/GoldIconMargin" unique_id=41452585]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_d47h5")
+
+[node name="CurrentGold" type="Label" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer/PlayerControl/PlayerGoldMargin/PlayerGold/MarginContainer/HBoxContainer" unique_id=252819040]
+unique_name_in_owner = true
+layout_mode = 2
+text = "20,000"
+
+[node name="CloseButtonMargin" type="MarginContainer" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer/PlayerControl" unique_id=579645779]
+layout_mode = 2
+
+[node name="Close" type="Button" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer/PlayerControl/CloseButtonMargin" unique_id=1739338567]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+text = "X"
 
 [node name="Body" type="MarginContainer" parent="SafeArea/Control/VBoxContainer" unique_id=1273780008]
 layout_mode = 2
@@ -87,7 +154,7 @@ size_flags_vertical = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="SafeArea/Control/VBoxContainer/Body" unique_id=1995478827]
 layout_mode = 2
-theme_type_variation = &"MainPanelContainer"
+theme_type_variation = &"FirstPanelContainer"
 
 [node name="MarginContainer" type="MarginContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer" unique_id=2023414824]
 layout_mode = 2
@@ -108,6 +175,7 @@ theme_override_constants/separation = 16
 [node name="BoatUpgrades" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/Upgrades" unique_id=164348298 instance=ExtResource("3_jy8he")]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"SecondPanelContainer"
 boat_ownership_status = Dictionary[int, bool]({
 0: true,
 1: true,
@@ -115,20 +183,121 @@ boat_ownership_status = Dictionary[int, bool]({
 3: true,
 4: true
 })
+icon = SubResource("PlaceholderTexture2D_6qwtg")
 
-[node name="ToolUpgrades" type="PanelContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/Upgrades" unique_id=1254463564]
+[node name="ToolUpgrades" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/Upgrades" unique_id=1976781886 instance=ExtResource("4_6hqma")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 3
-theme_type_variation = &"MainPanelContainer"
+theme_type_variation = &"SecondPanelContainer"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer" unique_id=317325542]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 16
 
 [node name="SellBuy" type="HBoxContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1144553642]
 layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+theme_override_constants/separation = 16
+
+[node name="SelectedEquipment" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/SellBuy" unique_id=770974784 instance=ExtResource("5_d47h5")]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"SecondPanelContainer"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/SellBuy" unique_id=690122239]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="MarketTrends" type="PanelContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/SellBuy/VBoxContainer" unique_id=808392486]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"SecondPanelContainer"
+
+[node name="SellCargo" type="PanelContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/SellBuy/VBoxContainer" unique_id=1192941735]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"SecondPanelContainer"
 
 [node name="Special" type="HBoxContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=75527388]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="SpecialItems" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Special" unique_id=669762293 instance=ExtResource("6_6qwtg")]
+layout_mode = 2
+
+[node name="Advisor\'s Note" type="PanelContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Special" unique_id=2022544453]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_type_variation = &"SecondPanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Special/Advisor\'s Note" unique_id=41164352]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Special/Advisor\'s Note/MarginContainer" unique_id=882578289]
+layout_mode = 2
+
+[node name="Header" type="MarginContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Special/Advisor\'s Note/MarginContainer/VBoxContainer" unique_id=1505382146]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Special/Advisor\'s Note/MarginContainer/VBoxContainer/Header" unique_id=586825947]
+layout_mode = 2
+text = "Advisor's Note"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Special/Advisor\'s Note/MarginContainer/VBoxContainer" unique_id=1074406335]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Body" type="MarginContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Special/Advisor\'s Note/MarginContainer/VBoxContainer" unique_id=734118868]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Special/Advisor\'s Note/MarginContainer/VBoxContainer/Body" unique_id=928806844]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="PortraitMargin" type="MarginContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Special/Advisor\'s Note/MarginContainer/VBoxContainer/Body/HBoxContainer" unique_id=1676153758]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Portrait" type="TextureRect" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Special/Advisor\'s Note/MarginContainer/VBoxContainer/Body/HBoxContainer/PortraitMargin" unique_id=1316510897]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_rslbr")
+
+[node name="QuoteMargin" type="MarginContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Special/Advisor\'s Note/MarginContainer/VBoxContainer/Body/HBoxContainer" unique_id=213345067]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Special/Advisor\'s Note/MarginContainer/VBoxContainer/Body/HBoxContainer/QuoteMargin" unique_id=2098817697]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Quote" type="RichTextLabel" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Special/Advisor\'s Note/MarginContainer/VBoxContainer/Body/HBoxContainer/QuoteMargin/VBoxContainer" unique_id=1368446108]
+layout_mode = 2
+text = "The sea is every-chaning. What is profit today, may be folly tomorrow."
+fit_content = true
+
+[node name="Attribution" type="Label" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Special/Advisor\'s Note/MarginContainer/VBoxContainer/Body/HBoxContainer/QuoteMargin/VBoxContainer" unique_id=1502188160]
+layout_mode = 2
+text = "- The Admirable"
+horizontal_alignment = 2
+vertical_alignment = 1

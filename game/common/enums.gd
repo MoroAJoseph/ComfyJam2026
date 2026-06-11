@@ -138,6 +138,13 @@ enum BarrelType {
 	GOLD
 }
 
+enum SpecialItemType {
+	REPAIR_KIT,
+	TIME_SKIP_1,
+	TIME_SKIP_2,
+	TIME_SKIP_3
+}
+
 enum BlockType { 
 	NONE, 
 	SAND, 

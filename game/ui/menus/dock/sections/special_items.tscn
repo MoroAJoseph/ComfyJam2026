@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://b5j0erft5b2wm"]
+
+[ext_resource type="PackedScene" uid="uid://bftyw6t85ndqu" path="res://ui/menus/dock/components/special_item.tscn" id="1_kx54j"]
+[ext_resource type="Script" uid="uid://dqfa6u5lyjuap" path="res://ui/menus/dock/sections/special_items.gd" id="1_pnnym"]
+
+[node name="SpecialItems" type="PanelContainer" unique_id=669762293]
+offset_right = 800.0
+offset_bottom = 228.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+theme_type_variation = &"SecondPanelContainer"
+script = ExtResource("1_pnnym")
+special_items = Array[int]([0, 0, 2])
+affordability_status = Dictionary[int, bool]({
+0: true,
+1: true,
+2: false,
+3: false
+})
+
+[node name="Control" type="Control" parent="." unique_id=292665571]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=836896046]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ItemsContainer" type="HBoxContainer" parent="MarginContainer" unique_id=973899718]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="SpecialItem" parent="MarginContainer/ItemsContainer" unique_id=1239730259 instance=ExtResource("1_kx54j")]
+visible = false
+layout_mode = 2
+
+[node name="SpecialItem2" parent="MarginContainer/ItemsContainer" unique_id=1090782755 instance=ExtResource("1_kx54j")]
+visible = false
+layout_mode = 2
+
+[node name="SpecialItem3" parent="MarginContainer/ItemsContainer" unique_id=173341119 instance=ExtResource("1_kx54j")]
+visible = false
+layout_mode = 2
