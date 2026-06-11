@@ -6,6 +6,7 @@
 script = ExtResource("1_p11mv")
 type = 2
 display_name = "Little Rower"
+speed_stat = 2
 buy_price = 25
 sell_price = 15
 inventory_capacity = 20

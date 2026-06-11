@@ -6,6 +6,8 @@
 script = ExtResource("1_whbyk")
 type = 3
 display_name = "Small Ship"
+capacity_stat = 2
+durability_stat = 2
 acceleration = 30.0
 buy_price = 200
 sell_price = 175

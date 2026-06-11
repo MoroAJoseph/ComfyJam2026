@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c6us3mpc7yeng"]
+
+[ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_1vsgo"]
+[ext_resource type="Script" uid="uid://clblcoschw1pe" path="res://ui/menus/dock/components/equipment_stat_level_item.gd" id="1_qk43a"]
+
+[node name="EquipmentStatLevelItem" type="MarginContainer" unique_id=1297265026]
+theme = ExtResource("1_1vsgo")
+script = ExtResource("1_qk43a")
+color = Color(0.46135613, 1, 1, 1)
+
+[node name="Filled" type="ColorRect" parent="." unique_id=1206463510]
+visible = false
+custom_minimum_size = Vector2(16, 8)
+layout_mode = 2
+color = Color(0.46135613, 1, 1, 1)
+
+[node name="Empty" type="ColorRect" parent="." unique_id=1182289964]
+self_modulate = Color(1, 1, 1, 0.5)
+custom_minimum_size = Vector2(16, 8)
+layout_mode = 2
+color = Color(0.46135613, 1, 1, 1)

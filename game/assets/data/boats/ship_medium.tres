@@ -6,6 +6,9 @@
 script = ExtResource("1_p4hvj")
 type = 4
 display_name = "Medium Ship"
+speed_stat = 2
+capacity_stat = 2
+durability_stat = 2
 max_speed = 35.0
 acceleration = 35.0
 turn_speed = 2.5

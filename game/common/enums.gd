@@ -122,6 +122,12 @@ enum BoatType {
 	SHIP_MEDIUM_2 
 }
 
+enum BoatStat {
+	SPEED,
+	CAPACITY,
+	DURABILITY
+}
+
 enum ToolType {
 	NONE
 }

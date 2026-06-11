@@ -1,0 +1,154 @@
+[gd_scene format=3 uid="uid://cr7kys22l017q"]
+
+[ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_w3nlo"]
+[ext_resource type="Script" uid="uid://b3om0b1rtvcuf" path="res://ui/menus/dock/components/boat_upgrade_item.gd" id="1_x71f5"]
+[ext_resource type="PackedScene" uid="uid://dsdnvdetcykwa" path="res://ui/menus/dock/components/equipment_stat_item.tscn" id="2_5xp6b"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5xp6b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w3nlo"]
+bg_color = Color(0.12941177, 0.12941177, 0.12941177, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qsry"]
+bg_color = Color(0.12941177, 0.12941177, 0.12941177, 0.039215688)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(9.1448425e-07, 0.6034238, 0.5520706, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1t17u"]
+bg_color = Color(0.12941177, 0.12941177, 0.12941177, 0.078431375)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33wrp"]
+bg_color = Color(0.12941177, 0.12941177, 0.12941177, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="BoatUpgradeItem" type="MarginContainer" unique_id=383072146]
+theme = ExtResource("1_w3nlo")
+script = ExtResource("1_x71f5")
+equipment_stat_item_scene = ExtResource("2_5xp6b")
+boat_icon = SubResource("PlaceholderTexture2D_5xp6b")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1368152563]
+layout_mode = 2
+theme_type_variation = &"MainPanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1718136385]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1141860874]
+layout_mode = 2
+
+[node name="IconMargin" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=826258214]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/IconMargin" unique_id=1229246155]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("PlaceholderTexture2D_5xp6b")
+
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=690100155]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="DetailsMargin" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=263460899]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/DetailsMargin" unique_id=1859214903]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Header" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer/DetailsMargin/VBoxContainer" unique_id=1797745330]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/DetailsMargin/VBoxContainer/Header" unique_id=1094024003]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/DetailsMargin/VBoxContainer/Header/HBoxContainer" unique_id=2021608937]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/DetailsMargin/VBoxContainer/Header/HBoxContainer" unique_id=1133957828]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="CoinIcon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/DetailsMargin/VBoxContainer/Header/HBoxContainer/HBoxContainer" unique_id=124408676]
+layout_mode = 2
+
+[node name="BuyPrice" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/DetailsMargin/VBoxContainer/Header/HBoxContainer/HBoxContainer" unique_id=995274109]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/HBoxContainer/DetailsMargin/VBoxContainer" unique_id=2105631701]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Stats" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer/DetailsMargin/VBoxContainer" unique_id=1465366906]
+layout_mode = 2
+
+[node name="StatItems" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/DetailsMargin/VBoxContainer/Stats" unique_id=1360433900]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Button" type="Button" parent="." unique_id=882698138]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_w3nlo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0qsry")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1t17u")
+theme_override_styles/focus = SubResource("StyleBoxFlat_33wrp")
+toggle_mode = true

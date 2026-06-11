@@ -1,9 +1,16 @@
+@tool
 class_name BoatData
 extends Resource
 
 @export_category("Identity")
 @export var type: Enums.BoatType
 @export var display_name: String
+@export var icon: Texture2D = PlaceholderTexture2D.new()
+
+@export_category("Stats")
+@export_range(1, 5, 1) var speed_stat: int = 1
+@export_range(1, 5, 1) var capacity_stat: int = 1
+@export_range(1, 5, 1) var durability_stat: int = 1
 
 @export_category("Physics")
 @export var max_speed: float = 20.0
@@ -22,3 +29,10 @@ extends Resource
 @export var max_zoom: int = 12
 @export var min_zoom: int = 6
 @export var zoom_step: int = 2
+
+func get_stat(stat_enum: Enums.BoatStat) -> int:
+	match stat_enum:
+		Enums.BoatStat.SPEED: return speed_stat
+		Enums.BoatStat.CAPACITY: return capacity_stat
+		Enums.BoatStat.DURABILITY: return durability_stat
+		_: return 0

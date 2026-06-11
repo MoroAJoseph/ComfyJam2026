@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://dsdnvdetcykwa"]
+
+[ext_resource type="Script" uid="uid://dke5a8pml2b42" path="res://ui/menus/dock/components/equipment_stat_item.gd" id="1_5lp36"]
+[ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_iqefe"]
+[ext_resource type="PackedScene" uid="uid://c6us3mpc7yeng" path="res://ui/menus/dock/components/equipment_stat_level_item.tscn" id="2_8q1on"]
+
+[node name="EquipmentStatItem" type="MarginContainer" unique_id=714278236]
+offset_left = 152.0
+offset_right = 152.0
+offset_bottom = 23.0
+theme = ExtResource("1_iqefe")
+script = ExtResource("1_5lp36")
+stat_name = "Speed"
+level = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1457481506]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="StatName" type="Label" parent="HBoxContainer" unique_id=487100891]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Speed"
+vertical_alignment = 1
+
+[node name="Levels" type="HBoxContainer" parent="HBoxContainer" unique_id=368641983]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Level1" parent="HBoxContainer/Levels" unique_id=1297265026 instance=ExtResource("2_8q1on")]
+layout_mode = 2
+is_filled = true
+
+[node name="Level2" parent="HBoxContainer/Levels" unique_id=220563816 instance=ExtResource("2_8q1on")]
+layout_mode = 2
+is_filled = true
+
+[node name="Level3" parent="HBoxContainer/Levels" unique_id=1840382096 instance=ExtResource("2_8q1on")]
+layout_mode = 2
+
+[node name="Level4" parent="HBoxContainer/Levels" unique_id=1694075326 instance=ExtResource("2_8q1on")]
+layout_mode = 2
+
+[node name="Level5" parent="HBoxContainer/Levels" unique_id=1283048991 instance=ExtResource("2_8q1on")]
+layout_mode = 2

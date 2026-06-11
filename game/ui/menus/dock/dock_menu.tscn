@@ -2,6 +2,9 @@
 
 [ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_theme"]
 [ext_resource type="Script" uid="uid://byy5l82jovolo" path="res://ui/menus/dock/dock_menu.gd" id="2_script"]
+[ext_resource type="PackedScene" uid="uid://bui5j3ivt5ky1" path="res://ui/menus/dock/sections/boat_upgrades.tscn" id="3_jy8he"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ux7cr"]
 
 [node name="DockMenu" type="Control" unique_id=1410093816]
 layout_mode = 3
@@ -22,80 +25,110 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.501961)
 
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1069532302]
+[node name="SafeArea" type="MarginContainer" parent="." unique_id=1248529394]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="Panel" type="Panel" parent="CenterContainer" unique_id=478663061]
-custom_minimum_size = Vector2(400, 500)
+[node name="Control" type="Control" parent="SafeArea" unique_id=279787838]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel" unique_id=234937620]
+[node name="VBoxContainer" type="VBoxContainer" parent="SafeArea/Control" unique_id=1600487661]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Header" type="MarginContainer" parent="SafeArea/Control/VBoxContainer" unique_id=1701916997]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SafeArea/Control/VBoxContainer/Header" unique_id=1466507475]
+layout_mode = 2
+alignment = 1
+
+[node name="DockIdentity" type="HBoxContainer" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer" unique_id=1524592182]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 20
 
-[node name="Title" type="Label" parent="CenterContainer/Panel/VBoxContainer" unique_id=1967404091]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Dock Upgrades"
-horizontal_alignment = 1
-
-[node name="PreviewContainer" type="SubViewportContainer" parent="CenterContainer/Panel/VBoxContainer" unique_id=2000000000]
+[node name="DockIcon" type="TextureRect" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer/DockIdentity" unique_id=1506605101]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 250)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-stretch = true
+texture = SubResource("PlaceholderTexture2D_ux7cr")
 
-[node name="SubViewport" type="SubViewport" parent="CenterContainer/Panel/VBoxContainer/PreviewContainer" unique_id=2000000001]
-own_world_3d = true
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(400, 250)
-render_target_update_mode = 4
+[node name="VBoxContainer" type="VBoxContainer" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer/DockIdentity" unique_id=1710993898]
+layout_mode = 2
 
-[node name="PreviewWorld" type="Node3D" parent="CenterContainer/Panel/VBoxContainer/PreviewContainer/SubViewport" unique_id=2000000002]
-
-[node name="Camera3D" type="Camera3D" parent="CenterContainer/Panel/VBoxContainer/PreviewContainer/SubViewport/PreviewWorld" unique_id=2000000003]
-transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 6, 8, 10)
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CenterContainer/Panel/VBoxContainer/PreviewContainer/SubViewport/PreviewWorld" unique_id=2000000004]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 5, 0)
-
-[node name="BoatPlatform" type="Node3D" parent="CenterContainer/Panel/VBoxContainer/PreviewContainer/SubViewport/PreviewWorld" unique_id=2000000005]
-unique_name_in_owner = true
-
-[node name="GoldLabel" type="Label" parent="CenterContainer/Panel/VBoxContainer" unique_id=604424536]
+[node name="DockName" type="Label" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer/DockIdentity/VBoxContainer" unique_id=2051645649]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Gold: 0"
-horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="CenterContainer/Panel/VBoxContainer" unique_id=1456376033]
-layout_mode = 2
-
-[node name="UpgradeBoat" type="Button" parent="CenterContainer/Panel/VBoxContainer" unique_id=1317861654]
+[node name="DockSlogan" type="Label" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer/DockIdentity/VBoxContainer" unique_id=585260682]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-text = "Upgrade to Ship (50 Gold)"
-
-[node name="HSeparator2" type="HSeparator" parent="CenterContainer/Panel/VBoxContainer" unique_id=1090299716]
 layout_mode = 2
 
-[node name="Close" type="Button" parent="CenterContainer/Panel/VBoxContainer" unique_id=1139411907]
+[node name="PlayerControl" type="HBoxContainer" parent="SafeArea/Control/VBoxContainer/Header/HBoxContainer" unique_id=650526942]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Body" type="MarginContainer" parent="SafeArea/Control/VBoxContainer" unique_id=1273780008]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="SafeArea/Control/VBoxContainer/Body" unique_id=1995478827]
+layout_mode = 2
+theme_type_variation = &"MainPanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer" unique_id=2023414824]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer" unique_id=680356879]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Upgrades" type="VBoxContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer" unique_id=460602727]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="BoatUpgrades" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/Upgrades" unique_id=164348298 instance=ExtResource("3_jy8he")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
-text = "Close"
+boat_ownership_status = Dictionary[int, bool]({
+0: true,
+1: true,
+2: true,
+3: true,
+4: true
+})
 
-[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/UpgradeBoat" to="." method="_on_upgrade_boat_pressed"]
-[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/Close" to="." method="_on_close_pressed"]
+[node name="ToolUpgrades" type="PanelContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/Upgrades" unique_id=1254463564]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"MainPanelContainer"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer" unique_id=317325542]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="SellBuy" type="HBoxContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1144553642]
+layout_mode = 2
+
+[node name="Special" type="HBoxContainer" parent="SafeArea/Control/VBoxContainer/Body/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=75527388]
+layout_mode = 2
