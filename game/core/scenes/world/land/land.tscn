@@ -10,6 +10,9 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oy6ij"]
 render_priority = 0
 shader = ExtResource("3_bk30n")
+shader_parameter/use_uniform_index = false
+shader_parameter/manual_texture_index = 0
+shader_parameter/inset = 0.015
 
 [node name="Land" type="Node3D" unique_id=259526549]
 script = ExtResource("1_vcei7")

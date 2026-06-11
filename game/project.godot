@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Beached Bounty"
 run/main_scene="uid://d23ynsioags2n"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 run/max_fps=240
 run/low_processor_mode=true
 config/icon="res://icon.svg"
@@ -53,6 +53,10 @@ variables={
 [display]
 
 window/vsync/vsync_mode=0
+
+[dotnet]
+
+project/assembly_name="Beached Bounty"
 
 [editor_plugins]
 

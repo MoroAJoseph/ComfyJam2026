@@ -10,11 +10,9 @@ var max_stack: int:
 		var block_data: BlockData = AssetService.get_block_data(type)
 		return block_data.max_stack if block_data else 0
 
-var color: Color:
-	get: return block_data.color
-
 var texture: Texture2D:
 	get: return block_data.texture
+
 var total_value: int:
 	get:
 		return block_data.value * stack_count if block_data else 0

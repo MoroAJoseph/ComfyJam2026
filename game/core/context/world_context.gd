@@ -11,10 +11,10 @@ enum Var {
 
 const DEFAULT: Dictionary[Var, Variant] = {
 	Var.CHUNK_SIZE: 64,
-	Var.TIME: 0.0,
+	Var.TIME: 0.35,
 	Var.DAY_PHASE: Enums.DayPhase.DAWN,
 	Var.NOISE_SEED: 12345,
-	Var.GENERATION_HEIGHT: 100
+	Var.GENERATION_HEIGHT: 48
 }
 
 # ===

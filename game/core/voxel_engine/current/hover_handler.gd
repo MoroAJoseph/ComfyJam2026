@@ -54,10 +54,10 @@ func _input(event: InputEvent) -> void:
 func _handle_voxel_hover(world_pos: Vector3, hit_normal: Vector3) -> void:
 	var coord = chunk_manager.rid_to_coordinate[chunk_manager.last_hit_rid]
 	var data = chunk_manager.chunks_data[coord]
-	var chunk_origin = chunk_manager.logic_class.chunk_to_world(coord, chunk_manager.chunk_size)
+	var chunk_origin = VoxelEngineHexagon.chunk_to_world(coord, chunk_manager.chunk_size)
 	
 	var sample_pos = world_pos - (hit_normal * 0.1)
-	var local_voxel = chunk_manager.logic_class.world_to_local(sample_pos, chunk_origin)
+	var local_voxel = VoxelEngineHexagon.world_to_local(sample_pos, chunk_origin)
 	
 	# Save these to the manager for _input to use
 	chunk_manager.hovered_chunk = coord
@@ -65,14 +65,14 @@ func _handle_voxel_hover(world_pos: Vector3, hit_normal: Vector3) -> void:
 	
 	_update_highlight_geometry(local_voxel, data, coord)
 	
-	var voxel_world_pos = chunk_manager.logic_class.voxel_to_world(local_voxel, chunk_origin)
+	var voxel_world_pos = VoxelEngineHexagon.voxel_to_world(local_voxel, chunk_origin)
 	chunk_manager.highlight_mesh_instance.global_position = voxel_world_pos
 	chunk_manager.highlight_mesh_instance.visible = true
 
 func _update_highlight_geometry(voxel: Vector3i, data: PackedByteArray, coord: Vector3i) -> void:
 	# Use pure white so the shader controls the colors
 	var color = Color.WHITE 
-	var geometry = chunk_manager.logic_class.get_single_voxel_geometry(
+	var geometry = VoxelEngineHexagon.get_single_voxel_geometry(
 		voxel, data, coord, chunk_manager.chunks_data, chunk_manager.chunk_size, []
 	)
 	
@@ -94,7 +94,7 @@ func _update_highlight_geometry(voxel: Vector3i, data: PackedByteArray, coord: V
 
 func play_block_destruction_animation(chunk_coord: Vector3i, local_voxel: Vector3i) -> void:
 	var data = chunk_manager.chunks_data[chunk_coord]
-	var geom = chunk_manager.logic_class.get_single_voxel_geometry(
+	var geom = VoxelEngineHexagon.get_single_voxel_geometry(
 		local_voxel, 
 		data, 
 		chunk_coord, 
@@ -118,7 +118,7 @@ func play_block_destruction_animation(chunk_coord: Vector3i, local_voxel: Vector
 	
 	temp_mesh.mesh = array_mesh
 	temp_mesh.material_override = chunk_manager.highlight_shader_material
-	temp_mesh.global_position = chunk_manager.logic_class.chunk_to_world(chunk_coord, chunk_manager.chunk_size)
+	temp_mesh.global_position = VoxelEngineHexagon.chunk_to_world(chunk_coord, chunk_manager.chunk_size)
 	
 	chunk_manager.remove_voxel(chunk_coord, local_voxel)
 	

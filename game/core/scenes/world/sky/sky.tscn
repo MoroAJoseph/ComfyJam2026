@@ -42,7 +42,8 @@ sun_intensity_curve = ExtResource("10_goo4p")
 sun_scale_curve = ExtResource("11_y0yni")
 moon_intensity_curve = ExtResource("12_c68k3")
 moon_scale_curve = ExtResource("13_7kd5v")
-day_progress = 0.5
+simulate = true
+day_progress = 0.7609532277781599
 moon_direction = Vector3(0, 0.3, -0.6)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1561467000]
@@ -51,11 +52,13 @@ environment = ExtResource("20_wxomr")
 
 [node name="SunPivot" type="Node3D" parent="." unique_id=797808770]
 unique_name_in_owner = true
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(-0.99763274, 0.06876673, 0, -0.06876673, -0.99763274, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="SunLight" type="DirectionalLight3D" parent="SunPivot" unique_id=159570840]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(0.39046752, 0.21437433, 0.1286246, 1)
+light_energy = 0.1676659
 shadow_enabled = true
 directional_shadow_split_1 = 0.04
 directional_shadow_split_2 = 0.11

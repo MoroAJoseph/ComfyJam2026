@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 @export var mouse_sens: float = 0.003
-@export var chunk_manager: VoxelEngineChunkManager
+@export var chunk_manager: VoxelChunkManager
 @export var ground_speed: float = 5.0
 @export var fly_speed: float = 20.0
 @export var jump_velocity: float = 4.5

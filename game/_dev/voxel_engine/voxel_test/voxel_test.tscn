@@ -18,8 +18,7 @@ sky = SubResource("Sky_8v42y")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_8r3w4"]
-fractal_octaves = 4
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0jxii"]
 
 [node name="VoxelTest" type="Node3D" unique_id=417646644]
 
@@ -35,16 +34,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24.320265, 0)
 chunk_manager = NodePath("../ChunkManager")
 fly_speed = 40.0
 
-[node name="ChunkManager" parent="." unique_id=2040231109 node_paths=PackedStringArray("context_target") instance=ExtResource("2_0jxii")]
-use_hexagons = true
+[node name="ChunkManager" parent="." unique_id=2040231109 instance=ExtResource("2_0jxii")]
 use_collision = true
-chunk_size = 32
+chunk_size = 16
 generation_height = 32
-generation_radius = 8
-render_radius = 8
-noise = SubResource("FastNoiseLite_8r3w4")
+generation_radius = 32
+render_radius = 12
+noise = SubResource("FastNoiseLite_0jxii")
 voxel_shader_material = ExtResource("3_0jxii")
-context_target = NodePath("../Player")
 
 [node name="HoverHandler" type="Node" parent="." unique_id=1486378632 node_paths=PackedStringArray("chunk_manager")]
 script = ExtResource("3_x50jx")

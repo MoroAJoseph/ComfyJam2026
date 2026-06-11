@@ -1,4 +1,4 @@
-class_name VoxelEngineEnums
+class_name VoxelEnums
 extends RefCounted
 
 enum VoxelType {

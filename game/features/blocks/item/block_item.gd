@@ -9,22 +9,39 @@ extends Node3D
 @onready var body: BuoyantRigidBody = %Body
 @onready var collectable_area: Area3D = %CollectableArea
 @onready var merge_area: Area3D = %MergeArea
+@onready var mesh_instance: MeshInstance3D = %Mesh
 
 var data: BlockItemData
 var merge_target: BlockItem = null
 var is_merging := false
-
-
 
 # ===
 # Built-In
 # ===
 
 func _ready() -> void:
-	if not data:
-		return
-
-	body.apply_material(data.color)
+	if not data: return
+	merge_area.area_entered.connect(_on_merge_area_entered)
+	
+	var geom = VoxelEngineHexagon.get_single_textured_voxel_geometry(data.type)
+	
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	
+	# Pack the arrays into the SurfaceTool
+	for i in range(geom.vertices.size()):
+		st.set_normal(geom.normals[i])
+		st.set_uv(geom.uvs[i])
+		
+		# Tangent data is stored as [x, y, z, w]
+		# geom.tangents contains the data for all vertices (4 floats per vertex)
+		var offset = i * 4
+		var t := Plane(geom.tangents[offset], geom.tangents[offset+1], geom.tangents[offset+2], geom.tangents[offset+3])
+		st.set_tangent(t)
+		
+		st.add_vertex(geom.vertices[i])
+		
+	mesh_instance.mesh = st.commit()
 
 func _physics_process(_delta: float) -> void:
 	if is_merging:

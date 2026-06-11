@@ -25,6 +25,7 @@ radius = 2.0
 script = ExtResource("1_5wl2q")
 
 [node name="Body" type="RigidBody3D" parent="." unique_id=1959046115]
+unique_name_in_owner = true
 collision_layer = 16
 script = ExtResource("2_p4nn7")
 
@@ -49,6 +50,7 @@ remote_path = NodePath("../../CollectableArea")
 remote_path = NodePath("../../MergeArea")
 
 [node name="CollectableArea" type="Area3D" parent="." unique_id=466288330]
+unique_name_in_owner = true
 collision_layer = 16
 collision_mask = 0
 
@@ -56,6 +58,7 @@ collision_mask = 0
 shape = SubResource("SphereShape3D_5wl2q")
 
 [node name="MergeArea" type="Area3D" parent="." unique_id=1965732214]
+unique_name_in_owner = true
 collision_layer = 0
 collision_mask = 16
 

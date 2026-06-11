@@ -25,23 +25,23 @@ class Cube:
 	]
 
 	## Mapping of cube faces to the triangle indices that form them.
-	const FACE_INDICES: Dictionary[VoxelEngineEnums.CubeFace, Array] = {
-		VoxelEngineEnums.CubeFace.FRONT: [[0, 4, 5], [0, 5, 1]],
-		VoxelEngineEnums.CubeFace.BACK: [[2, 7, 3], [2, 6, 7]],
-		VoxelEngineEnums.CubeFace.LEFT: [[3, 7, 4], [3, 4, 0]],
-		VoxelEngineEnums.CubeFace.RIGHT: [[1, 5, 6], [1, 6, 2]],
-		VoxelEngineEnums.CubeFace.TOP: [[0, 1, 2], [0, 2, 3]],
-		VoxelEngineEnums.CubeFace.BOTTOM: [[4, 7, 6], [4, 6, 5]]
+	const FACE_INDICES: Dictionary[VoxelEnums.CubeFace, Array] = {
+		VoxelEnums.CubeFace.FRONT: [[0, 4, 5], [0, 5, 1]],
+		VoxelEnums.CubeFace.BACK: [[2, 7, 3], [2, 6, 7]],
+		VoxelEnums.CubeFace.LEFT: [[3, 7, 4], [3, 4, 0]],
+		VoxelEnums.CubeFace.RIGHT: [[1, 5, 6], [1, 6, 2]],
+		VoxelEnums.CubeFace.TOP: [[0, 1, 2], [0, 2, 3]],
+		VoxelEnums.CubeFace.BOTTOM: [[4, 7, 6], [4, 6, 5]]
 	}
 
 	## Normal vectors associated with each face of the cube.
-	const FACE_NORMALS: Dictionary[VoxelEngineEnums.CubeFace, Vector3] = {
-		VoxelEngineEnums.CubeFace.FRONT: Vector3(0, 0, 1), 
-		VoxelEngineEnums.CubeFace.BACK: Vector3(0, 0, -1),
-		VoxelEngineEnums.CubeFace.LEFT: Vector3(-1, 0, 0), 
-		VoxelEngineEnums.CubeFace.RIGHT: Vector3(1, 0, 0),
-		VoxelEngineEnums.CubeFace.TOP: Vector3(0, -1, 0), 
-		VoxelEngineEnums.CubeFace.BOTTOM: Vector3(0, 1, 0)
+	const FACE_NORMALS: Dictionary[VoxelEnums.CubeFace, Vector3] = {
+		VoxelEnums.CubeFace.FRONT: Vector3(0, 0, 1), 
+		VoxelEnums.CubeFace.BACK: Vector3(0, 0, -1),
+		VoxelEnums.CubeFace.LEFT: Vector3(-1, 0, 0), 
+		VoxelEnums.CubeFace.RIGHT: Vector3(1, 0, 0),
+		VoxelEnums.CubeFace.TOP: Vector3(0, -1, 0), 
+		VoxelEnums.CubeFace.BOTTOM: Vector3(0, 1, 0)
 	}
 
 class Hexagon:
@@ -54,6 +54,15 @@ class Hexagon:
 		Vector3i(-1, 0, 0), 
 		Vector3i(0, 0, -1), 
 		Vector3i(1, 0, -1)
+	]
+
+	static var HEX_RING := [
+		Vector3( 1.0, 0.0,  0.0),
+		Vector3( 0.5, 0.0,  0.8660254),
+		Vector3(-0.5, 0.0,  0.8660254),
+		Vector3(-1.0, 0.0,  0.0),
+		Vector3(-0.5, 0.0, -0.8660254),
+		Vector3( 0.5, 0.0, -0.8660254),
 	]
 
 	const ATLAS_SIZE: float = 512.0
