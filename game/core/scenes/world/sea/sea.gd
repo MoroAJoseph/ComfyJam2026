@@ -1,24 +1,43 @@
+@tool
 class_name WorldSea
 extends Node3D
 
-@export var height: float = 8.0
-@export var choppy: float
-@export var speed: float
-@export var frequency: float 
-@export var water_level: float
-@export var tile_size: float = 500.0
+@export var simulate: bool = true
+@export var height: float = 8.0:
+	set(v):
+		height = v
+		if shared_material: shared_material.set_shader_parameter("sea_height", v)
+@export var choppy: float:
+	set(v):
+		choppy = v
+		if shared_material: shared_material.set_shader_parameter("sea_chopy", v)
+@export var speed: float:
+	set(v):
+		speed = v
+		if shared_material: shared_material.set_shader_parameter("sea_speed", v)
+@export var frequency: float:
+	set(v):
+		frequency = v
+		if shared_material: shared_material.set_shader_parameter("sea_freq", v)
+@export var water_level: float:
+	set(v):
+		water_level = v
+		if shared_material: shared_material.set_shader_parameter("water_level", v)
+@export var tile_size: float = 500.0:
+	set(v):
+		tile_size = v
+		_rebuild_grid()
 @export var tile_scene: PackedScene
-@export var render_radius: int = 2
-
-# TODO: Dynamically render ocean collision shape
-# NOTE: Collision shape is just for ray casts and environment-awareness
+@export var render_radius: int = 2:
+	set(v):
+		render_radius = v
+		_rebuild_grid()
 
 var last_player_tile: Vector2i = Vector2i(999999, 999999)
 var active_tiles: Dictionary[Vector2i, MeshInstance3D] = {}
 var shared_material: ShaderMaterial
 
 var ITER_GEOMETRY: int
-
 var octave_m = [Vector2(1.6, 1.2), Vector2(-1.2, 1.6)]
 
 # ===
@@ -26,27 +45,28 @@ var octave_m = [Vector2(1.6, 1.2), Vector2(-1.2, 1.6)]
 # ===
 
 func _ready():
-	Session.world_provider.set_sea(self)
-	
-	var template = tile_scene.instantiate()
-	shared_material = template.get_active_material(0).duplicate()
-	template.queue_free()
-	
-	shared_material.set_shader_parameter("sea_height", height)
-	shared_material.set_shader_parameter("sea_chopy", choppy)
-	shared_material.set_shader_parameter("sea_speed", speed)
-	shared_material.set_shader_parameter("sea_freq", frequency)
-	shared_material.set_shader_parameter("water_level", water_level)
-
-	ITER_GEOMETRY = shared_material.get_shader_parameter("ITER_GEOMETRY")
+	_init_material()
+	if not Engine.is_editor_hint():
+		Session.world_provider.set_sea(self)
+	_update_material_params()
+	_rebuild_grid()
 
 func _process(_delta: float):
-	shared_material.set_shader_parameter("cpu_time", Session.world_context.cpu_time)
-	var player_context: PlayerContext = Session.player_context
+	# Only run time-based animation in editor
+	if shared_material:
+		shared_material.set_shader_parameter("cpu_time", Time.get_ticks_msec() * 0.001)
 	
+	# Do NOT run game-logic coordinate updates in editor
+	if Engine.is_editor_hint():
+		last_player_tile = Vector2i.ZERO
+		_update_grid()
+		return
+		
+	# Standard Game Logic
+	shared_material.set_shader_parameter("cpu_time", Session.world_context.cpu_time)
 	var current_tile = Vector2i(
-		floor(player_context.world_location.x / tile_size), 
-		floor(player_context.world_location.z / tile_size)
+		floor(Session.player_context.world_location.x / tile_size), 
+		floor(Session.player_context.world_location.z / tile_size)
 	)
 	if current_tile != last_player_tile:
 		last_player_tile = current_tile
@@ -83,9 +103,48 @@ func get_height(world_pos: Vector3, time: float = -1.0) -> float:
 	
 	return curent_water_level + base_height
 
+func _exit_tree():
+	# Cleanup tiles when closing scene or stopping
+	for tile in active_tiles.values():
+		if is_instance_valid(tile): tile.queue_free()
+
 # ===
 # Private
 # ===
+
+func _init_material():
+	if tile_scene and not shared_material:
+		var template = tile_scene.instantiate()
+		shared_material = template.get_active_material(0).duplicate()
+		template.queue_free()
+		_update_material_params()
+
+func _rebuild_grid():
+	if not is_inside_tree(): return
+	for tile in active_tiles.values(): tile.queue_free()
+	active_tiles.clear()
+	_update_grid()
+
+func _update_material_params() -> void:
+	shared_material.set_shader_parameter("sea_height", height)
+	shared_material.set_shader_parameter("sea_chopy", choppy)
+	shared_material.set_shader_parameter("sea_speed", speed)
+	shared_material.set_shader_parameter("sea_freq", frequency)
+	shared_material.set_shader_parameter("water_level", water_level)
+
+func _update_grid():
+	var needed_tiles: Array[Vector2i] = []
+	for x in range(-render_radius, render_radius + 1):
+		for z in range(-render_radius, render_radius + 1):
+			needed_tiles.append(last_player_tile + Vector2i(x, z))
+			
+	for coord in active_tiles.keys().filter(func(c): return c not in needed_tiles):
+		active_tiles[coord].queue_free()
+		active_tiles.erase(coord)
+			
+	for coord in needed_tiles:
+		if not active_tiles.has(coord):
+			_spawn_tile(coord)
 
 func _sea_octave(uv: Vector2, current_choppy: float) -> float:
 	uv += Vector2(_noise(uv), _noise(uv))
@@ -117,25 +176,6 @@ func _hash12(pos: Vector2) -> float:
 	var q = Vector2i(pos) * Vector2i(1597334677, 3812015801)
 	var n = (q.x ^ q.y) * 1597334677
 	return float(n & 0xFFFFFFFF) * (1.0 / 4294967295.0)
-
-func _update_grid():
-	
-	# Calculate required tiles
-	var needed_tiles: Array[Vector2i] = []
-	for x in range(-render_radius, render_radius + 1):
-		for z in range(-render_radius, render_radius + 1):
-			needed_tiles.append(last_player_tile + Vector2i(x, z))
-			
-	# Cleanup old tiles
-	for coord in active_tiles.keys():
-		if coord not in needed_tiles:
-			active_tiles[coord].queue_free()
-			active_tiles.erase(coord)
-			
-	# Spawn new tiles
-	for coord in needed_tiles:
-		if not active_tiles.has(coord):
-			_spawn_tile(coord)
 
 func _spawn_tile(coord: Vector2i):
 	var tile_instance = tile_scene.instantiate()

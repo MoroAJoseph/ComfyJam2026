@@ -9,4 +9,5 @@ height = 1.1
 choppy = 2.5
 speed = 1.5
 frequency = 0.08
+tile_size = 256.0
 tile_scene = ExtResource("2_d8jpp")

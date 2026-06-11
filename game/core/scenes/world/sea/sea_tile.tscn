@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://86el0txv6nk8"]
 
 [ext_resource type="Shader" uid="uid://c2a4kuf1ruhhd" path="res://core/scenes/world/sea/dev_sea.tres" id="1_bc4oq"]
+[ext_resource type="Script" uid="uid://bm45qwdjkyuel" path="res://core/scenes/world/sea/sea_tile.gd" id="2_rnwa7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0lwvc"]
 render_priority = 0
 shader = ExtResource("1_bc4oq")
-shader_parameter/cpu_time = 161.1206655555718
+shader_parameter/cpu_time = 49.52581925004447
 shader_parameter/underwater_fog_color = Color(0.26135722, 0.5421905, 0.9254397, 1)
 shader_parameter/fade_start_depth = 0.5
 shader_parameter/max_depth = 10.0
@@ -49,31 +50,13 @@ size = Vector2(500, 500)
 subdivide_width = 255
 subdivide_depth = 255
 
-[sub_resource type="GDScript" id="GDScript_yo5n6"]
-script/source = "@tool
-extends MeshInstance3D
-
-var material: ShaderMaterial
-var cpu_time: float = 0
-
-func _ready() -> void:
-	if Engine.is_editor_hint():
-		material = get_active_material(0)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if Engine.is_editor_hint():
-		cpu_time += delta
-		material.set_shader_parameter(\"cpu_time\", cpu_time)
-"
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_bc4oq"]
 size = Vector3(500, 1, 500)
 
 [node name="SeaTile" type="MeshInstance3D" unique_id=667551588]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0.14908981, 0.30487442, -0.023448944)
 mesh = SubResource("PlaneMesh_kja62")
-script = SubResource("GDScript_yo5n6")
+script = ExtResource("2_rnwa7")
 
 [node name="WaterCollider" type="StaticBody3D" parent="." unique_id=614510152]
 

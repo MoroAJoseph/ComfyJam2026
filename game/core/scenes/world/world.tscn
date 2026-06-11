@@ -17,12 +17,9 @@ script = ExtResource("1_wavff")
 script = ExtResource("2_8k0jh")
 
 [node name="Sky" parent="." unique_id=1901335390 instance=ExtResource("3_41qfr")]
-simulate = true
-day_progress = 0.6144813207041947
 
 [node name="Sea" parent="." unique_id=1073607141 instance=ExtResource("2_m07s3")]
 water_level = 8.0
-tile_size = 256.0
 render_radius = 3
 
 [node name="Land" parent="." unique_id=259526549 instance=ExtResource("5_wrngl")]

@@ -60,11 +60,7 @@ func _update_visuals() -> void:
 	
 	# Sun
 	if sun_pivot:
-		sun_pivot.rotation_degrees = Vector3(
-			(day_progress * 360.0) + 90.0, 
-			-90.0, 
-			-90.0
-		)
+		sun_pivot.rotation_degrees = Vector3(0.0, 0.0, (day_progress * 360.0) - 90.0)
 	
 	if sun_light and sun_light_grad:
 		sun_light.light_color = sun_light_grad.gradient.sample(day_progress)

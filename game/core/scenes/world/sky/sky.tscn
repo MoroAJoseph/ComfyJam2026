@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://ywrbmg0ngss" path="res://core/scenes/world/sky/sky.gd" id="1_rki4u"]
 [ext_resource type="Texture2D" uid="uid://b6xvtyx72nw4d" path="res://core/scenes/world/sky/gradients/top_color.tres" id="2_agnof"]
-[ext_resource type="Sky" uid="uid://cwjuq6h0gue3j" path="res://core/scenes/world/sky/sky.tres" id="2_dr5nw"]
 [ext_resource type="Texture2D" uid="uid://dqy635ysvapr1" path="res://core/scenes/world/sky/gradients/bottom_color.tres" id="3_7kd5v"]
 [ext_resource type="Curve" uid="uid://dh7x165luut2l" path="res://core/scenes/world/sky/curves/cloud_density.tres" id="3_pk753"]
 [ext_resource type="Curve" uid="uid://r2m1x5durq5" path="res://core/scenes/world/sky/curves/clouds_scale.tres" id="4_54jxg"]
@@ -20,16 +19,10 @@
 [ext_resource type="Curve" uid="uid://03wdq7ao0tox" path="res://core/scenes/world/sky/curves/sun_scale.tres" id="11_y0yni"]
 [ext_resource type="Curve" uid="uid://d30dtiqraew35" path="res://core/scenes/world/sky/curves/moon_intensity.tres" id="12_c68k3"]
 [ext_resource type="Curve" uid="uid://dgssr6j87uyni" path="res://core/scenes/world/sky/curves/moon_scale.tres" id="13_7kd5v"]
-
-[sub_resource type="Environment" id="Environment_1bvj8"]
-background_mode = 2
-sky = ExtResource("2_dr5nw")
-tonemap_mode = 2
-glow_enabled = true
-adjustment_enabled = true
-adjustment_saturation = 1.5
+[ext_resource type="Environment" uid="uid://ckxa5oolld8gs" path="res://core/scenes/world/sky/world_environment.tres" id="20_wxomr"]
 
 [node name="Sky" type="Node3D" unique_id=1901335390]
+transform = Transform3D(4.371138e-08, -0.99999994, -8.742277e-08, -0.9999998, -4.3711385e-08, 0, -3.82137e-15, 8.742277e-08, -0.9999999, 0, 0, 0)
 script = ExtResource("1_rki4u")
 top_color_grad = ExtResource("2_agnof")
 bottom_color_grad = ExtResource("3_7kd5v")
@@ -49,20 +42,23 @@ sun_intensity_curve = ExtResource("10_goo4p")
 sun_scale_curve = ExtResource("11_y0yni")
 moon_intensity_curve = ExtResource("12_c68k3")
 moon_scale_curve = ExtResource("13_7kd5v")
-day_progress = 0.19
+day_progress = 0.5
 moon_direction = Vector3(0, 0.3, -0.6)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1561467000]
 unique_name_in_owner = true
-environment = SubResource("Environment_1bvj8")
+environment = ExtResource("20_wxomr")
 
 [node name="SunPivot" type="Node3D" parent="." unique_id=797808770]
 unique_name_in_owner = true
-transform = Transform3D(0.3681246, -2.7620151e-08, 0.9297765, 0.9297765, 4.0641822e-08, -0.3681246, -2.7620151e-08, 1, 4.0641822e-08, 0, 0, 0)
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="SunLight" type="DirectionalLight3D" parent="SunPivot" unique_id=159570840]
 unique_name_in_owner = true
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
-light_color = Color(0, 0, 0, 1)
-light_energy = 0.099275
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 shadow_enabled = true
+directional_shadow_split_1 = 0.04
+directional_shadow_split_2 = 0.11
+directional_shadow_split_3 = 0.33
+directional_shadow_blend_splits = true
+directional_shadow_max_distance = 200.0

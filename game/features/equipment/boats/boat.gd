@@ -41,19 +41,22 @@ func get_collision_speed_multiplier() -> float:
 # ===
 
 func _apply_rotation(delta: float) -> void:
-	# Turn speed is scaled by how much the boat is in the water
-	var target_turn_velocity = -_turn_input * data.turn_speed * submersion_ratio
+	# Determine direction modifier: 1.0 for forward, -1.0 for backward
+	# We use sign() to get -1, 0, or 1. Default to 1 if stationary.
+	var direction_mod = sign(_move_input) if _move_input != 0 else 1.0
+	
+	# Apply modifier to the turn velocity
+	var target_turn_velocity = -_turn_input * data.turn_speed * submersion_ratio * direction_mod
 	
 	# Smoothly interpolate angular velocity to the target
-	# This prevents instant "snapping" while providing immediate response
 	angular_velocity.y = lerp(
 		angular_velocity.y, 
 		target_turn_velocity, 
 		data.angular_drag * delta * 5.0
 	)
 
-	# Handle banking animation
-	var target_bank := _turn_input * 0.25 * submersion_ratio
+	# Handle banking animation (Optional: reverse bank direction when moving backward)
+	var target_bank: float = _turn_input * 0.25 * submersion_ratio * direction_mod
 	model.rotation.z = lerp(
 		model.rotation.z, 
 		-target_bank, 

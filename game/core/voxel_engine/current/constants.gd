@@ -4,7 +4,10 @@ extends RefCounted
 const BLOCK_TO_TEXTURE_INDEX: Dictionary[Enums.BlockType, int] = {
 	Enums.BlockType.COBBLESTONE: 0,
 	Enums.BlockType.MOSSY_COBBLESTONE: 1,
-	Enums.BlockType.STONE: 2
+	Enums.BlockType.STONE: 2,
+	Enums.BlockType.SAND: 3,
+	Enums.BlockType.GRASS: 4,
+	Enums.BlockType.DIRT: 5,
 }
 
 class Cube:
