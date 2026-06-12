@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BlockData" format=3 uid="uid://clqhl5ic6yxt7"]
+
+[ext_resource type="Script" uid="uid://cuxpk74yiytr4" path="res://common/dataclasses/block.gd" id="1_7r6yw"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7r6yw"]
+size = Vector2(16, 16)
+
+[resource]
+script = ExtResource("1_7r6yw")
+type = 2
+display_name = "Dirt"
+category = 1
+capabilities = Array[int]([0, 3, 2])
+icon = SubResource("PlaceholderTexture2D_7r6yw")
+metadata/_custom_type_script = "uid://cuxpk74yiytr4"

@@ -2,12 +2,20 @@
 
 [ext_resource type="PackedScene" uid="uid://bftyw6t85ndqu" path="res://ui/menus/dock/components/special_item.tscn" id="1_kx54j"]
 [ext_resource type="Script" uid="uid://dqfa6u5lyjuap" path="res://ui/menus/dock/sections/special_items.gd" id="1_pnnym"]
+[ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_y4phj"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1lcu5"]
+size = Vector2(48, 48)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_17nj1"]
+size = Vector2(48, 48)
 
 [node name="SpecialItems" type="PanelContainer" unique_id=669762293]
 offset_right = 800.0
 offset_bottom = 228.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
+theme = ExtResource("1_y4phj")
 theme_type_variation = &"SecondPanelContainer"
 script = ExtResource("1_pnnym")
 special_items = Array[int]([0, 0, 2])
@@ -17,9 +25,6 @@ affordability_status = Dictionary[int, bool]({
 2: false,
 3: false
 })
-
-[node name="Control" type="Control" parent="." unique_id=292665571]
-layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=836896046]
 layout_mode = 2
@@ -34,13 +39,46 @@ layout_mode = 2
 alignment = 1
 
 [node name="SpecialItem" parent="MarginContainer/ItemsContainer" unique_id=1239730259 instance=ExtResource("1_kx54j")]
-visible = false
 layout_mode = 2
+item_icon = SubResource("PlaceholderTexture2D_1lcu5")
+item_name = "Repair Kit"
+item_description = "Restores 50% of your boat's durability"
+item_buy_price = 2500
 
 [node name="SpecialItem2" parent="MarginContainer/ItemsContainer" unique_id=1090782755 instance=ExtResource("1_kx54j")]
-visible = false
 layout_mode = 2
+item_icon = SubResource("PlaceholderTexture2D_1lcu5")
+item_name = "Repair Kit"
+item_description = "Restores 50% of your boat's durability"
+item_buy_price = 2500
 
 [node name="SpecialItem3" parent="MarginContainer/ItemsContainer" unique_id=173341119 instance=ExtResource("1_kx54j")]
-visible = false
 layout_mode = 2
+item_icon = SubResource("PlaceholderTexture2D_17nj1")
+item_name = "Time Skip (2 Days)"
+item_description = "Skip ahead 2 days. "
+item_buy_price = 5000
+can_afford = false
+
+[node name="Control" type="Control" parent="." unique_id=292665571]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="FloatingHeader" type="PanelContainer" parent="Control" unique_id=1010748619]
+layout_mode = 1
+offset_top = -15.0
+offset_right = 102.0
+offset_bottom = 25.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/FloatingHeader" unique_id=932716234]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 8
+
+[node name="Title" type="Label" parent="Control/FloatingHeader/MarginContainer" unique_id=1333075486]
+layout_mode = 2
+text = "Special Items"
+horizontal_alignment = 1
+vertical_alignment = 1

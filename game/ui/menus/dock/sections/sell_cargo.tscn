@@ -1,0 +1,343 @@
+[gd_scene format=3 uid="uid://d2ftqw51wfgh3"]
+
+[ext_resource type="Script" uid="uid://c12qpfupyw71p" path="res://ui/menus/dock/sections/sell_cargo.gd" id="1_8sl0f"]
+[ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_q5wvq"]
+[ext_resource type="PackedScene" uid="uid://b12o8n5tir6rl" path="res://ui/menus/dock/components/inventory_item.tscn" id="1_vv6fc"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4y8xm"]
+size = Vector2(24, 24)
+
+[node name="SellCargo" type="PanelContainer" unique_id=1405400766]
+offset_right = 600.0
+offset_bottom = 330.0
+size_flags_vertical = 3
+theme = ExtResource("1_q5wvq")
+theme_type_variation = &"SecondPanelContainer"
+script = ExtResource("1_8sl0f")
+inventory_item_slot_scene = ExtResource("1_vv6fc")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1346126906]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1402059597]
+layout_mode = 2
+
+[node name="Inventory" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=1679905929]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Inventory" unique_id=1702254501]
+layout_mode = 2
+
+[node name="Header" type="MarginContainer" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer" unique_id=2033600387]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Header" unique_id=176684451]
+layout_mode = 2
+text = "Inventory"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Body" type="PanelContainer" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer" unique_id=151158464]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"ThirdPanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Body" unique_id=1918433821]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 8
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Body/MarginContainer" unique_id=613512923]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Body/MarginContainer/ScrollContainer" unique_id=984010543]
+layout_mode = 2
+theme_override_constants/margin_right = 4
+
+[node name="InventoryGrid" type="GridContainer" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Body/MarginContainer/ScrollContainer/MarginContainer" unique_id=634000127]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 3
+
+[node name="PanelContainer" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Body/MarginContainer/ScrollContainer/MarginContainer/InventoryGrid" unique_id=2041110503 instance=ExtResource("1_vv6fc")]
+layout_mode = 2
+
+[node name="PanelContainer2" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Body/MarginContainer/ScrollContainer/MarginContainer/InventoryGrid" unique_id=2005804955 instance=ExtResource("1_vv6fc")]
+layout_mode = 2
+
+[node name="PanelContainer3" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Body/MarginContainer/ScrollContainer/MarginContainer/InventoryGrid" unique_id=1960502193 instance=ExtResource("1_vv6fc")]
+layout_mode = 2
+
+[node name="PanelContainer4" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Body/MarginContainer/ScrollContainer/MarginContainer/InventoryGrid" unique_id=1785341478 instance=ExtResource("1_vv6fc")]
+layout_mode = 2
+
+[node name="PanelContainer5" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Body/MarginContainer/ScrollContainer/MarginContainer/InventoryGrid" unique_id=402486807 instance=ExtResource("1_vv6fc")]
+layout_mode = 2
+
+[node name="PanelContainer6" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Body/MarginContainer/ScrollContainer/MarginContainer/InventoryGrid" unique_id=1868311413 instance=ExtResource("1_vv6fc")]
+layout_mode = 2
+
+[node name="PanelContainer7" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Body/MarginContainer/ScrollContainer/MarginContainer/InventoryGrid" unique_id=1005289146 instance=ExtResource("1_vv6fc")]
+layout_mode = 2
+
+[node name="PanelContainer8" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Body/MarginContainer/ScrollContainer/MarginContainer/InventoryGrid" unique_id=1353080874 instance=ExtResource("1_vv6fc")]
+layout_mode = 2
+
+[node name="PanelContainer9" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Body/MarginContainer/ScrollContainer/MarginContainer/InventoryGrid" unique_id=540301082 instance=ExtResource("1_vv6fc")]
+layout_mode = 2
+
+[node name="PanelContainer10" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Body/MarginContainer/ScrollContainer/MarginContainer/InventoryGrid" unique_id=1814612017 instance=ExtResource("1_vv6fc")]
+layout_mode = 2
+
+[node name="PanelContainer11" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Body/MarginContainer/ScrollContainer/MarginContainer/InventoryGrid" unique_id=667818419 instance=ExtResource("1_vv6fc")]
+layout_mode = 2
+
+[node name="PanelContainer12" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Body/MarginContainer/ScrollContainer/MarginContainer/InventoryGrid" unique_id=36989539 instance=ExtResource("1_vv6fc")]
+layout_mode = 2
+
+[node name="Footer" type="MarginContainer" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer" unique_id=618821623]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Footer" unique_id=1594879826]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Weight" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Footer/HBoxContainer" unique_id=1170351584]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Footer/HBoxContainer/Weight" unique_id=1006749371]
+layout_mode = 2
+text = "Weight"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WeightBar" type="ProgressBar" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Footer/HBoxContainer/Weight" unique_id=1063502665]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 8)
+layout_mode = 2
+value = 67.0
+show_percentage = false
+
+[node name="Capacity" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Footer/HBoxContainer" unique_id=1217971872]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Footer/HBoxContainer/Capacity" unique_id=1951396337]
+layout_mode = 2
+text = "Capacity"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CapacityBar" type="ProgressBar" parent="MarginContainer/HBoxContainer/Inventory/VBoxContainer/Footer/HBoxContainer/Capacity" unique_id=359479481]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 8)
+layout_mode = 2
+value = 67.0
+show_percentage = false
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer" unique_id=1232085839]
+layout_mode = 2
+
+[node name="Controls" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=182786724]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Controls" unique_id=1992206504]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="MarginContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer" unique_id=1346269182]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Header" unique_id=457255581]
+layout_mode = 2
+
+[node name="ItemName" type="Label" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Header/VBoxContainer" unique_id=1513047602]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Sand Block"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Owned" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Header/VBoxContainer" unique_id=904306007]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Header/VBoxContainer/Owned" unique_id=16241816]
+layout_mode = 2
+text = "You Own:"
+
+[node name="TotalItemQuantity" type="Label" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Header/VBoxContainer/Owned" unique_id=470876187]
+unique_name_in_owner = true
+layout_mode = 2
+text = "127"
+
+[node name="Body" type="MarginContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer" unique_id=53118153]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body" unique_id=1287346391]
+layout_mode = 2
+theme_type_variation = &"ThirdPanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer" unique_id=515169949]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer" unique_id=1823397174]
+layout_mode = 2
+
+[node name="QuantitySelection" type="MarginContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer" unique_id=2094164936]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/QuantitySelection" unique_id=76197897]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/QuantitySelection/VBoxContainer" unique_id=1033432710]
+layout_mode = 2
+text = "Quantity"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/QuantitySelection/VBoxContainer" unique_id=314210814]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="DecreaseMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/QuantitySelection/VBoxContainer/HBoxContainer" unique_id=1951008327]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Decrease" type="Button" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/QuantitySelection/VBoxContainer/HBoxContainer/DecreaseMargin" unique_id=30013138]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "-"
+
+[node name="SelectedQuantity" type="PanelContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/QuantitySelection/VBoxContainer/HBoxContainer" unique_id=646240238]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SecondPanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/QuantitySelection/VBoxContainer/HBoxContainer/SelectedQuantity" unique_id=1903827528]
+layout_mode = 2
+
+[node name="SelectedQuantity" type="Label" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/QuantitySelection/VBoxContainer/HBoxContainer/SelectedQuantity/MarginContainer" unique_id=1582915839]
+unique_name_in_owner = true
+layout_mode = 2
+text = "127"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IncreaseMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/QuantitySelection/VBoxContainer/HBoxContainer" unique_id=1889935957]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Increase" type="Button" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/QuantitySelection/VBoxContainer/HBoxContainer/IncreaseMargin" unique_id=834583107]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "+"
+
+[node name="MaxMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/QuantitySelection/VBoxContainer" unique_id=1003257053]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Max" type="Button" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/QuantitySelection/VBoxContainer/MaxMargin" unique_id=47030665]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 24)
+layout_mode = 2
+text = "MAX"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer" unique_id=781299526]
+layout_mode = 2
+
+[node name="SellPrice" type="MarginContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer" unique_id=1994644135]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/SellPrice" unique_id=312437521]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/SellPrice/HBoxContainer" unique_id=619581588]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Total"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/SellPrice/HBoxContainer" unique_id=204944199]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="CoinIconMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/SellPrice/HBoxContainer/HBoxContainer" unique_id=1004586877]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CoinIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/SellPrice/HBoxContainer/HBoxContainer/CoinIconMargin" unique_id=1808374417]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4y8xm")
+
+[node name="TotalSellValue" type="Label" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Body/PanelContainer/MarginContainer/VBoxContainer/SellPrice/HBoxContainer/HBoxContainer" unique_id=1647250161]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1,905"
+
+[node name="Footer" type="MarginContainer" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer" unique_id=2100039083]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Sell" type="Button" parent="MarginContainer/HBoxContainer/Controls/VBoxContainer/Footer" unique_id=3170518]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 48)
+layout_mode = 2
+text = "Sell"
+
+[node name="Control" type="Control" parent="." unique_id=1560422216]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="FloatingHeader" type="PanelContainer" parent="Control" unique_id=2120540708]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = -15.0
+offset_right = 20.0
+offset_bottom = 25.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/FloatingHeader" unique_id=1477676764]
+layout_mode = 2
+theme_override_constants/margin_left = 96
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 96
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="Control/FloatingHeader/MarginContainer" unique_id=607050156]
+layout_mode = 2
+text = "Sell Cargo"

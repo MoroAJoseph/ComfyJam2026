@@ -21,7 +21,6 @@ var is_merging := false
 
 func _ready() -> void:
 	if not data: return
-	merge_area.area_entered.connect(_on_merge_area_entered)
 	
 	var geom = VoxelEngineHexagon.get_single_textured_voxel_geometry(data.type)
 	

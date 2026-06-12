@@ -91,6 +91,17 @@ enum AudioBus {
 # Gameplay
 # ===
 
+enum EquipmentType {
+	BOAT,
+	TOOL,
+	COMPASS
+}
+
+enum ItemMarketTrend {
+	HOT,
+	COLD
+}
+
 enum DayPhase {
 	MIDNIGHT,
 	DAWN,
@@ -154,7 +165,9 @@ enum BlockType {
 	MOSSY_COBBLESTONE,
 	GRASS, 
 	COAL_ORE, 
-	COAL 
+	COAL,
+	SILVER_ORE,
+	COPPER_ORE
 }
 
 enum BlockCategory { 
@@ -162,11 +175,4 @@ enum BlockCategory {
 	TERRAIN, 	# ex. Dirt
 	RESOURCE, 	# ex. Ore
 	CONSTRUCTED # ex. Structural
-}
-
-enum BlockCapability {
-	GENERATE, 	# Generates in the world
-	CRAFT, 		# Created from crafting
-	PLACE, 		# Places the block in the world
-	COLLECT 	# Creates a BlockItem to collect
 }

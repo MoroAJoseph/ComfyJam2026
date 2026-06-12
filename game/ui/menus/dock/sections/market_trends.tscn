@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://dgbhmqx1twhm2"]
+
+[ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_1bqnf"]
+[ext_resource type="Script" uid="uid://c4dcuoi80qwme" path="res://ui/menus/dock/sections/market_trends.gd" id="1_6gdga"]
+[ext_resource type="PackedScene" uid="uid://b5uv5u565qlce" path="res://ui/menus/dock/components/item_market_trend.tscn" id="1_i8lrs"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4y8xm"]
+size = Vector2(8, 8)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_yl62b"]
+size = Vector2(8, 8)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1bqnf"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ejjx3"]
+
+[node name="MarketTrends" type="PanelContainer" unique_id=2002224587]
+offset_right = 600.0
+offset_bottom = 330.0
+size_flags_vertical = 3
+theme = ExtResource("1_1bqnf")
+theme_type_variation = &"SecondPanelContainer"
+script = ExtResource("1_6gdga")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=72343688]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=460906420]
+layout_mode = 2
+
+[node name="Body" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=784741005]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Body" unique_id=1621643159]
+layout_mode = 2
+
+[node name="Hot" parent="MarginContainer/VBoxContainer/Body/HBoxContainer" unique_id=2046757053 instance=ExtResource("1_i8lrs")]
+unique_name_in_owner = true
+layout_mode = 2
+hot_trend_arrow_icon = SubResource("PlaceholderTexture2D_4y8xm")
+cold_trend_arrow_icon = SubResource("PlaceholderTexture2D_yl62b")
+hot_difference_color = Color(0.4745098, 0.5372549, 0.21960784, 1)
+cold_difference_color = Color(0.6627451, 0.28627452, 0.18039216, 1)
+block_type = 2
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer/Body/HBoxContainer" unique_id=849597434]
+layout_mode = 2
+
+[node name="Cold" parent="MarginContainer/VBoxContainer/Body/HBoxContainer" unique_id=1841527316 instance=ExtResource("1_i8lrs")]
+unique_name_in_owner = true
+layout_mode = 2
+hot_trend_arrow_icon = SubResource("PlaceholderTexture2D_1bqnf")
+cold_trend_arrow_icon = SubResource("PlaceholderTexture2D_ejjx3")
+block_type = 1
+trend = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1454981840]
+layout_mode = 2
+
+[node name="Footer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=313776008]
+layout_mode = 2
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Blurb" type="Label" parent="MarginContainer/VBoxContainer/Footer" unique_id=1048649992]
+layout_mode = 2
+text = "Prices change with the tides. Check back tomorrrow!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="." unique_id=1240744701]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="FloatingHeader" type="PanelContainer" parent="Control" unique_id=1496565464]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = -15.0
+offset_right = 20.0
+offset_bottom = 25.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/FloatingHeader" unique_id=1804172861]
+layout_mode = 2
+theme_override_constants/margin_left = 96
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 96
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="Control/FloatingHeader/MarginContainer" unique_id=590617995]
+layout_mode = 2
+text = "Market Trends"

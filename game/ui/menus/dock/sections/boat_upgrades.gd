@@ -11,7 +11,6 @@ signal upgrade_item_selected(boat_type: Enums.BoatType)
 			_update_owned_status_ui(boat_ownership_status)
 			_update_boat_upgrade_items()
 
-# Keep specialized cache
 var boat_data_cache: Dictionary[Enums.BoatType, BoatData] = {}
 
 func _ready() -> void:

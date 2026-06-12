@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://b12o8n5tir6rl"]
+
+[ext_resource type="Script" uid="uid://b4a1e1v34xr5w" path="res://ui/menus/dock/components/inventory_item.gd" id="1_e22ch"]
+
+[node name="InventoryItem" type="PanelContainer" unique_id=2041110503]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_e22ch")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1232869959]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Icon" type="TextureRect" parent="MarginContainer" unique_id=1134067660]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="." unique_id=508167016]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=622872888]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -30.0
+offset_bottom = 10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="Label" type="Label" parent="Control/HBoxContainer" unique_id=438051908]
+layout_mode = 2
+text = "x"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="StackQuantity" type="Label" parent="Control/HBoxContainer" unique_id=751753434]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Button" type="Button" parent="Control" unique_id=1606637629]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+toggle_mode = true

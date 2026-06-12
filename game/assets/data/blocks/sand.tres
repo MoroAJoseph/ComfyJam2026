@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BlockData" format=3 uid="uid://085r5rueg65o"]
+
+[ext_resource type="Script" uid="uid://cuxpk74yiytr4" path="res://common/dataclasses/block.gd" id="1_srt5f"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_srt5f"]
+size = Vector2(16, 16)
+
+[resource]
+script = ExtResource("1_srt5f")
+type = 1
+display_name = "Sand"
+category = 1
+icon = SubResource("PlaceholderTexture2D_srt5f")
+value = 12
+metadata/_custom_type_script = "uid://cuxpk74yiytr4"

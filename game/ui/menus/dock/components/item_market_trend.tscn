@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://b5uv5u565qlce"]
+
+[ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_2e4l4"]
+[ext_resource type="Script" uid="uid://dc72j8accxb5v" path="res://ui/menus/dock/components/item_market_trend.gd" id="1_ishig"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2e4l4"]
+size = Vector2(8, 8)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_chhrw"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_sm4ae"]
+size = Vector2(16, 16)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_v5mo7"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_qihtk"]
+size = Vector2(16, 16)
+
+[node name="ItemMarketTrend" type="MarginContainer" unique_id=2046757053]
+offset_right = 69.0
+offset_bottom = 199.0
+size_flags_horizontal = 3
+theme = ExtResource("1_2e4l4")
+script = ExtResource("1_ishig")
+hot_trend_arrow_icon = SubResource("PlaceholderTexture2D_2e4l4")
+cold_trend_arrow_icon = SubResource("PlaceholderTexture2D_chhrw")
+hot_difference_color = Color(0.47843137, 0.5372549, 0.21568628, 1)
+cold_difference_color = Color(0.5764706, 0.23137255, 0.14509805, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1991098204]
+layout_mode = 2
+alignment = 1
+
+[node name="HotCold" type="Label" parent="VBoxContainer" unique_id=1198732604]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Hot Item"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Difference" type="HBoxContainer" parent="VBoxContainer" unique_id=1926365227]
+layout_mode = 2
+alignment = 1
+
+[node name="ArrowIconMargin" type="MarginContainer" parent="VBoxContainer/Difference" unique_id=1765968160]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ArrowIcon" type="TextureRect" parent="VBoxContainer/Difference/ArrowIconMargin" unique_id=265814410]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_sm4ae")
+
+[node name="Difference" type="Label" parent="VBoxContainer/Difference" unique_id=1179823304]
+unique_name_in_owner = true
+layout_mode = 2
+text = "+50%"
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer" unique_id=798372005]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/CenterContainer" unique_id=976539057]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="ItemIcon" type="TextureRect" parent="VBoxContainer/CenterContainer/MarginContainer" unique_id=845772292]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_v5mo7")
+
+[node name="ItemName" type="Label" parent="VBoxContainer" unique_id=271889292]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Dirt"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SellPrice" type="HBoxContainer" parent="VBoxContainer" unique_id=1032453452]
+layout_mode = 2
+alignment = 1
+
+[node name="CoinIconMargin" type="MarginContainer" parent="VBoxContainer/SellPrice" unique_id=482019476]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CoinIcon" type="TextureRect" parent="VBoxContainer/SellPrice/CoinIconMargin" unique_id=1037875092]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_qihtk")
+
+[node name="NewSellPrice" type="Label" parent="VBoxContainer/SellPrice" unique_id=939517276]
+unique_name_in_owner = true
+layout_mode = 2
+text = "15"
+vertical_alignment = 1
+
+[node name="BasePrice" type="HBoxContainer" parent="VBoxContainer" unique_id=716680248]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/BasePrice" unique_id=2418481]
+layout_mode = 2
+text = "Base:"
+
+[node name="BaseSellPrice" type="Label" parent="VBoxContainer/BasePrice" unique_id=2073209163]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1

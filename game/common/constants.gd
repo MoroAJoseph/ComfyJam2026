@@ -63,7 +63,16 @@ class Paths:
 
 		# --- Blocks ---
 		const BLOCKS_DIR: String = BASE_DIR + "blocks/"
-		const BLOCKS_TABLE: Dictionary[Enums.BlockType, String] = {}
+		const BLOCKS_TABLE: Dictionary[Enums.BlockType, String] = {
+			Enums.BlockType.SAND: BLOCKS_DIR + "sand.tres",
+			Enums.BlockType.DIRT: BLOCKS_DIR + "dirt.tres",
+			Enums.BlockType.STONE: BLOCKS_DIR + "stone.tres",
+			Enums.BlockType.COBBLESTONE: BLOCKS_DIR + "cobblestone.tres",
+			Enums.BlockType.MOSSY_COBBLESTONE: BLOCKS_DIR + "mossy_cobblestone.tres",
+			Enums.BlockType.GRASS: BLOCKS_DIR + "grass.tres",
+			Enums.BlockType.COAL_ORE: BLOCKS_DIR + "coal_ore.tres",
+			Enums.BlockType.COAL: BLOCKS_DIR + "coal.tres",
+		}
 		
 		# --- Barrels ---
 		const BARRELS_DIR: String = BASE_DIR + "barrels/"
