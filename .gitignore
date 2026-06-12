@@ -26,6 +26,3 @@ ignore
 # System files
 .DS_Store
 Thumbs.db
-*.import
-*.import
-*.import

@@ -36,13 +36,16 @@ directories/dch_directory={
 "sand_witch": "res://features/narrative/characters/sand_witch.dch"
 }
 directories/dtl_directory={
+"captain_log_0_1": "res://features/narrative/timelines/intro_test/captain_log_0_1.dtl",
 "intro_1_awakening": "res://features/narrative/timelines/intro_test/intro_1_awakening.dtl",
 "intro_2_pockets": "res://features/narrative/timelines/intro_test/intro_2_pockets.dtl",
 "intro_3_first_log": "res://features/narrative/timelines/intro_test/intro_3_first_log.dtl",
+"intro_4_final": "res://features/narrative/timelines/intro_test/intro_4_final.dtl",
 "log_page_1_1": "res://features/narrative/timelines/navigator_logs/log_page_1_1.dtl",
 "log_page_2_3": "res://features/narrative/timelines/navigator_logs/log_page_2_3.dtl",
 "main_timeline": "res://features/narrative/timelines/main_timeline.dtl",
-"sand_witch_first_meet": "res://features/narrative/timelines/sand_witch_first_meet.dtl"
+"sand_witch_first_meet": "res://features/narrative/timelines/sand_witch_first_meet.dtl",
+"test_text": "res://features/narrative/timelines/intro_test/test_text.dtl"
 }
 layout/style_directory={
 "": "res://features/narrative/styles/main_style.tres",

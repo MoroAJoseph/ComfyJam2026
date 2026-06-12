@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cifim2226ibgp"
+path="res://.godot/imported/stall-green.obj-0c03f2bc77da10882f02a660821b664e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/stall-green.obj-0c03f2bc77da10882f02a660821b664e.mesh"]
+
+source_file="res://assets/_placeholder/kenney_fantasy_town/Models/OBJ format/stall-green.obj"
+dest_files=["res://.godot/imported/stall-green.obj-0c03f2bc77da10882f02a660821b664e.mesh", "res://.godot/imported/stall-green.obj-0c03f2bc77da10882f02a660821b664e.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false
