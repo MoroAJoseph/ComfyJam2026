@@ -10,6 +10,5 @@ script = ExtResource("1_7r6yw")
 type = 2
 display_name = "Dirt"
 category = 1
-capabilities = Array[int]([0, 3, 2])
 icon = SubResource("PlaceholderTexture2D_7r6yw")
 metadata/_custom_type_script = "uid://cuxpk74yiytr4"

@@ -5,29 +5,36 @@ extends Area3D
 @export var radius: float = 5.0:
 	set(value):
 		radius = value
-		update_interaction_size()
+		_update_interaction_size()
 
-@export var height: float = 5.0:
+@export var mesh_height: float = 5.0:
 	set(value):
-		height = value
-		update_interaction_size()
+		mesh_height = value
+		_update_interaction_size()
+
+@export var collision_height: float = 3.0:
+	set(value):
+		collision_height = value
+		_update_collision_height()
 
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 
-func _ready() -> void:
-	update_interaction_size()
+# ===
+# Built-In
+# ===
 
-func update_interaction_size() -> void:
-	if mesh_instance:
-		# Use radius for X and Z, height for Y
-		mesh_instance.scale = Vector3(radius, height, radius)
-	
-	if collision_shape:
-		# If using a cylinder, adjust height and radius
-		if collision_shape.shape is CylinderShape3D:
-			collision_shape.shape.radius = radius
-			collision_shape.shape.height = height
-		# If using a sphere, treat height as the uniform scale if desired
-		elif collision_shape.shape is SphereShape3D:
-			collision_shape.shape.radius = radius
+func _ready() -> void:
+	_update_interaction_size()
+	_update_collision_height()
+
+# ===
+# Private
+# ===
+
+func _update_interaction_size() -> void:
+	mesh_instance.scale = Vector3(radius, mesh_height, radius)
+	collision_shape.shape.radius = radius
+
+func _update_collision_height() -> void:
+	collision_shape.shape.height = collision_height
