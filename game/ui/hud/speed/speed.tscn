@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://b7cr0x30rpveu"]
+
+[ext_resource type="Script" uid="uid://dmlufq28jxd5x" path="res://ui/hud/speed/speed.gd" id="1_hjke7"]
+[ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_o2or7"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_imuuq"]
+size = Vector2(64, 64)
+
+[node name="Speed" type="MarginContainer" unique_id=1781218887]
+offset_right = 270.0
+offset_bottom = 109.0
+theme = ExtResource("1_o2or7")
+script = ExtResource("1_hjke7")
+current_knots = null
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=751024500]
+layout_mode = 2
+theme_type_variation = &"FirstPanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1877702438]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1196831545]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="IconMargin" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=207738982]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/IconMargin" unique_id=1601785232]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_imuuq")
+
+[node name="Knots" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=491436353]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Knots" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/Knots" unique_id=685633695]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+text = "6.2"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/Knots" unique_id=1738341251]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "kn"
+vertical_alignment = 2

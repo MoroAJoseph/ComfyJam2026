@@ -1,10 +1,16 @@
 [gd_scene format=3 uid="uid://6l68j3odtf1a"]
 
-[ext_resource type="PackedScene" path="res://ui/hud/gold_counter/gold_counter.tscn" id="1_4d6w6"]
 [ext_resource type="Script" uid="uid://d0e084smvtiiv" path="res://ui/hud/hud.gd" id="1_e0nub"]
 [ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_w75iv"]
-[ext_resource type="PackedScene" uid="uid://cb5k8m1n2u8y4" path="res://ui/hud/reward_popup/reward_popup.tscn" id="2_e0nub"]
+[ext_resource type="PackedScene" uid="uid://baymsrp4vjxef" path="res://ui/hud/distance/distance.tscn" id="3_imuuq"]
 [ext_resource type="PackedScene" uid="uid://dr2murusko3qq" path="res://ui/hud/inventory/inventory.tscn" id="5_imuuq"]
+[ext_resource type="PackedScene" uid="uid://b7cr0x30rpveu" path="res://ui/hud/speed/speed.tscn" id="6_kwc50"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_imuuq"]
+size = Vector2(64, 64)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_w75iv"]
+size = Vector2(64, 64)
 
 [node name="HUD" type="Control" unique_id=1634400941]
 layout_mode = 3
@@ -32,28 +38,57 @@ theme_override_constants/margin_bottom = 48
 [node name="Content" type="Control" parent="SafeArea" unique_id=1689499245]
 layout_mode = 2
 
-[node name="GoldCounter" parent="SafeArea/Content" unique_id=729044393 instance=ExtResource("1_4d6w6")]
-layout_mode = 0
-offset_right = 56.0
-offset_bottom = 34.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="RewardPopup" parent="SafeArea/Content" unique_id=537706517 instance=ExtResource("2_e0nub")]
+[node name="Time" type="MarginContainer" parent="SafeArea/Content" unique_id=705698963]
 layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SafeArea/Content" unique_id=2031621511]
+[node name="Distance" parent="SafeArea/Content" unique_id=980666158 instance=ExtResource("3_imuuq")]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Minimap" type="Control" parent="SafeArea/Content" unique_id=500192140]
 anchors_preset = 0
-offset_right = 40.0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 0.0
+offset_right = 168.0
+grow_horizontal = 1
+icon_texture = SubResource("PlaceholderTexture2D_imuuq")
+
+[node name="Compass" type="MarginContainer" parent="SafeArea/Content" unique_id=202570130]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
 offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="Tool" type="MarginContainer" parent="SafeArea/Content" unique_id=1041999853]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
 
 [node name="Inventory" parent="SafeArea/Content" unique_id=1591078778 instance=ExtResource("5_imuuq")]
 layout_mode = 1
-offset_left = -184.0
+offset_left = -185.0
 offset_top = -160.0
-offset_right = 184.0
+offset_right = 185.0
+
+[node name="Speed" parent="SafeArea/Content" unique_id=1781218887 instance=ExtResource("6_kwc50")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -206.0
+offset_top = -109.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
+icon_texture = SubResource("PlaceholderTexture2D_w75iv")
+current_knots = 0.615

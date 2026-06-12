@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://baymsrp4vjxef"]
+
+[ext_resource type="Theme" uid="uid://bhfpo06nr1oxg" path="res://ui/ui_wireframe.tres" id="1_5e8wj"]
+[ext_resource type="Script" uid="uid://w7caohbgg6j1" path="res://ui/hud/distance/distance.gd" id="2_gcr4o"]
+
+[node name="Distance" type="MarginContainer" unique_id=980666158]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.0
+offset_right = 84.0
+offset_bottom = 83.0
+grow_horizontal = 2
+theme = ExtResource("1_5e8wj")
+script = ExtResource("2_gcr4o")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=2086976064]
+layout_mode = 2
+theme_type_variation = &"FirstPanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1271140122]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1132049311]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1226378082]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/MarginContainer" unique_id=1306921131]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Meters" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=579400874]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Distance" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/Meters" unique_id=2134936351]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+text = "2.73"
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/Meters" unique_id=126095444]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "km"
+horizontal_alignment = 1
+vertical_alignment = 2
