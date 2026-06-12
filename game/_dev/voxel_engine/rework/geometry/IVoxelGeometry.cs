@@ -10,4 +10,5 @@ public interface IVoxelGeometry
 	Vector3I GetNeighborOffset(int face, Vector3I currentPos);
 	Vector3 GetWorldPosition(Vector3I gridPos);
 	Vector3I WorldToGridPosition(Vector3 worldPos);
+	Vector2 GetUV(int face, int vertexIndex, int sideIndex = 0);
 }
