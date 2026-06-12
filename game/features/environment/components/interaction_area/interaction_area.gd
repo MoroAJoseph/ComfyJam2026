@@ -33,8 +33,16 @@ func _ready() -> void:
 # ===
 
 func _update_interaction_size() -> void:
+	if not (
+		mesh_instance and 
+		collision_shape
+	): return
+		
 	mesh_instance.scale = Vector3(radius, mesh_height, radius)
-	collision_shape.shape.radius = radius
+	
+	if collision_shape.shape:
+		collision_shape.shape.radius = radius
 
 func _update_collision_height() -> void:
+	if collision_shape: return
 	collision_shape.shape.height = collision_height
