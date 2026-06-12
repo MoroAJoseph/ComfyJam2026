@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://rlyglo74ykl0"]
 
 [ext_resource type="Script" uid="uid://b8a1utw4u5w5k" path="res://_dev/voxel_engine/rework/chunk.gd" id="1_tfqf6"]
+[ext_resource type="Material" uid="uid://cuuxx2n68hdnq" path="res://_dev/voxel_engine/rework/voxel_material.tres" id="2_vbw8r"]
 
 [node name="Chunk" type="StaticBody3D" unique_id=741088294]
 collision_layer = 3
 script = ExtResource("1_tfqf6")
+mat = ExtResource("2_vbw8r")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1307908387]
 

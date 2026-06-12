@@ -88,4 +88,26 @@ public partial class CubeGeometry : Resource, IVoxelGeometry
 			Mathf.FloorToInt(worldPos.Z)
 		);
 	}
+	
+	public Vector2 GetUV(int face, int vertexIndex, int sideIndex = 0)
+	{
+		// Based on the quad index winding loops:
+		
+		return (vertexIndex % 4) switch
+		{
+			// Tri 1: [0, 1, 2] -> (0,1), (1,1), (1,0)
+			0 => new Vector2(0f, 1f),
+			1 => new Vector2(1f, 1f),
+			2 => new Vector2(1f, 0f),
+			3 => new Vector2(0f, 0f),
+			
+			// Tri 2: [0, 2, 3] -> (0,1), (1,0), (0,0)
+			4 => new Vector2(0f, 1f),
+			5 => new Vector2(1f, 1f),
+			6 => new Vector2(1f, 0f),
+			7 => new Vector2(0f, 0f),
+			
+			_ => Vector2.Zero
+		};
+	}
 }

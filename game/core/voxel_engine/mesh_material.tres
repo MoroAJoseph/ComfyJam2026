@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://bw1wx223he31t"]
 
-[ext_resource type="Shader" uid="uid://ctev20667duk" path="res://core/voxel_engine/uv_atlas_array.gdshader" id="1_necjj"]
+[ext_resource type="Shader" uid="uid://ctev20667duk" path="res://_dev/voxel_engine/rework/uv_atlas_array.gdshader" id="1_necjj"]
 [ext_resource type="CompressedTexture2DArray" uid="uid://cyoeoml7sa3sa" path="res://assets/textures/blocks/Texture_spritesheet.png" id="2_a7cci"]
 
 [resource]

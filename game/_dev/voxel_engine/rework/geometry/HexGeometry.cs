@@ -22,7 +22,13 @@ public partial class HexGeometry : Resource, IVoxelGeometry
 	private static readonly float H = 1.0f; 
 	private static readonly float R = 1.0f; 
 	private static readonly float r = R * Mathf.Sqrt(3) / 2.0f; 
-
+	
+	private static readonly float CanvasSize = 512f;
+	private static readonly float PixelCenterX = 256f;
+	private static readonly float PixelCenterY = 256f;
+	private static readonly float HexRadius = 64f;
+	private static readonly float Apothem = HexRadius * Mathf.Sqrt(3f) / 2f;
+	
 	// Vertices rotated by 30 degrees so the flat edges match your interlocking grid step math
 	public Vector3[] Vertices { get; } =
 	{
@@ -111,13 +117,12 @@ public partial class HexGeometry : Resource, IVoxelGeometry
 	{
 		float r_rad = Mathf.Sqrt(3.0f) / 2.0f;
 
-		// 1. Convert world positions into pure, un-rounded axial layout fractions
-		// This directly projects your world coordinates onto a clean axial basis vector frame
+		// Convert world positions into pure, un-rounded axial layout fractions
 		float q_frac = (Mathf.Sqrt(3f) / 3f * worldPos.X - 1f / 3f * worldPos.Z) / 1.0f;
 		float r_frac = (2f / 3f * worldPos.Z) / 1.0f;
 		float s_frac = -q_frac - r_frac;
 
-		// 2. Perform safe, standard Cube Rounding
+		// Perform safe, standard Cube Rounding
 		int q_int = Mathf.RoundToInt(q_frac);
 		int r_int = Mathf.RoundToInt(r_frac);
 		int s_int = Mathf.RoundToInt(s_frac);
@@ -135,15 +140,77 @@ public partial class HexGeometry : Resource, IVoxelGeometry
 			r_int = -q_int - s_int;
 		}
 
-		// 3. Translate the validated axial coordinate space straight back to your staggered array system
+		// Translate the validated axial coordinate space straight back to the staggered array system
 		int z_final = r_int;
 		
-		// Determine layout offsets accurately using your precise GetWorldPosition spacing criteria
+		// Determine layout offsets accurately using the precise GetWorldPosition spacing criteria
 		float x_offset = (Mathf.Abs(z_final) % 2 != 0) ? r_rad : 0.0f;
 		int x_final = Mathf.RoundToInt((worldPos.X - x_offset) / (r_rad * 2.0f));
 		
 		int y_final = Mathf.FloorToInt(worldPos.Y);
 
 		return new Vector3I(x_final, y_final, z_final);
+	}
+	
+	public Vector2 GetUV(int face, int vertexIndex, int sideIndex = 0)
+	{
+		float cx = PixelCenterX / CanvasSize;
+		
+		if (face == (int)Face.TOP)
+		{
+			float cy = (PixelCenterY - 32f - Apothem) / CanvasSize;
+			return CalculateCapUV(cx, cy, vertexIndex);
+		}
+		if (face == (int)Face.BOTTOM)
+		{
+			float cy = (PixelCenterY + 32f + Apothem) / CanvasSize;
+			return CalculateCapUV(cx, cy, vertexIndex);
+		}
+
+		// --- SIDE WALL CENTERING FIX ---
+		int[][] triangles = GetTriangles(face);
+		int localCornerIndex = -1;
+		System.Collections.Generic.List<int> uniqueFaceVertices = new System.Collections.Generic.List<int>();
+		
+		foreach (int[] tri in triangles)
+		{
+			foreach (int vIdx in tri)
+			{
+				if (!uniqueFaceVertices.Contains(vIdx))
+				{
+					uniqueFaceVertices.Add(vIdx);
+				}
+				if (vIdx == vertexIndex)
+				{
+					localCornerIndex = uniqueFaceVertices.IndexOf(vIdx);
+				}
+			}
+		}
+
+		// Define the UV fractional bounds of the 64x64 square centered on the 512x512 canvas
+		// Min: 224 / 512 = 0.4375
+		// Max: 288 / 512 = 0.5625
+		float uvMin = 224f / CanvasSize;
+		float uvMax = 288f / CanvasSize;
+
+		// Map the 4 corners of the quad panel explicitly to the borders of the 64x64 pixel box
+		return localCornerIndex switch
+		{
+			0 => new Vector2(uvMin, uvMax), // Bottom-Left
+			1 => new Vector2(uvMax, uvMax), // Bottom-Right
+			2 => new Vector2(uvMax, uvMin), // Top-Right
+			3 => new Vector2(uvMin, uvMin), // Top-Left
+			_ => Vector2.Zero
+		};
+	}
+	
+	private Vector2 CalculateCapUV(float cx, float cy, int vertexIndex)
+	{
+		if (vertexIndex == 12) return new Vector2(cx, cy); // Center point fallback
+
+		float angle = Mathf.DegToRad(60f * (vertexIndex % 6));
+		float u = cx + (Mathf.Cos(angle) * HexRadius) / CanvasSize;
+		float v = cy + (Mathf.Sin(angle) * HexRadius) / CanvasSize;
+		return new Vector2(u, v);
 	}
 }
