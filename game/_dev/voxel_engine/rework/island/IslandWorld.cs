@@ -4,12 +4,15 @@ public class IslandWorld : IWorldProvider
 {
 	public float[] Heightmap;
 	public Vector2I WorldSize;
-	public int MaxHeight;
 
-	public void Generate(Vector2I worldSize, int seed, int maxHeight)
+	public int MaxHeight { get; private set; }
+	public float SeaLevel { get; private set; }
+
+	public void Generate(Vector2I worldSize, int seed, int maxHeight, float seaLevel)
 	{
 		WorldSize = worldSize;
 		MaxHeight = maxHeight;
+		SeaLevel = seaLevel;
 
 		Heightmap = new float[worldSize.X * worldSize.Y];
 
@@ -21,9 +24,7 @@ public class IslandWorld : IWorldProvider
 
 		foreach (var kv in field)
 		{
-			int worldSeed =
-				kv.Value.Seed ^
-				seed;
+			int worldSeed = kv.Value.Seed ^ seed;
 
 			float[] island = IslandBlueprint.GenerateDockIsland(
 				worldSize,
@@ -34,9 +35,7 @@ public class IslandWorld : IWorldProvider
 			);
 
 			for (int i = 0; i < Heightmap.Length; i++)
-			{
 				Heightmap[i] = Mathf.Max(Heightmap[i], island[i]);
-			}
 		}
 
 		Normalize();
@@ -66,32 +65,5 @@ public class IslandWorld : IWorldProvider
 
 		for (int i = 0; i < Heightmap.Length; i++)
 			Heightmap[i] = (Heightmap[i] - min) / range;
-	}
-	
-	private void GenerateIslandChunk(Vector3 position, ChunkData chunkData)
-	{
-		int size = chunkData.GetSize();
-
-		int baseX = (int)position.X;
-		int baseZ = (int)position.Z;
-
-		var world = Terrain.Instance.World;
-
-		for (int x = 0; x < size; x++)
-		for (int z = 0; z < size; z++)
-		{
-			int wx = baseX + x;
-			int wz = baseZ + z;
-
-			float h = world.Sample(wx, wz);
-			int height = Mathf.FloorToInt(h);
-
-			for (int y = 0; y < height; y++)
-			{
-				if (y < world.MaxHeight * 0.2f) continue;
-
-				chunkData.AddVoxel(x, y, z, Voxel.STONE);
-			}
-		}
 	}
 }

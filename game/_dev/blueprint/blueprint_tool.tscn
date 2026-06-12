@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://0lo1l8u28t77"]
+
+[ext_resource type="Script" uid="uid://bqt3qnjto6k5q" path="res://_dev/blueprint/blueprint_tool.gd" id="1_uyr5k"]
+[ext_resource type="Resource" uid="uid://dfp3l6myb676m" path="res://assets/data/voxel_blueprints/test_bp.tres" id="2_s3jwh"]
+[ext_resource type="Script" uid="uid://d2xyhbxdqrwk3" path="res://_dev/blueprint/blueprint_spawn_rule.gd" id="3_jqrek"]
+[ext_resource type="Script" uid="uid://cxw154eq0xrij" path="res://_dev/blueprint/blueprint_world.gd" id="4_m004m"]
+[ext_resource type="Resource" uid="uid://ch0713kh0pfdq" path="res://assets/data/voxel_blueprints/test_bp_world.tres" id="5_ij7vf"]
+
+[sub_resource type="Resource" id="Resource_m004m"]
+script = ExtResource("3_jqrek")
+block_type = 4
+max_height = 2
+metadata/_custom_type_script = "uid://d2xyhbxdqrwk3"
+
+[sub_resource type="Resource" id="Resource_cpqf2"]
+script = ExtResource("3_jqrek")
+block_type = 5
+min_height = 2
+metadata/_custom_type_script = "uid://d2xyhbxdqrwk3"
+
+[node name="BlueprintTool" type="Node3D" unique_id=1380282209]
+script = ExtResource("1_uyr5k")
+blueprint_data = ExtResource("2_s3jwh")
+use_hexagons = true
+algorithm = 1
+dimensions = Vector3i(16, 32, 8)
+noise_seed = 74070709
+dock_weights = Array[float]([1.0, 0.2, 0.5])
+flatness_gauge = 0.54
+max_island_height = 5
+spawn_rules = Array[ExtResource("3_jqrek")]([SubResource("Resource_m004m"), SubResource("Resource_cpqf2")])
+
+[node name="WorldZone" type="Control" parent="." unique_id=1456296709]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_m004m")
+data_resource = ExtResource("5_ij7vf")
+grid_size = 32
+world_radius = 500
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WorldZone" unique_id=253040830]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Status" type="Label" parent="WorldZone/VBoxContainer" unique_id=1513508295]
+layout_mode = 2
+text = "Generation complete. Ready to save."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="WorldZone/VBoxContainer" unique_id=1549529264]
+custom_minimum_size = Vector2(512, 48)
+layout_mode = 2
+value = 90.0

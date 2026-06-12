@@ -70,8 +70,6 @@ func generate_blueprint() -> void:
 	update_preview()
 	print("Generated blueprint with %d voxels" % voxel_data.size())
 
-
-
 func _heightmap_to_voxels(
 	heightmap: Array[float], 
 	dims: Vector3i, 
@@ -98,6 +96,18 @@ func _heightmap_to_voxels_with_caves(heightmap, dims, sea_h, cave_weights, radiu
 		cave_weights, 
 		spawn_rules
 	)
+
+func _force_cave_entrances(data: Dictionary, dims: Vector3i, sea_h: float) -> void:
+	for x in range(dims.x):
+		for z in range(dims.z):
+
+			# only at shoreline columns
+			if randi() % 40 != 0:
+				continue
+
+			# carve vertical shaft from sea into terrain
+			for y in range(int(sea_h), int(sea_h) + 6):
+				data[Vector3i(x, y, z)] = 0
 
 func save_to_resource() -> void:
 	if not blueprint_data:

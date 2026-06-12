@@ -1,5 +1,4 @@
 using Godot;
-using System.Collections.Generic;
 
 public static class IslandBlueprint
 {
@@ -8,8 +7,7 @@ public static class IslandBlueprint
 		int seed,
 		float flatness,
 		int maxHeight,
-		float scale
-	)
+		float scale)
 	{
 		int size = dims.X * dims.Y;
 		float[] map = new float[size];
@@ -45,38 +43,6 @@ public static class IslandBlueprint
 		return map;
 	}
 
-	public static Dictionary<Vector3I, int> HeightmapToVoxels(
-		float[] heightmap,
-		Vector3I dims,
-		float seaLevel,
-		int seed)
-	{
-		var data = new Dictionary<Vector3I, int>();
-
-		for (int x = 0; x < dims.X; x++)
-		for (int z = 0; z < dims.Z; z++)
-		{
-			int i = x + z * dims.X;
-
-			int h = (int)heightmap[i];
-			h = Mathf.Clamp(h, 0, dims.Y);
-
-			for (int y = 0; y < h; y++)
-			{
-				if (y < seaLevel)
-					continue;
-
-				// surface shell only (prevents solid columns)
-				if (y < h - 3)
-					continue;
-
-				data[new Vector3I(x, y, z)] = 1;
-			}
-		}
-
-		return data;
-	}
-	
 	private static void AddSlopedBackbone(float[] map, Vector2I dims, float angle)
 	{
 		Vector2 center = new Vector2(dims.X, dims.Y) * 0.5f;
@@ -153,9 +119,7 @@ public static class IslandBlueprint
 		if (range <= 0f) return;
 
 		for (int i = 0; i < map.Length; i++)
-		{
 			map[i] = (map[i] - min) / range;
-		}
 	}
 
 	private static void ApplyNoiseWarp(float[] map, Vector2I dims, int seed, float freq)
@@ -168,11 +132,7 @@ public static class IslandBlueprint
 		for (int y = 0; y < dims.Y; y++)
 		{
 			int i = x + y * dims.X;
-
-			float n = noise.GetNoise2D(x * 8f, y * 8f);
-
-			// IMPORTANT: reduce amplitude so it doesn't destroy islands
-			map[i] += n * 0.35f;
+			map[i] += noise.GetNoise2D(x * 8f, y * 8f) * 0.35f;
 		}
 	}
 }

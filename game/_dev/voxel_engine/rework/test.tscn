@@ -29,14 +29,14 @@ metadata/_custom_type_script = "uid://bvy60efmsjjpw"
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7weok"]
 
-[sub_resource type="Resource" id="Resource_qrqou"]
+[sub_resource type="Resource" id="Resource_kgav8"]
 script = ExtResource("7_7weok")
 metadata/_custom_type_script = "uid://objmoyh4hxsp"
 
-[sub_resource type="Resource" id="Resource_d5m7a"]
+[sub_resource type="Resource" id="Resource_qrqou"]
 script = ExtResource("8_7weok")
 MaxHeight = 24
-Noise = SubResource("Resource_qrqou")
+Noise = SubResource("Resource_kgav8")
 metadata/_custom_type_script = "uid://rqx3w0bdhv61"
 
 [node name="Test" type="Node3D" unique_id=221523354]
@@ -59,10 +59,11 @@ script = null
 
 [node name="Land" type="Node3D" parent="." unique_id=1216740354]
 script = ExtResource("3_gx466")
+Mode = 1
 Dimensions = Vector3i(256, 32, 256)
 ChunkScene = ExtResource("4_dug1i")
 MeshingAlgorithm = SubResource("Resource_tafq7")
-TerrainAlgorithm = SubResource("Resource_d5m7a")
+TerrainAlgorithm = SubResource("Resource_qrqou")
 
 [editable path="Player"]
 [editable path="BlockHighlight"]

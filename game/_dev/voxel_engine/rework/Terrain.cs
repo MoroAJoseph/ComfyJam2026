@@ -1,8 +1,6 @@
 using Godot;
 using System.Collections.Generic;
 
-
-
 public partial class Terrain : Node3D
 {
 	public enum TerrainMode
@@ -42,15 +40,18 @@ public partial class Terrain : Node3D
 
 		MeshingAlgorithm.SetColors(ColorArray);
 
-		// ONLY build world if needed
 		if (Mode == TerrainMode.IslandWorld)
 		{
-			World = new IslandWorld();
-			World.Generate(
+			TerrainWorld = new IslandWorld();
+
+			TerrainWorld.Generate(
 				new Vector2I(Dimensions.X, Dimensions.Z),
 				seed: 1337,
-				maxHeight: Dimensions.Y
+				maxHeight: Dimensions.Y,
+				seaLevel: 0.2f
 			);
+
+			Manager.TerrainAlgorithm = new IslandTerrain();
 		}
 
 		GenerateChunks(Vector3I.Zero);

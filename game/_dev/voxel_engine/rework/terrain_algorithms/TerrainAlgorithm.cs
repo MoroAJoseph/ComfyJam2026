@@ -1,11 +1,5 @@
 using Godot;
 
-public interface IWorldProvider
-{
-	float SampleHeight(int x, int z);
-	int MaxHeight { get; }
-}
-
 public partial class TerrainAlgorithm : Resource
 {
 	[Export] public int MaxHeight;
@@ -13,46 +7,34 @@ public partial class TerrainAlgorithm : Resource
 
 	public string Name { get; protected set; } = "noName";
 
-	public override void GenerateData(
+	public virtual void GenerateData(
 		Vector3 position,
 		Noise biomeNoiseInput,
 		ChunkData chunkData,
 		GodotObject geometry = null)
 	{
-		if (Terrain.Instance.Mode != Terrain.TerrainMode.IslandWorld)
+		if (Terrain.Instance.Mode == Terrain.TerrainMode.IslandWorld)
+		{
+			GenerateIslandChunk(position, chunkData);
+		}
+		else
 		{
 			GenerateNoiseChunk(position, chunkData, biomeNoiseInput);
-			return;
-		}
-
-		var world = Terrain.Instance.World;
-
-		int size = chunkData.GetSize();
-
-		int baseX = (int)position.X;
-		int baseZ = (int)position.Z;
-
-		for (int x = 0; x < size; x++)
-		for (int z = 0; z < size; z++)
-		{
-			int wx = baseX + x;
-			int wz = baseZ + z;
-
-			float h = world.SampleHeight(wx, wz);
-			int height = Mathf.FloorToInt(h);
-
-			for (int y = 0; y < height; y++)
-			{
-				if (y < world.MaxHeight * 0.2f)
-					continue;
-
-				chunkData.AddVoxel(x, y, z, Voxel.STONE);
-			}
 		}
 	}
 
-	public virtual string CreateName() 
-	{ 
-		return Name; 
+	protected virtual void GenerateIslandChunk(Vector3 position, ChunkData chunkData)
+	{
+		// implemented in IslandTerrain OR via world sampling
+	}
+
+	protected virtual void GenerateNoiseChunk(Vector3 position, ChunkData chunkData, Noise noise)
+	{
+		// existing noise terrain logic
+	}
+
+	public virtual string CreateName()
+	{
+		return Name;
 	}
 }
