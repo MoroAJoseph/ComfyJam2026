@@ -110,4 +110,19 @@ public partial class CubeGeometry : Resource, IVoxelGeometry
 			_ => Vector2.Zero
 		};
 	}
+	
+	public Vector3I GetChunkIndex(Vector3 worldPos, int chunkSize)
+	{
+		return new Vector3I(
+			Mathf.FloorToInt(worldPos.X / chunkSize),
+			Mathf.FloorToInt(worldPos.Y / chunkSize),
+			Mathf.FloorToInt(worldPos.Z / chunkSize)
+		);
+	}
+
+	public Vector3 GetChunkWorldOrigin(Vector3I chunkIndex, int chunk_size)
+	{
+		return new Vector3(chunkIndex.X * chunk_size, chunkIndex.Y * chunk_size, chunkIndex.Z * chunk_size);
+	}
+
 }

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://31ai2qlesk2m"]
+
+[ext_resource type="Script" uid="uid://bs0nggdn0js7n" path="res://_dev/voxel_engine/rework/chunking/Chunk.cs" id="1_ker3d"]
+[ext_resource type="Material" uid="uid://cuuxx2n68hdnq" path="res://_dev/voxel_engine/rework/resources/voxel_material.tres" id="2_7pdpv"]
+
+[node name="Chunk" type="StaticBody3D" unique_id=1847021470 node_paths=PackedStringArray("MyMeshInstance3D", "MyCollisionShape")]
+script = ExtResource("1_ker3d")
+Mat = ExtResource("2_7pdpv")
+MyMeshInstance3D = NodePath("MeshInstance3D")
+MyCollisionShape = NodePath("CollisionShape3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1983018346]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1989145196]

@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://jnfbj2h4mt7e"]
 
-[ext_resource type="PackedScene" uid="uid://dpb3824vxqc8a" path="res://_dev/voxel_engine/rework/terrain.tscn" id="1_fthm7"]
-[ext_resource type="Resource" uid="uid://dsvvk8w8txhq" path="res://_dev/voxel_engine/rework/geometry/hex.tres" id="2_dug1i"]
+[ext_resource type="Resource" uid="uid://dsvvk8w8txhq" path="res://_dev/voxel_engine/rework/resources/hex.tres" id="2_dug1i"]
 [ext_resource type="PackedScene" uid="uid://bg7j8yrrswl8i" path="res://_dev/flying_player/player.tscn" id="2_psgxh"]
 [ext_resource type="Script" uid="uid://bvy60efmsjjpw" path="res://_dev/voxel_engine/rework/meshing_algorithms/SkipHiddenFaces.cs" id="2_tafq7"]
-[ext_resource type="Script" uid="uid://b405snho3wggt" path="res://_dev/voxel_engine/rework/logger.gd" id="3_8jhaw"]
-[ext_resource type="Script" uid="uid://r8w0whewvqae" path="res://_dev/voxel_engine/rework/terrain_algorithms/height_map_terrain.gd" id="3_gx466"]
-[ext_resource type="Script" uid="uid://v8vwjohak8v4" path="res://_dev/voxel_engine/rework/terrain_algorithms/height_map.gd" id="3_tafq7"]
-[ext_resource type="PackedScene" uid="uid://cwrjvlme1m532" path="res://_dev/voxel_engine/rework/raycasting/block_highlight.tscn" id="13_x37bk"]
+[ext_resource type="Script" uid="uid://77coco2ox6b0" path="res://_dev/voxel_engine/rework/Terrain.cs" id="3_gx466"]
+[ext_resource type="PackedScene" uid="uid://31ai2qlesk2m" path="res://_dev/voxel_engine/rework/chunking/chunk.tscn" id="4_dug1i"]
+[ext_resource type="Script" uid="uid://objmoyh4hxsp" path="res://_dev/voxel_engine/rework/terrain_algorithms/TerrainNoise.cs" id="7_7weok"]
+[ext_resource type="Script" uid="uid://rqx3w0bdhv61" path="res://_dev/voxel_engine/rework/island/generators/IslandTerrain.cs" id="8_7weok"]
+[ext_resource type="PackedScene" uid="uid://cwrjvlme1m532" path="res://_dev/voxel_engine/rework/modifications/block_highlight.tscn" id="13_x37bk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8jhaw"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -22,24 +22,22 @@ sky = SubResource("Sky_gx466")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="Resource" id="Resource_kgav8"]
+[sub_resource type="Resource" id="Resource_tafq7"]
 script = ExtResource("2_tafq7")
 ScriptGeometry = ExtResource("2_dug1i")
 metadata/_custom_type_script = "uid://bvy60efmsjjpw"
 
-[sub_resource type="Resource" id="Resource_7weok"]
-script = ExtResource("3_tafq7")
-metadata/_custom_type_script = "uid://v8vwjohak8v4"
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7weok"]
 
-[sub_resource type="Resource" id="Resource_dug1i"]
-script = ExtResource("3_gx466")
-max_height = 16
-noise = SubResource("Resource_7weok")
-metadata/_custom_type_script = "uid://r8w0whewvqae"
+[sub_resource type="Resource" id="Resource_qrqou"]
+script = ExtResource("7_7weok")
+metadata/_custom_type_script = "uid://objmoyh4hxsp"
 
-[sub_resource type="Resource" id="Resource_tafq7"]
-script = ExtResource("3_8jhaw")
-metadata/_custom_type_script = "uid://b405snho3wggt"
+[sub_resource type="Resource" id="Resource_d5m7a"]
+script = ExtResource("8_7weok")
+MaxHeight = 24
+Noise = SubResource("Resource_qrqou")
+metadata/_custom_type_script = "uid://rqx3w0bdhv61"
 
 [node name="Test" type="Node3D" unique_id=221523354]
 
@@ -50,31 +48,21 @@ environment = SubResource("Environment_tafq7")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Terrain" parent="." unique_id=744500683 instance=ExtResource("1_fthm7")]
-dimensions = Vector3(16, 16, 16)
-color_array = Dictionary[int, Color]({
-0: Color(0.72156864, 0.54509807, 0, 1),
-1: Color(0, 0.6039216, 0, 1),
-2: Color(0.34407577, 0.34407574, 0.34407574, 1),
-3: Color(0.9340804, 0.9340805, 0.93408036, 1)
-})
-
-[node name="ChunkManager" parent="Terrain" index="0" unique_id=635982892]
-chunk_size = 16
-meshing_algorithm = SubResource("Resource_kgav8")
-terrain_algorithm = SubResource("Resource_dug1i")
-logger = SubResource("Resource_tafq7")
-
 [node name="Player" parent="." unique_id=1091930200 instance=ExtResource("2_psgxh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32, 0)
 
-[node name="BlockHighlight" parent="." unique_id=773236648 node_paths=PackedStringArray("ray", "chunk_manager") instance=ExtResource("13_x37bk")]
-ray = NodePath("../Player/Head/EyeCamera/BlockModification")
-chunk_manager = NodePath("../Terrain/ChunkManager")
+[node name="BlockModification" parent="Player/Head/EyeCamera" parent_id_path=PackedInt32Array(1091930200, 1571640985) index="0" unique_id=974782909]
+script = null
 
-[connection signal="add_voxel" from="Player" to="Terrain/ChunkManager" method="add_voxel"]
-[connection signal="remove_voxel" from="Player" to="Terrain/ChunkManager" method="remove_voxel"]
+[node name="BlockHighlight" parent="." unique_id=773236648 instance=ExtResource("13_x37bk")]
+script = null
 
-[editable path="Terrain"]
+[node name="Land" type="Node3D" parent="." unique_id=1216740354]
+script = ExtResource("3_gx466")
+Dimensions = Vector3i(256, 32, 256)
+ChunkScene = ExtResource("4_dug1i")
+MeshingAlgorithm = SubResource("Resource_tafq7")
+TerrainAlgorithm = SubResource("Resource_d5m7a")
+
 [editable path="Player"]
 [editable path="BlockHighlight"]

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cwrjvlme1m532"]
+
+[ext_resource type="Script" uid="uid://dqicey76mexfp" path="res://_dev/voxel_engine/rework/modifications/BlockHighlight.cs" id="1_e1gub"]
+
+[node name="BlockHighlight" type="Node3D" unique_id=773236648]
+script = ExtResource("1_e1gub")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1261231408]

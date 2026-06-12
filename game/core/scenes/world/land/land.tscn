@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dhdguyjpayre1" path="res://core/scenes/world/land/land.gd" id="1_vcei7"]
 [ext_resource type="PackedScene" uid="uid://nxmi0nfg3irw" path="res://core/voxel_engine/current/chunk_manager.tscn" id="2_cjmvk"]
-[ext_resource type="Shader" uid="uid://ctev20667duk" path="res://_dev/voxel_engine/rework/uv_atlas_array.gdshader" id="3_bk30n"]
+[ext_resource type="Shader" uid="uid://ctev20667duk" path="res://_dev/voxel_engine/rework/resources/voxel_texture_atlas.gdshader" id="3_bk30n"]
 [ext_resource type="Script" uid="uid://b83pagxjdpo4d" path="res://core/voxel_engine/current/hover_handler.gd" id="5_bk30n"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_vcei7"]

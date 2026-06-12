@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bg7j8yrrswl8i"]
 
 [ext_resource type="Script" uid="uid://bc2jvsly66ahd" path="res://_dev/flying_player/player.gd" id="1_vprwo"]
-[ext_resource type="Script" uid="uid://bdyakx3nj7rw" path="res://_dev/voxel_engine/rework/raycasting/block_modification.gd" id="2_11i8o"]
+[ext_resource type="Script" uid="uid://bsemiycss64sr" path="res://_dev/voxel_engine/rework/modifications/BlockModification.cs" id="2_11i8o"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p0vud"]
 

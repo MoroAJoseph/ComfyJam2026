@@ -10,7 +10,7 @@ signal remove_voxel()
 
 @onready var head: Node3D = $Head
 @onready var eye_camera: Camera3D = $Head/EyeCamera
-@onready var block_modification: BlockModification = $Head/EyeCamera/BlockModification
+@onready var block_modification: RayCast3D = $Head/EyeCamera/BlockModification
 
 var free: bool = false
 var flying: bool = true
@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = jump_velocity
-	
+	 
 	var input_dir := Input.get_vector("player_left", "player_right", "player_forward", "player_backward")
 	var direction := (eye_camera.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
@@ -72,7 +72,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var hit = block_modification.get_ray_hit()
 		if !hit: return
 		
-		add_voxel.emit(hit.add_world_position, TerrainAlgorithm.Voxel.GRASS)
+		add_voxel.emit(hit.add_world_position, Enums.BlockType.GRASS)
 		
 	if event.is_action_pressed("dev_remove_block"):
 		print_debug("remove")

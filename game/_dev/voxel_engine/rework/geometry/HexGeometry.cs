@@ -82,12 +82,17 @@ public partial class HexGeometry : Resource, IVoxelGeometry
 	public Vector3 GetWorldPosition(Vector3I gridPos)
 	{
 		float xPos = gridPos.X * (r * 2.0f);
+
+		// IMPORTANT: use GLOBAL Z so hex staggering is consistent across chunks
 		if (gridPos.Z % 2 != 0)
 		{
 			xPos += r;
 		}
+
 		float zPos = gridPos.Z * (R * 1.5f);
-		return new Vector3(xPos, gridPos.Y * H, zPos);
+		float yPos = gridPos.Y * H;
+
+		return new Vector3(xPos, yPos, zPos);
 	}
 
 	public Vector3I GetNeighborOffset(int face, Vector3I currentPos)
@@ -212,5 +217,25 @@ public partial class HexGeometry : Resource, IVoxelGeometry
 		float u = cx + (Mathf.Cos(angle) * HexRadius) / CanvasSize;
 		float v = cy + (Mathf.Sin(angle) * HexRadius) / CanvasSize;
 		return new Vector2(u, v);
+	}
+	
+	public Vector3I GetChunkIndex(Vector3 worldPos, int chunkSize)
+	{
+		int chunkX = Mathf.FloorToInt(worldPos.X / (chunkSize * r * 2.0f));
+		int chunkY = Mathf.FloorToInt(worldPos.Y / chunkSize);
+		int chunkZ = Mathf.FloorToInt(worldPos.Z / (chunkSize * R * 1.5f));
+
+		return new Vector3I(chunkX, chunkY, chunkZ);
+	} 
+
+	public Vector3 GetChunkWorldOrigin(Vector3I chunkIndex, int chunkSize)
+	{
+		Vector3I voxelOrigin = new Vector3I(
+			chunkIndex.X * chunkSize,
+			chunkIndex.Y * chunkSize,
+			chunkIndex.Z * chunkSize
+		);
+
+		return GetWorldPosition(voxelOrigin);
 	}
 }
