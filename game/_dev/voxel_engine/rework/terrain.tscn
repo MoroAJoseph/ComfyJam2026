@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dpb3824vxqc8a"]
+
+[ext_resource type="Script" uid="uid://blchclkexxung" path="res://_dev/voxel_engine/rework/terrain.gd" id="1_n28n2"]
+[ext_resource type="Script" uid="uid://coa1otqxpvlkc" path="res://_dev/voxel_engine/rework/chunk_manager.gd" id="2_eq1s6"]
+
+[node name="Terrain" type="Node3D" unique_id=744500683]
+script = ExtResource("1_n28n2")
+
+[node name="ChunkManager" type="Node" parent="." unique_id=635982892]
+script = ExtResource("2_eq1s6")

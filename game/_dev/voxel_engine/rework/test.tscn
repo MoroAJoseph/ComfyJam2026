@@ -1,0 +1,133 @@
+[gd_scene format=3 uid="uid://jnfbj2h4mt7e"]
+
+[ext_resource type="PackedScene" uid="uid://dpb3824vxqc8a" path="res://_dev/voxel_engine/rework/terrain.tscn" id="1_fthm7"]
+[ext_resource type="Resource" uid="uid://dsvvk8w8txhq" path="res://_dev/voxel_engine/rework/geometry/hex.tres" id="2_dug1i"]
+[ext_resource type="PackedScene" uid="uid://bg7j8yrrswl8i" path="res://_dev/flying_player/player.tscn" id="2_psgxh"]
+[ext_resource type="Script" uid="uid://bvy60efmsjjpw" path="res://_dev/voxel_engine/rework/meshing_algorithms/SkipHiddenFaces.cs" id="2_tafq7"]
+[ext_resource type="Script" uid="uid://b405snho3wggt" path="res://_dev/voxel_engine/rework/logger.gd" id="3_8jhaw"]
+[ext_resource type="Script" uid="uid://r8w0whewvqae" path="res://_dev/voxel_engine/rework/terrain_algorithms/height_map_terrain.gd" id="3_gx466"]
+[ext_resource type="Script" uid="uid://v8vwjohak8v4" path="res://_dev/voxel_engine/rework/terrain_algorithms/height_map.gd" id="3_tafq7"]
+[ext_resource type="Material" uid="uid://clkhbecvpx0me" path="res://_dev/voxel_engine/rework/raycasting/remove_box_material.tres" id="8_kgav8"]
+[ext_resource type="Script" uid="uid://c0wav58fx7v6n" path="res://_dev/voxel_engine/rework/raycasting/cube_remove_box.gd" id="9_qrqou"]
+[ext_resource type="Script" uid="uid://dullv5jr87awd" path="res://_dev/voxel_engine/rework/raycasting/selection_box.gd" id="10_d5m7a"]
+[ext_resource type="Material" uid="uid://dj44853us875b" path="res://_dev/voxel_engine/rework/raycasting/add_box_material.tres" id="10_qrqou"]
+[ext_resource type="Script" uid="uid://crawyvqjuopn1" path="res://_dev/voxel_engine/rework/raycasting/hex_remove_box.gd" id="12_0entn"]
+[ext_resource type="PackedScene" uid="uid://cwrjvlme1m532" path="res://_dev/voxel_engine/rework/raycasting/block_highlight.tscn" id="13_x37bk"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8jhaw"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_gx466"]
+sky_material = SubResource("ProceduralSkyMaterial_8jhaw")
+
+[sub_resource type="Environment" id="Environment_tafq7"]
+background_mode = 2
+sky = SubResource("Sky_gx466")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Resource" id="Resource_kgav8"]
+script = ExtResource("2_tafq7")
+ScriptGeometry = ExtResource("2_dug1i")
+metadata/_custom_type_script = "uid://bvy60efmsjjpw"
+
+[sub_resource type="Resource" id="Resource_7weok"]
+script = ExtResource("3_tafq7")
+metadata/_custom_type_script = "uid://v8vwjohak8v4"
+
+[sub_resource type="Resource" id="Resource_dug1i"]
+script = ExtResource("3_gx466")
+max_height = 16
+noise = SubResource("Resource_7weok")
+metadata/_custom_type_script = "uid://r8w0whewvqae"
+
+[sub_resource type="Resource" id="Resource_tafq7"]
+script = ExtResource("3_8jhaw")
+metadata/_custom_type_script = "uid://b405snho3wggt"
+
+[node name="Test" type="Node3D" unique_id=221523354]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1210701108]
+environment = SubResource("Environment_tafq7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1193598551]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Terrain" parent="." unique_id=744500683 instance=ExtResource("1_fthm7")]
+dimensions = Vector3(16, 16, 16)
+color_array = Dictionary[int, Color]({
+0: Color(0.72156864, 0.54509807, 0, 1),
+1: Color(0, 0.6039216, 0, 1),
+2: Color(0.34407577, 0.34407574, 0.34407574, 1),
+3: Color(0.9340804, 0.9340805, 0.93408036, 1)
+})
+
+[node name="ChunkManager" parent="Terrain" index="0" unique_id=635982892]
+chunk_size = 16
+meshing_algorithm = SubResource("Resource_kgav8")
+terrain_algorithm = SubResource("Resource_dug1i")
+logger = SubResource("Resource_tafq7")
+
+[node name="Player" parent="." unique_id=1091930200 instance=ExtResource("2_psgxh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32, 0)
+
+[node name="CubeModifications" type="Node3D" parent="." unique_id=675838213]
+visible = false
+
+[node name="CubeRemoveBox" type="CSGBox3D" parent="CubeModifications" unique_id=1863332938 node_paths=PackedStringArray("ray")]
+transform = Transform3D(1.002, 0, 0, 0, 1.002, 0, 0, 0, 1.002, 0, 0, 0)
+material = ExtResource("8_kgav8")
+script = ExtResource("9_qrqou")
+ray = NodePath("../../Player/Head/EyeCamera/BlockModification")
+
+[node name="AddBox" type="Node3D" parent="CubeModifications" unique_id=1872848634 node_paths=PackedStringArray("ray")]
+script = ExtResource("10_d5m7a")
+ray = NodePath("../../Player/Head/EyeCamera/BlockModification")
+
+[node name="Top" type="CSGBox3D" parent="CubeModifications/AddBox" unique_id=816485030]
+transform = Transform3D(1.001, 0, 0, 0, 0.001, 0, 0, 0, 1.001, 0, 0.5, 0)
+material = ExtResource("10_qrqou")
+
+[node name="Bottom" type="CSGBox3D" parent="CubeModifications/AddBox" unique_id=1902336089]
+transform = Transform3D(1.001, 0, 0, 0, 0.001, 0, 0, 0, 1.001, 0, -0.5, 0)
+material = ExtResource("10_qrqou")
+
+[node name="Left" type="CSGBox3D" parent="CubeModifications/AddBox" unique_id=33984690]
+transform = Transform3D(1.001, 0, 0, 0, -4.371139e-11, -1.001, 0, 0.001, -4.37551e-08, 0, 0, 0.5)
+material = ExtResource("10_qrqou")
+
+[node name="Right" type="CSGBox3D" parent="CubeModifications/AddBox" unique_id=781004295]
+transform = Transform3D(1.001, 0, 0, 0, -4.371139e-11, -1.001, 0, 0.001, -4.37551e-08, 0, 0, -0.5)
+material = ExtResource("10_qrqou")
+
+[node name="Front" type="CSGBox3D" parent="CubeModifications/AddBox" unique_id=1104246593]
+transform = Transform3D(-4.37551e-08, -0.001, 0, 1.001, -4.371139e-11, 0, 0, 0, 1.001, 0.5, 0, 0)
+material = ExtResource("10_qrqou")
+
+[node name="Back" type="CSGBox3D" parent="CubeModifications/AddBox" unique_id=661269798]
+transform = Transform3D(-4.37551e-08, -0.001, 0, 1.001, -4.371139e-11, 0, 0, 0, 1.001, -0.5, 0, 0)
+material = ExtResource("10_qrqou")
+
+[node name="HexModifications" type="Node3D" parent="." unique_id=1847824945]
+visible = false
+
+[node name="HexRemoveBox" type="CSGCylinder3D" parent="HexModifications" unique_id=1859429075 node_paths=PackedStringArray("ray", "chunk_manager")]
+radius = 1.0
+height = 1.0
+material = ExtResource("8_kgav8")
+script = ExtResource("12_0entn")
+ray = NodePath("../../Player/Head/EyeCamera/BlockModification")
+chunk_manager = NodePath("../../Terrain/ChunkManager")
+
+[node name="BlockHighlight" parent="." unique_id=773236648 node_paths=PackedStringArray("ray", "chunk_manager") instance=ExtResource("13_x37bk")]
+ray = NodePath("../Player/Head/EyeCamera/BlockModification")
+chunk_manager = NodePath("../Terrain/ChunkManager")
+
+[connection signal="add_voxel" from="Player" to="Terrain/ChunkManager" method="add_voxel"]
+[connection signal="remove_voxel" from="Player" to="Terrain/ChunkManager" method="remove_voxel"]
+
+[editable path="Terrain"]
+[editable path="Player"]
+[editable path="BlockHighlight"]

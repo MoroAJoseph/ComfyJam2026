@@ -1,8 +1,6 @@
 class_name VoxelEngineHexagon
 extends VoxelEngineVoxel
 
-
-
 ## Generates geometry for a single hexagonal voxel.
 static func get_single_voxel_geometry(
 	voxel: Vector3i,
