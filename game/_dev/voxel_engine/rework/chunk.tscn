@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://rlyglo74ykl0"]
+
+[ext_resource type="Script" uid="uid://b8a1utw4u5w5k" path="res://_dev/voxel_engine/rework/chunk.gd" id="1_tfqf6"]
+
+[node name="Chunk" type="StaticBody3D" unique_id=741088294]
+collision_layer = 3
+script = ExtResource("1_tfqf6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1307908387]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=846750672]

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="HexGeometry" format=3 uid="uid://dsvvk8w8txhq"]
+
+[ext_resource type="Script" uid="uid://b5vbstovel0ds" path="res://_dev/voxel_engine/rework/geometry/HexGeometry.cs" id="1_hgtya"]
+
+[resource]
+script = ExtResource("1_hgtya")
+metadata/_custom_type_script = "uid://b5vbstovel0ds"

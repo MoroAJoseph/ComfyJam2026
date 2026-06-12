@@ -43,14 +43,17 @@ layout_mode = 1
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="PanelContainer" type="PanelContainer" parent="SafeArea/Content/Time" unique_id=1536611095]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeArea/Content/Time/PanelContainer" unique_id=1867248497]
+layout_mode = 2
+
 [node name="Distance" parent="SafeArea/Content" unique_id=980666158 instance=ExtResource("3_imuuq")]
-layout_mode = 0
-anchors_preset = 0
-anchor_left = 0.0
-anchor_right = 0.0
-offset_left = 0.0
-offset_right = 168.0
-grow_horizontal = 1
+layout_mode = 1
+offset_left = -140.0
+offset_right = 140.0
+offset_bottom = 109.0
 icon_texture = SubResource("PlaceholderTexture2D_imuuq")
 
 [node name="Compass" type="MarginContainer" parent="SafeArea/Content" unique_id=202570130]

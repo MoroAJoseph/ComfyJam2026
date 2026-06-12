@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="CubeGeometry" format=3 uid="uid://b852kfh88fs68"]
+
+[ext_resource type="Script" uid="uid://bhg8h60fk8gs7" path="res://_dev/voxel_engine/rework/geometry/CubeGeometry.cs" id="1_t1vrl"]
+
+[resource]
+script = ExtResource("1_t1vrl")
+metadata/_custom_type_script = "uid://bhg8h60fk8gs7"

@@ -22,7 +22,6 @@ signal block_removed(block_type: Enums.BlockType,global_pos: Vector3i)
 @export var context_target: Node3D
 
 @onready var highlight_mesh_instance: MeshInstance3D = $Highlight
-@onready var logic_class: Object = VoxelEngineHexagon if use_hexagons else VoxelEngineCube
 
 ## Internal management variables
 var chunks_data: Dictionary[Vector3i, PackedByteArray] = {}
@@ -58,7 +57,7 @@ func _process(_delta: float) -> void:
 	):
 		return
 	
-	var new_chunk_coordinate: Vector3i = logic_class.world_to_chunk(
+	var new_chunk_coordinate: Vector3i = VoxelEngineHexagon.world_to_chunk(
 		context_target.global_position, 
 		chunk_size
 	)
@@ -120,7 +119,7 @@ func generate_world_data() -> void:
 				for y: int in range(0, y_max):
 					var coordinate: Vector3i = Vector3i(x, y, z)
 					chunks_data[coordinate] = generate_raw_voxels(
-						logic_class.chunk_to_world(coordinate, chunk_size)
+						VoxelEngineHexagon.chunk_to_world(coordinate, chunk_size)
 					)
 	data_initialized = true
 	update_render_distance()
@@ -133,7 +132,7 @@ func generate_raw_voxels(origin: Vector3) -> PackedByteArray:
 	for x in range(chunk_size):
 		for z in range(chunk_size):
 			for y in range(chunk_size):
-				var world_pos = origin + logic_class.voxel_to_world(
+				var world_pos = origin + VoxelEngineHexagon.voxel_to_world(
 					Vector3i(x, y, z), Vector3.ZERO
 				)
 
@@ -177,12 +176,12 @@ func remove_voxel(chunk_coord: Vector3i, local_voxel: Vector3i) -> void:
 	var data = chunks_data.get(chunk_coord)
 	if not data: return
 	
-	var idx = logic_class.get_index(local_voxel.x, local_voxel.y, local_voxel.z, chunk_size)
+	var idx = VoxelEngineHexagon.get_index(local_voxel.x, local_voxel.y, local_voxel.z, chunk_size)
 	
 	var block_type: Enums.BlockType = data[idx] as Enums.BlockType
 	
-	var chunk_origin = logic_class.chunk_to_world(chunk_coord, chunk_size)
-	var global_pos = logic_class.voxel_to_world(local_voxel, chunk_origin)
+	var chunk_origin = VoxelEngineHexagon.chunk_to_world(chunk_coord, chunk_size)
+	var global_pos = VoxelEngineHexagon.voxel_to_world(local_voxel, chunk_origin)
 	
 	data[idx] = 0
 	
@@ -193,8 +192,8 @@ func remove_voxel(chunk_coord: Vector3i, local_voxel: Vector3i) -> void:
 ## Updates the highlight mesh visual state
 func update_hover_visuals(chunk_coord: Vector3i, local_voxel: Vector3i) -> void:
 	# Position
-	var chunk_origin = logic_class.chunk_to_world(chunk_coord, chunk_size)
-	var voxel_world_pos = logic_class.voxel_to_world(local_voxel, chunk_origin)
+	var chunk_origin = VoxelEngineHexagon.chunk_to_world(chunk_coord, chunk_size)
+	var voxel_world_pos = VoxelEngineHexagon.voxel_to_world(local_voxel, chunk_origin)
 	highlight_mesh_instance.global_position = voxel_world_pos
 	highlight_mesh_instance.visible = true
 
@@ -210,20 +209,15 @@ func _update_highlight_mesh_type() -> void:
 	highlight_mesh_instance.mesh = null
 	highlight_mesh_instance.rotation_degrees = Vector3.ZERO
 	
-	if use_hexagons:
-		var hex_mesh := CylinderMesh.new()
-		hex_mesh.radial_segments = 6
-		hex_mesh.cap_top = true
-		hex_mesh.cap_bottom = true
-		hex_mesh.top_radius = 1.0
-		hex_mesh.bottom_radius = 1.0
-		hex_mesh.height = 1.0
-		
-		highlight_mesh_instance.mesh = hex_mesh
-	else:
-		highlight_mesh_instance.mesh = BoxMesh.new()
-		highlight_mesh_instance.mesh.size = Vector3.ONE
-		highlight_mesh_instance.rotation_degrees = Vector3.ZERO
+	var hex_mesh := CylinderMesh.new()
+	hex_mesh.radial_segments = 6
+	hex_mesh.cap_top = true
+	hex_mesh.cap_bottom = true
+	hex_mesh.top_radius = 1.0
+	hex_mesh.bottom_radius = 1.0
+	hex_mesh.height = 1.0
+	
+	highlight_mesh_instance.mesh = hex_mesh
 
 func _update_highlight_material() -> void:
 	if highlight_shader_material and highlight_mesh_instance:
@@ -253,7 +247,7 @@ func _spawn_chunk(coordinate: Vector3i) -> void:
 	RenderingServer.instance_set_transform(
 		instance_rid,
 		Transform3D(Basis(), 
-		logic_class.chunk_to_world(coordinate, chunk_size))
+		VoxelEngineHexagon.chunk_to_world(coordinate, chunk_size))
 	)
 
 	active_chunks[coordinate] = {
@@ -273,14 +267,14 @@ func _process_mesh(coord: Vector3i, data: PackedByteArray) -> void:
 	var geometry: Dictionary
 	
 	if use_hexagons:
-		geometry = logic_class.calculate_textured_geometry(
+		geometry = VoxelEngineHexagon.calculate_textured_geometry(
 			data,
 			coord,
 			chunks_data,
 			chunk_size,
 		)
 	else:
-		geometry = logic_class.calculate_geometry(
+		geometry = VoxelEngineHexagon.calculate_geometry(
 			data,
 			coord,
 			chunks_data,
@@ -351,7 +345,7 @@ func _apply_result(coordinate: Vector3i, geometry: Dictionary) -> void:
 		PhysicsServer3D.body_set_state(
 			chunk.body,
 			PhysicsServer3D.BODY_STATE_TRANSFORM,
-			Transform3D(Basis(), logic_class.chunk_to_world(coordinate, chunk_size))
+			Transform3D(Basis(), VoxelEngineHexagon.chunk_to_world(coordinate, chunk_size))
 		)
 		
 		rid_to_coordinate[chunk.body] = coordinate

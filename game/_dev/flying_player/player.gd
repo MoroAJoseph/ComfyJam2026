@@ -1,23 +1,22 @@
 extends CharacterBody3D
 
+signal add_voxel()
+signal remove_voxel()
+
 @export var mouse_sens: float = 0.003
-@export var chunk_manager: VoxelChunkManager
 @export var ground_speed: float = 5.0
 @export var fly_speed: float = 20.0
 @export var jump_velocity: float = 4.5
 
 @onready var head: Node3D = $Head
 @onready var eye_camera: Camera3D = $Head/EyeCamera
+@onready var block_modification: BlockModification = $Head/EyeCamera/BlockModification
 
 var free: bool = false
 var flying: bool = true
 
 func _ready() -> void:
 	_update_mouse_mode()
-	await get_tree().process_frame
-	if chunk_manager:
-		chunk_manager.generate_data()
-		chunk_manager.start_tracking(self)
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("dev_fly"):
@@ -57,6 +56,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		free = not free
 		_update_mouse_mode()
 	
+	# Speed Controls
 	if Input.is_action_just_pressed("ui_up"):
 		fly_speed += 2.0
 	elif Input.is_action_just_pressed("ui_down"):
@@ -65,6 +65,21 @@ func _unhandled_input(event: InputEvent) -> void:
 		ground_speed += 1.0
 	elif Input.is_action_just_pressed("ui_left"):
 		ground_speed -= 1.0
+	
+	# Block Modifications
+	if event.is_action_pressed("dev_add_block"):
+		print_debug("add")
+		var hit = block_modification.get_ray_hit()
+		if !hit: return
+		
+		add_voxel.emit(hit.add_world_position, TerrainAlgorithm.Voxel.GRASS)
+		
+	if event.is_action_pressed("dev_remove_block"):
+		print_debug("remove")
+		var hit = block_modification.get_ray_hit()
+		if !hit: return
+		
+		remove_voxel.emit(hit.remove_world_position)
 
 func _update_mouse_mode() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if free else Input.MOUSE_MODE_CAPTURED
