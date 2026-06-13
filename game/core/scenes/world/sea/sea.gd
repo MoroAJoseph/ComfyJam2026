@@ -139,8 +139,9 @@ func _update_grid():
 			needed_tiles.append(last_player_tile + Vector2i(x, z))
 			
 	for coord in active_tiles.keys().filter(func(c): return c not in needed_tiles):
-		active_tiles[coord].queue_free()
-		active_tiles.erase(coord)
+		if active_tiles[coord]:
+			active_tiles[coord].queue_free()
+			active_tiles.erase(coord)
 			
 	for coord in needed_tiles:
 		if not active_tiles.has(coord):

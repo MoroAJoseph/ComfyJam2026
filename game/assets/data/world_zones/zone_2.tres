@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="WorldZoneData" format=3 uid="uid://bn4pjfi8pquk7"]
+
+[ext_resource type="Script" uid="uid://d2xyhbxdqrwk3" path="res://_dev/dev_tools/blueprint/voxel/spawn_rule.gd" id="1_a6kee"]
+[ext_resource type="Script" uid="uid://bg4dtc8rldjnk" path="res://common/dataclasses/world_zone_data.gd" id="2_acunu"]
+
+[sub_resource type="Resource" id="Resource_y7wdl"]
+script = ExtResource("1_a6kee")
+block_type = 1
+max_height = 6
+density = 0.25
+metadata/_custom_type_script = "uid://d2xyhbxdqrwk3"
+
+[sub_resource type="Resource" id="Resource_5iyj4"]
+script = ExtResource("1_a6kee")
+block_type = 3
+density = 0.5
+metadata/_custom_type_script = "uid://d2xyhbxdqrwk3"
+
+[sub_resource type="Resource" id="Resource_6bifr"]
+script = ExtResource("1_a6kee")
+block_type = 3
+min_height = 7
+density = 0.75
+metadata/_custom_type_script = "uid://d2xyhbxdqrwk3"
+
+[sub_resource type="Resource" id="Resource_ye4o2"]
+script = ExtResource("1_a6kee")
+block_type = 7
+density = 0.25
+metadata/_custom_type_script = "uid://d2xyhbxdqrwk3"
+
+[resource]
+script = ExtResource("2_acunu")
+display_name = "Deep End"
+radius = 1500
+dock_count = 2
+min_island_spacing = 8.0
+max_island_spacing = 16.0
+min_island_size = Vector3i(24, 8, 24)
+max_island_size = Vector3i(48, 12, 48)
+min_cove_count = 1
+max_cove_count = 3
+max_cove_weight = 1.0
+block_spawn_rules = Array[ExtResource("1_a6kee")]([SubResource("Resource_y7wdl"), SubResource("Resource_5iyj4"), SubResource("Resource_6bifr"), SubResource("Resource_ye4o2")])
+metadata/_custom_type_script = "uid://bg4dtc8rldjnk"

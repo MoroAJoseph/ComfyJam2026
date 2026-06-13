@@ -19,7 +19,7 @@ script = ExtResource("1_wavff")
 script = ExtResource("2_8k0jh")
 
 [node name="Sky" parent="." unique_id=1901335390 instance=ExtResource("3_41qfr")]
-day_progress = 0.08724502777892859
+day_progress = 0.2260252018530553
 
 [node name="Sea" parent="." unique_id=1073607141 instance=ExtResource("2_m07s3")]
 water_level = 8.0
