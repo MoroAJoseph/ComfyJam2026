@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://b8rh2lplntxx4" path="res://core/scenes/world/controllers/instances.gd" id="4_p6pjc"]
 [ext_resource type="PackedScene" uid="uid://df7w8m1n2u8x2" path="res://features/environment/docks/placeholder/dock.tscn" id="5_dock"]
 [ext_resource type="PackedScene" uid="uid://co00ewjccbqxh" path="res://core/scenes/world/land/land.tscn" id="5_wrngl"]
+[ext_resource type="PackedScene" uid="uid://df7w8m1n2u8y3" path="res://features/collectibles/chest/chest.tscn" id="9_w70fr"]
+[ext_resource type="PackedScene" uid="uid://cnrw4on3dorqt" path="res://features/environment/hazards/barrel/barrel.tscn" id="10_barrel"]
 
 [node name="World" type="Node3D" unique_id=485736105]
 process_mode = 1
@@ -17,7 +19,7 @@ script = ExtResource("1_wavff")
 script = ExtResource("2_8k0jh")
 
 [node name="Sky" parent="." unique_id=1901335390 instance=ExtResource("3_41qfr")]
-day_progress = 0.7344153444453964
+day_progress = 0.08724502777892859
 
 [node name="Sea" parent="." unique_id=1073607141 instance=ExtResource("2_m07s3")]
 water_level = 8.0
@@ -40,3 +42,9 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.126934, 9.5, 22.6325)
 
 [node name="BlockItems" type="Node3D" parent="Instances" unique_id=2002988269]
+
+[node name="TreasureChest" parent="Instances" unique_id=1445522733 instance=ExtResource("9_w70fr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 7.9134083, 33.69627)
+
+[node name="ExplodingBarrel" parent="Instances" unique_id=200000000 instance=ExtResource("10_barrel")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8105545, 10, 24)

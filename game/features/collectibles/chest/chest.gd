@@ -13,7 +13,6 @@ var _collected: bool = false
 # ===
 
 func _ready() -> void:
-	super._ready()
 	interaction_area.body_entered.connect(_on_body_entered)
 	_setup_visuals()
 
@@ -22,7 +21,7 @@ func _ready() -> void:
 # ===
 
 func _setup_visuals() -> void:
-	var data = Constants.LUT.CHEST_DATA[type]
+	var data = AssetService.get_chest_data(type)
 	
 	# 1. Tint the Chest itself
 	var mesh_instance: MeshInstance3D
@@ -59,7 +58,7 @@ func _setup_visuals() -> void:
 		rot_tween.tween_property(indicator, "rotation:y", PI * 2, 2.0).as_relative()
 
 func _collect() -> void:
-	Context.progression.add_chest(type)
+	Session.progression_provider.add_chest(type)
 	print_debug("Chest added to queue! Type: %s" % Enums.ChestType.keys()[type])
 
 # ===

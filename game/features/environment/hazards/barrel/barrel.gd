@@ -13,8 +13,7 @@ var _data: BarrelData
 # ===
 
 func _ready() -> void:
-	super._ready()
-	_data = Constants.LUT.get_barrel_data(type)
+	_data = AssetService.get_barrel_data(type)
 	interaction_area.body_entered.connect(_on_body_entered)
 	_setup_visuals()
 
@@ -80,7 +79,7 @@ func explode(target_body: RigidBody3D = null) -> void:
 	if not _data: return
 	
 	# 1. Identify targets
-	var boat = target_body if target_body else Context.player.boat_instance
+	var boat = target_body if target_body else Session.player_context.boat_instance
 	
 	if boat:
 		var dir = boat.global_position - global_position

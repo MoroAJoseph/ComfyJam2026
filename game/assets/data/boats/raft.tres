@@ -2,13 +2,16 @@
 
 [ext_resource type="Script" uid="uid://bk3kawapediok" path="res://common/dataclasses/boat.gd" id="1_h16dq"]
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_h16dq"]
+
 [resource]
 script = ExtResource("1_h16dq")
 type = 1
 display_name = "Sturdy Raft"
-max_speed = 5.0
-acceleration = 2.0
-turn_speed = 6.0
+icon = SubResource("PlaceholderTexture2D_h16dq")
+max_speed = 10.0
+acceleration = 5.0
+turn_speed = 8.0
 inventory_capacity = 10
 max_zoom = 10
 metadata/_custom_type_script = "uid://bk3kawapediok"

@@ -27,7 +27,7 @@ extends Node3D
 #func _can_collect_block() -> bool:
 	#if not hovered_block: return false
 	#
-	#var block_data := Constants.LUT.get_block_data(hovered_block.type)
+	#var block_data := AssetService.get_block_data(hovered_block.type)
 	#if not block_data: return false
 	#
 	## Strength

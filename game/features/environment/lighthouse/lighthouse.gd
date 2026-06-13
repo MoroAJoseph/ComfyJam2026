@@ -52,10 +52,10 @@ func _process(delta: float) -> void:
 		lamp_light.visible = final_lamp_energy > 0.01
 
 func _get_night_weight() -> float:
-	if not Context.world:
+	if not Session.world_context:
 		return 1.0
 		
-	var world_time = Context.world.time
+	var world_time = Session.world_context.time
 	
 	# Night is around 0.0 and 1.0. Day is around 0.5.
 	# Transition ranges: 

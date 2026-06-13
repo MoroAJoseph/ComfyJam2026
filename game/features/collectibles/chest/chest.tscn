@@ -24,12 +24,15 @@ shape = SubResource("BoxShape3D_collision")
 
 [node name="MeshInstance3D" parent="." unique_id=1843181054 instance=ExtResource("2_mesh")]
 
-[node name="lid" parent="MeshInstance3D/chest" parent_id_path=PackedInt32Array(1843181054, 1222393778) index="0" unique_id=1757561904]
+[node name="lid" parent="MeshInstance3D/chest" parent_id_path=PackedInt32Array(1843181054, 1600184476) index="0" unique_id=30827561]
 transform = Transform3D(1, 0, 0, 0, 1, 1.7439346e-16, 0, -1.7439346e-16, 1, -9.498978e-09, 0.51, -0.51)
 
 [node name="IndicatorCube" type="MeshInstance3D" parent="." unique_id=1952956386]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 1.2, 0)
 mesh = SubResource("BoxMesh_indicator")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="IndicatorCube" unique_id=483715315]
+light_color = Color(1, 1, 0, 1)
 
 [node name="InteractionArea" type="Area3D" parent="." unique_id=1582530805]
 collision_layer = 0

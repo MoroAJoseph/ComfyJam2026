@@ -30,6 +30,14 @@ func _ready() -> void:
 # Private
 # ===
 
+func _get_rarity_color(type: Enums.RarityType) -> Color:
+	match type:
+		Enums.RarityType.COMMON: return Color.WHITE
+		Enums.RarityType.RARE: return Color.AQUA
+		Enums.RarityType.EPIC: return Color.MEDIUM_PURPLE
+		Enums.RarityType.LEGENDARY: return Color.GOLD
+	return Color.WHITE
+
 func _try_claim_next_chest() -> void:
 	if not _is_showing and not Session.progression_context.chest_queue.is_empty():
 		Session.progression_provider.claim_next_chest()
@@ -42,8 +50,7 @@ func _on_chest_queue_updated(_value: Array) -> void:
 	_try_claim_next_chest()
 
 func _handle_chest_collected(event: WorldEvent.ChestCollected) -> void:
-	pass
-	#_show_reward(event)
+	_show_reward(event)
 
 func _show_reward(event: WorldEvent.ChestCollected) -> void:
 	_is_showing = true
@@ -66,12 +73,12 @@ func _show_reward(event: WorldEvent.ChestCollected) -> void:
 		var item = REWARD_ITEM_SCENE.instantiate()
 		scroll_container.add_child(item)
 		
-		var rarity_data: Dictionary
+		var rarity_name: String
+		var rarity_color: Color
+		
 		if i == _win_index:
-			rarity_data = {
-				"name": event.rarity_name,
-				"color": event.color
-			}
+			rarity_name = Enums.RarityType.keys()[event.rarity]
+			rarity_color = _get_rarity_color(event.rarity)
 			winning_item = item
 		else:
 			# Random "filler" items based on some logic (mostly common/rare)
@@ -79,15 +86,12 @@ func _show_reward(event: WorldEvent.ChestCollected) -> void:
 			var rarity: Enums.RarityType = Enums.RarityType.COMMON
 			if roll > 0.98: rarity = Enums.RarityType.LEGENDARY
 			elif roll > 0.9: rarity = Enums.RarityType.EPIC
-			elif roll > 0.7: rarity =Enums.RarityType.RARE
+			elif roll > 0.7: rarity = Enums.RarityType.RARE
 			
-			#var data = Constants.LUT.get_chest_reward_data(rarity)
-			#rarity_data = {
-				#"name": data.name,
-				#"color": data.color
-			#}
-		#
-		#item.setup(rarity_data.name, rarity_data.color)
+			rarity_name = Enums.RarityType.keys()[rarity]
+			rarity_color = _get_rarity_color(rarity)
+		
+		item.setup(rarity_name, rarity_color)
 
 	# Calculate target X
 	# Center of viewport - (index * step) - (half item width)
@@ -108,7 +112,7 @@ func _show_reward(event: WorldEvent.ChestCollected) -> void:
 	
 	# 3. Highlight Result
 	_current_tween.tween_callback(func():
-		result_label.text = "+ %d Gold" % event.gold_amount
+		result_label.text = "%s\n+ %d Gold" % [event.rarity_name, event.gold_amount]
 		result_label.modulate.a = 0.0
 		
 		var final_tween = create_tween().set_parallel(true)
