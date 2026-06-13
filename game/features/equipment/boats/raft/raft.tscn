@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://bik464x2swbs2"]
+
+[ext_resource type="Script" uid="uid://d0emxjabq2ub4" path="res://features/equipment/boats/raft/raft.gd" id="1_raft_script"]
+[ext_resource type="Resource" uid="uid://x2x1u53yawqb" path="res://assets/data/boats/raft.tres" id="2_raft_data"]
+[ext_resource type="PackedScene" uid="uid://b38f4em0h240o" path="res://assets/prefabs/environment/glb/tool-paddle.glb" id="4_paddle_scene"]
+[ext_resource type="PackedScene" uid="uid://cyl832doicxud" path="res://assets/prefabs/environment/glb/platform.glb" id="4_r0rmt"]
+[ext_resource type="PackedScene" path="res://features/equipment/lantern/lantern.tscn" id="5_nwp1j"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_raft"]
+size = Vector3(2, 0.2, 2)
+
+[node name="Raft" type="RigidBody3D" unique_id=1407305569]
+collision_layer = 4
+mass = 5.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.1, 0)
+angular_damp = 1.0
+script = ExtResource("1_raft_script")
+data = ExtResource("2_raft_data")
+float_force = 15.0
+water_drag_forward = 0.02
+water_drag_sideways = 0.3
+water_angular_drag = 0.05
+alignment_strength = 15.0
+
+[node name="PhysicsCollider" type="CollisionShape3D" parent="." unique_id=549542263]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("BoxShape3D_raft")
+
+[node name="Model" type="Node3D" parent="." unique_id=713844319]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Paddle" parent="Model" unique_id=1914541577 instance=ExtResource("4_paddle_scene")]
+transform = Transform3D(0.16049106, -0.8057858, 0.5700459, -0.058423452, 0.56876445, 0.820423, -0.9853067, -0.16497459, 0.04420483, 2.356892, -0.53725404, 2.060461e-07)
+
+[node name="Plank" parent="Model" unique_id=1328474688 instance=ExtResource("4_r0rmt")]
+
+[node name="Lantern" parent="Model" unique_id=1300590478 instance=ExtResource("5_nwp1j")]
+
+[node name="Probes" type="Node3D" parent="." unique_id=1363474395]
+
+[node name="Marker3D" type="Marker3D" parent="Probes" unique_id=1393712803]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0, 0.8)
+
+[node name="Marker3D2" type="Marker3D" parent="Probes" unique_id=1358022423]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, 0.8)
+
+[node name="Marker3D3" type="Marker3D" parent="Probes" unique_id=474807362]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0, -0.8)
+
+[node name="Marker3D4" type="Marker3D" parent="Probes" unique_id=2109315525]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, -0.8)

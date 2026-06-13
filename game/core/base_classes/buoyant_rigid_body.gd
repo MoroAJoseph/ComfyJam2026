@@ -43,6 +43,9 @@ var _pending_external_impulse := Vector3.ZERO
 # Built-In
 # ===
 
+func _ready() -> void:
+	pass
+
 func _physics_process(_delta):
 	_apply_buoyancy()
 	

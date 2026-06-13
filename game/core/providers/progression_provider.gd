@@ -65,7 +65,7 @@ func _reward_chest(type: Enums.ChestType) -> void:
 	EventBus.emit(
 		WorldEvent.ChestCollected.new(
 			selected_rarity,
-			data.name, # Using the ChestData name
+			data.display_name, # Using the ChestData display_name
 			data.color,
 			gold_amount
 		)

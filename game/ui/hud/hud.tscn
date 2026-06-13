@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dr2murusko3qq" path="res://ui/hud/inventory/inventory.tscn" id="5_imuuq"]
 [ext_resource type="PackedScene" uid="uid://b7cr0x30rpveu" path="res://ui/hud/speed/speed.tscn" id="6_kwc50"]
 
+[ext_resource type="PackedScene" uid="uid://cb5k8m1n2u8y4" path="res://ui/hud/reward_popup/reward_popup.tscn" id="7_reward"]
+
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_imuuq"]
 size = Vector2(64, 64)
 
@@ -22,6 +24,9 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("1_w75iv")
 script = ExtResource("1_e0nub")
+
+[node name="RewardPopup" parent="." unique_id=1445522734 instance=ExtResource("7_reward")]
+layout_mode = 1
 
 [node name="SafeArea" type="MarginContainer" parent="." unique_id=712505608]
 layout_mode = 1

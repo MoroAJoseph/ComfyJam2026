@@ -76,11 +76,20 @@ class Paths:
 		
 		# --- Barrels ---
 		const BARRELS_DIR: String = BASE_DIR + "barrels/"
-		const BARRELS_TABLE: Dictionary[Enums.BarrelType, String] = {}
+		const BARRELS_TABLE: Dictionary[Enums.BarrelType, String] = {
+			Enums.BarrelType.WOOD: BARRELS_DIR + "wood.tres",
+			Enums.BarrelType.IRON: BARRELS_DIR + "iron.tres",
+			Enums.BarrelType.GOLD: BARRELS_DIR + "gold.tres",
+		}
 		
 		# --- Chests ---
 		const CHESTS_DIR: String = BASE_DIR + "chests/"
-		const CHESTS_TABLE: Dictionary[Enums.ChestType, String] = {}
+		const CHESTS_TABLE: Dictionary[Enums.ChestType, String] = {
+			Enums.ChestType.WOOD: CHESTS_DIR + "wood.tres",
+			Enums.ChestType.IRON: CHESTS_DIR + "iron.tres",
+			Enums.ChestType.GOLD: CHESTS_DIR + "gold.tres",
+			Enums.ChestType.MYSTIC: CHESTS_DIR + "mystic.tres",
+		}
 		
 		# --- Crates ---
 		const CRATES_DIR: String = BASE_DIR + "crates/"
